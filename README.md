@@ -1,1 +1,1 @@
-# Your Github :octocat: profile, with a Windows 95 :computer: style, built with React :rocket:
+# Your Github 🐙 profile<br /> With a Windows 95 🖥️ style<br /> Built with React 🚀
