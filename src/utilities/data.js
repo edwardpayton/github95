@@ -1,7 +1,7 @@
-export const getGithubUser = async (username) => {
+export const callApiForUser = async (username) => {
   try {
-    const response = await fetch(`https://api.github.com/users/${username}`);
-    const json = await response.json();
+    const resp = await fetch(`https://api.github.com/users/${username}`);
+    const json = await resp.json();
 
     if (json.message === "Not Found") {
       json.error = "Not found";
@@ -13,38 +13,35 @@ export const getGithubUser = async (username) => {
       timestamp: new Date(),
     };
   } catch (error) {
-    return error;
+    return new Error(error);
   }
 };
 
-const getRemainingRepos = async (url) => {
-  let latestResponse = [];
-  let allResponses = [];
-  let pageCount = 2;
+const getRepos = async (url, pageNum = 0) => {
+  let reposCurrentPage = [];
+  let reposAll = [];
+  let pageNumCurrent = pageNum + 1;
+
   do {
-    const response = await fetch(
-      `${url}?sort=created&per_page=100&page=${pageCount}`
-    );
-    latestResponse = await response.json();
-    allResponses = [...allResponses, ...latestResponse];
-    pageCount += 1;
-  } while (latestResponse.length === 100);
-  return allResponses;
+    const page = pageNumCurrent >= 2 ? `&page=${pageNumCurrent}` : "";
+    const resp = await fetch(`${url}?sort=created&per_page=100${page}`);
+    reposCurrentPage.length = 0;
+    reposCurrentPage = await resp.json();
+    reposAll = [...reposAll, ...reposCurrentPage];
+    pageNumCurrent += 1;
+  } while (reposCurrentPage.length === 100);
+
+  return reposAll;
 };
 
-export const getGithubUserRepos = async (url) => {
-  const response = await fetch(`${url}?sort=created&per_page=100`);
-  const json = await response.json();
-  let remainingRepos = [];
+export const callApiForRepos = async (url) => {
+  const reposFirstPage = await getRepos(url);
+  let reposAdditional = [];
 
-  if (json.length === 100) {
-    remainingRepos = await getRemainingRepos(url);
-  }
-  const allRepos = [...json, ...remainingRepos];
-  const reposCleaned = allRepos.sort(
+  if (reposFirstPage.length === 100) reposAdditional = await getRepos(url, 1);
+  const reposCleaned = [...reposFirstPage, ...reposAdditional].sort(
     (a, b) => b.stargazers_count - a.stargazers_count
   );
-  // .map((repo) => cleanRepoData(repo));
 
   return reposCleaned;
 };

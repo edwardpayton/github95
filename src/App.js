@@ -1,56 +1,67 @@
 import React from "react";
-import logo from "./logo.svg";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { reset, themes } from "react95";
+
+import SearchInput from "./components/SearchInput";
+
+import { callApiForUser, callApiForRepos } from "./utilities/data";
+
 import "./App.css";
 
-import { getGithubUser, getGithubUserRepos } from "./utilities/data";
+const ResetStyles = createGlobalStyle`
+  ${reset}
+`;
 
 function App() {
   const [user, setUser] = React.useState({});
   const [repos, setRepos] = React.useState([]);
+  const [hasErrored, setErrored] = React.useState(null);
 
-  const aa = async () => {
-    const aaa = await getGithubUser("edwardpayton");
-    // console.log("~/Sites/github95/src/App >>>", bb);
+  const getUser = React.useCallback(async () => {
+    hasErrored && setErrored(false);
+    const aaa = await callApiForUser("edwardpayton");
+    if (aaa instanceof Error) {
+      return setErrored(true);
+    }
     return setUser(aaa);
-  };
+  }, []);
 
-  const bb = React.useCallback(async () => {
-    const bbb = await getGithubUserRepos(user["repos_url"]);
-    setRepos(bbb);
+  const getRepos = React.useCallback(async () => {
+    const bbbb = await callApiForRepos(user["repos_url"]);
+    setRepos(bbbb);
   }, [user]);
 
   React.useEffect(() => {
-    aa();
+    getUser();
   }, []);
 
   React.useEffect(() => {
-    if (user && user["name"] !== undefined) {
-      console.log("~/Sites/github95/src/App >>>", user);
-      bb();
-    }
-  }, [user, bb]);
+    if (user && user["name"] !== undefined) getRepos();
+  }, [user, getRepos]);
 
   React.useEffect(() => {
-    if (repos.length) console.log("~/Sites/github95/src/App >>>", repos);
+    if (repos.length) console.log("REPOS", repos);
   }, [repos]);
 
+  if (hasErrored) {
+    return (
+      <p>
+        There was an error. This could be because the Github api has reached the
+        rate limit. Wait 15 - 30 minutes and try again
+      </p>
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ResetStyles />
+      <ThemeProvider theme={themes.default}>
+        <div className="App">
+          {user && user["name"] && <p>{user["name"]}</p>}
+          <SearchInput onChange={(v) => console.log(v)} />
+        </div>
+      </ThemeProvider>
+    </>
   );
 }
 
