@@ -1,8 +1,9 @@
 import React from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { reset, themes, AppBar, Toolbar, TextField, Hourglass } from "react95";
+import { reset, themes, Hourglass } from "react95";
 
-import Menu from "./components/Menu";
+import Menubar from "./components/Menubar";
+import Windows from "./components/Windows";
 
 import { callApiForUser, callApiForRepos } from "./utilities/data";
 
@@ -15,7 +16,6 @@ const ResetStyles = createGlobalStyle`
 function App() {
   const [isLoading, setLoading] = React.useState(null);
   const [hasErrored, setErrored] = React.useState(null);
-  const [search, setSearch] = React.useState("");
   const [user, setUser] = React.useState({});
   const [repos, setRepos] = React.useState([]);
 
@@ -35,9 +35,9 @@ function App() {
     setRepos(bbbb);
   }, [user]);
 
-  React.useEffect(() => {
-    getUser();
-  }, []);
+  // React.useEffect(() => {
+  //   getUser();
+  // }, []);
 
   React.useEffect(() => {
     if (user && user["name"] !== undefined) getRepos();
@@ -46,15 +46,6 @@ function App() {
   React.useEffect(() => {
     if (repos.length) console.log("REPOS", repos);
   }, [repos]);
-
-  if (hasErrored) {
-    return (
-      <p>
-        There was an error. This could be because the Github api has reached the
-        rate limit. Wait 15 - 30 minutes and try again
-      </p>
-    );
-  }
 
   if (isLoading) {
     return (
@@ -71,18 +62,21 @@ function App() {
     <>
       <ResetStyles />
       <ThemeProvider theme={themes.default}>
-        <AppBar style={{ zIndex: 3 }}>
-          <Toolbar className="flex justify-between">
-            <Menu />
-            <TextField
-              placeholder="Search..."
-              width={150}
-              style={{ marginLeft: "auto" }}
-              value={search}
-              onChange={(val) => setSearch(val)}
-            />
-          </Toolbar>
-        </AppBar>
+        <Menubar />
+        <main>
+          <div className="container pt4">
+            <Windows />
+            <br />
+            <br />
+            <div className="clearfix mxn1">Profile:</div>{" "}
+            {hasErrored && (
+              <p>
+                There was an error. This could be because the Github api has
+                reached the rate limit. Wait 15 - 30 minutes and try again
+              </p>
+            )}
+          </div>
+        </main>
       </ThemeProvider>
     </>
   );
