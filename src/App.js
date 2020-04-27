@@ -1,8 +1,8 @@
 import React from "react";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { reset, themes } from "react95";
+import { reset, themes, AppBar, Toolbar, TextField, Hourglass } from "react95";
 
-import SearchInput from "./components/SearchInput";
+import Menu from "./components/Menu";
 
 import { callApiForUser, callApiForRepos } from "./utilities/data";
 
@@ -13,17 +13,21 @@ const ResetStyles = createGlobalStyle`
 `;
 
 function App() {
+  const [isLoading, setLoading] = React.useState(null);
+  const [hasErrored, setErrored] = React.useState(null);
+  const [search, setSearch] = React.useState("");
   const [user, setUser] = React.useState({});
   const [repos, setRepos] = React.useState([]);
-  const [hasErrored, setErrored] = React.useState(null);
 
   const getUser = React.useCallback(async () => {
+    setLoading(true);
     hasErrored && setErrored(false);
-    const aaa = await callApiForUser("edwardpayton");
-    if (aaa instanceof Error) {
+    const result = await callApiForUser("edwardpayton");
+    setLoading(false);
+    if (result instanceof Error) {
       return setErrored(true);
     }
-    return setUser(aaa);
+    return setUser(result);
   }, []);
 
   const getRepos = React.useCallback(async () => {
@@ -52,14 +56,33 @@ function App() {
     );
   }
 
+  if (isLoading) {
+    return (
+      <div
+        className="flex items-center justify-center"
+        style={{ height: "90vh" }}
+      >
+        <Hourglass size={40} />
+      </div>
+    );
+  }
+
   return (
     <>
       <ResetStyles />
       <ThemeProvider theme={themes.default}>
-        <div className="App">
-          {user && user["name"] && <p>{user["name"]}</p>}
-          <SearchInput onChange={(v) => console.log(v)} />
-        </div>
+        <AppBar style={{ zIndex: 3 }}>
+          <Toolbar className="flex justify-between">
+            <Menu />
+            <TextField
+              placeholder="Search..."
+              width={150}
+              style={{ marginLeft: "auto" }}
+              value={search}
+              onChange={(val) => setSearch(val)}
+            />
+          </Toolbar>
+        </AppBar>
       </ThemeProvider>
     </>
   );
