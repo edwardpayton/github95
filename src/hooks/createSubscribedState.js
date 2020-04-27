@@ -3,6 +3,15 @@ import { useState, useRef, useCallback, useEffect, useDebugValue } from "react";
 import { mergeObjects } from "../utilities/mergeObjects";
 
 export default function createSubscribedState(initialState) {
+  if (
+    !initialState ||
+    Object.prototype.toString.call(initialState) !== "[object Object]"
+  ) {
+    return console.error(
+      "A new shared state was created without an initial state"
+    );
+  }
+
   let state = Object.assign({}, initialState);
   let listeners = new Set();
   const subscribe = (fn) => listeners.add(fn);

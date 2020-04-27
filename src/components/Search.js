@@ -1,15 +1,18 @@
 import React from "react";
 import { TextField, Button } from "react95";
 
-export default function Search({ onChange }) {
-  const [input, setInput] = React.useState("");
+import { searchValue } from "../hooks/sharedStates";
+
+export default function Search() {
+  const [{ input }, setInput] = searchValue();
+  const [state, setState] = React.useState(input);
 
   const handleChange = (e) => {
-    setInput(e.target.value);
+    setState(e.target.value);
   };
 
   const handleClick = () => {
-    input.length >= 3 && onChange(input);
+    state.length >= 3 && setInput({ input: state });
   };
 
   return (
@@ -18,8 +21,8 @@ export default function Search({ onChange }) {
         placeholder="Search..."
         width={150}
         style={{ marginLeft: "auto" }}
-        value={input}
-        onChange={(val) => handleChange(val)}
+        value={state}
+        onChange={handleChange}
       />
       <Button onClick={handleClick} style={{ fontWeight: "bold" }}>
         Search

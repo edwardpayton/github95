@@ -7,6 +7,8 @@ import Windows from "./components/Windows";
 
 import { callApiForUser, callApiForRepos } from "./utilities/data";
 
+import { searchValue } from "./hooks/sharedStates";
+
 import "./App.css";
 
 const ResetStyles = createGlobalStyle`
@@ -18,6 +20,12 @@ function App() {
   const [hasErrored, setErrored] = React.useState(null);
   const [user, setUser] = React.useState({});
   const [repos, setRepos] = React.useState([]);
+
+  const [{ input }] = searchValue();
+
+  React.useEffect(() => {
+    console.log("~/Sites/github95/src/App >>>", input);
+  }, [input]);
 
   const getUser = React.useCallback(async () => {
     setLoading(true);
@@ -34,10 +42,6 @@ function App() {
     const bbbb = await callApiForRepos(user["repos_url"]);
     setRepos(bbbb);
   }, [user]);
-
-  // React.useEffect(() => {
-  //   getUser();
-  // }, []);
 
   React.useEffect(() => {
     if (user && user["name"] !== undefined) getRepos();
