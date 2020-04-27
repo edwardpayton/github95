@@ -1,7 +1,7 @@
 import createSubscribedState from "./createSubscribedState";
 
 const initialState = {
-  input: "",
+  searchInput: "",
 };
 
 export const searchValue = createSubscribedState(initialState);

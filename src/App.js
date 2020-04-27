@@ -5,7 +5,7 @@ import { reset, themes, Hourglass } from "react95";
 import Menubar from "./components/Menubar";
 import Windows from "./components/Windows";
 
-import { callApiForUser, callApiForRepos } from "./utilities/data";
+import { callApiForUser, callApiForRepos } from "./utilities/githubApi";
 
 import { searchValue } from "./hooks/sharedStates";
 
@@ -21,31 +21,29 @@ function App() {
   const [user, setUser] = React.useState({});
   const [repos, setRepos] = React.useState([]);
 
-  const [{ input }] = searchValue();
-
-  React.useEffect(() => {
-    console.log("~/Sites/github95/src/App >>>", input);
-  }, [input]);
+  const [{ searchInput }] = searchValue();
 
   const getUser = React.useCallback(async () => {
-    setLoading(true);
     hasErrored && setErrored(false);
-    const result = await callApiForUser("edwardpayton");
-    setLoading(false);
+    const result = await callApiForUser(searchInput);
     if (result instanceof Error) {
       return setErrored(true);
     }
     return setUser(result);
-  }, []);
+  }, [searchInput]);
 
   const getRepos = React.useCallback(async () => {
-    const bbbb = await callApiForRepos(user["repos_url"]);
-    setRepos(bbbb);
+    const result = await callApiForRepos(user["repos_url"]);
+    setRepos(result);
   }, [user]);
 
   React.useEffect(() => {
-    if (user && user["name"] !== undefined) getRepos();
-  }, [user, getRepos]);
+    searchInput.length && getUser();
+  }, [searchInput]);
+
+  // React.useEffect(() => {
+  //   if (user && user["name"] !== undefined) getRepos();
+  // }, [user, getRepos]);
 
   React.useEffect(() => {
     if (repos.length) console.log("REPOS", repos);
@@ -72,7 +70,7 @@ function App() {
             <Windows />
             <br />
             <br />
-            <div className="clearfix mxn1">Profile:</div>{" "}
+            <div className="clearfix mxn1">Profile:{user["name"]}</div>
             {hasErrored && (
               <p>
                 There was an error. This could be because the Github api has
