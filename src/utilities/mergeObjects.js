@@ -1,4 +1,4 @@
-export function mergeObjects(original, updates) {
+export default function mergeObjects(original, updates) {
   const isObject = (obj) => obj && typeof obj === "object";
   if (!isObject(original) || !isObject(updates)) return updates;
 

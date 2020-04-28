@@ -5,7 +5,7 @@ import { reset, themes, Hourglass } from "react95";
 import Menubar from "./components/Menubar";
 import Windows from "./components/Windows";
 
-import { callApiForUser, callApiForRepos } from "./utilities/githubApi";
+import { callApiForUser, callApiForRepos } from "./data/githubApi";
 
 import { userData } from "./hooks/sharedStates";
 
@@ -18,9 +18,8 @@ const ResetStyles = createGlobalStyle`
 function App() {
   const [isLoading, setLoading] = React.useState(null);
   const [hasErrored, setErrored] = React.useState(null);
-  const [repos, setRepos] = React.useState([]);
 
-  const [{ searchInput, user }, setData] = userData();
+  const [{ searchInput, user, repos }, setData] = userData();
 
   const getUser = React.useCallback(async () => {
     hasErrored && setErrored(false);
@@ -33,7 +32,7 @@ function App() {
 
   const getRepos = React.useCallback(async () => {
     const result = await callApiForRepos(user["repos_url"]);
-    setRepos(result);
+    setData({ repos: result });
   }, [user]);
 
   React.useEffect(() => {
@@ -42,7 +41,7 @@ function App() {
 
   React.useEffect(() => {
     if (user) console.log("USER", user);
-    // if (user && user["name"] !== undefined) getRepos();
+    if (user && user["name"] !== undefined) getRepos();
   }, [user, getRepos]);
 
   React.useEffect(() => {
@@ -66,18 +65,16 @@ function App() {
       <ThemeProvider theme={themes.default}>
         <Menubar />
         <main>
-          <div className="container pt4">
-            <Windows />
-            <br />
-            <br />
+          <Windows />
+          <br />
+          <br />
 
-            {hasErrored && (
-              <p>
-                There was an error. This could be because the Github api has
-                reached the rate limit. Wait 15 - 30 minutes and try again
-              </p>
-            )}
-          </div>
+          {hasErrored && (
+            <p>
+              There was an error. This could be because the Github api has
+              reached the rate limit. Wait 15 - 30 minutes and try again
+            </p>
+          )}
         </main>
       </ThemeProvider>
     </>

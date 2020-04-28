@@ -3,6 +3,7 @@ import createSubscribedState from "./createSubscribedState";
 const initialData = {
   searchInput: "",
   user: {},
+  repos: [],
 };
 
 export const userData = createSubscribedState(initialData);

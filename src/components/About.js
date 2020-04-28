@@ -32,7 +32,7 @@ export default function About() {
 
   return (
     <div ref={refWindow}>
-      <Draggable positionOffset={{ x: "-50%", y: "-50%" }}>
+      <Draggable positionOffset={{ x: "-50%", y: "-50%" }} handle=".handle">
         <Window
           onClick={handleClick}
           style={{
@@ -48,7 +48,7 @@ export default function About() {
           }}
           shadow={focused}
         >
-          <WindowHeader className="flex items-center justify-between">
+          <WindowHeader className="flex items-center justify-between handle">
             <span>About</span>
             <Button
               style={{ marginRight: "-6px", marginTop: "1px" }}

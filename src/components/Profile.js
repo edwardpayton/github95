@@ -8,7 +8,7 @@ import { openWindows, userData } from "../hooks/sharedStates";
 
 export default function Profile() {
   const [{ profile }, set] = openWindows();
-  const [{ user }] = userData();
+  const [{ user, repos }] = userData();
   const refWindow = React.useRef(undefined);
   const [focused, setFocused] = React.useState(true);
 
@@ -30,6 +30,10 @@ export default function Profile() {
     document.addEventListener("mousedown", handleClickFocus);
     return () => document.removeEventListener("mousedown", handleClickFocus);
   }, []);
+
+  React.useEffect(() => {
+    console.log("~/Sites/github95/src/components/Profile >>>", repos);
+  }, [repos]);
 
   return (
     <div ref={refWindow}>
@@ -73,7 +77,30 @@ export default function Profile() {
             <Search onChange={(v) => console.log(v)} />
             <br />
             <Fieldset>
-              <div className="clearfix mxn1">Profile:{user["name"]}</div>
+              <img
+                src={user["avatar_url"]}
+                alt="Github avatar"
+                width="100"
+                height="100"
+                className="circle"
+              />
+              <p>name:{user["name"]}</p>
+              <p>login: {user["login"]}</p>
+              <p>bio: {user["bio"]}</p>
+              <p>location: {user["location"]}</p>
+              <p>html_url: {user["html_url"]}</p>
+              <p>created_at: {user["created_at"]}</p>
+              <p>public_gists: {user["public_gists"]}</p>
+              <p>public_repos: {user["public_repos"]}</p>
+              {/* <table>
+                <tbody>
+                  {repos.map((repo) => (
+                    <tr>
+                      <td>{repo["name"]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table> */}
             </Fieldset>
           </WindowContent>
         </Window>

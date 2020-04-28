@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect, useDebugValue } from "react";
 
-import { mergeObjects } from "../utilities/mergeObjects";
+import mergeObjects from "../utilities/mergeObjects";
 
 export default function createSubscribedState(initialState) {
   if (
