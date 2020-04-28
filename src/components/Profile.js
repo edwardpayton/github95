@@ -6,7 +6,7 @@ import Search from "./Search";
 
 import { openWindows, userData } from "../hooks/sharedStates";
 
-export default function Profile() {
+export default function Profile({ maximised }) {
   const [{ profile }, set] = openWindows();
   const [{ user, repos }] = userData();
   const refWindow = React.useRef(undefined);
@@ -38,24 +38,32 @@ export default function Profile() {
     console.log("~/Sites/github95/src/components/Profile >>>", repos);
   }, [repos]);
 
+  // bounds = window top - header height
+
   return (
-    <div ref={refWindow}>
-      <Draggable positionOffset={{ x: "-50%", y: "-50%" }} handle=".handle">
+    <Draggable positionOffset={{ x: "-50%", y: "-50%" }} handle=".handle">
+      <div
+        ref={refWindow}
+        className="fit"
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 800,
+          height: 600,
+          // width: "100%",
+          // height: "calc(100% - 47px)",
+          // marginTop: "23.5px",
+          maxHeight: "100%",
+          display: profile[1] ? "block" : "none",
+          zIndex: focused ? 2 : 1,
+        }}
+      >
         <Window
           onClick={handleClick}
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 800,
-            height: 600,
-            maxHeight: "100%",
-            display: profile[1] ? "block" : "none",
-            zIndex: focused ? 2 : 1,
-          }}
           shadow={focused}
-          className="fit"
+          style={{ width: "100%", height: "100%" }}
         >
           <WindowHeader className="flex items-center justify-between handle">
             <span>Profile</span>
@@ -107,7 +115,7 @@ export default function Profile() {
             </Fieldset>
           </WindowContent>
         </Window>
-      </Draggable>
-    </div>
+      </div>
+    </Draggable>
   );
 }
