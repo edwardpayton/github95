@@ -11,14 +11,6 @@ export function mergeObjects(original, updates) {
         updates[key]
       ));
     }
-    if (typeof original[key] !== typeof updates[key])
-      throw new Error(
-        `type of "${key}" was transformed from "${typeof original[
-          key
-        ]}" to "${typeof updates[
-          key
-        ]}". If this was intentional add true as a second argument to your setState function`
-      );
     return (original[key] = updates[key]);
   });
   return original;

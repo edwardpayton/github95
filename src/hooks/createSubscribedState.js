@@ -7,9 +7,10 @@ export default function createSubscribedState(initialState) {
     !initialState ||
     Object.prototype.toString.call(initialState) !== "[object Object]"
   ) {
-    return console.error(
-      "A new shared state was created without an initial state"
+    console.error(
+      "A new shared state was created without defining an initial state"
     );
+    initialState = {};
   }
 
   let state = Object.assign({}, initialState);

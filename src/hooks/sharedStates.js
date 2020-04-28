@@ -1,15 +1,17 @@
 import createSubscribedState from "./createSubscribedState";
 
-const initialSearchState = {
+const initialData = {
   searchInput: "",
+  user: {},
 };
 
-export const searchValue = createSubscribedState(initialSearchState);
+export const userData = createSubscribedState(initialData);
 
 // TODO, add focused, add checking for only one focused
 const initialWindowState = {
   // [open, active]
-  about: [true, true],
+  about: [false, false],
+  profile: [true, true],
 };
 
 export const openWindows = createSubscribedState(initialWindowState);

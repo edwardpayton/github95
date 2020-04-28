@@ -40,6 +40,9 @@ export default function Menu() {
       {isOpen && (
         <List horizontalAlign="left" verticalAlign="bottom" open={isOpen}>
           <ListItem onClick={() => handleListClick("about")}>👨‍💻 About</ListItem>
+          <ListItem onClick={() => handleListClick("profile")}>
+            👨‍💻 Profile
+          </ListItem>
           <ListItem onClick={() => handleListClick("code")}>
             📁 View Code
           </ListItem>
@@ -52,7 +55,10 @@ export default function Menu() {
         active={isOpen}
         style={{ fontWeight: "bold" }}
       >
-        {/* <LogoIcon style={{ marginLeft: -2, marginRight: 4 }} /> */}
+        <img
+          src={require("../images/win-logo.png")}
+          style={{ width: "22px", paddingRight: "5px" }}
+        />
         Github 95
       </Button>
     </div>

@@ -7,7 +7,7 @@ import Windows from "./components/Windows";
 
 import { callApiForUser, callApiForRepos } from "./utilities/githubApi";
 
-import { searchValue } from "./hooks/sharedStates";
+import { userData } from "./hooks/sharedStates";
 
 import "./App.css";
 
@@ -18,10 +18,9 @@ const ResetStyles = createGlobalStyle`
 function App() {
   const [isLoading, setLoading] = React.useState(null);
   const [hasErrored, setErrored] = React.useState(null);
-  const [user, setUser] = React.useState({});
   const [repos, setRepos] = React.useState([]);
 
-  const [{ searchInput }] = searchValue();
+  const [{ searchInput, user }, setData] = userData();
 
   const getUser = React.useCallback(async () => {
     hasErrored && setErrored(false);
@@ -29,7 +28,7 @@ function App() {
     if (result instanceof Error) {
       return setErrored(true);
     }
-    return setUser(result);
+    return setData({ user: result });
   }, [searchInput]);
 
   const getRepos = React.useCallback(async () => {
@@ -41,9 +40,10 @@ function App() {
     searchInput.length && getUser();
   }, [searchInput]);
 
-  // React.useEffect(() => {
-  //   if (user && user["name"] !== undefined) getRepos();
-  // }, [user, getRepos]);
+  React.useEffect(() => {
+    if (user) console.log("USER", user);
+    // if (user && user["name"] !== undefined) getRepos();
+  }, [user, getRepos]);
 
   React.useEffect(() => {
     if (repos.length) console.log("REPOS", repos);
@@ -70,7 +70,7 @@ function App() {
             <Windows />
             <br />
             <br />
-            <div className="clearfix mxn1">Profile:{user["name"]}</div>
+
             {hasErrored && (
               <p>
                 There was an error. This could be because the Github api has
