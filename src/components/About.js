@@ -16,11 +16,12 @@ export default function About() {
   const handleClick = ({ target }) => {
     if (target.type === "button") return;
     set({ about: [true, true] });
+    setFocused(true);
   };
 
   const handleClickFocus = ({ target }) => {
     const clickedWithin = refWindow.current.contains(target);
-    setFocused(clickedWithin);
+    if (!clickedWithin) setFocused(false);
   };
 
   React.useEffect(() => {
@@ -36,17 +37,17 @@ export default function About() {
         <Window
           onClick={handleClick}
           style={{
-            width: 300,
-            maxWidth: "94%",
-            maxHeight: "100%",
-            zIndex: focused ? 2 : 1,
             position: "fixed",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
+            width: 300,
+            maxHeight: "100%",
             display: about[1] ? "block" : "none",
+            zIndex: focused ? 2 : 1,
           }}
           shadow={focused}
+          className="fit"
         >
           <WindowHeader className="flex items-center justify-between handle">
             <span>About</span>

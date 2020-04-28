@@ -8,7 +8,7 @@ import capitalize from "../utilities/capitalize";
 export default function MenubarButton({ name }) {
   const [state, set] = openWindows();
 
-  const _handleClick = () => {
+  const handleClick = () => {
     set({ [name]: [true, !state[name][1]] });
   };
 
@@ -16,7 +16,7 @@ export default function MenubarButton({ name }) {
     <>
       {state[name][0] && (
         <Button
-          onClick={_handleClick}
+          onClick={handleClick}
           active={state[name][1]}
           className="bold"
           style={{ marginRight: 3 }}

@@ -19,16 +19,19 @@ export default function Profile() {
   const handleClick = ({ target }) => {
     if (target.type === "button") return;
     set({ profile: [true, true] });
+    setFocused(true);
   };
 
   const handleClickFocus = ({ target }) => {
     const clickedWithin = refWindow.current.contains(target);
-    setFocused(clickedWithin);
+    if (!clickedWithin) setFocused(false);
   };
 
   React.useEffect(() => {
     document.addEventListener("mousedown", handleClickFocus);
-    return () => document.removeEventListener("mousedown", handleClickFocus);
+    return () => {
+      document.removeEventListener("mousedown", handleClickFocus);
+    };
   }, []);
 
   React.useEffect(() => {
@@ -41,18 +44,18 @@ export default function Profile() {
         <Window
           onClick={handleClick}
           style={{
-            width: 800,
-            height: 600,
-            maxWidth: "100%",
-            maxHeight: "100%",
-            zIndex: focused ? 2 : 1,
             position: "fixed",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
+            width: 800,
+            height: 600,
+            maxHeight: "100%",
             display: profile[1] ? "block" : "none",
+            zIndex: focused ? 2 : 1,
           }}
           shadow={focused}
+          className="fit"
         >
           <WindowHeader className="flex items-center justify-between handle">
             <span>Profile</span>
