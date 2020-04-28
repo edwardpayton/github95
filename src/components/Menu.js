@@ -1,7 +1,11 @@
 import React from "react";
 import { Button, List, ListItem, Divider } from "react95";
 
+import { openWindows } from "../hooks/sharedStates";
+
 export default function Menu() {
+  const [, setWindow] = openWindows();
+
   const [isOpen, setOpen] = React.useState(false);
   const refMenu = React.useRef(undefined);
 
@@ -18,7 +22,8 @@ export default function Menu() {
     toggleMenu(!isOpen);
   };
 
-  const handleListClick = () => {
+  const handleListClick = (name) => {
+    setWindow({ [name]: [true, true] });
     toggleMenu(false);
   };
 
@@ -33,14 +38,11 @@ export default function Menu() {
       ref={refMenu}
     >
       {isOpen && (
-        <List
-          horizontalAlign="left"
-          verticalAlign="bottom"
-          open={isOpen}
-          onClick={handleListClick}
-        >
-          <ListItem>👨‍💻 About</ListItem>
-          <ListItem>📁 View Code</ListItem>
+        <List horizontalAlign="left" verticalAlign="bottom" open={isOpen}>
+          <ListItem onClick={() => handleListClick("about")}>👨‍💻 About</ListItem>
+          <ListItem onClick={() => handleListClick("code")}>
+            📁 View Code
+          </ListItem>
           <Divider />
           <ListItem>Sounds: ON</ListItem>
         </List>

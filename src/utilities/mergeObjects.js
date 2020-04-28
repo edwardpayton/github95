@@ -1,17 +1,17 @@
-export function mergeObjects(original, updates, typeSafe = true) {
+export function mergeObjects(original, updates) {
   const isObject = (obj) => obj && typeof obj === "object";
   if (!isObject(original) || !isObject(updates)) return updates;
+
   Object.keys(updates).forEach((key) => {
     if (Array.isArray(original[key]) && Array.isArray(updates[key])) {
-      return (original[key] = original[key].concat(updates[key]));
+      return (original[key] = updates[key]);
     } else if (isObject(original[key]) && isObject(updates[key])) {
       return (original[key] = mergeObjects(
         Object.assign({}, original[key]),
-        updates[key],
-        typeSafe
+        updates[key]
       ));
     }
-    if (typeSafe && typeof original[key] !== typeof updates[key])
+    if (typeof original[key] !== typeof updates[key])
       throw new Error(
         `type of "${key}" was transformed from "${typeof original[
           key

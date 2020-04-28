@@ -22,7 +22,7 @@ export default function createSubscribedState(initialState) {
     // https://reactjs.org/docs/hooks-rules.html#only-call-hooks-at-the-top-level
     const [, set] = useState();
     const refMounted = useRef(true);
-    const setState = useCallback((newState, typeSafe) => {
+    const setState = useCallback((newState) => {
       const disallowedKeys = scope.length
         ? Object.keys(initialState).filter((key) => scope.indexOf(key) <= -1)
         : [];
@@ -39,7 +39,7 @@ export default function createSubscribedState(initialState) {
           res[key] = newState[key];
           return res;
         }, {});
-      state = mergeObjects(state, newStateFiltered, typeSafe);
+      state = mergeObjects(state, newStateFiltered);
       listeners.forEach((fn) => fn(newState));
     }, []);
     useEffect(() => {
