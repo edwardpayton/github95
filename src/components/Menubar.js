@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Bar } from "react95";
 
 import Menu from "./Menu";
 import MenubarButton from "./MenubarButton";
+import MenubarClock from "./MenubarClock";
 
 export default function Menubar() {
   return (
@@ -11,6 +12,7 @@ export default function Menubar() {
         <Menu />
         <MenubarButton name="about" />
         <MenubarButton name="profile" />
+        <MenubarClock />
       </Toolbar>
     </AppBar>
   );
