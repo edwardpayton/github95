@@ -2,3 +2,8 @@
 
 https://demo.themesberg.com/windows-95-ui-kit/
 https://www.deviantart.com/fanatixx/art/All-Windows-95-OSR2-Icons-92282438?d=1831
+
+TODO's
+
+- randomise window opening times, sometimes show spinner
+- add start sound

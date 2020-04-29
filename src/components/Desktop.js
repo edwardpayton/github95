@@ -3,6 +3,8 @@ import React from "react";
 import { WINDOW_OBJ } from "../data/constants";
 import { windowList } from "../hooks/sharedStates";
 
+import capitalize from "../utilities/capitalize";
+
 export default function Desktop() {
   const [, set] = windowList();
   const [focused, setFocus] = React.useState("");
@@ -19,7 +21,9 @@ export default function Desktop() {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
     const name = e.currentTarget.id.replace("desktopButton", "");
-    set({ [name]: [true, true] });
+    window.setTimeout(() => {
+      set({ [name]: [true, true] });
+    }, 300);
   };
 
   return (
@@ -31,8 +35,9 @@ export default function Desktop() {
         <div
           key={name}
           style={{
-            width: "140px",
-            height: "140px",
+            width: "100px",
+            height: "100px",
+            margin: "10px 0 20px",
             textAlign: "center",
             border: "1px dotted",
             borderColor: focused === name ? "#000" : "transparent",
@@ -51,8 +56,8 @@ export default function Desktop() {
             onClick={handleClick}
             onDoubleClick={handleDblClick}
           >
-            <img src="" alt="icon" />
-            <p>{name}</p>
+            <img src={require(`../images/${name}.png`)} alt="icon" width="50" />
+            <p style={{ paddingTop: "10px" }}>{capitalize(name)}</p>
           </button>
         </div>
       ))}
