@@ -8,11 +8,15 @@ import MenubarClock from "./MenubarClock";
 export default function Menubar() {
   return (
     <AppBar style={{ zIndex: 3, bottom: 0, top: "auto" }}>
-      <Toolbar>
-        <Menu />
-        <MenubarButton name="about" />
-        <MenubarButton name="profile" />
-        <MenubarClock />
+      <Toolbar className="justify-between">
+        <div>
+          <Menu />
+          <MenubarButton name="about" />
+          <MenubarButton name="profile" />
+        </div>
+        <div style={{ paddingRight: 5 }}>
+          <MenubarClock />
+        </div>
       </Toolbar>
     </AppBar>
   );

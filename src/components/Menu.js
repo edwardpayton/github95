@@ -33,10 +33,7 @@ export default function Menu() {
   };
 
   return (
-    <div
-      style={{ position: "relative", display: "inline-block" }}
-      ref={refMenu}
-    >
+    <div style={{ position: "relative", float: "left" }} ref={refMenu}>
       {isOpen && (
         <List horizontalAlign="left" verticalAlign="top" open={isOpen}>
           <ListItem onClick={() => handleListClick("about")}>👨‍💻 About</ListItem>
