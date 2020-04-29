@@ -16,7 +16,7 @@ const initialWindowState = {
       focused (is active window, button pressed) TODO
     ] */
   about: [false, false],
-  profile: [true, true],
+  profile: [true, false],
 };
 
-export const openWindows = createSubscribedState(initialWindowState);
+export const windowList = createSubscribedState(initialWindowState);

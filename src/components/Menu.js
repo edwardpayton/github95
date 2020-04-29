@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, List, ListItem, Divider } from "react95";
 
-import { openWindows } from "../hooks/sharedStates";
+import { windowList } from "../hooks/sharedStates";
 
 export default function Menu() {
-  const [, setWindow] = openWindows();
+  const [, setWindow] = windowList();
 
   const [isOpen, setOpen] = React.useState(false);
   const refMenu = React.useRef(undefined);

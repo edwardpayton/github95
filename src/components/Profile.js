@@ -4,10 +4,10 @@ import Draggable from "react-draggable";
 
 import Search from "./Search";
 
-import { openWindows, userData } from "../hooks/sharedStates";
+import { windowList, userData } from "../hooks/sharedStates";
 
 export default function Profile({ maximised }) {
-  const [{ profile }, set] = openWindows();
+  const [{ profile }, set] = windowList();
   const [{ user, repos }] = userData();
   const refWindow = React.useRef(undefined);
   const [focused, setFocused] = React.useState(true);
