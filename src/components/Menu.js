@@ -54,6 +54,7 @@ export default function Menu() {
         onClick={handleButtonClick}
         active={isOpen}
         style={{ fontWeight: "bold" }}
+        className="mr1"
       >
         <img
           src={require("../images/win-logo.png")}

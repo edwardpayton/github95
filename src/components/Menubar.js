@@ -9,8 +9,6 @@ export default function Menubar() {
     <AppBar style={{ zIndex: 3, bottom: 0, top: "auto" }}>
       <Toolbar>
         <Menu />
-        <Bar className="mx1" />
-
         <MenubarButton name="about" />
         <MenubarButton name="profile" />
       </Toolbar>
