@@ -55,7 +55,7 @@ export default function Menu() {
       >
         <img
           src={require("../images/win-logo.png")}
-          style={{ width: "22px", paddingRight: "5px" }}
+          style={{ width: 22, paddingRight: 5 }}
         />
         Github 95
       </Button>

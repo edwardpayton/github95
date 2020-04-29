@@ -51,7 +51,7 @@ export default function About() {
           <WindowHeader className="flex items-center justify-between handle">
             <span>About</span>
             <Button
-              style={{ marginRight: "-6px", marginTop: "1px" }}
+              style={{ marginRight: -6, marginTop: 1 }}
               size={"sm"}
               square
               onClick={handleClose}

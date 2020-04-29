@@ -2,11 +2,11 @@ import React from "react";
 import { Window, WindowHeader, WindowContent, Button } from "react95";
 import Draggable from "react-draggable";
 
-import { openWindows } from "../hooks/sharedStates";
+import { windowList } from "../hooks/sharedStates";
 
 export default function WindowFrame({ name, headerText, children }) {
   const refWindow = React.useRef(undefined);
-  const [windowList, set] = openWindows();
+  const [windowList, set] = windowList();
   const [active, setActive] = React.useState(false);
   const [focused, setFocused] = React.useState(true);
 
@@ -59,7 +59,7 @@ export default function WindowFrame({ name, headerText, children }) {
           <WindowHeader className="flex items-center justify-between handle">
             <span>{headerText}</span>
             <Button
-              style={{ marginRight: "-6px", marginTop: "1px" }}
+              style={{ marginRight: -6, marginTop: 1 }}
               size={"sm"}
               square
               onClick={handleClose}

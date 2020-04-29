@@ -29,14 +29,14 @@ export default function Desktop() {
   return (
     <section
       className="flex flex-column max-width-5 ml1"
-      style={{ height: "calc(100% - 2rem)", paddingTop: "2rem" }}
+      style={{ height: "calc(100% - 30px)", paddingTop: 30 }}
     >
       {Object.keys(WINDOW_OBJ).map((name) => (
         <div
           key={name}
           style={{
-            width: "100px",
-            height: "100px",
+            width: 100,
+            height: 100,
             margin: "10px 0 20px",
             textAlign: "center",
             border: "1px dotted",
@@ -57,7 +57,7 @@ export default function Desktop() {
             onDoubleClick={handleDblClick}
           >
             <img src={require(`../images/${name}.png`)} alt="icon" width="50" />
-            <p style={{ paddingTop: "10px" }}>{capitalize(name)}</p>
+            <p style={{ paddingTop: 10 }}>{capitalize(name)}</p>
           </button>
         </div>
       ))}
