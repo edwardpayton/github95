@@ -3,6 +3,7 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { reset, themes, Hourglass } from "react95";
 
 import Menubar from "./components/Menubar";
+import Desktop from "./components/Desktop";
 import Windows from "./components/Windows";
 
 import { callApiForUser, callApiForRepos } from "./data/githubApi";
@@ -65,16 +66,14 @@ function App() {
       <ThemeProvider theme={themes.default}>
         <Menubar />
         <main>
-          <Windows />
-          <br />
-          <br />
-
+          <Desktop />
           {hasErrored && (
             <p>
               There was an error. This could be because the Github api has
               reached the rate limit. Wait 15 - 30 minutes and try again
             </p>
           )}
+          <Windows />
         </main>
       </ThemeProvider>
     </>

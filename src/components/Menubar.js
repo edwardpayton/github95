@@ -7,7 +7,7 @@ import MenubarButton from "./MenubarButton";
 export default function Menubar() {
   return (
     <AppBar style={{ zIndex: 3 }}>
-      <Toolbar className="flex justify-between">
+      <Toolbar>
         <Menu />
         <MenubarButton name="about" />
         <MenubarButton name="profile" />
