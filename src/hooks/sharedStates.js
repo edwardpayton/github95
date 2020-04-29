@@ -1,5 +1,7 @@
 import createSubscribedState from "./createSubscribedState";
 
+import { WINDOW_OBJ } from "../data/constants";
+
 const initialData = {
   searchInput: "",
   user: {},
@@ -8,15 +10,8 @@ const initialData = {
 
 export const userData = createSubscribedState(initialData);
 
-// TODO, add focused, add checking for only one focused
-const initialWindowState = {
-  /* [
-      open (show button), 
-      active (show window), 
-      focused (is active window, button pressed) TODO
-    ] */
-  about: [false, false],
-  profile: [true, false],
-};
+const initialWindowState = { ...WINDOW_OBJ };
+
+console.log("~/Sites/github95/src/hooks/sharedStates >>>", initialWindowState);
 
 export const windowList = createSubscribedState(initialWindowState);

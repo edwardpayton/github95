@@ -66,14 +66,16 @@ function App() {
       <ThemeProvider theme={themes.default}>
         <Menubar />
         <main>
-          <Desktop />
-          {hasErrored && (
-            <p>
-              There was an error. This could be because the Github api has
-              reached the rate limit. Wait 15 - 30 minutes and try again
-            </p>
-          )}
-          <Windows />
+          <section style={{ height: "100%" }}>
+            <Desktop />
+            {hasErrored && (
+              <p>
+                There was an error. This could be because the Github api has
+                reached the rate limit. Wait 15 - 30 minutes and try again
+              </p>
+            )}
+            <Windows />
+          </section>
         </main>
       </ThemeProvider>
     </>

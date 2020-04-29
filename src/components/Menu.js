@@ -38,7 +38,7 @@ export default function Menu() {
       ref={refMenu}
     >
       {isOpen && (
-        <List horizontalAlign="left" verticalAlign="bottom" open={isOpen}>
+        <List horizontalAlign="left" verticalAlign="top" open={isOpen}>
           <ListItem onClick={() => handleListClick("about")}>👨‍💻 About</ListItem>
           <ListItem onClick={() => handleListClick("profile")}>
             👨‍💻 Profile
