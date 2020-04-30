@@ -1,3 +1,5 @@
+import { GET_USER_DETAILS } from "./constants";
+
 const gitHubAPIGraphQL = (body) =>
   fetch("https://api.github.com/graphql", {
     method: "POST",
@@ -6,14 +8,6 @@ const gitHubAPIGraphQL = (body) =>
     },
     body: JSON.stringify(body),
   });
-
-const GET_USER_DETAILS = `
-  query UserDetails($username: String!) {
-    user(login: $username) {
-      name
-    }
-  }
-`;
 
 export const getUserApi = async (username) => {
   try {
