@@ -6,7 +6,7 @@ import Search from "./Search";
 
 import { windowList, userData } from "../hooks/sharedStates";
 
-export default function Profile({ maximised }) {
+export default function Profile() {
   const [{ profile }, set] = windowList();
   const [{ user, repos }] = userData();
   const refWindow = React.useRef(undefined);

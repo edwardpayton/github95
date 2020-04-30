@@ -36,6 +36,7 @@ export default function Menu() {
     <div style={{ position: "relative", float: "left" }} ref={refMenu}>
       {isOpen && (
         <List horizontalAlign="left" verticalAlign="top" open={isOpen}>
+          <p>Github 95</p>
           <ListItem onClick={() => handleListClick("about")}>👨‍💻 About</ListItem>
           <ListItem onClick={() => handleListClick("profile")}>
             👨‍💻 Profile
@@ -50,7 +51,7 @@ export default function Menu() {
       <Button
         onClick={handleButtonClick}
         active={isOpen}
-        style={{ fontWeight: "bold" }}
+        style={{ textShadow: "-1px 0 hsla(0, 0%, 0%, 0.7)" }}
         className="mr1"
       >
         <img

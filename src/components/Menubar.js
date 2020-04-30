@@ -14,7 +14,7 @@ export default function Menubar() {
           <MenubarButton name="about" />
           <MenubarButton name="profile" />
         </div>
-        <div style={{ paddingRight: 5 }}>
+        <div style={{ paddingRight: 2 }}>
           <MenubarClock />
         </div>
       </Toolbar>

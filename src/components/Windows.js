@@ -23,7 +23,7 @@ export default function Windows() {
   return (
     <div ref={refWindows}>
       <About />
-      <Profile maximised={false} />
+      <Profile />
     </div>
   );
 }
