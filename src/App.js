@@ -6,7 +6,7 @@ import Menubar from "./components/Menubar";
 import Desktop from "./components/Desktop";
 import Windows from "./components/Windows";
 
-import { callApiForUser, callApiForRepos } from "./data/githubApi";
+import { getUserApi } from "./data/githubApiNew";
 
 import { userData } from "./hooks/sharedStates";
 
@@ -22,27 +22,27 @@ function App() {
 
   const [{ searchInput, user, repos }, setData] = userData();
 
-  const getUser = React.useCallback(async () => {
+  const _getUser = React.useCallback(async () => {
     hasErrored && setErrored(false);
-    const result = await callApiForUser(searchInput);
+    const result = await getUserApi(searchInput);
     if (result instanceof Error) {
       return setErrored(true);
     }
-    return setData({ user: result });
+    return setData({ user: result.data.user });
   }, [searchInput]);
 
   const getRepos = React.useCallback(async () => {
-    const result = await callApiForRepos(user["repos_url"]);
-    setData({ repos: result });
+    // const result = await callApiForRepos(user["repos_url"]);
+    // setData({ repos: result });
   }, [user]);
 
   React.useEffect(() => {
-    searchInput.length && getUser();
+    searchInput.length && _getUser();
   }, [searchInput]);
 
   React.useEffect(() => {
     if (user) console.log("USER", user);
-    if (user && user["name"] !== undefined) getRepos();
+    // if (user && user["name"] !== undefined) getRepos();
   }, [user, getRepos]);
 
   React.useEffect(() => {
