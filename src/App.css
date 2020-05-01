@@ -1,0 +1,23 @@
+.startMenu.startMenu {
+  padding-left: 30px;
+}
+.startMenu:before {
+  position: absolute;
+  content: "";
+  background-color: #808080;
+  width: 30px;
+  height: calc(100% - 4px);
+  top: 1px;
+  left: 1px;
+}
+.startMenu:after {
+  position: absolute;
+  content: "Github95";
+  left: 8px;
+  bottom: 0;
+  color: #d2d2d2;
+  text-shadow: 1px 0px #d2d2d2;
+  letter-spacing: 2px;
+  transform: rotate(-90deg);
+  transform-origin: 0 0;
+}

@@ -93,7 +93,7 @@ export default function Profile() {
                 alt="Github avatar"
                 width="100"
                 height="100"
-                className="circle"
+                className="square"
               />
               <p>name:{user["name"]}</p>
               <p>login: {user["login"]}</p>

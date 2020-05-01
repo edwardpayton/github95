@@ -35,8 +35,12 @@ export default function Menu() {
   return (
     <div style={{ position: "relative", float: "left" }} ref={refMenu}>
       {isOpen && (
-        <List horizontalAlign="left" verticalAlign="top" open={isOpen}>
-          <p>Github 95</p>
+        <List
+          horizontalAlign="left"
+          verticalAlign="top"
+          open={isOpen}
+          className="startMenu"
+        >
           <ListItem onClick={() => handleListClick("about")}>👨‍💻 About</ListItem>
           <ListItem onClick={() => handleListClick("profile")}>
             👨‍💻 Profile

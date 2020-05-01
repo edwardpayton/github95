@@ -9,7 +9,12 @@ export const WINDOW_OBJ = {
   about: [false, false],
 };
 
-// Query schema
+/**
+ * get Github user details
+ * returns user details, pins, total repos & gists, first 10 repos
+ * $username - string - the user name
+ *
+ */
 export const GET_USER_DETAILS = `
 query UserDetails($username: String!) {
   user(login: $username) {
@@ -30,9 +35,6 @@ query UserDetails($username: String!) {
     followers {
       totalCount
     }
-    repositories {
-      totalCount
-    }
     pinnedItems(first: 6) {
       edges {
         node {
@@ -40,7 +42,7 @@ query UserDetails($username: String!) {
             name
             url
             description
-            languages(first: 10) {
+            languages(first: 5) {
               edges {
                 node {
                   name
@@ -52,11 +54,82 @@ query UserDetails($username: String!) {
         }
       }
     }
+    repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10) {
+      nodes {
+        name
+        description
+        updatedAt
+        url
+        isPrivate
+        primaryLanguage {
+          name
+          color
+        }
+        languages(first: 5) {
+          edges {
+            size
+            node {
+              color
+              name
+            }
+          }
+        }
+      }
+      totalCount
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
+`;
+
+/**
+ * get Github users contributions for past year
+ * returns start & end dates, daily contribution count split by week
+ * $username: string - the user name
+ */
+export const GET_USER_CONTRIBUTIONS = `
+query UserContributions($username: String!) {
+  user(login: $username) {
     contributionsCollection {
       startedAt
       endedAt
       contributionCalendar {
         totalContributions
+        weeks {
+          contributionDays {
+            date
+            contributionCount
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+/**
+ * get Github user repos
+ * returns 10 repos per page
+ * $username: string - the user name
+ * $cursor: string - the id of the repo to start after
+ */
+export const GET_USER_REPOS = `
+query UserRepos($username: String!, $cursor: String!) {
+  user(login: $username) {
+     repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10, after: $cursor) {
+      nodes {
+        name
+        description
+        updatedAt
+        url
+        isPrivate
+        primaryLanguage {
+          name
+          color
+        }
       }
     }
   }

@@ -10,3 +10,4 @@ TODO's and fixes
 - window maximize & resize
 - selected window focusing
 - usereducer to manage data
+- npm window - 'new feature, install npm now'
