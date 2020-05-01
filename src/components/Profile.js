@@ -1,5 +1,12 @@
 import React from "react";
-import { Window, WindowContent, WindowHeader, Button, Fieldset } from "react95";
+import {
+  Window,
+  WindowContent,
+  WindowHeader,
+  Button,
+  Fieldset,
+  Cutout,
+} from "react95";
 import Draggable from "react-draggable";
 
 import Search from "./Search";
@@ -38,8 +45,6 @@ export default function Profile() {
     console.log("~/Sites/github95/src/components/Profile >>>", repos);
   }, [repos]);
 
-  // bounds = window top - header height
-
   return (
     <Draggable positionOffset={{ x: "-50%", y: "-50%" }} handle=".handle">
       <div
@@ -52,9 +57,6 @@ export default function Profile() {
           transform: "translate(-50%, -50%)",
           width: 800,
           height: 600,
-          // width: "100%",
-          // height: "calc(100% - 47px)",
-          // marginTop: "23.5px",
           maxHeight: "100%",
           display: profile[1] ? "block" : "none",
           zIndex: focused ? 2 : 1,
@@ -84,34 +86,55 @@ export default function Profile() {
               </span>
             </Button>
           </WindowHeader>
-          <WindowContent>
+          <WindowContent
+            style={{
+              padding: ".25rem",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 35,
+              bottom: 0,
+            }}
+          >
             <Search onChange={(v) => console.log(v)} />
             <br />
-            <Fieldset>
-              <img
-                src={user["avatarUrl"]}
-                alt="Github avatar"
-                width="100"
-                height="100"
-                className="square"
-              />
-              <p>name:{user["name"]}</p>
-              <p>login: {user["login"]}</p>
-              <p>email: {user["email"]}</p>
-              <p>bio: {user["bio"]}</p>
-              <p>location: {user["location"]}</p>
-              <p>html_url: {user["url"]}</p>
-              <p>created_at: {user["createdAt"]}</p>
-              <p>gists: {user["gists"] && user["gists"]["totalCount"]}</p>
-              <p>
-                repositories:{" "}
-                {user["repositories"] && user["repositories"]["totalCount"]}
-              </p>
-              <p>
-                followers:{" "}
-                {user["followers"] && user["followers"]["totalCount"]}
-              </p>
-              {/* <table>
+            <Cutout
+              style={{
+                position: "absolute",
+                top: 70,
+                left: 2,
+                bottom: 15,
+                right: 2,
+                padding: "1rem",
+                background: "white",
+              }}
+            >
+              {user && user["name"] && (
+                <>
+                  <img
+                    src={user["avatarUrl"]}
+                    alt="Github avatar"
+                    width="100"
+                    height="100"
+                    className="square"
+                  />
+                  <p>name:{user["name"]}</p>
+                  <p>login: {user["login"]}</p>
+                  <p>email: {user["email"]}</p>
+                  <p>bio: {user["bio"]}</p>
+                  <p>location: {user["location"]}</p>
+                  <p>html_url: {user["url"]}</p>
+                  <p>created_at: {user["createdAt"]}</p>
+                  <p>gists: {user["gists"] && user["gists"]["totalCount"]}</p>
+                  <p>
+                    repositories:{" "}
+                    {user["repositories"] && user["repositories"]["totalCount"]}
+                  </p>
+                  <p>
+                    followers:{" "}
+                    {user["followers"] && user["followers"]["totalCount"]}
+                  </p>
+                  {/* <table>
                 <tbody>
                   {repos.map((repo) => (
                     <tr>
@@ -120,7 +143,9 @@ export default function Profile() {
                   ))}
                 </tbody>
               </table> */}
-            </Fieldset>
+                </>
+              )}
+            </Cutout>
           </WindowContent>
         </Window>
       </div>

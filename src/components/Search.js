@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button } from "react95";
+import { TextField, Fieldset, Button, Bar } from "react95";
 
 import { userData } from "../hooks/sharedStates";
 
@@ -15,17 +15,41 @@ export default function Search() {
     state.length > 0 && setInput({ searchInput: state });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    state.length > 0 && setInput({ searchInput: state });
+  };
+
   return (
-    <div style={{ display: "flex" }}>
-      <TextField
-        placeholder="Search..."
-        width={150}
-        value={state}
-        onChange={handleChange}
-      />
-      <Button onClick={handleClick} style={{ fontWeight: "bold" }}>
-        Search
-      </Button>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        padding: "10px 8px",
+        border: "2px solid #9e9e9e",
+      }}
+    >
+      <Bar />
+      <p style={{ paddingLeft: 5, width: 60, lineHeight: "14px" }}>
+        Search username
+      </p>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", width: "100%", paddingLeft: 5 }}
+      >
+        <TextField
+          placeholder="about:blank"
+          width="100%"
+          value={state}
+          onChange={handleChange}
+        />
+        <Button
+          onClick={handleClick}
+          style={{ fontWeight: "bold", padding: "0 .6rem" }}
+        >
+          Go
+        </Button>
+      </form>
     </div>
   );
 }
