@@ -56,7 +56,7 @@ export default function Desktop() {
             onClick={handleClick}
             onDoubleClick={handleDblClick}
           >
-            <img src={require(`../images/${name}.png`)} alt="icon" width="50" />
+            <img src={require(`../assets/${name}.png`)} alt="icon" width="50" />
             <p style={{ paddingTop: 10 }}>{capitalize(name)}</p>
           </button>
         </div>

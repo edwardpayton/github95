@@ -59,7 +59,7 @@ export default function Menu() {
         className="mr1"
       >
         <img
-          src={require("../images/win-logo.png")}
+          src={require("../assets/win-logo.png")}
           style={{ width: 22, paddingRight: 5 }}
         />
         Github 95
