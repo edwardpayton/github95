@@ -9,5 +9,5 @@ TODO's and fixes
 - add start sound
 - window maximize & resize
 - selected window focusing
-- usereducer to manage data
+- usereducer to manage data - handle loading flow
 - npm window - 'new feature, install npm now'

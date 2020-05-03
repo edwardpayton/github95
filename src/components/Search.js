@@ -6,6 +6,7 @@ import { userData } from "../hooks/sharedStates";
 export default function Search() {
   const [{ searchInput }, setInput] = userData();
   const [state, setState] = React.useState(searchInput);
+  // const [state, setState] = React.useState("edwardpayton");
 
   const handleChange = (e) => {
     setState(e.target.value.trim());

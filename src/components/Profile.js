@@ -5,19 +5,31 @@ import Draggable from "react-draggable";
 import Search from "./Search";
 import ProfileContent from "./ProfileContent";
 
-import { getReposApi } from "../data/githubApiNew";
+import { getUserApi, getReposApi } from "../data/githubApiNew";
 import { windowList, userData } from "../hooks/sharedStates";
 
 export default function Profile() {
   const [{ profile }, set] = windowList();
-  const [{ user, repos }, setData] = userData();
+  const [{ searchInput, user, repos }, setData] = userData();
   const refWindow = React.useRef(undefined);
   const [focused, setFocused] = React.useState(true);
+
+  const _getUser = React.useCallback(async () => {
+    const result = await getUserApi(searchInput);
+    if (result instanceof Error) {
+      console.error("ERROR", result);
+    }
+    return setData({ user: result });
+  }, [searchInput, setData]);
 
   const getRepos = React.useCallback(async () => {
     const result = await getReposApi(user["login"]);
     setData({ repos: result });
-  }, [user]);
+  }, [user, setData]);
+
+  React.useEffect(() => {
+    searchInput.length && _getUser();
+  }, [searchInput]);
 
   React.useEffect(() => {
     if (repos.length) console.log("REPOS", repos);
@@ -107,7 +119,7 @@ export default function Profile() {
               bottom: 0,
             }}
           >
-            <Search onChange={(v) => console.log(v)} />
+            <Search />
             <br />
             <Cutout
               style={{
