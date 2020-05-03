@@ -1,3 +1,4 @@
+/* Start menu */
 .startMenu.startMenu {
   padding-left: 30px;
 }
@@ -21,7 +22,15 @@
   transform: rotate(-90deg);
   transform-origin: 0 0;
 }
+.startMenu-logo {
+  width: 22px;
+  padding-right: 5px;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
 
+/* Profile */
 .profileTabs {
 }
 .profileTabs-tab.profileTabs-tab,
@@ -37,4 +46,19 @@
   background: #e0e0e0;
   border: 2px outset;
   border-radius: 15px;
+}
+
+/* Desktop */
+.desktop-button {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+.desktop-image {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }

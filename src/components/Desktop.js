@@ -44,19 +44,17 @@ export default function Desktop() {
           }}
         >
           <button
-            style={{
-              width: "100%",
-              height: "100%",
-              background: "transparent",
-              outline: "none",
-              border: "none",
-              color: "#fff",
-            }}
             id={"desktopButton" + name}
+            className="desktop-button"
             onClick={handleClick}
             onDoubleClick={handleDblClick}
           >
-            <img src={require(`../assets/${name}.png`)} alt="icon" width="50" />
+            <img
+              src={require(`../assets/${name}.png`)}
+              className="desktop-image"
+              alt="icon"
+              width="50"
+            />
             <p style={{ paddingTop: 10 }}>{capitalize(name)}</p>
           </button>
         </div>

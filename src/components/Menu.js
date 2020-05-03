@@ -60,7 +60,7 @@ export default function Menu() {
       >
         <img
           src={require("../assets/win-logo.png")}
-          style={{ width: 22, paddingRight: 5 }}
+          className="startMenu-logo"
         />
         Github 95
       </Button>
