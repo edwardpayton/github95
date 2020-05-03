@@ -103,7 +103,7 @@ export default function Profile() {
                 background: "white",
               }}
             >
-              {user && user["name"] && <ProfileContent user={user} />}
+              {user && user["name"] && <ProfileContent />}
             </Cutout>
           </WindowContent>
         </Window>

@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody } from "react95";
 
-export default function ProfileContent({ user }) {
+import { userData } from "../hooks/sharedStates";
+
+export default function ProfileContent() {
+  const [{ user, repos }] = userData();
+
   const [activeTab, setActiveTab] = React.useState(0);
 
   const handleChange = (value) => {
