@@ -21,3 +21,20 @@
   transform: rotate(-90deg);
   transform-origin: 0 0;
 }
+
+.profileTabs {
+}
+.profileTabs-tab.profileTabs-tab,
+.profileTabs-tab.profileTabs-tab:after,
+.profileTabs-body.profileTabs-body {
+  background-color: #fff;
+}
+.profileTabs-badge {
+  padding: 3px 5px;
+  margin-left: 5px;
+  font-size: 8px !important;
+  line-height: 8px;
+  background: #e0e0e0;
+  border: 2px outset;
+  border-radius: 15px;
+}

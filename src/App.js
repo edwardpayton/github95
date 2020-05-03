@@ -64,7 +64,7 @@ function App() {
     <>
       <ResetStyles />
       <ThemeProvider theme={themes.default}>
-        <StartupSound />
+        {/* <StartupSound /> */}
         <Menubar />
         <main>
           <section style={{ height: "100%" }}>

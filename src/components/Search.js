@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Fieldset, Button, Bar } from "react95";
+import { TextField, Button, Bar } from "react95";
 
 import { userData } from "../hooks/sharedStates";
 
@@ -8,7 +8,7 @@ export default function Search() {
   const [state, setState] = React.useState(searchInput);
 
   const handleChange = (e) => {
-    setState(e.target.value);
+    setState(e.target.value.trim());
   };
 
   const handleClick = () => {
