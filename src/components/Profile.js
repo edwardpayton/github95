@@ -5,13 +5,23 @@ import Draggable from "react-draggable";
 import Search from "./Search";
 import ProfileContent from "./ProfileContent";
 
+import { getReposApi } from "../data/githubApiNew";
 import { windowList, userData } from "../hooks/sharedStates";
 
 export default function Profile() {
   const [{ profile }, set] = windowList();
-  const [{ user, repos }] = userData();
+  const [{ user, repos }, setData] = userData();
   const refWindow = React.useRef(undefined);
   const [focused, setFocused] = React.useState(true);
+
+  const getRepos = React.useCallback(async () => {
+    const result = await getReposApi(user["login"]);
+    setData({ repos: result });
+  }, [user]);
+
+  React.useEffect(() => {
+    if (repos.length) console.log("REPOS", repos);
+  }, [repos]);
 
   const handleClose = () => {
     set({ profile: [false, false] });
@@ -28,16 +38,23 @@ export default function Profile() {
     if (!clickedWithin) setFocused(false);
   };
 
+  const handleTabChange = (activeTab) => {
+    console.log(
+      "~/Sites/github95/src/components/Profile >>>",
+      activeTab,
+      repos
+    );
+    if (activeTab === 1 && !repos.length) {
+      getRepos();
+    }
+  };
+
   React.useEffect(() => {
     document.addEventListener("mousedown", handleClickFocus);
     return () => {
       document.removeEventListener("mousedown", handleClickFocus);
     };
   }, []);
-
-  React.useEffect(() => {
-    console.log("~/Sites/github95/src/components/Profile >>>", repos);
-  }, [repos]);
 
   return (
     <Draggable positionOffset={{ x: "-50%", y: "-50%" }} handle=".handle">
@@ -103,7 +120,9 @@ export default function Profile() {
                 background: "white",
               }}
             >
-              {user && user["name"] && <ProfileContent />}
+              {user && user["name"] && (
+                <ProfileContent user={user} onTabChange={handleTabChange} />
+              )}
             </Cutout>
           </WindowContent>
         </Window>

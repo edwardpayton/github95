@@ -28,13 +28,8 @@ function App() {
     if (result instanceof Error) {
       return setErrored(true);
     }
-    return setData({ user: result.data.user });
+    return setData({ user: result });
   }, [searchInput]);
-
-  const getRepos = React.useCallback(async () => {
-    // const result = await callApiForRepos(user["repos_url"]);
-    // setData({ repos: result });
-  }, [user]);
 
   React.useEffect(() => {
     searchInput.length && _getUser();
@@ -42,12 +37,7 @@ function App() {
 
   React.useEffect(() => {
     if (user) console.log("USER", user);
-    // if (user && user["name"] !== undefined) getRepos();
-  }, [user, getRepos]);
-
-  React.useEffect(() => {
-    if (repos.length) console.log("REPOS", repos);
-  }, [repos]);
+  }, [user]);
 
   if (isLoading) {
     return (
@@ -64,7 +54,7 @@ function App() {
     <>
       <ResetStyles />
       <ThemeProvider theme={themes.default}>
-        {/* <StartupSound /> */}
+        <StartupSound />
         <Menubar />
         <main>
           <section style={{ height: "100%" }}>

@@ -2,15 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody } from "react95";
 
-import { userData } from "../hooks/sharedStates";
-
-export default function ProfileContent() {
-  const [{ user, repos }] = userData();
-
+export default function ProfileContent({ user, onTabChange }) {
   const [activeTab, setActiveTab] = React.useState(0);
 
   const handleChange = (value) => {
     setActiveTab(value);
+    onTabChange(value);
   };
 
   return (
@@ -121,4 +118,5 @@ ProfileContent.propTypes = {
   user: PropTypes.shape({
     // TODO
   }),
+  onTabChange: PropTypes.func,
 };

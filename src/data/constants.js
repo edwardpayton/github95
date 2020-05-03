@@ -76,10 +76,6 @@ query UserDetails($username: String!) {
         }
       }
       totalCount
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
     }
   }
 }
@@ -117,7 +113,7 @@ query UserContributions($username: String!) {
  * $cursor: string - the id of the repo to start after
  */
 export const GET_USER_REPOS = `
-query UserRepos($username: String!, $cursor: String!) {
+query UserRepos($username: String!, $cursor: String) {
   user(login: $username) {
      repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10, after: $cursor) {
       nodes {
@@ -130,6 +126,10 @@ query UserRepos($username: String!, $cursor: String!) {
           name
           color
         }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }
