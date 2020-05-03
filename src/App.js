@@ -5,9 +5,9 @@ import { reset, themes, Hourglass } from "react95";
 import Menubar from "./components/Menubar";
 import Desktop from "./components/Desktop";
 import Windows from "./components/Windows";
+import StartupSound from "./components/StartupSound";
 
 import { getUserApi } from "./data/githubApiNew";
-
 import { userData } from "./hooks/sharedStates";
 
 import "./App.css";
@@ -64,6 +64,7 @@ function App() {
     <>
       <ResetStyles />
       <ThemeProvider theme={themes.default}>
+        <StartupSound />
         <Menubar />
         <main>
           <section style={{ height: "100%" }}>
