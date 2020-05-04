@@ -51,12 +51,7 @@ export default function Profile() {
   };
 
   const handleTabChange = (activeTab) => {
-    console.log(
-      "~/Sites/github95/src/components/Profile >>>",
-      activeTab,
-      repos
-    );
-    if (activeTab === 1 && !repos.length) {
+    if (activeTab === 2 && !repos.length) {
       getRepos();
     }
   };
@@ -72,15 +67,8 @@ export default function Profile() {
     <Draggable positionOffset={{ x: "-50%", y: "-50%" }} handle=".handle">
       <div
         ref={refWindow}
-        className="fit"
+        className="fit profile-window"
         style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 800,
-          height: 600,
-          maxHeight: "100%",
           display: profile[1] ? "block" : "none",
           zIndex: focused ? 2 : 1,
         }}
@@ -93,49 +81,28 @@ export default function Profile() {
           <WindowHeader className="flex items-center justify-between handle">
             <span>Profile</span>
             <Button
+              className="windowButton"
               style={{ marginRight: -6, marginTop: 1 }}
               size={"sm"}
               square
               onClick={handleClose}
             >
-              <span
-                style={{
-                  fontWeight: "bold",
-                  transform: "translateY(-2px)",
-                  pointerEvents: "none",
-                }}
-              >
-                x
-              </span>
+              <span className="windowButton-icon -close">x</span>
             </Button>
           </WindowHeader>
           <WindowContent
             style={{
               padding: ".25rem",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              top: 35,
-              bottom: 0,
+              height: "calc(100% - 55px)",
             }}
+            className="flex flex-column"
           >
             <Search />
-            <br />
-            <Cutout
-              style={{
-                position: "absolute",
-                top: 70,
-                left: 2,
-                bottom: 15,
-                right: 2,
-                padding: "1rem",
-                background: "white",
-              }}
-            >
-              {user && user["name"] && (
-                <ProfileContent user={user} onTabChange={handleTabChange} />
-              )}
-            </Cutout>
+            {user && user["name"] ? (
+              <ProfileContent user={user} onTabChange={handleTabChange} />
+            ) : (
+              <p>Not found</p>
+            )}
           </WindowContent>
         </Window>
       </div>

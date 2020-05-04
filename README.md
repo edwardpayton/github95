@@ -11,3 +11,5 @@ TODO's and fixes
 - selected window focusing
 - usereducer to manage data - handle loading flow
 - npm window - 'new feature, install npm now'
+- add circleci & dependabot
+- mouse cursor

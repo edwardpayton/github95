@@ -5,8 +5,8 @@ import { userData } from "../hooks/sharedStates";
 
 export default function Search() {
   const [{ searchInput }, setInput] = userData();
-  const [state, setState] = React.useState(searchInput);
-  // const [state, setState] = React.useState("edwardpayton");
+  // const [state, setState] = React.useState(searchInput);
+  const [state, setState] = React.useState("edwardpayton");
 
   const handleChange = (e) => {
     setState(e.target.value.trim());
@@ -22,14 +22,7 @@ export default function Search() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        padding: "10px 8px",
-        border: "2px solid #9e9e9e",
-      }}
-    >
+    <div className="flex profileSearch">
       <Bar />
       <p style={{ paddingLeft: 5, width: 60, lineHeight: "14px" }}>
         Search username

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Tabs, Tab, TabBody } from "react95";
+import { Tabs, Tab, TabBody, Cutout } from "react95";
+
+import Charts from "./Charts";
 
 export default function ProfileContent({ user, onTabChange }) {
   const [activeTab, setActiveTab] = React.useState(0);
@@ -12,7 +14,7 @@ export default function ProfileContent({ user, onTabChange }) {
 
   return (
     <>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap" style={{ flex: 2 }}>
         <div className="col-2">
           <img
             src={user["avatarUrl"]}
@@ -24,12 +26,10 @@ export default function ProfileContent({ user, onTabChange }) {
           <p>{user.status && user.status.message}</p>
 
           <p>{user.name}</p>
-          <p>{user.login}</p>
 
           <p>{user.bio}</p>
-          <p>{user.location}</p>
         </div>
-        <div className="flex-auto col-10">
+        <div className="flex flex-column col-10">
           <Tabs
             value={activeTab}
             onChange={handleChange}
@@ -39,6 +39,9 @@ export default function ProfileContent({ user, onTabChange }) {
               <p>Overview</p>
             </Tab>
             <Tab value={1} className="profileTabs-tab">
+              <p>Pins</p>
+            </Tab>
+            <Tab value={2} className="profileTabs-tab">
               <p>
                 Repositories
                 <span className="profileTabs-badge">
@@ -46,7 +49,7 @@ export default function ProfileContent({ user, onTabChange }) {
                 </span>
               </p>
             </Tab>
-            <Tab value={2} className="profileTabs-tab">
+            <Tab value={3} className="profileTabs-tab">
               <p>
                 Gists
                 <span className="profileTabs-badge">
@@ -55,23 +58,62 @@ export default function ProfileContent({ user, onTabChange }) {
               </p>
             </Tab>
           </Tabs>
-          <div>
+          <div style={{ flex: 2 }}>
             {activeTab === 0 && (
               <TabBody className="profileTabs-body">
-                {user.pinnedItems && user.pinnedItems.edges.length > 0 && (
-                  <div className="profileTabs-pins">
+                <Cutout
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    left: 10,
+                    bottom: 10,
+                    right: 10,
+                    padding: 5,
+                    background: "#fff",
+                    overflow: "scroll",
+                  }}
+                >
+                  <div>
+                    <p>
+                      <a href={user.url} target="_blank">
+                        https://github.com/{user.login}
+                      </a>
+                    </p>
+                    {user.email.length > 0 && (
+                      <p>
+                        <a href={`mailto:${user.email}`}>Email user</a>
+                      </p>
+                    )}
+                    <p>location: {user.location}</p>
+                    <p>member since: {user.createdAt}</p>
+                    <hr />
+                    <p>
+                      followers: {user.followers && user.followers.totalCount}
+                    </p>
+                    <p>
+                      following: {user.following && user.followers.totalCount}
+                    </p>
+                    <hr />
+                    <p>repos: {user.repositories.totalCount}</p>
+                    <p>gists: {user.gists.totalCount}</p>
+                    <p>starred repos: {user.starredRepositories.totalCount}</p>
+                    <Charts />
+                  </div>
+                </Cutout>
+              </TabBody>
+            )}
+            {activeTab === 1 && (
+              <TabBody className="profileTabs-body">
+                {user.pinnedItems && user.pinnedItems.edges.length > 0 ? (
+                  <>
                     <h3>Pins</h3>
-                    <div
-                      className="flex flex-wrap"
-                      style={{ margin: "0 -6px" }}
-                    >
+                    <div className="flex flex-wrap profileTabs-pins">
                       {user.pinnedItems.edges.map(({ node }) => (
                         <div
-                          style={{ padding: 3 }}
-                          className="col-6 border-box"
+                          className="col-6 border-box profileTabs-pin"
                           key={node.name}
                         >
-                          <div style={{ border: "4px ridge", padding: 4 }}>
+                          <div className="profileTabs-pinInner">
                             <p>
                               <a href={node.url} target="_blank">
                                 {node.name}
@@ -82,24 +124,22 @@ export default function ProfileContent({ user, onTabChange }) {
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </>
+                ) : (
+                  <p>Nothing here</p>
                 )}
               </TabBody>
             )}
-            {activeTab === 1 && (
+            {activeTab === 2 && (
               <TabBody className="profileTabs-body">Repositories</TabBody>
             )}
-            {activeTab === 2 && (
+            {activeTab === 3 && (
               <TabBody className="profileTabs-body">Gists</TabBody>
             )}
           </div>
         </div>
       </div>
       <div>
-        <p>email: {user.email}</p>
-        <p>html_url: {user.url}</p>
-        <p>created_at: {user.createdAt}</p>
-        <p>followers: {user.followers && user.followers.totalCount}</p>
         {/* <table>
                 <tbody>
                   {repos.map((repo) => (

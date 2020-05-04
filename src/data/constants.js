@@ -28,11 +28,17 @@ query UserDetails($username: String!) {
     }
     location
     createdAt
-    avatarUrl(size: 100)
+    avatarUrl(size: 200)
+    followers {
+      totalCount
+    }
+    following {
+      totalCount
+    }
     gists {
       totalCount
     }
-    followers {
+    starredRepositories {
       totalCount
     }
     pinnedItems(first: 6) {
