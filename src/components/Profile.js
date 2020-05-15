@@ -45,12 +45,11 @@ export default function Profile() {
     setFocused(true);
   };
 
-  const handleClickOutside = ({ target }) => {
-    console.log("~/Sites/github95/src/components/Profile >>>");
-    const clickedWithin = refWindow.current.contains(target);
+  const handleClickOutside = (e) => {
+    e.stopPropagation();
+    const clickedWithin = refWindow.current.contains(e.target);
     if (!clickedWithin) {
       setFocused(false);
-      set({ profile: [true, true, false] });
     }
   };
 
@@ -63,7 +62,6 @@ export default function Profile() {
   React.useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      console.log("~/Sites/github95/src/components/Profile >>>");
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);

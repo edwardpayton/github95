@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Toolbar, Bar } from "react95";
+import { AppBar, Toolbar } from "react95";
 
 import Menu from "./Menu";
 import MenubarButton from "./MenubarButton";

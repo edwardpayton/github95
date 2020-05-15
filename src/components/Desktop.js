@@ -7,22 +7,13 @@ import capitalize from "../utilities/capitalize";
 
 export default function Desktop() {
   const [, set] = windowList();
-  // const [focused, setFocus] = React.useState("");
 
-  const handleClick = (e) => {
-    e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
-    // const name = e.currentTarget.id.replace("desktopButton", "");
-
-    // setFocus(name);
-  };
-
-  const handleDblClick = (e) => {
+  const handleIconDblClick = (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
     const name = e.currentTarget.id.replace("desktopButton", "");
     window.setTimeout(() => {
-      set({ [name]: [true, true] });
+      set({ [name]: [true, true, true] });
     }, 300);
   };
 
@@ -39,15 +30,12 @@ export default function Desktop() {
             height: 100,
             margin: "10px 0 20px",
             textAlign: "center",
-            // border: "1px dotted",
-            // borderColor: focused === name ? "#000" : "transparent",
           }}
         >
           <button
             id={"desktopButton" + name}
             className="desktop-button"
-            onClick={handleClick}
-            onDoubleClick={handleDblClick}
+            onDoubleClick={handleIconDblClick}
           >
             <img
               src={require(`../assets/${name}.png`)}

@@ -9,13 +9,10 @@ export default function MenubarButton({ name }) {
   const [state, set] = windowList();
 
   const handleClick = () => {
-    console.log(
-      "~/Sites/github95/src/components/MenubarButton >>>",
-      state.profile
-    );
-    if (state[name][1] && state[name][2]) {
+    const isFocused = state[name][1] && state[name][2];
+    if (isFocused) {
       set({ [name]: [true, false, false] });
-    } else if (state[name][1] && !state[name][2]) {
+    } else {
       set({ [name]: [true, true, true] });
     }
   };

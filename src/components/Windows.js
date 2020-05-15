@@ -7,10 +7,9 @@ import { windowList } from "../hooks/sharedStates";
 
 export default function Windows() {
   const [{ profile, about }, _] = windowList();
-  const refWindows = React.useRef(undefined);
 
   return (
-    <div ref={refWindows}>
+    <div>
       {about[0] && about[1] && <About />}
       {profile[0] && profile[1] && <Profile />}
     </div>
