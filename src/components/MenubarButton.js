@@ -9,7 +9,15 @@ export default function MenubarButton({ name }) {
   const [state, set] = windowList();
 
   const handleClick = () => {
-    set({ [name]: [true, !state[name][1]] });
+    console.log(
+      "~/Sites/github95/src/components/MenubarButton >>>",
+      state.profile
+    );
+    if (state[name][1] && state[name][2]) {
+      set({ [name]: [true, false, false] });
+    } else if (state[name][1] && !state[name][2]) {
+      set({ [name]: [true, true, true] });
+    }
   };
 
   return (
@@ -17,7 +25,7 @@ export default function MenubarButton({ name }) {
       {state[name][0] && (
         <Button
           onClick={handleClick}
-          active={state[name][1]}
+          active={state[name][2]}
           className="bold"
           style={{ marginRight: 3 }}
         >

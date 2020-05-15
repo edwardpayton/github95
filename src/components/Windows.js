@@ -3,27 +3,16 @@ import React from "react";
 import About from "./About";
 import Profile from "./Profile";
 
-export default function Windows() {
-  const refWindows = React.useRef(undefined);
-  const [xy, setXy] = React.useState([0, 0]);
+import { windowList } from "../hooks/sharedStates";
 
-  React.useEffect(() => {
-    // TODO for maximising
-    if (refWindows.current) {
-      const {
-        top,
-        left,
-        bottom,
-        right,
-      } = refWindows.current.getBoundingClientRect();
-      setXy([right - left, bottom - top]);
-    }
-  }, [refWindows]);
+export default function Windows() {
+  const [{ profile, about }, _] = windowList();
+  const refWindows = React.useRef(undefined);
 
   return (
     <div ref={refWindows}>
-      <About />
-      <Profile />
+      {about[0] && about[1] && <About />}
+      {profile[0] && profile[1] && <Profile />}
     </div>
   );
 }

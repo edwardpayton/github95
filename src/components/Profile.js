@@ -1,5 +1,5 @@
 import React from "react";
-import { Window, WindowContent, WindowHeader, Button, Cutout } from "react95";
+import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
 
 import Search from "./Search";
@@ -36,18 +36,22 @@ export default function Profile() {
   }, [repos]);
 
   const handleClose = () => {
-    set({ profile: [false, false] });
+    set({ profile: [false, false, false] });
   };
 
   const handleClick = ({ target }) => {
     if (target.type === "button") return;
-    set({ profile: [true, true] });
+    set({ profile: [true, true, true] });
     setFocused(true);
   };
 
-  const handleClickFocus = ({ target }) => {
+  const handleClickOutside = ({ target }) => {
+    console.log("~/Sites/github95/src/components/Profile >>>");
     const clickedWithin = refWindow.current.contains(target);
-    if (!clickedWithin) setFocused(false);
+    if (!clickedWithin) {
+      setFocused(false);
+      set({ profile: [true, true, false] });
+    }
   };
 
   const handleTabChange = (activeTab) => {
@@ -57,9 +61,10 @@ export default function Profile() {
   };
 
   React.useEffect(() => {
-    document.addEventListener("mousedown", handleClickFocus);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickFocus);
+      console.log("~/Sites/github95/src/components/Profile >>>");
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 

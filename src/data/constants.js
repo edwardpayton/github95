@@ -5,8 +5,8 @@ export const WINDOW_OBJ = {
       active (show window), 
       focused (is active window, button pressed) TODO
     ] */
-  profile: [true, true],
-  about: [false, false],
+  profile: [true, true, true],
+  about: [false, false, false],
 };
 
 /**

@@ -7,14 +7,14 @@ import capitalize from "../utilities/capitalize";
 
 export default function Desktop() {
   const [, set] = windowList();
-  const [focused, setFocus] = React.useState("");
+  // const [focused, setFocus] = React.useState("");
 
   const handleClick = (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
-    const name = e.currentTarget.id.replace("desktopButton", "");
+    // const name = e.currentTarget.id.replace("desktopButton", "");
 
-    setFocus(name);
+    // setFocus(name);
   };
 
   const handleDblClick = (e) => {
@@ -39,8 +39,8 @@ export default function Desktop() {
             height: 100,
             margin: "10px 0 20px",
             textAlign: "center",
-            border: "1px dotted",
-            borderColor: focused === name ? "#000" : "transparent",
+            // border: "1px dotted",
+            // borderColor: focused === name ? "#000" : "transparent",
           }}
         >
           <button

@@ -10,24 +10,27 @@ export default function About() {
   const [focused, setFocused] = React.useState(true);
 
   const handleClose = () => {
-    set({ about: [false, false] });
+    set({ about: [false, false, false] });
   };
 
   const handleClick = ({ target }) => {
     if (target.type === "button") return;
-    set({ about: [true, true] });
+    set({ about: [true, true, true] });
     setFocused(true);
   };
 
-  const handleClickFocus = ({ target }) => {
+  const handleClickOutside = ({ target }) => {
     const clickedWithin = refWindow.current.contains(target);
-    if (!clickedWithin) setFocused(false);
+    if (!clickedWithin) {
+      setFocused(false);
+      set({ profile: [true, true, false] });
+    }
   };
 
   React.useEffect(() => {
-    document.addEventListener("mousedown", handleClickFocus);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickFocus);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
