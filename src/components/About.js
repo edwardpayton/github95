@@ -23,7 +23,7 @@ export default function About() {
     const clickedWithin = refWindow.current.contains(target);
     if (!clickedWithin) {
       setFocused(false);
-      set({ profile: [true, true, false] });
+      set({ about: [true, true, false] });
     }
   };
 
