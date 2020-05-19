@@ -4,20 +4,30 @@ import Chart from "react-apexcharts";
 export default function Charts() {
   const [opts, setOpts] = React.useState({
     chart: {
-      id: "apexchart-example",
+      width: 380,
+      type: "pie",
     },
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-    },
+    labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 200,
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
   });
-  const [series, setSeries] = React.useState([
-    {
-      name: "series-1",
-      data: [30, 40, 45, 50, 49, 60, 70, 91],
-    },
-  ]);
+  const [series, setSeries] = React.useState([44, 55, 13, 43, 22]);
 
   return (
-    <Chart options={opts} series={series} type="bar" width={500} height={320} />
+    <div className="chart">
+      {" "}
+      <Chart options={opts} series={series} type="pie" width="300" />
+    </div>
   );
 }
