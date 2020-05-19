@@ -45,11 +45,11 @@ export default function Profile() {
     setFocused(true);
   };
 
-  const handleClickOutside = (e) => {
-    e.stopPropagation();
-    const clickedWithin = refWindow.current.contains(e.target);
+  const handleClickOutside = ({ target }) => {
+    const clickedWithin = refWindow.current.contains(target);
     if (!clickedWithin) {
       setFocused(false);
+      set({ profile: [true, true, false] });
     }
   };
 
