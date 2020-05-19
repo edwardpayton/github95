@@ -1,4 +1,5 @@
 import React from "react";
+import { RecoilRoot } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { reset, themes, Hourglass } from "react95";
 
@@ -15,7 +16,7 @@ const ResetStyles = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <RecoilRoot>
       <ResetStyles />
       <ThemeProvider theme={themes.default}>
         {/* <StartupSound /> */}
@@ -33,7 +34,7 @@ function App() {
           </section>
         </main>
       </ThemeProvider>
-    </>
+    </RecoilRoot>
   );
 }
 

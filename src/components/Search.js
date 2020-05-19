@@ -1,24 +1,23 @@
 import React from "react";
 import { TextField, Button, Bar } from "react95";
-
-import { userData } from "../hooks/sharedStates";
+import { useSetRecoilState } from "recoil";
+import { searchInput } from "../store";
 
 export default function Search() {
-  const [{ searchInput }, setInput] = userData();
-  // const [state, setState] = React.useState(searchInput);
+  const setInput = useSetRecoilState(searchInput);
   const [state, setState] = React.useState("edwardpayton");
 
-  const handleChange = (e) => {
-    setState(e.target.value.trim());
+  const handleChange = ({ target }) => {
+    setState(target.value.trim());
   };
 
   const handleClick = () => {
-    state.length > 0 && setInput({ searchInput: state });
+    state.length > 0 && setInput(state);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    state.length > 0 && setInput({ searchInput: state });
+    state.length > 0 && setInput(state);
   };
 
   return (

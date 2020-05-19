@@ -1,39 +1,44 @@
 import React from "react";
 import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userData, searchInput } from "../store";
 
 import Search from "./Search";
 import ProfileContent from "./ProfileContent";
 
 import { getUserApi, getReposApi } from "../data/githubApiNew";
-import { windowList, userData } from "../hooks/sharedStates";
+import { windowList } from "../hooks/sharedStates";
 
 export default function Profile() {
   const [{ profile }, set] = windowList();
-  const [{ searchInput, user, repos }, setData] = userData();
+  const [user, setUser] = useRecoilState(userData);
+  const searchInputValue = useRecoilValue(searchInput);
   const refWindow = React.useRef(undefined);
   const [focused, setFocused] = React.useState(true);
 
   const _getUser = React.useCallback(async () => {
-    const result = await getUserApi(searchInput);
+    const result = await getUserApi(searchInputValue);
     if (result instanceof Error) {
       console.error("ERROR", result);
     }
-    return setData({ user: result });
-  }, [searchInput, setData]);
+    const newUserData = { ...user, profile: result };
+    setUser(newUserData);
+  }, [searchInputValue]);
 
   const getRepos = React.useCallback(async () => {
-    const result = await getReposApi(user["login"]);
-    setData({ repos: result });
-  }, [user, setData]);
+    const result = await getReposApi(user.profile["login"]);
+    const newUserData = { ...user, repos: result };
+    setUser(newUserData);
+  }, [user]);
 
   React.useEffect(() => {
-    searchInput.length && _getUser();
-  }, [searchInput]);
+    searchInputValue.length && _getUser();
+  }, [searchInputValue]);
 
   React.useEffect(() => {
-    if (repos.length) console.log("REPOS", repos);
-  }, [repos]);
+    if (user.repos.length) console.log("REPOS", user, user.repos);
+  }, [user.repos]);
 
   const handleClose = () => {
     set({ profile: [false, false, false] });
@@ -54,7 +59,7 @@ export default function Profile() {
   };
 
   const handleTabChange = (activeTab) => {
-    if (activeTab === 2 && !repos.length) {
+    if (activeTab === 2 && !user.repos.length) {
       getRepos();
     }
   };
@@ -101,8 +106,11 @@ export default function Profile() {
             className="flex flex-column"
           >
             <Search />
-            {user && user["name"] ? (
-              <ProfileContent user={user} onTabChange={handleTabChange} />
+            {user && user.profile["name"] ? (
+              <ProfileContent
+                user={user.profile}
+                onTabChange={handleTabChange}
+              />
             ) : (
               <p>Not found</p>
             )}
