@@ -1,4 +1,3 @@
-// import { memoize } from "react";
 import { atom } from "recoil";
 import { WINDOW_OBJ } from "../data/globalConstants";
 
@@ -22,9 +21,7 @@ export const windowList = atom({
   default: WINDOW_OBJ,
 });
 
-// export const newWindow = memoize((name) =>
-//   atom({
-//     key: name,
-//     defaultValue: null,
-//   })
-// );
+export const menubarButtons = atom({
+  key: "menubarButtons",
+  default: [],
+});
