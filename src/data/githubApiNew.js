@@ -1,4 +1,4 @@
-import { GET_USER_DETAILS, GET_USER_REPOS } from "./constants";
+import { GET_USER_DETAILS, GET_USER_REPOS } from "./queries";
 
 const gitHubAPIGraphQL = (body) =>
   fetch("https://api.github.com/graphql", {

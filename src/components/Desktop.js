@@ -1,19 +1,20 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 
-import { WINDOW_OBJ } from "../data/constants";
-import { windowList } from "../hooks/sharedStates";
+import { WINDOW_OBJ } from "../data/globalConstants";
+import { windowList } from "../store";
 
 import capitalize from "../utilities/capitalize";
 
 export default function Desktop() {
-  const [, set] = windowList();
+  const [list, setList] = useRecoilState(windowList);
 
   const handleIconDblClick = (e) => {
     e.stopPropagation();
     e.nativeEvent.stopImmediatePropagation();
     const name = e.currentTarget.id.replace("desktopButton", "");
     window.setTimeout(() => {
-      set({ [name]: [true, true, true] });
+      setList({ ...list, [name]: [true, true, true] });
     }, 300);
   };
 

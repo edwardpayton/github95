@@ -1,17 +1,26 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 
+import WindowFrame from "./WindowFrame";
 import About from "./About";
 import Profile from "./Profile";
 
-import { windowList } from "../hooks/sharedStates";
+import { windowList } from "../store";
+
+const componentList = {
+  about: About,
+  profile: Profile,
+};
 
 export default function Windows() {
-  const [{ profile, about }, _] = windowList();
+  const list = useRecoilValue(windowList);
 
-  return (
-    <div>
-      {about[0] && about[1] && <About />}
-      {profile[0] && profile[1] && <Profile />}
-    </div>
-  );
+  return Object.keys(list).map((windowName) => {
+    const ContentComp = componentList[windowName];
+    return (
+      <WindowFrame key={windowName} tuple={list[windowName]}>
+        <ContentComp tuple={list[windowName]} />
+      </WindowFrame>
+    );
+  });
 }

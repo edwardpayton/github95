@@ -1,15 +1,3 @@
-import { atom } from "recoil";
+import { userData, searchInput, windowList } from "./atoms";
 
-export const userData = atom({
-  key: "userData",
-  default: {
-    profile: {},
-    repos: [],
-    gists: [],
-  },
-});
-
-export const searchInput = atom({
-  key: "searchInput",
-  default: "",
-});
+export { userData, searchInput, windowList };
