@@ -47,7 +47,7 @@ export const getUserApi = async (username) => {
 //   return reposAll;
 // };
 
-export const getReposApi = async (username) => {
+export const getUserReposApi = async (username) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_REPOS,

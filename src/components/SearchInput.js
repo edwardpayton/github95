@@ -3,7 +3,7 @@ import { TextField, Button, Bar } from "react95";
 import { useSetRecoilState } from "recoil";
 import { searchInput } from "../store";
 
-export default function Search() {
+export default function SearchInput() {
   const setInput = useSetRecoilState(searchInput);
   const [state, setState] = React.useState("edwardpayton");
 

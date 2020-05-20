@@ -44,6 +44,9 @@
   width: auto;
   height: auto;
 }
+.windowHeader.-inactive {
+  background: #999;
+}
 .windowButton-icon.-close {
   font-weight: bold;
   transform: translateY(-2px);

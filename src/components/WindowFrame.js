@@ -52,7 +52,11 @@ export default function WindowFrame({
           shadow={tuple[2]}
           style={{ width: "100%", height: "100%" }}
         >
-          <WindowHeader className="flex items-center justify-between handle">
+          <WindowHeader
+            className={`flex items-center justify-between handle windowHeader${
+              tuple[2] ? "" : " -inactive"
+            }`}
+          >
             <span>{capitalize(name)}</span>
             <span ref={refCloseBtn}>
               <Button
