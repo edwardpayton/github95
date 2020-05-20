@@ -44,6 +44,12 @@
   width: auto;
   height: auto;
 }
+.windowFrame-content {
+  height: calc(100% - 70px);
+  overflow: scroll;
+}
+.windowFrame-contentInner {
+}
 .windowHeader.-inactive {
   background: #999;
 }

@@ -77,7 +77,9 @@ export default function WindowFrame({
               </Button>
             </span>
           </WindowHeader>
-          <WindowContent>{children}</WindowContent>
+          <WindowContent className="windowFrame-content">
+            <div className="windowFrame-contentInner">{children}</div>
+          </WindowContent>
         </Window>
       </div>
     </Draggable>

@@ -4,7 +4,7 @@ import { Tabs, Tab, TabBody, Cutout } from "react95";
 
 import Charts from "./Charts";
 
-export default function ProfileContent({ user, onTabChange }) {
+export default function UserContent({ user, onTabChange }) {
   const [activeTab, setActiveTab] = React.useState(0);
 
   const handleChange = (value) => {
@@ -61,18 +61,7 @@ export default function ProfileContent({ user, onTabChange }) {
           <div style={{ flex: 2 }}>
             {activeTab === 0 && (
               <TabBody className="profileTabs-body">
-                <Cutout
-                  style={{
-                    position: "absolute",
-                    top: 10,
-                    left: 10,
-                    bottom: 10,
-                    right: 10,
-                    padding: 5,
-                    background: "#fff",
-                    overflow: "scroll",
-                  }}
-                >
+                <Cutout style={{ background: "#fff" }}>
                   <div>
                     <p>
                       <a href={user.url} target="_blank">
@@ -154,7 +143,7 @@ export default function ProfileContent({ user, onTabChange }) {
   );
 }
 
-ProfileContent.propTypes = {
+UserContent.propTypes = {
   user: PropTypes.shape({
     // TODO
   }),

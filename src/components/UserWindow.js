@@ -1,9 +1,11 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { Bar } from "react95";
+
 import { userData, searchInput } from "../store";
 
 import SearchInput from "./SearchInput";
-import ProfileContent from "./ProfileContent";
+import UserContent from "./UserContent";
 
 import { getUserApi, getUserReposApi } from "../data/githubApiNew";
 
@@ -38,9 +40,15 @@ export default function UserWindow() {
 
   return (
     <>
-      <SearchInput />
+      <div className="flex profileSearch">
+        <Bar />
+        <p style={{ paddingLeft: 5, width: 60, lineHeight: "14px" }}>
+          Search username
+        </p>
+        <SearchInput />
+      </div>
       {user && user.profile["name"] ? (
-        <ProfileContent user={user.profile} onTabChange={handleTabChange} />
+        <UserContent user={user.profile} onTabChange={handleTabChange} />
       ) : (
         <p>Not found</p>
       )}
