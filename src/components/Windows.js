@@ -30,6 +30,7 @@ export default function Windows() {
 
   return Object.keys(currentWindows).map((windowName) => {
     const ContentComp = componentList[windowName];
+    const small = windowName === "about";
     return (
       <WindowFrame
         key={windowName}
@@ -37,6 +38,7 @@ export default function Windows() {
         tuple={currentWindows[windowName]}
         onClose={handleCloseWindow}
         onClickWindow={handleClickWindow}
+        small={small}
       >
         <ContentComp tuple={currentWindows[windowName]} />
       </WindowFrame>

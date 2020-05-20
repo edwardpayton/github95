@@ -11,7 +11,7 @@ export default function Desktop() {
 
   const handleIconDblClick = (e) => {
     e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+    e.nativeEvent.stopImmediatePropagation(); // TODO needed?
     const name = e.currentTarget.id.replace("desktopButton", "");
     window.setTimeout(() => {
       setWindows({ ...currentWindows, [name]: [true, true, true] });

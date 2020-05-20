@@ -10,6 +10,7 @@ export default function WindowFrame({
   tuple,
   onClose,
   onClickWindow,
+  small,
   children,
 }) {
   const refWindow = React.useRef(undefined);
@@ -44,7 +45,7 @@ export default function WindowFrame({
           display: tuple[1] ? "block" : "none",
           zIndex: tuple[2] ? 2 : 1,
         }}
-        className="fit windowFrame"
+        className={`fit windowFrame${small ? " -small" : ""}`}
       >
         <Window
           onClick={handleClickWindow}

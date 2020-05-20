@@ -40,6 +40,10 @@
   height: 600px;
   max-height: 100%;
 }
+.windowFrame.-small {
+  width: auto;
+  height: auto;
+}
 .windowButton-icon.-close {
   font-weight: bold;
   transform: translateY(-2px);
