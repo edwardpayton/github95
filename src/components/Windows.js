@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
 import WindowFrame from "./WindowFrame";
 import About from "./About";
@@ -13,12 +13,36 @@ const componentList = {
 };
 
 export default function Windows() {
-  const list = useRecoilValue(windowList);
+  const [list, setList] = useRecoilState(windowList);
+
+  const handleCloseWindow = (currentWindow) => {
+    setList({ ...list, [currentWindow]: [false, false, false] });
+  };
+
+  const handleClickWindow = (currentWindow) => {
+    let newList = { ...list };
+
+    // TODO erorring when both windows open
+    Object.keys(list).forEach((windowName) => {
+      if (currentWindow === windowName) {
+        newList[windowName][2] = true;
+      } else {
+        newList[windowName][2] = false;
+      }
+    });
+    setList(newList);
+  };
 
   return Object.keys(list).map((windowName) => {
     const ContentComp = componentList[windowName];
     return (
-      <WindowFrame key={windowName} tuple={list[windowName]}>
+      <WindowFrame
+        key={windowName}
+        name={windowName}
+        tuple={list[windowName]}
+        onClose={handleCloseWindow}
+        onClickWindow={handleClickWindow}
+      >
         <ContentComp tuple={list[windowName]} />
       </WindowFrame>
     );

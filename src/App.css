@@ -31,14 +31,7 @@
 }
 
 /* Window */
-.windowButton-icon.-close {
-  font-weight: bold;
-  transform: translateY(-2px);
-  pointer-events: none;
-}
-
-/* Profile */
-.profile-window {
+.windowFrame {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -47,6 +40,13 @@
   height: 600px;
   max-height: 100%;
 }
+.windowButton-icon.-close {
+  font-weight: bold;
+  transform: translateY(-2px);
+  pointer-events: none;
+}
+
+/* Profile */
 .profileSearch {
   align-items: center;
   padding: 10px 8px;
@@ -55,11 +55,6 @@
 }
 .profileTabs {
 }
-/* .profileTabs-tab.profileTabs-tab,
-.profileTabs-tab.profileTabs-tab:after,
-.profileTabs-body.profileTabs-body {
-  background-color: #fff;
-} */
 .profileTabs-badge {
   padding: 3px 5px;
   margin-left: 5px;
