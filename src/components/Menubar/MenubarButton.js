@@ -3,8 +3,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { Button } from "react95";
 import PropTypes from "prop-types";
 
-import { userData, windowObj } from "../store";
-import capitalize from "../utilities/capitalize";
+import { userData, windowObj } from "../../store";
+import capitalize from "../../utilities/capitalize";
 
 export default function MenubarButton({ name }) {
   const [currentWindows, setWindows] = useRecoilState(windowObj);

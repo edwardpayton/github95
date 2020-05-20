@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { Button, List, ListItem, Divider } from "react95";
 
-import { windowObj } from "../store";
+import { windowObj } from "../../store";
 
 export default function Menu() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
@@ -60,7 +60,7 @@ export default function Menu() {
         className="mr1"
       >
         <img
-          src={require("../assets/win-logo.png")}
+          src={require("../../assets/win-logo.png")}
           className="startMenu-logo"
         />
         Github 95

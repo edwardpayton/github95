@@ -6,7 +6,7 @@ import Menu from "./Menu";
 import MenubarButton from "./MenubarButton";
 import MenubarClock from "./MenubarClock";
 
-import { menubarButtons, windowObj } from "../store";
+import { menubarButtons, windowObj } from "../../store";
 
 export default function Menubar() {
   const [currentButtons, setButtons] = useRecoilState(menubarButtons);

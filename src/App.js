@@ -1,7 +1,7 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { reset, themes, Hourglass } from "react95";
+import { reset, themes } from "react95";
 
 import Menubar from "./components/Menubar";
 import Desktop from "./components/Desktop";
