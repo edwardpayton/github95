@@ -20,15 +20,10 @@ export default function Windows() {
   };
 
   const handleClickWindow = (currentWindow) => {
-    let newList = { ...currentWindows };
-
-    // TODO erorring when both windows open
+    const newList = {};
     Object.keys(currentWindows).forEach((windowName) => {
-      if (currentWindow === windowName) {
-        newList[windowName][2] = true;
-      } else {
-        newList[windowName][2] = false;
-      }
+      newList[windowName] = [...currentWindows[windowName]];
+      newList[windowName][2] = currentWindow === windowName;
     });
     setWindows(newList);
   };
