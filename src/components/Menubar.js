@@ -6,19 +6,19 @@ import Menu from "./Menu";
 import MenubarButton from "./MenubarButton";
 import MenubarClock from "./MenubarClock";
 
-import { menubarButtons, windowList } from "../store";
+import { menubarButtons, windowObj } from "../store";
 
 export default function Menubar() {
-  const [list, setList] = useRecoilState(menubarButtons);
-  const openWindows = useRecoilValue(windowList);
-  const refWindowList = React.useRef(new Set());
+  const [currentButtons, setButtons] = useRecoilState(menubarButtons);
+  const openWindows = useRecoilValue(windowObj);
+  const refWindowSet = React.useRef(new Set());
 
   React.useEffect(() => {
     Object.keys(openWindows).forEach((window) => {
-      if (openWindows[window][0]) refWindowList.current.add(window);
-      else refWindowList.current.delete(window);
+      if (openWindows[window][0]) refWindowSet.current.add(window);
+      else refWindowSet.current.delete(window);
     });
-    setList([...refWindowList.current]);
+    setButtons([...refWindowSet.current]);
   }, [openWindows]);
 
   return (
@@ -26,8 +26,8 @@ export default function Menubar() {
       <Toolbar className="justify-between">
         <div>
           <Menu />
-          {list.map((windowName) => (
-            <MenubarButton name={windowName} key={windowName} />
+          {currentButtons.map((buttonName) => (
+            <MenubarButton name={buttonName} key={buttonName} />
           ))}
         </div>
         <div style={{ paddingRight: 2 }}>

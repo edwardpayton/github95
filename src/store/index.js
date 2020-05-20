@@ -1,3 +1,3 @@
-import { userData, searchInput, windowList, menubarButtons } from "./atoms";
+import { userData, searchInput, windowObj, menubarButtons } from "./atoms";
 
-export { userData, searchInput, windowList, menubarButtons };
+export { userData, searchInput, windowObj, menubarButtons };

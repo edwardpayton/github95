@@ -16,8 +16,8 @@ export const searchInput = atom({
 });
 
 // TODO make each window an atom, active & focus a selector
-export const windowList = atom({
-  key: "windowList",
+export const windowObj = atom({
+  key: "windowObj",
   default: WINDOW_OBJ,
 });
 

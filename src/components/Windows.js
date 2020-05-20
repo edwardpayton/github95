@@ -5,7 +5,7 @@ import WindowFrame from "./WindowFrame";
 import About from "./About";
 import Profile from "./Profile";
 
-import { windowList } from "../store";
+import { windowObj } from "../store";
 
 const componentList = {
   about: About,
@@ -13,37 +13,37 @@ const componentList = {
 };
 
 export default function Windows() {
-  const [list, setList] = useRecoilState(windowList);
+  const [currentWindows, setWindows] = useRecoilState(windowObj);
 
   const handleCloseWindow = (currentWindow) => {
-    setList({ ...list, [currentWindow]: [false, false, false] });
+    setWindows({ ...currentWindows, [currentWindow]: [false, false, false] });
   };
 
   const handleClickWindow = (currentWindow) => {
-    let newList = { ...list };
+    let newList = { ...currentWindows };
 
     // TODO erorring when both windows open
-    Object.keys(list).forEach((windowName) => {
+    Object.keys(currentWindows).forEach((windowName) => {
       if (currentWindow === windowName) {
         newList[windowName][2] = true;
       } else {
         newList[windowName][2] = false;
       }
     });
-    setList(newList);
+    setWindows(newList);
   };
 
-  return Object.keys(list).map((windowName) => {
+  return Object.keys(currentWindows).map((windowName) => {
     const ContentComp = componentList[windowName];
     return (
       <WindowFrame
         key={windowName}
         name={windowName}
-        tuple={list[windowName]}
+        tuple={currentWindows[windowName]}
         onClose={handleCloseWindow}
         onClickWindow={handleClickWindow}
       >
-        <ContentComp tuple={list[windowName]} />
+        <ContentComp tuple={currentWindows[windowName]} />
       </WindowFrame>
     );
   });

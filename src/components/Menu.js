@@ -2,10 +2,10 @@ import React from "react";
 import { useRecoilState } from "recoil";
 import { Button, List, ListItem, Divider } from "react95";
 
-import { windowList } from "../store";
+import { windowObj } from "../store";
 
 export default function Menu() {
-  const [list, setList] = useRecoilState(windowList);
+  const [currentWindows, setWindows] = useRecoilState(windowObj);
 
   const [isOpen, setOpen] = React.useState(false);
   const refMenu = React.useRef(undefined);
@@ -24,7 +24,7 @@ export default function Menu() {
   };
 
   const handleListClick = (name) => {
-    setList({ ...list, [name]: [true, true, true] });
+    setWindows({ ...currentWindows, [name]: [true, true, true] });
     toggleMenu(false);
   };
 

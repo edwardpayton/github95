@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { userData, searchInput, windowList } from "../store";
+import { userData, searchInput } from "../store";
 
 import Search from "./Search";
 import ProfileContent from "./ProfileContent";
@@ -8,15 +8,8 @@ import ProfileContent from "./ProfileContent";
 import { getUserApi, getReposApi } from "../data/githubApiNew";
 
 export default function Profile() {
-  const [list, setList] = useRecoilState(windowList);
   const [user, setUser] = useRecoilState(userData);
   const searchInputValue = useRecoilValue(searchInput);
-  const refWindow = React.useRef(undefined);
-  const [focused, setFocused] = React.useState(true);
-
-  // React.useEffect(() => {
-  //   console.log("~/Sites/github95/src/components/Profile >>>", list);
-  // }, [list]);
 
   const _getUser = React.useCallback(async () => {
     const result = await getUserApi(searchInputValue);
