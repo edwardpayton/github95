@@ -2,14 +2,16 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import WindowFrame from "./WindowFrame";
-import About from "./About";
-import Profile from "./Profile";
+import AboutWindow from "./AboutWindow";
+import UserWindow from "./UserWindow";
+import ReposWindow from "./ReposWindow";
 
 import { windowObj } from "../store";
 
 const componentList = {
-  about: About,
-  profile: Profile,
+  about: AboutWindow,
+  user: UserWindow,
+  repos: ReposWindow,
 };
 
 export default function Windows() {

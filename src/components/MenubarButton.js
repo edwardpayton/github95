@@ -1,13 +1,23 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Button } from "react95";
 import PropTypes from "prop-types";
 
-import { windowObj } from "../store";
+import { userData, windowObj } from "../store";
 import capitalize from "../utilities/capitalize";
 
 export default function MenubarButton({ name }) {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
+  const user = useRecoilValue(userData);
+  const [buttonText, setText] = React.useState(capitalize(name));
+
+  React.useEffect(() => {
+    if (name === "user" && user.profile.name) setText(user.profile.name);
+  }, [name, user.profile]);
+
+  // React.useEffect(() => {
+  //   // TODO if repos...setText()
+  // }, []);
 
   const handleClick = () => {
     const isFocused = currentWindows[name][1] && currentWindows[name][2];
@@ -27,7 +37,7 @@ export default function MenubarButton({ name }) {
           className="bold"
           style={{ marginRight: 3 }}
         >
-          {capitalize(name)}
+          {buttonText}
         </Button>
       )}
     </>

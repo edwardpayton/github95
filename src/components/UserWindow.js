@@ -7,7 +7,7 @@ import ProfileContent from "./ProfileContent";
 
 import { getUserApi, getUserReposApi } from "../data/githubApiNew";
 
-export default function Profile() {
+export default function UserWindow() {
   const [user, setUser] = useRecoilState(userData);
   const searchInputValue = useRecoilValue(searchInput);
 

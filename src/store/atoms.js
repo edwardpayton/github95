@@ -1,15 +1,6 @@
 import { atom } from "recoil";
 import { WINDOW_OBJ } from "../data/globalConstants";
 
-export const userData = atom({
-  key: "userData",
-  default: {
-    profile: {},
-    repos: [],
-    gists: [],
-  },
-});
-
 export const searchInput = atom({
   key: "searchInput",
   default: "",
@@ -23,4 +14,18 @@ export const windowObj = atom({
 export const menubarButtons = atom({
   key: "menubarButtons",
   default: [],
+});
+
+export const userData = atom({
+  key: "userData",
+  default: {
+    profile: {},
+    repos: [],
+    gists: [],
+  },
+});
+
+export const repos = atom({
+  key: "repos",
+  default: {},
 });

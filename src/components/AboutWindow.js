@@ -1,7 +1,7 @@
 import React from "react";
 import { Anchor } from "react95";
 
-export default function About() {
+export default function AboutWindow() {
   return (
     <>
       <p className="h1">Github 95</p>

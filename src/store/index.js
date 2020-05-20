@@ -1,3 +1,9 @@
-import { userData, searchInput, windowObj, menubarButtons } from "./atoms";
+import {
+  searchInput,
+  windowObj,
+  menubarButtons,
+  userData,
+  repos,
+} from "./atoms";
 
-export { userData, searchInput, windowObj, menubarButtons };
+export { searchInput, windowObj, menubarButtons, userData, repos };
