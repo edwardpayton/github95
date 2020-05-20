@@ -1,5 +1,4 @@
 export const WINDOW_OBJ = {
-  // TODO, add focused, add checking for only one focused
   /* [
       button visible (show button), 
       window visible (show window), 

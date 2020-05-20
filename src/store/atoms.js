@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { WINDOW_OBJ } from "../data/globalConstants";
+import { WINDOW_OBJ } from "../constants";
 
 export const searchInput = atom({
   key: "searchInput",

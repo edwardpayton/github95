@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { reset, themes } from "react95";
 
-import Menubar from "./components/Menubar";
+import Menubar from "./components/Menubar/";
 import Desktop from "./components/Desktop";
 import Windows from "./components/Windows";
 import StartupSound from "./components/StartupSound";

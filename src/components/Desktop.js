@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 
-import { WINDOW_OBJ } from "../data/globalConstants";
+import { WINDOW_OBJ } from "../constants";
 import { windowObj } from "../store";
 
 import capitalize from "../utilities/capitalize";
