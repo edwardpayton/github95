@@ -9,7 +9,7 @@ const gitHubAPIGraphQL = (body) =>
     body: JSON.stringify(body),
   });
 
-export const getUserProfile = async (username) => {
+export const apiGetUserProfile = async (username) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_DETAILS,
@@ -20,9 +20,9 @@ export const getUserProfile = async (username) => {
     if (json.message === "Not Found") {
       json.error = "Not found";
       return json;
-    } else {
-      json = json.data.user;
     }
+
+    json = json.data.user;
 
     return json;
   } catch (error) {
@@ -30,13 +30,18 @@ export const getUserProfile = async (username) => {
   }
 };
 
-export const getUserActivity = async (username, numRepos) => {
+export const apiGetUserActivity = async (username, numRepos) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_ACTIVITY,
-      variables: { username, numRepos },
+      variables: { username },
     });
     let json = await resp.json();
+
+    if (json.errors) {
+      json.error = "Not found";
+      return json;
+    }
 
     json = {
       contributions: json.data.user.contributionsCollection,
@@ -66,7 +71,7 @@ export const getUserActivity = async (username, numRepos) => {
 //   return reposAll;
 // };
 
-export const getUserRepos = async (username) => {
+export const apiGetUserRepos = async (username) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_REPOS,

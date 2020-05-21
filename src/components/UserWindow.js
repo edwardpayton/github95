@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
+import { Hourglass } from "react95";
 
 import { userData, searchInput } from "../store";
 
@@ -12,10 +13,12 @@ export default function UserWindow() {
   const user = useRecoilValue(userData);
   const searchInputValue = useRecoilValue(searchInput);
 
-  const { userProfile } = useGithubApi();
+  const [isLoading, hasErrored, { getUserProfile }] = useGithubApi();
 
   React.useEffect(() => {
-    searchInputValue.length && userProfile();
+    if (searchInputValue.length) {
+      getUserProfile();
+    }
   }, [searchInputValue]);
 
   React.useEffect(() => {
@@ -28,6 +31,31 @@ export default function UserWindow() {
     // }
   };
 
+  const windowContent = () => {
+    if (isLoading && !user.profile.name)
+      return (
+        <div
+          className="flex justify-center items-center"
+          style={{ minHeight: 100 }}
+        >
+          <Hourglass size={32} />
+          <p>&nbsp;Finding user...</p>
+        </div>
+      );
+    if (!isLoading && user.profile.error === "Not found")
+      return <p>not found</p>;
+    if (user.profile.name)
+      return <UserContent user={user.profile} onTabChange={handleTabChange} />;
+    return (
+      <div
+        className="flex justify-center items-center"
+        style={{ minHeight: 100 }}
+      >
+        <p>Search for a user</p>
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="flex profileSearch">
@@ -36,11 +64,7 @@ export default function UserWindow() {
         </p>
         <SearchInput />
       </div>
-      {user && user.profile["name"] ? (
-        <UserContent user={user.profile} onTabChange={handleTabChange} />
-      ) : (
-        <p>Not found</p>
-      )}
+      {windowContent()}
     </>
   );
 }

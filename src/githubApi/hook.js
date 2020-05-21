@@ -2,47 +2,65 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { userData, searchInput } from "../store";
+import reducer from "./reducer";
+import { apiGetUserProfile, apiGetUserActivity, apiGetUserRepos } from "./api";
 
-import { getUserProfile, getUserActivity, getUserRepos } from "./api";
-
+/**
+ * useGithubApi hook
+ * returns userProfile & userRepos, functions to access the api data
+ * example: const { userProfile, userRepos } = useGithubApi();
+ */
 export default function useGithubApi() {
-  const [userloaded, setUserloaded] = React.useState(false);
+  const [{ hasData, isLoading, hasErrored }, dispatch] = reducer();
   const [user, setUser] = useRecoilState(userData);
   const searchInputValue = useRecoilValue(searchInput);
 
-  const userActivity = React.useCallback(async () => {
-    const activity = await getUserActivity(
+  const getUserActivity = React.useCallback(async () => {
+    dispatch({ type: "LOADING" });
+    const activity = await apiGetUserActivity(
       searchInputValue,
       user.profile.repositories.totalCount
     );
+    if (activity instanceof Error) {
+      dispatch({ type: "ERROR" });
+      console.error("ERROR", activity); // TODO
+    }
 
     let newUserData = { ...user, activity };
     setUser(newUserData);
+    dispatch({ type: "SUCCESS" });
   }, [searchInputValue, user, setUser]);
 
   React.useEffect(() => {
-    if (userloaded) userActivity();
-  }, [userloaded]);
+    if (hasData) getUserActivity();
+  }, [hasData]);
 
-  const userProfile = React.useCallback(async () => {
-    const profile = await getUserProfile(searchInputValue);
+  const getUserProfile = React.useCallback(async () => {
+    console.log("~/Sites/github95/src/githubApi/hook >>>", isLoading);
+    dispatch({ type: "LOADING" });
+    const profile = await apiGetUserProfile(searchInputValue);
     if (profile instanceof Error) {
-      console.error("ERROR", profile);
+      dispatch({ type: "ERROR" });
+      console.error("ERROR", profile); // TODO
     }
 
     let newUserData = { ...user, profile };
     setUser(newUserData);
-    setUserloaded(true);
+    dispatch({ type: "SUCCESS" });
   }, [searchInputValue, user, setUser]);
 
-  const userRepos = React.useCallback(async () => {
-    const result = await getUserRepos(user.profile["login"]);
+  const getUserRepos = React.useCallback(async () => {
+    const result = await apiGetUserRepos(user.profile["login"]);
     const newUserData = { ...user, repos: result };
     setUser(newUserData);
   }, [user, setUser]);
 
-  return {
-    userProfile,
-    userRepos,
-  };
+  return [
+    isLoading,
+    hasErrored,
+    {
+      getUserProfile,
+      getUserRepos,
+    },
+  ];
 }

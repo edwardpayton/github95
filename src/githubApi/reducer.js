@@ -1,9 +1,9 @@
 import { useReducer } from "react";
 
 export const initialState = {
-  data: undefined,
-  error: undefined,
-  isloading: false,
+  hasData: false,
+  isLoading: false,
+  hasErrored: false,
 };
 
 function reducer(state, action) {
@@ -11,21 +11,22 @@ function reducer(state, action) {
     case "LOADING":
       return {
         ...state,
-        error: undefined,
-        isloading: true,
+        isLoading: true,
+        hasErrored: false,
       };
     case "SUCCESS":
       return {
         ...state,
-        data: action.payload,
-        error: undefined,
-        isloading: false,
+        hasData: true,
+        isLoading: false,
+        hasErrored: false,
       };
     case "ERROR":
       return {
         ...state,
-        error: action.payload,
-        isloading: false,
+        hasData: false,
+        isLoading: false,
+        hasErrored: true,
       };
     default:
       return {
