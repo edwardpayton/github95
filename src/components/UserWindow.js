@@ -1,40 +1,31 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 
 import { userData, searchInput } from "../store";
 
 import SearchInput from "./SearchInput";
 import UserContent from "./UserContent";
 
-import { getUserProfile, getUserRepos } from "../githubApi";
+import useGithubApi from "../githubApi";
 
 export default function UserWindow() {
-  const [user, setUser] = useRecoilState(userData);
+  const user = useRecoilValue(userData);
   const searchInputValue = useRecoilValue(searchInput);
 
-  const getUser = React.useCallback(async () => {
-    const result = await getUserProfile(searchInputValue);
-    if (result instanceof Error) {
-      console.error("ERROR", result);
-    }
-    const newUserData = { ...user, profile: result };
-    setUser(newUserData);
-  }, [searchInputValue]);
-
-  const getRepos = React.useCallback(async () => {
-    const result = await getUserRepos(user.profile["login"]);
-    const newUserData = { ...user, repos: result };
-    setUser(newUserData);
-  }, [user]);
+  const { userProfile } = useGithubApi();
 
   React.useEffect(() => {
-    searchInputValue.length && getUser();
+    searchInputValue.length && userProfile();
   }, [searchInputValue]);
 
+  React.useEffect(() => {
+    console.log("~/Sites/github95/src/components/UserWindow >>>", user);
+  }, [user]);
+
   const handleTabChange = (activeTab) => {
-    if (activeTab === 2 && !user.repos.length) {
-      getRepos();
-    }
+    // if (activeTab === 2 && !user.repos.length) {
+    //   getRepos();
+    // }
   };
 
   return (

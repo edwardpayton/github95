@@ -79,12 +79,22 @@ query UserDetails($username: String!) {
 
 /**
  * get Github users contributions for past year
+ * and their repo creation dates since they joined
  * returns start & end dates, daily contribution count split by week
+ * and the created date & name of their repos
  * $username: string - the user name
+ * $numRepos: int - the quanity of repos to get (found from GET_USER_DETAILS query)
  */
-export const GET_USER_CONTRIBUTIONS = `
-query UserContributions($username: String!) {
+export const GET_USER_ACTIVITY = `
+query UserActivity($username: String!, $numRepos: Int!) {
   user(login: $username) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, first: $numRepos) {
+      nodes {
+        name
+        createdAt
+        isPrivate
+      }
+    }
     contributionsCollection {
       startedAt
       endedAt
@@ -96,24 +106,6 @@ query UserContributions($username: String!) {
             contributionCount
           }
         }
-      }
-    }
-  }
-}
-`;
-
-/**
- * get list of created dates for Github user repos
- * $username: string - the user name
- * $number: int - the quanity of repos to get (found from GET_USER_DETAILS query)
- */
-export const GET_USER_REPOS_CREATED_DATES = `
-query UserReposCreatedDates($username: String!!, $number: Int!) {
-  user(login: $username) {
-    repositories(orderBy: {field: CREATED_AT, direction: ASC}, first: $number) {
-      nodes {
-        createdAt
-        isPrivate
       }
     }
   }
