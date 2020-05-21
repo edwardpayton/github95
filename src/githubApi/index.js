@@ -9,7 +9,7 @@ const gitHubAPIGraphQL = (body) =>
     body: JSON.stringify(body),
   });
 
-export const getUserApi = async (username) => {
+export const getUserProfile = async (username) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_DETAILS,
@@ -47,7 +47,7 @@ export const getUserApi = async (username) => {
 //   return reposAll;
 // };
 
-export const getUserReposApi = async (username) => {
+export const getUserRepos = async (username) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_REPOS,

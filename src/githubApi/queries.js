@@ -17,6 +17,7 @@ query UserDetails($username: String!) {
     }
     location
     createdAt
+    updatedAt
     avatarUrl(size: 200)
     followers {
       totalCount
@@ -102,6 +103,24 @@ query UserContributions($username: String!) {
 `;
 
 /**
+ * get list of created dates for Github user repos
+ * $username: string - the user name
+ * $number: int - the quanity of repos to get (found from GET_USER_DETAILS query)
+ */
+export const GET_USER_REPOS_CREATED_DATES = `
+query UserReposCreatedDates($username: String!!, $number: Int!) {
+  user(login: $username) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, first: $number) {
+      nodes {
+        createdAt
+        isPrivate
+      }
+    }
+  }
+}
+`;
+
+/**
  * get Github user repos
  * returns 10 repos per page
  * $username: string - the user name
@@ -125,6 +144,31 @@ query UserRepos($username: String!, $cursor: String) {
       pageInfo {
         endCursor
         hasNextPage
+      }
+    }
+  }
+}
+`;
+
+/**
+ * get Github repos from search
+ * returns 10 repos per page
+ * $query: string - the package name
+ * $cursor: string - the id of the repo to start after
+ */
+export const GET_REPOS_FROM_SEARCH = `
+query RepoSearch($query: String!, $cursor: String) {
+  search(query: $query, type: REPOSITORY, first: 10, after: "") {
+    repositoryCount
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    nodes {
+      ... on Repository {
+        id
+        name
+        updatedAt
       }
     }
   }

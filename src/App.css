@@ -44,8 +44,9 @@
   width: auto;
   height: auto;
 }
-.windowFrame-content {
+.windowFrame-content.windowFrame-content {
   height: calc(100% - 70px);
+  padding: 0.5rem;
   overflow: scroll;
 }
 .windowFrame-contentInner {
@@ -62,9 +63,9 @@
 /* Profile */
 .profileSearch {
   align-items: center;
-  padding: 10px 8px;
+  padding-bottom: 10px;
   margin-bottom: 10px;
-  border: 2px solid #9e9e9e;
+  border-bottom: 2px solid #9e9e9e;
 }
 .profileTabs {
 }

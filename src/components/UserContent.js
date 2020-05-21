@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Tabs, Tab, TabBody, Cutout } from "react95";
+import { Tabs, Tab, TabBody, Cutout, Anchor } from "react95";
 
 import Charts from "./Charts";
 
@@ -14,22 +14,27 @@ export default function UserContent({ user, onTabChange }) {
 
   return (
     <>
-      <div className="flex flex-wrap" style={{ flex: 2 }}>
-        <div className="col-2">
+      <div className="flex flex-column" style={{ flex: 2 }}>
+        <div className="flex">
           <img
-            src={user["avatarUrl"]}
+            src={user.avatarUrl}
             alt="Github avatar"
             width="100"
             height="100"
             className="square"
           />
-          <p>{user.status && user.status.message}</p>
-
           <p>{user.name}</p>
-
+          <Anchor href={user.url} target="_blank">
+            Profile link
+          </Anchor>
+          <Anchor href={`mailto:${user.email}`} target="_blank">
+            Email
+          </Anchor>
           <p>{user.bio}</p>
+
+          <p>{user.status && user.status.message}</p>
         </div>
-        <div className="flex flex-column col-10">
+        <div className="flex flex-column">
           <Tabs
             value={activeTab}
             onChange={handleChange}

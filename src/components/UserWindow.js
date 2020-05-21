@@ -1,20 +1,19 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Bar } from "react95";
 
 import { userData, searchInput } from "../store";
 
 import SearchInput from "./SearchInput";
 import UserContent from "./UserContent";
 
-import { getUserApi, getUserReposApi } from "../data/githubApiNew";
+import { getUserProfile, getUserRepos } from "../githubApi";
 
 export default function UserWindow() {
   const [user, setUser] = useRecoilState(userData);
   const searchInputValue = useRecoilValue(searchInput);
 
-  const _getUser = React.useCallback(async () => {
-    const result = await getUserApi(searchInputValue);
+  const getUser = React.useCallback(async () => {
+    const result = await getUserProfile(searchInputValue);
     if (result instanceof Error) {
       console.error("ERROR", result);
     }
@@ -23,13 +22,13 @@ export default function UserWindow() {
   }, [searchInputValue]);
 
   const getRepos = React.useCallback(async () => {
-    const result = await getUserReposApi(user.profile["login"]);
+    const result = await getUserRepos(user.profile["login"]);
     const newUserData = { ...user, repos: result };
     setUser(newUserData);
   }, [user]);
 
   React.useEffect(() => {
-    searchInputValue.length && _getUser();
+    searchInputValue.length && getUser();
   }, [searchInputValue]);
 
   const handleTabChange = (activeTab) => {
@@ -41,7 +40,6 @@ export default function UserWindow() {
   return (
     <>
       <div className="flex profileSearch">
-        <Bar />
         <p style={{ paddingLeft: 5, width: 60, lineHeight: "14px" }}>
           Search username
         </p>
