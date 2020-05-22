@@ -36,7 +36,6 @@ export default function useGithubApi() {
   }, [hasData]);
 
   const getUserProfile = React.useCallback(async () => {
-    console.log("~/Sites/github95/src/githubApi/hook >>>", isLoading);
     dispatch({ type: "LOADING" });
     const profile = await apiGetUserProfile(searchInputValue);
     if (profile instanceof Error) {

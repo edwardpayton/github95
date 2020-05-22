@@ -34,7 +34,7 @@ export const apiGetUserActivity = async (username, numRepos) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_ACTIVITY,
-      variables: { username },
+      variables: { username, numRepos },
     });
     let json = await resp.json();
 

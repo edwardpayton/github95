@@ -20,6 +20,7 @@ export const userData = atom({
   key: "userData",
   default: {
     profile: {},
+    activity: {},
     repos: [],
     gists: [],
   },

@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { Hourglass } from "react95";
 
-import { userData, searchInput } from "../store";
+import { userData, userActivity, searchInput } from "../store";
 
 import SearchInput from "./SearchInput";
 import UserContent from "./UserContent";
@@ -11,6 +11,7 @@ import useGithubApi from "../githubApi";
 
 export default function UserWindow() {
   const user = useRecoilValue(userData);
+  const activity = useRecoilValue(userActivity);
   const searchInputValue = useRecoilValue(searchInput);
 
   const [isLoading, hasErrored, { getUserProfile }] = useGithubApi();
@@ -20,10 +21,6 @@ export default function UserWindow() {
       getUserProfile();
     }
   }, [searchInputValue]);
-
-  React.useEffect(() => {
-    console.log("~/Sites/github95/src/components/UserWindow >>>", user);
-  }, [user]);
 
   const handleTabChange = (activeTab) => {
     // if (activeTab === 2 && !user.repos.length) {
@@ -45,7 +42,13 @@ export default function UserWindow() {
     if (!isLoading && user.profile.error === "Not found")
       return <p>not found</p>;
     if (user.profile.name)
-      return <UserContent user={user.profile} onTabChange={handleTabChange} />;
+      return (
+        <UserContent
+          profile={user.profile}
+          activity={activity}
+          onTabChange={handleTabChange}
+        />
+      );
     return (
       <div
         className="flex justify-center items-center"
