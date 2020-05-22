@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Chart from "react-apexcharts";
 
 export default function AreaChart({ name, xaxis, data }) {
@@ -45,3 +46,9 @@ export default function AreaChart({ name, xaxis, data }) {
     </div>
   );
 }
+
+AreaChart.propTypes = {
+  name: PropTypes.string.isRequired,
+  xaxis: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.arrayOf(PropTypes.number).isRequired,
+};

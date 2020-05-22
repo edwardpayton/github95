@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody, Cutout, Anchor } from "react95";
 
-import Charts from "./Charts";
+import Charts from "./AreaChart";
 
 export default function UserContent({ profile, activity, onTabChange }) {
   const [activeTab, setActiveTab] = React.useState(0);
