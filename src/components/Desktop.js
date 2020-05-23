@@ -35,12 +35,12 @@ export default function Desktop() {
         >
           <button
             id={"desktopButton" + name}
-            className="desktop-button"
+            className="desktop__button"
             onDoubleClick={handleIconDblClick}
           >
             <img
               src={require(`../assets/${name}.png`)}
-              className="desktop-image"
+              className="desktop__image"
               alt="icon"
               width="50"
             />

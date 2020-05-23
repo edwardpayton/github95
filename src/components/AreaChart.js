@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Chart from "react-apexcharts";
 
 export default function AreaChart({ name, xaxis, data }) {
-  console.log("~/Sites/github95/src/components/Charts >>>", xaxis, data);
   const [state] = React.useState({
     series: [
       {
@@ -18,16 +17,28 @@ export default function AreaChart({ name, xaxis, data }) {
         zoom: {
           enabled: false,
         },
+        toolbar: {
+          show: false,
+        },
+        animations: {
+          enabled: false,
+        },
       },
       dataLabels: {
         enabled: false,
       },
       stroke: {
-        curve: "straight",
+        curve: "stepline",
       },
       labels: xaxis,
       yaxis: {
         opposite: true,
+        tickAmount: 7,
+      },
+      xaxis: {
+        tooltip: {
+          enabled: false,
+        },
       },
       legend: {
         horizontalAlign: "left",
@@ -36,7 +47,7 @@ export default function AreaChart({ name, xaxis, data }) {
   });
 
   return (
-    <div className="chart">
+    <div className="chart -typeArea">
       <Chart
         options={state.options}
         series={state.series}

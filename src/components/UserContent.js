@@ -40,21 +40,21 @@ export default function UserContent({ profile, activity, onTabChange }) {
             onChange={handleChange}
             className="profileTabs"
           >
-            <Tab value={0} className="profileTabs-tab">
+            <Tab value={0} className="profileTabs__tab">
               <p>Overview</p>
             </Tab>
-            <Tab value={1} className="profileTabs-tab">
+            <Tab value={1} className="profileTabs__tab">
               <p>
                 Repositories
-                <span className="profileTabs-badge">
+                <span className="profileTabs__badge">
                   {profile.repositories && profile.repositories.totalCount}
                 </span>
               </p>
             </Tab>
-            <Tab value={2} className="profileTabs-tab">
+            <Tab value={2} className="profileTabs__tab">
               <p>
                 Gists
-                <span className="profileTabs-badge">
+                <span className="profileTabs__badge">
                   {profile.gists && profile.gists.totalCount}
                 </span>
               </p>
@@ -62,7 +62,7 @@ export default function UserContent({ profile, activity, onTabChange }) {
           </Tabs>
           <div style={{ flex: 2 }}>
             {activeTab === 0 && (
-              <TabBody className="profileTabs-body">
+              <TabBody className="profileTabs__body">
                 <Cutout style={{ background: "#fff" }}>
                   <div>
                     <p>
@@ -103,13 +103,13 @@ export default function UserContent({ profile, activity, onTabChange }) {
                       profile.pinnedItems.edges.length > 0 && (
                         <>
                           <h3>Pins</h3>
-                          <div className="flex flex-wrap profileTabs-pins">
+                          <div className="flex flex-wrap profileTabs__pins">
                             {profile.pinnedItems.edges.map(({ node }) => (
                               <div
-                                className="col-6 border-box profileTabs-pin"
+                                className="col-6 border-box profileTabs__pin"
                                 key={node.name}
                               >
-                                <div className="profileTabs-pinInner">
+                                <div className="profileTabs__pinInner">
                                   <p>
                                     <a href={node.url} target="_blank">
                                       {node.name}
@@ -127,10 +127,10 @@ export default function UserContent({ profile, activity, onTabChange }) {
               </TabBody>
             )}
             {activeTab === 1 && (
-              <TabBody className="profileTabs-body">Repositories</TabBody>
+              <TabBody className="profileTabs__body">Repositories</TabBody>
             )}
             {activeTab === 2 && (
-              <TabBody className="profileTabs-body">Gists</TabBody>
+              <TabBody className="profileTabs__body">Gists</TabBody>
             )}
           </div>
         </div>

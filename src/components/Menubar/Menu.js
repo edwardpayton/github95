@@ -61,7 +61,7 @@ export default function Menu() {
       >
         <img
           src={require("../../assets/win-logo.png")}
-          className="startMenu-logo"
+          className="startMenu__logo"
         />
         Github 95
       </Button>

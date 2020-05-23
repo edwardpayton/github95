@@ -38,14 +38,17 @@ export default function WindowFrame({
   // }, []);
 
   return (
-    <Draggable positionOffset={{ x: "-50%", y: "-50%" }} handle=".handle">
+    <Draggable
+      positionOffset={{ x: "-50%", y: "calc(-50% - 25px)" }}
+      handle=".handle"
+    >
       <div
         ref={refWindow}
         style={{
           display: tuple[1] ? "block" : "none",
           zIndex: tuple[2] ? 2 : 1,
         }}
-        className={`fit windowFrame${small ? " -small" : ""}`}
+        className={`fit windowFrame${small ? " __small" : ""}`}
       >
         <Window
           onClick={handleClickWindow}
@@ -77,8 +80,8 @@ export default function WindowFrame({
               </Button>
             </span>
           </WindowHeader>
-          <WindowContent className="windowFrame-content">
-            <div className="windowFrame-contentInner">{children}</div>
+          <WindowContent className="windowFrame__content">
+            <div className="windowFrame__contentInner">{children}</div>
           </WindowContent>
         </Window>
       </div>
