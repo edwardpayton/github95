@@ -61,13 +61,13 @@ export default function UserWindow() {
 
   return (
     <>
-      <div className="flex profileSearch">
+      <div className="flex userWindow__search">
         <p style={{ paddingLeft: 5, width: 60, lineHeight: "14px" }}>
           Search username
         </p>
         <SearchInput />
       </div>
-      {windowContent()}
+      <div className="userWindow__content">{windowContent()}</div>
     </>
   );
 }

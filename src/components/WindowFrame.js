@@ -53,7 +53,7 @@ export default function WindowFrame({
         <Window
           onClick={handleClickWindow}
           shadow={tuple[2]}
-          style={{ width: "100%", height: "100%" }}
+          className="flex-column windowFrame__inner"
         >
           <WindowHeader
             className={`flex items-center justify-between handle windowHeader${
@@ -81,7 +81,9 @@ export default function WindowFrame({
             </span>
           </WindowHeader>
           <WindowContent className="windowFrame__content">
-            <div className="windowFrame__contentInner">{children}</div>
+            <div className="flex flex-column windowFrame__contentInner">
+              {children}
+            </div>
           </WindowContent>
         </Window>
       </div>
