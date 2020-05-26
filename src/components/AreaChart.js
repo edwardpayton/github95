@@ -24,11 +24,25 @@ export default function AreaChart({ name, xaxis, data }) {
           enabled: false,
         },
       },
+      stroke: {
+        colors: ["#208c71"],
+        curve: "stepline",
+      },
+      fill: {
+        colors: "#208c71",
+        type: "pattern",
+        pattern: {
+          style: "squares",
+          width: 5,
+          height: 5,
+          strokeWidth: 1,
+        },
+      },
+      grid: {
+        show: false,
+      },
       dataLabels: {
         enabled: false,
-      },
-      stroke: {
-        curve: "stepline",
       },
       labels: xaxis,
       yaxis: {
@@ -38,6 +52,9 @@ export default function AreaChart({ name, xaxis, data }) {
       xaxis: {
         tooltip: {
           enabled: false,
+        },
+        axisTicks: {
+          show: false,
         },
       },
       legend: {

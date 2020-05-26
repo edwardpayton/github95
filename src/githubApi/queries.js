@@ -18,7 +18,7 @@ query UserDetails($username: String!) {
     location
     createdAt
     updatedAt
-    avatarUrl(size: 200)
+    avatarUrl(size: 100)
     followers {
       totalCount
     }

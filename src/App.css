@@ -1,3 +1,18 @@
+/* Desktop */
+.desktop__button {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+.desktop__image {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
 /* Start menu */
 .startMenu.startMenu {
   padding-left: 30px;
@@ -83,22 +98,6 @@
 }
 .userContent__tab {
 }
-.userContent__badge {
-  padding: 3px 5px;
-  margin-left: 5px;
-  font-size: 8px !important;
-  line-height: 8px;
-  background-image: linear-gradient(
-      to right,
-      hsla(0, 0%, 100%, 0.75),
-      hsla(0, 0%, 100%, 0.75)
-    ),
-    linear-gradient(to right, black 50%, white 50%),
-    linear-gradient(to bottom, black 50%, white 50%);
-  background-blend-mode: normal, difference, normal;
-  background-size: 2px 2px;
-  border: 1px inset;
-}
 .userContent__body.userContent__body {
   position: absolute;
   top: 33px;
@@ -127,37 +126,86 @@
   padding: 5px;
 }
 
-/* Desktop */
-.desktop__button {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  outline: none;
-  border: none;
-  color: #fff;
+/* User content overview */
+.overview {
 }
-.desktop__image {
+.overview__header {
+  background-color: #95cabc;
+  padding: 0.5rem;
+  height: 70px;
+}
+.overview__headerImage {
+  width: 70px;
+  height: 70px;
+  border: 1px outset;
+}
+.overview__headerImage > img {
+  width: 70px;
+  height: 70px;
   image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
 }
-
-.chart {
+.overview__headerBio {
+  padding: 0.25rem 0.5rem;
+}
+.overview__subtitle {
   position: relative;
+  padding-left: 21px;
+  margin-left: 20px;
 }
-.chart::before {
-  content: "";
+.overview__subtitle:before {
   position: absolute;
-  top: 0;
+  content: "";
+  top: -4px;
   left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(10px);
-  /* filter: url(#pixelate); */
+  width: 18px;
+  height: 18px;
+  background: url("./assets/status.png") no-repeat 0 0;
+  background-size: contain;
+}
+.overview__bioCopy {
+  line-height: 1.7;
+}
+.overview__links {
+  width: 180px;
+}
+.overview__link.overview__link {
+  padding-left: 25px;
+}
+.overview__link:hover,
+.overview__link:active {
+  background-color: #ededed;
+  color: #394dcd;
+}
+.overview__link:before {
+  position: absolute;
+  content: "";
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  image-rendering: pixelated;
+  background-size: contain;
+}
+.overview__link.-profile:before {
+  background-image: url("./assets/profile-icon.png");
+  left: 10px;
+}
+.overview__link.-email:before {
+  background-image: url("./assets/email-icon.png");
+  left: 6px;
+}
+.overview__badges {
+  margin-top: 0.75rem;
+}
+.overview__badge {
+  border: 2px outset hsla(0, 0%, 0%, 0.2);
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  text-align: center;
 }
 
 /* Scrollable sections 
 https://codepen.io/louh/pen/oZJQvm?editors=1100
+(no custom scroll bars for Firefox mac. This may work on FF windows but basic appearance -> https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars)
 */
 
 .scrollable.-yOnly {
@@ -181,7 +229,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
     linear-gradient(to right, black 50%, white 50%),
     linear-gradient(to bottom, black 50%, white 50%);
   background-blend-mode: normal, difference, normal;
-  background-size: 2px 2px;
+  background-size: 3px 3px;
 }
 .scrollable::-webkit-scrollbar-track:active {
   background-image: linear-gradient(
@@ -192,7 +240,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
     linear-gradient(to right, black 50%, white 50%),
     linear-gradient(to bottom, black 50%, white 50%);
   background-blend-mode: normal, difference, normal;
-  background-size: 2px 2px;
+  background-size: 3px 3px;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
@@ -266,4 +314,49 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 .scrollable::-webkit-scrollbar-button:active {
   border: 1px solid #868a8e;
   box-shadow: none;
+}
+
+/* Badge */
+.badge {
+  padding: 3px 5px;
+  margin-left: 5px;
+  font-size: 8px !important;
+  line-height: 8px;
+  background-image: linear-gradient(
+      to right,
+      hsla(0, 0%, 100%, 0.85),
+      hsla(0, 0%, 100%, 0.85)
+    ),
+    linear-gradient(to right, black 50%, white 50%),
+    linear-gradient(to bottom, black 50%, white 50%);
+  background-blend-mode: normal, difference, normal;
+  background-size: 3px 3px;
+  border: 1px inset;
+}
+
+/* Anchor button (styles copied & amended from react95) */
+.anchorButton {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  background-color: #ced0cf;
+  color: #050608;
+  border-style: solid;
+  border-width: 2px;
+  border-left-color: #ffffff;
+  border-top-color: #ffffff;
+  border-right-color: #050608;
+  border-bottom-color: #050608;
+  box-shadow: inset 1px 1px 0px 1px #dfe0e3, inset -1px -1px 0 1px #888c8f;
+  height: 30px;
+  padding: 0.5rem;
+  font-size: 16px;
+  text-align: center;
+}
+.anchorButton:active {
+  border-left-color: #050608;
+  border-top-color: #050608;
+  border-right-color: #ffffff;
+  border-bottom-color: #ffffff;
+  box-shadow: inset 1px 1px 0px 1px #888c8f, inset -1px -1px 0 1px #dfe0e3;
 }

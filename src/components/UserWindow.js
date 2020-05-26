@@ -41,7 +41,7 @@ export default function UserWindow() {
       );
     if (!isLoading && user.profile.error === "Not found")
       return <p>not found</p>;
-    if (user.profile.name)
+    if (user.profile.name) {
       return (
         <UserContent
           profile={user.profile}
@@ -49,6 +49,7 @@ export default function UserWindow() {
           onTabChange={handleTabChange}
         />
       );
+    }
     return (
       <div
         className="flex justify-center items-center"
