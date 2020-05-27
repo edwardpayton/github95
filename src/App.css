@@ -112,18 +112,6 @@
   background-color: #fff;
   border: 1px inset;
 }
-.userContent__pins {
-  margin: 10px -1px;
-  padding: 15px;
-  border: 1px inset;
-}
-.userContent__pin {
-  padding: 5px;
-}
-.userContent__pinInner {
-  border: 1px outset;
-  padding: 5px;
-}
 
 /* User content overview */
 .overview {
@@ -246,8 +234,20 @@
 /*  */
 .overview__charts {
 }
+.overview__chart,
+.overview__pins,
+.overflow_contributions {
+  margin-top: 2rem;
+}
 .overview__chart {
   width: calc(50% - 0.5rem);
+}
+.overview__pin {
+  padding: 0.5rem;
+}
+.overview__pinInner {
+  border: 2px outset;
+  padding: 0.5rem;
 }
 /* Scrollable sections 
 https://codepen.io/louh/pen/oZJQvm?editors=1100

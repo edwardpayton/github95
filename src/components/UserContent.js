@@ -6,12 +6,7 @@ import Charts from "./AreaChart";
 import Card from "./Card";
 import AnchorButton from "./AnchorButton";
 
-const dateOptions = {
-  weekday: "short",
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-};
+import formatDate from "../utilities/formatDate";
 
 export default function UserContent({ profile, activity, onTabChange }) {
   const [activeTab, setActiveTab] = React.useState(0);
@@ -95,18 +90,14 @@ export default function UserContent({ profile, activity, onTabChange }) {
                   </div>
                 </div>
 
-                {/* <div className="flex justify-between overview__badges">
+                <div className="flex justify-between overview__badges">
                   {profile.location && (
                     <p className="badge overview__badge -location">
                       Based in: {profile.location}
                     </p>
                   )}
                   <p className="badge overview__badge -createdAt">
-                    Joined:{" "}
-                    {new Date(profile.createdAt).toLocaleDateString(
-                      undefined,
-                      dateOptions
-                    )}
+                    Joined: {formatDate(profile.createdAt)}
                   </p>
                   <p className="badge overview__badge -followers">
                     Followers: {profile.followers.totalCount}
@@ -114,7 +105,7 @@ export default function UserContent({ profile, activity, onTabChange }) {
                   <p className="badge overview__badge -following">
                     Following: {profile.following.totalCount}
                   </p>
-                </div> */}
+                </div>
 
                 {profile.status && (
                   <div className="overview__statusWrapper">
@@ -141,13 +132,13 @@ export default function UserContent({ profile, activity, onTabChange }) {
                   {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
                     <>
                       <h3>Pins</h3>
-                      <div className="flex flex-wrap userContent__pins">
+                      <div className="flex flex-wrap">
                         {profile.pinnedItems.edges.map(({ node }) => (
                           <div
-                            className="col-6 border-box userContent__pin"
+                            className="col-6 border-box overview__pin"
                             key={node.name}
                           >
-                            <div className="userContent__pinInner">
+                            <div className="overview__pinInner">
                               <p>
                                 <a href={node.url} target="_blank">
                                   {node.name}
