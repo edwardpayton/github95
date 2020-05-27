@@ -13,7 +13,7 @@ export default function AreaChart({ name, xaxis, data }) {
     options: {
       chart: {
         type: "area",
-        height: 350,
+        height: 300,
         zoom: {
           enabled: false,
         },
@@ -69,7 +69,7 @@ export default function AreaChart({ name, xaxis, data }) {
         options={state.options}
         series={state.series}
         type="area"
-        height={350}
+        height={300}
       />
     </div>
   );

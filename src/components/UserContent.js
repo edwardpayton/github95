@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody, Hourglass } from "react95";
 
 import Charts from "./AreaChart";
+import Card from "./Card";
+import AnchorButton from "./AnchorButton";
 
 const dateOptions = {
   weekday: "short",
@@ -50,110 +52,118 @@ export default function UserContent({ profile, activity, onTabChange }) {
         <TabBody className="userContent__body">
           <div className="userContent__bodyInner scrollable -yOnly">
             <div className="overview">
-              <div className="flex overview__header">
-                <div className="overview__headerImage">
-                  <img
-                    src={profile.avatarUrl}
-                    alt="Github avatar"
-                    className="square"
-                  />
-                </div>
-                <div className="flex flex-column justify-between overview__headerBio">
+              <div className="overview__header">
+                <div className="card overview__profile">
                   <div className="flex">
-                    <div className="flex items-center">
+                    <div className="overview__profileImage">
+                      <img
+                        src={profile.avatarUrl}
+                        alt="Github avatar"
+                        className="square"
+                      />
+                    </div>
+                    <div className="flex flex-column justify-between overview__profileDetails">
                       <h1 className="overview__title">{profile.name}</h1>
-                      {profile.status && (
-                        <p className="overview__subtitle">
-                          {profile.status.message}
+
+                      <div className="overview__bio">
+                        {/* <p className="overview__bioCopy"> */}
+                        <p className="overview__bioCopy">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit, sed do eiusmod tempor incididunt ut labore et
+                          dolore magna aliqua. Ut enim ad minim veniam, quis
+                          nostru
                         </p>
-                      )}
+                      </div>
                     </div>
                   </div>
-                  {/* <p className="overview__bioCopy"> */}
-                  <p className="overview__bioCopy">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostru
-                  </p>
-                </div>
-                <div className="flex flex-column justify-between overview__links">
-                  <a
-                    href={profile.url}
-                    target="_blank"
-                    className="anchorButton overview__link -profile"
-                  >
-                    Profile link
-                  </a>
-                  {profile.email.length > 0 && (
-                    <a
-                      href={`mailto:${profile.email}`}
-                      target="_blank"
-                      className="anchorButton overview__link -email"
+
+                  <div className="overview__links">
+                    <AnchorButton
+                      href={profile.url}
+                      className="overview__link -profile"
                     >
-                      Send email
-                    </a>
-                  )}
+                      Profile link
+                    </AnchorButton>
+                    {profile.email.length > 0 && (
+                      <AnchorButton
+                        href={`mailto:${profile.email}`}
+                        className="overview__link -email"
+                      >
+                        Send email
+                      </AnchorButton>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="flex overview__badges">
-                {profile.location && (
-                  <p className="overview__badge -location">
-                    Based in: {profile.location}
+
+                {/* <div className="flex justify-between overview__badges">
+                  {profile.location && (
+                    <p className="badge overview__badge -location">
+                      Based in: {profile.location}
+                    </p>
+                  )}
+                  <p className="badge overview__badge -createdAt">
+                    Joined:{" "}
+                    {new Date(profile.createdAt).toLocaleDateString(
+                      undefined,
+                      dateOptions
+                    )}
                   </p>
+                  <p className="badge overview__badge -followers">
+                    Followers: {profile.followers.totalCount}
+                  </p>
+                  <p className="badge overview__badge -following">
+                    Following: {profile.following.totalCount}
+                  </p>
+                </div> */}
+
+                {profile.status && (
+                  <div className="overview__statusWrapper">
+                    <p className="overview__statusTitle">Latest update</p>
+                    <p className="overview__status">{profile.status.message}</p>
+                  </div>
                 )}
-                <p className="overview__badge -createdAt">
-                  Member since:{" "}
-                  {new Date(profile.createdAt).toLocaleDateString(
-                    undefined,
-                    dateOptions
-                  )}
-                </p>
-                <p className="overview__badge -followers">
-                  Followers: {profile.followers.totalCount}
-                </p>
-                <p className="overview__badge -following">
-                  Following: {profile.followers.totalCount}
-                </p>
               </div>
-              <div className="flex overview__charts">
-                <div>
-                  {!activity && <Hourglass size={32} />}
-                  {activity && (
-                    <Charts
-                      name="Repos"
-                      xaxis={activity.creations.monthsList}
-                      data={activity.creations.repoTotals}
-                    />
-                  )}
-                </div>
-                <div>Languages chart</div>
-              </div>
-              <div className="overview__pins">
-                {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
-                  <>
-                    <h3>Pins</h3>
-                    <div className="flex flex-wrap userContent__pins">
-                      {profile.pinnedItems.edges.map(({ node }) => (
-                        <div
-                          className="col-6 border-box userContent__pin"
-                          key={node.name}
-                        >
-                          <div className="userContent__pinInner">
-                            <p>
-                              <a href={node.url} target="_blank">
-                                {node.name}
-                              </a>
-                            </p>
-                            <p>{node.description}</p>
+              <div className="overview__body">
+                <Card className="flex justify-between overview__charts">
+                  <div className="overview__chart">
+                    {!activity && <Hourglass size={32} />}
+                    {activity && (
+                      <Charts
+                        name="Repos"
+                        xaxis={activity.creations.monthsList}
+                        data={activity.creations.repoTotals}
+                      />
+                    )}
+                  </div>
+                  <div className="overview__chart">Languages chart</div>
+                </Card>
+                <Card className="overview__pins">
+                  {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
+                    <>
+                      <h3>Pins</h3>
+                      <div className="flex flex-wrap userContent__pins">
+                        {profile.pinnedItems.edges.map(({ node }) => (
+                          <div
+                            className="col-6 border-box userContent__pin"
+                            key={node.name}
+                          >
+                            <div className="userContent__pinInner">
+                              <p>
+                                <a href={node.url} target="_blank">
+                                  {node.name}
+                                </a>
+                              </p>
+                              <p>{node.description}</p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
-              <div className="overflow_contributions">
-                Contribution calendar
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </Card>
+                <Card className="overflow_contributions">
+                  Contribution calendar
+                </Card>
               </div>
             </div>
           </div>

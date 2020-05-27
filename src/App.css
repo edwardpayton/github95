@@ -108,8 +108,7 @@
   padding: 0.75rem;
 }
 .userContent__bodyInner {
-  height: calc(100% - 2rem);
-  padding: 1rem;
+  height: 100%;
   background-color: #fff;
   border: 1px inset;
 }
@@ -129,52 +128,55 @@
 /* User content overview */
 .overview {
 }
-.overview__header {
-  background-color: #95cabc;
-  padding: 0.5rem;
-  height: 70px;
+.overview__header,
+.overview__body {
+  padding: 2rem;
 }
-.overview__headerImage {
-  width: 70px;
-  height: 70px;
+.overview__header {
+  background-image: linear-gradient(
+      to right,
+      hsla(0, 0%, 100%, 0.55),
+      hsla(0, 0%, 100%, 0.55)
+    ),
+    linear-gradient(to right, #394dcd 50%, #8a96e1 50%),
+    linear-gradient(to bottom, #394dcd 50%, #8a96e1 50%);
+  background-blend-mode: normal, multiply, normal;
+  background-size: 2px 2px;
+}
+.overview__profile {
+  display: table;
+  min-width: 350px;
+  max-width: 500px;
+  margin: 1rem auto 0;
+}
+.overview__profileImage {
+  position: relative;
+  width: 110px;
+  height: 110px;
   border: 1px outset;
 }
-.overview__headerImage > img {
-  width: 70px;
-  height: 70px;
+.overview__profileImage > img {
+  width: 110px;
+  height: 110px;
   image-rendering: pixelated;
 }
-.overview__headerBio {
-  padding: 0.25rem 0.5rem;
-}
-.overview__subtitle {
+.overview__profileDetails {
   position: relative;
-  padding-left: 21px;
-  margin-left: 20px;
-}
-.overview__subtitle:before {
-  position: absolute;
-  content: "";
-  top: -4px;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  background: url("./assets/status.png") no-repeat 0 0;
-  background-size: contain;
+  padding: 0.25rem 0 0 2rem;
 }
 .overview__bioCopy {
   line-height: 1.7;
 }
 .overview__links {
-  width: 180px;
+  max-width: 300px;
+  margin-top: 2rem;
 }
 .overview__link.overview__link {
   padding-left: 25px;
+  margin-left: 1rem;
 }
-.overview__link:hover,
-.overview__link:active {
-  background-color: #ededed;
-  color: #394dcd;
+.overview__link:first-of-type {
+  margin-left: 0;
 }
 .overview__link:before {
   position: absolute;
@@ -193,16 +195,60 @@
   background-image: url("./assets/email-icon.png");
   left: 6px;
 }
+.overview__bio,
 .overview__badges {
-  margin-top: 0.75rem;
+  max-width: 500px;
+  margin: 2rem auto 0;
 }
-.overview__badge {
-  border: 2px outset hsla(0, 0%, 0%, 0.2);
+.overview__badge.overview__badge {
+  margin-left: 0;
   padding: 0.5rem;
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
   text-align: center;
 }
-
+.overview__statusWrapper {
+  display: table;
+  min-width: 200px;
+  max-width: 350px;
+  margin: 3rem auto 1.25rem;
+}
+.overview__statusTitle {
+  margin: 0 0 4px 2px;
+}
+.overview__status {
+  position: relative;
+  padding: 1rem;
+  padding-left: 35px;
+  border: 1px solid #c0c0c0;
+  background-color: #fff;
+}
+.overview__status:before {
+  position: absolute;
+  content: "";
+  top: 10px;
+  left: 10px;
+  width: 18px;
+  height: 18px;
+  background: url("./assets/status.png") no-repeat 0 0;
+  background-size: contain;
+}
+.overview__status:after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 15px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 15px 20px 0 0;
+  border-color: #fff transparent transparent transparent;
+}
+/*  */
+.overview__charts {
+}
+.overview__chart {
+  width: calc(50% - 0.5rem);
+}
 /* Scrollable sections 
 https://codepen.io/louh/pen/oZJQvm?editors=1100
 (no custom scroll bars for Firefox mac. This may work on FF windows but basic appearance -> https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars)
@@ -226,8 +272,8 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
       hsla(0, 0%, 75%, 0.85),
       hsla(0, 0%, 75%, 0.85)
     ),
-    linear-gradient(to right, black 50%, white 50%),
-    linear-gradient(to bottom, black 50%, white 50%);
+    linear-gradient(to right, #000 50%, #fff 50%),
+    linear-gradient(to bottom, #000 50%, #fff 50%);
   background-blend-mode: normal, difference, normal;
   background-size: 3px 3px;
 }
@@ -237,8 +283,8 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
       hsla(0, 0%, 75%, 0.5),
       hsla(0, 0%, 75%, 0.5)
     ),
-    linear-gradient(to right, black 50%, white 50%),
-    linear-gradient(to bottom, black 50%, white 50%);
+    linear-gradient(to right, #000 50%, #fff 50%),
+    linear-gradient(to bottom, #000 50%, #fff 50%);
   background-blend-mode: normal, difference, normal;
   background-size: 3px 3px;
 }
@@ -246,9 +292,9 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 .scrollable::-webkit-scrollbar-thumb {
   border-top: 1px solid #ced0cf;
   border-left: 1px solid #ced0cf;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  box-shadow: inset 1px 1px 0 0 white, inset -1px -1px 0 0 #868a8e;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  box-shadow: inset 1px 1px 0 0 #fff, inset -1px -1px 0 0 #868a8e;
   width: 16px;
   height: 16px;
   background-color: #ced0cf;
@@ -263,9 +309,9 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 .scrollable::-webkit-scrollbar-button {
   border-top: 1px solid #ced0cf;
   border-left: 1px solid #ced0cf;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  box-shadow: inset 1px 1px 0 0 white, inset -1px -1px 0 0 #868a8e;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  box-shadow: inset 1px 1px 0 0 #fff, inset -1px -1px 0 0 #868a8e;
   display: block;
   width: 16px;
   height: 16px;
@@ -327,8 +373,8 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
       hsla(0, 0%, 100%, 0.85),
       hsla(0, 0%, 100%, 0.85)
     ),
-    linear-gradient(to right, black 50%, white 50%),
-    linear-gradient(to bottom, black 50%, white 50%);
+    linear-gradient(to right, #000 50%, #fff 50%),
+    linear-gradient(to bottom, #000 50%, #fff 50%);
   background-blend-mode: normal, difference, normal;
   background-size: 3px 3px;
   border: 1px inset;
@@ -353,10 +399,25 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   font-size: 16px;
   text-align: center;
 }
+.anchorButton:hover,
+.anchorButton:active {
+  background-color: #ededed;
+  color: #394dcd;
+}
 .anchorButton:active {
   border-left-color: #050608;
   border-top-color: #050608;
   border-right-color: #ffffff;
   border-bottom-color: #ffffff;
   box-shadow: inset 1px 1px 0px 1px #888c8f, inset -1px -1px 0 1px #dfe0e3;
+}
+
+/* Card */
+.card {
+  position: relative;
+  color: #050608;
+  background-color: #fff;
+  border: 2px outset #c0c0c0;
+  box-shadow: inset 1px 1px 0px 1px #dfe0e3, inset -1px -1px 0 1px #888c8f;
+  padding: 1rem;
 }
