@@ -14,6 +14,7 @@ query UserDetails($username: String!) {
     bio
     status {
       message
+      updatedAt
     }
     location
     createdAt
@@ -121,7 +122,7 @@ query UserActivity($username: String!, $numRepos: Int!) {
 export const GET_USER_REPOS = `
 query UserRepos($username: String!, $cursor: String) {
   user(login: $username) {
-     repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10, after: $cursor) {
+    repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, last: 20, before: $cursor) {
       nodes {
         name
         description
@@ -131,6 +132,13 @@ query UserRepos($username: String!, $cursor: String) {
         primaryLanguage {
           name
           color
+        }
+        repositoryTopics(first: 10) {
+          nodes {
+            topic {
+              name
+            }
+          }
         }
       }
       pageInfo {
@@ -150,7 +158,7 @@ query UserRepos($username: String!, $cursor: String) {
  */
 export const GET_REPOS_FROM_SEARCH = `
 query RepoSearch($query: String!, $cursor: String) {
-  search(query: $query, type: REPOSITORY, first: 10, after: "") {
+  search(query: $query, type: REPOSITORY, last: 20, before: $cursor) {
     repositoryCount
     pageInfo {
       endCursor
