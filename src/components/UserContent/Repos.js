@@ -7,9 +7,9 @@ import {
   TableRow,
   TableHeadCell,
   TableDataCell,
-  Anchor,
   Hourglass,
 } from "react95";
+import AnchorButton from "../AnchorButton";
 
 import formatDate from "../../utilities/formatDate";
 
@@ -22,13 +22,16 @@ export default function Repos({ repos }) {
           <Table className="userRepos__table">
             <TableHead>
               <TableRow head>
-                <TableHeadCell className="userRepos__headCell">
+                <TableHeadCell className="userRepos__headCell -details">
                   Details
                 </TableHeadCell>
-                <TableHeadCell className="userRepos__headCell">
+                <TableHeadCell className="userRepos__headCell -language">
+                  Main language
+                </TableHeadCell>
+                <TableHeadCell className="userRepos__headCell -updated">
                   Updated
                 </TableHeadCell>
-                <TableHeadCell className="userRepos__headCell">
+                <TableHeadCell className="userRepos__headCell -link">
                   Link
                 </TableHeadCell>
               </TableRow>
@@ -50,17 +53,18 @@ export default function Repos({ repos }) {
                       {repositoryTopics.nodes.length > 0 && (
                         <div className="userRepos__badges">
                           {repositoryTopics.nodes.map(({ topic }) => (
-                            <div
-                              className="userRepos__badge"
+                            <p
+                              className="badge userRepos__badge"
                               key={name + topic.name}
                             >
                               {topic.name}
-                            </div>
+                            </p>
                           ))}
                         </div>
                       )}
-
-                      {primaryLanguage !== null && (
+                    </TableDataCell>
+                    <TableDataCell>
+                      {primaryLanguage !== null ? (
                         <p
                           className={`userRepos__badge -language -${primaryLanguage.name}`}
                         >
@@ -70,15 +74,17 @@ export default function Repos({ repos }) {
                           ></span>
                           {primaryLanguage.name}
                         </p>
+                      ) : (
+                        <p>-</p>
                       )}
                     </TableDataCell>
                     <TableDataCell className="userRepos__bodyCell">
                       {formatDate(updatedAt)}
                     </TableDataCell>
-                    <TableDataCell className="userRepos__bodyCell">
-                      <Anchor href={url} className="userRepos__repoLink">
+                    <TableDataCell className="userRepos__bodyCell -link">
+                      <AnchorButton href={url} className="userRepos__repoLink">
                         Go to repo
-                      </Anchor>
+                      </AnchorButton>
                     </TableDataCell>
                   </TableRow>
                 )
