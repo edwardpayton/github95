@@ -109,33 +109,21 @@
 }
 .userContent__bodyInner {
   height: 100%;
-  background-color: #fff;
   border: 1px inset;
 }
 
 /* User content overview */
 .overview {
 }
-.overview__header,
-.overview__body {
-  padding: 2rem;
-}
+
 .overview__header {
-  background-image: linear-gradient(
-      to right,
-      hsla(0, 0%, 100%, 0.55),
-      hsla(0, 0%, 100%, 0.55)
-    ),
-    linear-gradient(to right, #394dcd 50%, #8a96e1 50%),
-    linear-gradient(to bottom, #394dcd 50%, #8a96e1 50%);
-  background-blend-mode: normal, multiply, normal;
-  background-size: 2px 2px;
+  padding: 2rem;
 }
 .overview__profile {
   display: table;
   min-width: 350px;
   max-width: 500px;
-  margin: 1rem auto 0;
+  margin: auto;
 }
 .overview__profileImage {
   position: relative;
@@ -148,9 +136,18 @@
   height: 110px;
   image-rendering: pixelated;
 }
+.overview__title {
+}
+.overview__url {
+  margin-top: 0.5rem;
+}
 .overview__profileDetails {
   position: relative;
   padding: 0.25rem 0 0 2rem;
+}
+.overview__bio {
+  max-width: 500px;
+  margin-top: 1.5rem;
 }
 .overview__bioCopy {
   line-height: 1.7;
@@ -183,7 +180,7 @@
   background-image: url("./assets/email-icon.png");
   left: 6px;
 }
-.overview__bio,
+
 .overview__badges {
   max-width: 500px;
   margin: 2rem auto 0;
@@ -194,61 +191,153 @@
   margin-right: 0.75rem;
   text-align: center;
 }
+.overview__badge.overview__badge:last-of-type {
+  margin-right: 0;
+}
 .overview__statusWrapper {
   display: table;
-  min-width: 200px;
+  min-width: 150px;
   max-width: 350px;
-  margin: 3rem auto 1.25rem;
+  margin: 2rem auto 0rem;
 }
-.overview__statusTitle {
-  margin: 0 0 4px 2px;
-}
+
 .overview__status {
   position: relative;
-  padding: 1rem;
-  padding-left: 35px;
+  padding: 1rem 1rem 2rem;
   border: 1px solid #c0c0c0;
   background-color: #fff;
-}
-.overview__status:before {
-  position: absolute;
-  content: "";
-  top: 10px;
-  left: 10px;
-  width: 18px;
-  height: 18px;
-  background: url("./assets/status.png") no-repeat 0 0;
-  background-size: contain;
 }
 .overview__status:after {
   position: absolute;
   content: "";
   top: 100%;
-  left: 15px;
+  left: calc(50% - 30px);
   width: 0;
   height: 0;
   border-style: solid;
   border-width: 15px 20px 0 0;
   border-color: #fff transparent transparent transparent;
 }
-/*  */
-.overview__charts {
+.overview__status > span {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.75rem;
+  color: #8a96e1;
+  font-size: 7px !important;
 }
-.overview__chart,
+overview__statusTitle {
+}
+.overview__statusTitle > p {
+  position: relative;
+  display: table;
+  padding-left: 27px !important;
+  margin: 1.5rem auto 0 !important;
+}
+.overview__statusTitle > p:before {
+  position: absolute;
+  content: "";
+  top: 3px;
+  left: 5px;
+  width: 18px;
+  height: 18px;
+  background: url("./assets/status.png") no-repeat 0 0;
+  background-size: contain;
+}
+/*  */
+.overview__body {
+  padding: 1rem;
+}
+.overview__charts {
+  margin-top: 1rem;
+}
+.overview__chartWrapper {
+  width: calc(50% - 0.75rem);
+}
+.overview__chart {
+  background-color: #fff;
+}
 .overview__pins,
 .overflow_contributions {
   margin-top: 2rem;
-}
-.overview__chart {
-  width: calc(50% - 0.5rem);
 }
 .overview__pin {
   padding: 0.5rem;
 }
 .overview__pinInner {
-  border: 2px outset;
   padding: 0.5rem;
 }
+.overflow_contributions {
+}
+.overflow_contributionsTable {
+  background-color: #fff;
+}
+/*  */
+.overview__footer {
+  margin-top: 1rem;
+  padding: 2rem;
+}
+
+/* User repos */
+.userRepos {
+}
+.userRepos__table {
+}
+
+.userRepos__table tr:hover {
+  background-color: #c9d0ff;
+  background-image: linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.55) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.55) 75%,
+      hsla(0, 0%, 100%, 0.55)
+    ),
+    linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.55) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.55) 75%,
+      hsla(0, 0%, 100%, 0.55)
+    );
+  background-size: 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
+  color: #000;
+}
+.userRepos__headCell {
+  position: sticky;
+  top: 2px;
+  z-index: 10;
+}
+.userRepos__headCell:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  box-shadow: 0px 0px 0px 2px #000;
+}
+.userRepos__bodyCell.userRepos__bodyCell {
+  padding: 1rem;
+}
+.userRepos__badge.-language {
+  position: relative;
+  font-size: 8px !important;
+  line-height: 2;
+  padding: 3px 5px 3px 26px;
+}
+.userRepos__badge.-language > span {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  left: -5px;
+  top: 0;
+}
+
 /* Scrollable sections 
 https://codepen.io/louh/pen/oZJQvm?editors=1100
 (no custom scroll bars for Firefox mac. This may work on FF windows but basic appearance -> https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars)
@@ -267,26 +356,29 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 }
 
 .scrollable::-webkit-scrollbar-track {
+  border-left: 1px solid #cfd0cf;
+  background-color: #9a9a9a;
   background-image: linear-gradient(
-      to right,
-      hsla(0, 0%, 75%, 0.85),
-      hsla(0, 0%, 75%, 0.85)
+      45deg,
+      #cfd0cf 25%,
+      transparent 25%,
+      transparent 75%,
+      #cfd0cf 75%,
+      #cfd0cf
     ),
-    linear-gradient(to right, #000 50%, #fff 50%),
-    linear-gradient(to bottom, #000 50%, #fff 50%);
-  background-blend-mode: normal, difference, normal;
+    linear-gradient(
+      45deg,
+      #cfd0cf 25%,
+      transparent 25%,
+      transparent 75%,
+      #cfd0cf 75%,
+      #cfd0cf
+    );
   background-size: 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
 }
 .scrollable::-webkit-scrollbar-track:active {
-  background-image: linear-gradient(
-      to right,
-      hsla(0, 0%, 75%, 0.5),
-      hsla(0, 0%, 75%, 0.5)
-    ),
-    linear-gradient(to right, #000 50%, #fff 50%),
-    linear-gradient(to bottom, #000 50%, #fff 50%);
-  background-blend-mode: normal, difference, normal;
-  background-size: 3px 3px;
+  background-color: #606060;
 }
 
 .scrollable::-webkit-scrollbar-thumb {
@@ -368,16 +460,35 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   margin-left: 5px;
   font-size: 8px !important;
   line-height: 8px;
-  background-image: linear-gradient(
-      to right,
-      hsla(0, 0%, 100%, 0.85),
-      hsla(0, 0%, 100%, 0.85)
-    ),
-    linear-gradient(to right, #000 50%, #fff 50%),
-    linear-gradient(to bottom, #000 50%, #fff 50%);
-  background-blend-mode: normal, difference, normal;
-  background-size: 3px 3px;
   border: 1px inset;
+  background-color: #b4decb;
+  background-image: linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.9) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.9) 75%,
+      hsla(0, 0%, 100%, 0.9)
+    ),
+    linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.9) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.9) 75%,
+      hsla(0, 0%, 100%, 0.9)
+    );
+  background-size: 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
+}
+.badge.-red {
+  background-color: #f7c4c4;
+}
+.badge.-grey {
+  background-color: #e2e2e2;
+}
+.badge.-blue {
+  background-color: #c9d0ff;
 }
 
 /* Anchor button (styles copied & amended from react95) */
@@ -416,8 +527,63 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 .card {
   position: relative;
   color: #050608;
-  background-color: #fff;
+  background-color: #ced0cf;
   border: 2px outset #c0c0c0;
   box-shadow: inset 1px 1px 0px 1px #dfe0e3, inset -1px -1px 0 1px #888c8f;
   padding: 1rem;
+}
+.card.-bgWhite {
+  background-color: #fff;
+}
+
+/* Atomic styles */
+.bevelBorder {
+  border: 2px outset;
+}
+.bevelBorder-inset {
+  border: 2px inset;
+}
+
+.bgBlue {
+  background-color: #394dcd;
+  background-image: linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.55) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.55) 75%,
+      hsla(0, 0%, 100%, 0.55)
+    ),
+    linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.55) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.55) 75%,
+      hsla(0, 0%, 100%, 0.55)
+    );
+  background-size: 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
+}
+
+.bgGrey {
+  background-color: #e2e2e2;
+  background-image: linear-gradient(
+      45deg,
+      #ececec 25%,
+      transparent 25%,
+      transparent 75%,
+      #ececec 75%,
+      #ececec
+    ),
+    linear-gradient(
+      45deg,
+      #ececec 25%,
+      transparent 25%,
+      transparent 75%,
+      #ececec 75%,
+      #ececec
+    );
+  background-size: 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
 }

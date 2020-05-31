@@ -9,12 +9,18 @@ import UserContent from "./UserContent";
 
 import useGithubApi from "../githubApi";
 
+// import formatApiContributions from "../utilities/formatApiContributions";
+
 export default function UserWindow() {
   const user = useRecoilValue(userData);
   const activity = useRecoilValue(userActivity);
   const searchInputValue = useRecoilValue(searchInput);
 
-  const [isLoading, hasErrored, { getUserProfile }] = useGithubApi();
+  const [
+    isLoading,
+    hasErrored,
+    { getUserProfile, getUserRepos },
+  ] = useGithubApi();
 
   React.useEffect(() => {
     if (searchInputValue.length) {
@@ -23,9 +29,9 @@ export default function UserWindow() {
   }, [searchInputValue]);
 
   const handleTabChange = (activeTab) => {
-    // if (activeTab === 2 && !user.repos.length) {
-    //   getRepos();
-    // }
+    if (activeTab === 1 && !user.repos.length) {
+      getUserRepos();
+    }
   };
 
   const windowContent = () => {
@@ -45,6 +51,9 @@ export default function UserWindow() {
       return (
         <UserContent
           profile={user.profile}
+          repos={user.repos}
+          //contributions={formatApiContributions(user.activity.contributions)}
+          contributions={undefined}
           activity={activity}
           onTabChange={handleTabChange}
         />
