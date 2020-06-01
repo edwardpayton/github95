@@ -2,8 +2,13 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import { userData, searchInput } from "../store";
-import reducer from "./reducer";
-import { apiGetUserProfile, apiGetUserActivity, apiGetUserRepos } from "./api";
+import {
+  apiGetUserProfile,
+  apiGetUserActivity,
+  apiGetUserRepos,
+  apiGetUserStars,
+  apiGetUserFollows,
+} from "./api";
 
 /**
  * useGithubApi hook
@@ -11,41 +16,37 @@ import { apiGetUserProfile, apiGetUserActivity, apiGetUserRepos } from "./api";
  * example: const { userProfile, userRepos } = useGithubApi();
  */
 export default function useGithubApi() {
-  const [{ hasData, isLoading, hasErrored }, dispatch] = reducer();
+  const firstCallRef = React.useRef(false);
   const [user, setUser] = useRecoilState(userData);
   const searchInputValue = useRecoilValue(searchInput);
 
   const getUserActivity = React.useCallback(async () => {
-    dispatch({ type: "LOADING" });
     const activity = await apiGetUserActivity(
       searchInputValue,
       user.profile.repositories.totalCount
     );
     if (activity instanceof Error) {
-      dispatch({ type: "ERROR" });
       console.error("ERROR", activity); // TODO
     }
 
     let newUserData = { ...user, activity };
     setUser(newUserData);
-    dispatch({ type: "SUCCESS" });
   }, [searchInputValue, user, setUser]);
 
   React.useEffect(() => {
-    if (hasData) getUserActivity();
-  }, [hasData]);
+    // TODO this logic doesnt work. doesnt trigger on username change
+    if (firstCallRef.current) getUserActivity();
+  }, [firstCallRef.current]);
 
   const getUserProfile = React.useCallback(async () => {
-    dispatch({ type: "LOADING" });
     const profile = await apiGetUserProfile(searchInputValue);
     if (profile instanceof Error) {
-      dispatch({ type: "ERROR" });
       console.error("ERROR", profile); // TODO
     }
 
     let newUserData = { ...user, profile };
     setUser(newUserData);
-    dispatch({ type: "SUCCESS" });
+    firstCallRef.current = true;
   }, [searchInputValue, user, setUser]);
 
   const getUserRepos = React.useCallback(async () => {
@@ -54,12 +55,26 @@ export default function useGithubApi() {
     setUser(newUserData);
   }, [user, setUser]);
 
-  return [
-    isLoading,
-    hasErrored,
-    {
-      getUserProfile,
-      getUserRepos,
-    },
-  ];
+  const getUserStars = React.useCallback(async () => {
+    const result = await apiGetUserStars(user.profile["login"]);
+    const newUserData = { ...user, stars: result };
+    setUser(newUserData);
+  }, [user, setUser]);
+
+  const getUserFollows = React.useCallback(async () => {
+    const result = await apiGetUserFollows(user.profile["login"]);
+    const newUserData = {
+      ...user,
+      followers: result["followers"],
+      following: result["following"],
+    };
+    setUser(newUserData);
+  }, [user, setUser]);
+
+  return {
+    getUserProfile,
+    getUserRepos,
+    getUserStars,
+    getUserFollows,
+  };
 }

@@ -5,12 +5,17 @@ import { Tabs, Tab, TabBody } from "react95";
 import Overview from "./Overview";
 import Repos from "./Repos";
 import Stars from "./Stars";
+import Followers from "./Followers";
+import Following from "./Following";
 
 export default function UserContent({
   profile,
-  repos,
   contributions,
   activity,
+  repos,
+  stars,
+  followers,
+  following,
   onTabChange,
 }) {
   const [activeTab, setActiveTab] = React.useState(0);
@@ -87,7 +92,7 @@ export default function UserContent({
         style={{ display: activeTab === 2 ? "block" : "none" }}
       >
         <div className="userContent__bodyInner scrollable -yOnly">
-          <Stars repos={[]} />
+          <Stars stars={stars} />
         </div>
       </TabBody>
 
@@ -96,7 +101,7 @@ export default function UserContent({
         style={{ display: activeTab === 3 ? "block" : "none" }}
       >
         <div className="userContent__bodyInner scrollable -yOnly">
-          Followers
+          <Followers followers={followers} />
         </div>
       </TabBody>
 
@@ -105,7 +110,7 @@ export default function UserContent({
         style={{ display: activeTab === 4 ? "block" : "none" }}
       >
         <div className="userContent__bodyInner scrollable -yOnly">
-          Following
+          <Following following={following} />
         </div>
       </TabBody>
     </div>

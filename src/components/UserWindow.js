@@ -16,11 +16,12 @@ export default function UserWindow() {
   const activity = useRecoilValue(userActivity);
   const searchInputValue = useRecoilValue(searchInput);
 
-  const [
-    isLoading,
-    hasErrored,
-    { getUserProfile, getUserRepos, getUserStars },
-  ] = useGithubApi();
+  const {
+    getUserProfile,
+    getUserRepos,
+    getUserStars,
+    getUserFollows,
+  } = useGithubApi();
 
   React.useEffect(() => {
     if (searchInputValue.length) {
@@ -35,10 +36,16 @@ export default function UserWindow() {
     if (activeTab === 2 && !user.stars.length) {
       getUserStars();
     }
+    if (
+      (activeTab === 3 && !user.followers.length) ||
+      (activeTab === 4 && !user.following.length)
+    ) {
+      getUserFollows();
+    }
   };
 
   const windowContent = () => {
-    if (isLoading && !user.profile.name)
+    if (!user.profile.name)
       return (
         <div
           className="flex justify-center items-center"
@@ -48,16 +55,18 @@ export default function UserWindow() {
           <p>&nbsp;Finding user...</p>
         </div>
       );
-    if (!isLoading && user.profile.error === "Not found")
-      return <p>not found</p>;
+    if (user.profile.error === "Not found") return <p>not found</p>;
     if (user.profile.name) {
       return (
         <UserContent
           profile={user.profile}
-          repos={user.repos}
           //contributions={formatApiContributions(user.activity.contributions)}
           contributions={undefined}
           activity={activity}
+          repos={user.repos}
+          stars={user.stars}
+          followers={user.followers}
+          following={user.following}
           onTabChange={handleTabChange}
         />
       );

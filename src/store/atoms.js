@@ -22,7 +22,9 @@ export const userData = atom({
     profile: {},
     activity: {},
     repos: [],
-    gists: [],
+    stars: [],
+    followers: [],
+    following: [],
   },
 });
 

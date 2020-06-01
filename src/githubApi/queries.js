@@ -1,6 +1,6 @@
 /**
  * get Github user details
- * returns user details, pins, total repos & gists, first 10 repos
+ * returns user details, pins, total repos, gists, & stars, first 10 repos
  * $username - string - the user name
  *
  */
@@ -170,6 +170,7 @@ query UserStars($username: String!, $cursor: String) {
         description
         primaryLanguage {
           name
+          color
         }
         updatedAt
       }
@@ -186,7 +187,7 @@ query UserStars($username: String!, $cursor: String) {
  *
  */
 export const GET_USER_FOLLOWS = `
-($username: String!, $cursor: String) {
+query UserFollows($username: String!, $cursor: String) {
   user(login: $username) {
     followers(first: 20, after: $cursor) {
       totalCount
@@ -194,12 +195,24 @@ export const GET_USER_FOLLOWS = `
         endCursor
         hasPreviousPage
       }
+      nodes {
+        name
+        avatarUrl(size: 10)
+        login
+        url
+      }
     }
     following(first: 20, after: $cursor) {
       totalCount
       pageInfo {
         endCursor
         hasPreviousPage
+      }
+      nodes {
+        avatarUrl(size: 10)
+        name
+        login
+        url
       }
     }
   }
