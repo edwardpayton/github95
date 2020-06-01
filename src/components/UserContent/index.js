@@ -4,6 +4,7 @@ import { Tabs, Tab, TabBody } from "react95";
 
 import Overview from "./Overview";
 import Repos from "./Repos";
+import Stars from "./Stars";
 
 export default function UserContent({
   profile,
@@ -32,16 +33,33 @@ export default function UserContent({
         <Tab value={1} className="userContent__tab">
           <p>
             Repositories
-            <span className="badge -blue">
+            <span className={`badge ${activeTab === 1 ? "-blue" : "-grey"}`}>
               {profile.repositories && profile.repositories.totalCount}
             </span>
           </p>
         </Tab>
         <Tab value={2} className="userContent__tab">
           <p>
-            Gists
-            <span className="badge -blue">
-              {profile.gists && profile.gists.totalCount}
+            Stars
+            <span className={`badge ${activeTab === 2 ? "-blue" : "-grey"}`}>
+              {profile.starredRepositories &&
+                profile.starredRepositories.totalCount}
+            </span>
+          </p>
+        </Tab>
+        <Tab value={3} className="userContent__tab">
+          <p>
+            Followers
+            <span className={`badge ${activeTab === 3 ? "-blue" : "-grey"}`}>
+              {profile.followers && profile.followers.totalCount}
+            </span>
+          </p>
+        </Tab>
+        <Tab value={4} className="userContent__tab">
+          <p>
+            Following
+            <span className={`badge ${activeTab === 4 ? "-blue" : "-grey"}`}>
+              {profile.following && profile.following.totalCount}
             </span>
           </p>
         </Tab>
@@ -68,7 +86,27 @@ export default function UserContent({
         className="userContent__body"
         style={{ display: activeTab === 2 ? "block" : "none" }}
       >
-        <div className="userContent__bodyInner scrollable -yOnly">Gists</div>
+        <div className="userContent__bodyInner scrollable -yOnly">
+          <Stars repos={[]} />
+        </div>
+      </TabBody>
+
+      <TabBody
+        className="userContent__body"
+        style={{ display: activeTab === 3 ? "block" : "none" }}
+      >
+        <div className="userContent__bodyInner scrollable -yOnly">
+          Followers
+        </div>
+      </TabBody>
+
+      <TabBody
+        className="userContent__body"
+        style={{ display: activeTab === 4 ? "block" : "none" }}
+      >
+        <div className="userContent__bodyInner scrollable -yOnly">
+          Following
+        </div>
       </TabBody>
     </div>
   );

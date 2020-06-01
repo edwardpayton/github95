@@ -129,6 +129,7 @@ query UserRepos($username: String!, $cursor: String) {
         updatedAt
         url
         isPrivate
+        isFork
         primaryLanguage {
           name
           color
@@ -144,6 +145,61 @@ query UserRepos($username: String!, $cursor: String) {
       pageInfo {
         endCursor
         hasNextPage
+      }
+    }
+  }
+}
+`;
+
+/**
+ *
+ */
+export const GET_USER_STARS = `
+query UserStars($username: String!, $cursor: String) {
+  user(login: $username) {
+    starredRepositories(after: $cursor, orderBy: {field: STARRED_AT, direction: DESC}, first: 20) {
+      nodes {
+        name
+        stargazers {
+          totalCount
+        }
+        forks {
+          totalCount
+        }
+        url
+        description
+        primaryLanguage {
+          name
+        }
+        updatedAt
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+`;
+
+/**
+ *
+ */
+export const GET_USER_FOLLOWS = `
+($username: String!, $cursor: String) {
+  user(login: $username) {
+    followers(first: 20, after: $cursor) {
+      totalCount
+      pageInfo {
+        endCursor
+        hasPreviousPage
+      }
+    }
+    following(first: 20, after: $cursor) {
+      totalCount
+      pageInfo {
+        endCursor
+        hasPreviousPage
       }
     }
   }

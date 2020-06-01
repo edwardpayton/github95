@@ -7,29 +7,24 @@ import {
   TableRow,
   TableHeadCell,
   TableDataCell,
+  Anchor,
   Hourglass,
 } from "react95";
-import AnchorButton from "../AnchorButton";
 
 import formatDate from "../../utilities/formatDate";
 
-export default function Repos({ repos }) {
+export default function Stars({ stars }) {
   return (
     <div className="userContent__bodyInner scrollable -yOnly">
       <div className="userRepos">
-        <h3>Repositories</h3>
-        {repos && repos.length > 0 ? (
+        <h3>Stars</h3>
+        {stars && stars.length > 0 ? (
           <Table className="userRepos__table">
             <TableHead>
               <TableRow head>
-                <TableHeadCell className="userRepos__headCell -details">
-                  Details
-                </TableHeadCell>
+                <TableHeadCell>Details</TableHeadCell>
                 <TableHeadCell className="userRepos__headCell -language">
                   Main language
-                </TableHeadCell>
-                <TableHeadCell className="userRepos__headCell -updated">
-                  Updated
                 </TableHeadCell>
                 <TableHeadCell className="userRepos__headCell -link">
                   Link
@@ -37,35 +32,31 @@ export default function Repos({ repos }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {repos.map(
+              {stars.map(
                 ({
                   name,
-                  isFork,
                   description,
                   url,
                   updatedAt,
                   primaryLanguage,
-                  repositoryTopics,
+                  stargazers,
+                  forks,
                 }) => (
                   <TableRow key={name}>
-                    <TableDataCell className="userRepos__bodyCell">
-                      <p className="userRepos__repoName">
-                        {name}
-                        {isFork && <span className="badge -grey">Fork</span>}
-                      </p>
+                    <TableDataCell>
+                      <p className="userRepos__repoName">{name}</p>
                       <p className="userRepos__repoDesc">{description}</p>
-                      {repositoryTopics.nodes.length > 0 && (
-                        <div className="userRepos__badges">
-                          {repositoryTopics.nodes.map(({ topic }) => (
-                            <p
-                              className="badge userRepos__badge"
-                              key={name + topic.name}
-                            >
-                              {topic.name}
-                            </p>
-                          ))}
+                      <div className="userRepos__badges">
+                        <div className="badge userRepos__badge">
+                          Stars: {stargazers.totalCount || 0}
                         </div>
-                      )}
+                        <div className="badge userRepos__badge">
+                          Forks: {forks.totalCount || 0}
+                        </div>
+                        <div className="badge userRepos__badge">
+                          Updated: {formatDate(updatedAt)}
+                        </div>
+                      </div>
                     </TableDataCell>
                     <TableDataCell>
                       {primaryLanguage !== null ? (
@@ -82,13 +73,8 @@ export default function Repos({ repos }) {
                         <p>-</p>
                       )}
                     </TableDataCell>
-                    <TableDataCell className="userRepos__bodyCell">
-                      {formatDate(updatedAt)}
-                    </TableDataCell>
-                    <TableDataCell className="userRepos__bodyCell -link">
-                      <AnchorButton href={url} className="userRepos__repoLink">
-                        Go to repo
-                      </AnchorButton>
+                    <TableDataCell>
+                      <Anchor href={url}>Go to repo</Anchor>
                     </TableDataCell>
                   </TableRow>
                 )

@@ -160,6 +160,7 @@ export default function Overview({ profile, activity, contributions }) {
         </div>
         <div className="flex bgBlue overview__footer">
           <p>Data last updated on:</p>
+          <p>Save user to desktop</p>
         </div>
       </div>
     </div>

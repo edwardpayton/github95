@@ -1,4 +1,10 @@
-import { GET_USER_DETAILS, GET_USER_REPOS, GET_USER_ACTIVITY } from "./queries";
+import {
+  GET_USER_DETAILS,
+  GET_USER_REPOS,
+  GET_USER_ACTIVITY,
+  GET_USER_STARS,
+  GET_USER_FOLLOWS,
+} from "./queries";
 
 const gitHubAPIGraphQL = (body) =>
   fetch("https://api.github.com/graphql", {
@@ -82,6 +88,36 @@ export const apiGetUserRepos = async (username) => {
     json = json.data.user.repositories.nodes;
 
     return [...json];
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetUserStars = async (username) => {
+  try {
+    const resp = await gitHubAPIGraphQL({
+      query: GET_USER_STARS,
+      variables: { username, cursor: null },
+    });
+    let json = await resp.json();
+    json = json.data.user.starredRepositories.nodes;
+
+    return [...json];
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetUserFollows = async (username) => {
+  try {
+    const resp = await gitHubAPIGraphQL({
+      query: GET_USER_FOLLOWS,
+      variables: { username, cursor: null },
+    });
+    const json = await resp.json();
+    const followers = json.data.user.followers.nodes;
+    const following = json.data.user.following.nodes;
+    return { followers, following };
   } catch (error) {
     return new Error(error);
   }

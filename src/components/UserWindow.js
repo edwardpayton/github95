@@ -19,7 +19,7 @@ export default function UserWindow() {
   const [
     isLoading,
     hasErrored,
-    { getUserProfile, getUserRepos },
+    { getUserProfile, getUserRepos, getUserStars },
   ] = useGithubApi();
 
   React.useEffect(() => {
@@ -31,6 +31,9 @@ export default function UserWindow() {
   const handleTabChange = (activeTab) => {
     if (activeTab === 1 && !user.repos.length) {
       getUserRepos();
+    }
+    if (activeTab === 2 && !user.stars.length) {
+      getUserStars();
     }
   };
 
