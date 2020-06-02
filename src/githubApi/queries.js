@@ -19,7 +19,7 @@ query UserDetails($username: String!) {
     location
     createdAt
     updatedAt
-    avatarUrl(size: 100)
+    avatarUrl(size: 90)
     followers {
       totalCount
     }
@@ -197,7 +197,7 @@ query UserFollows($username: String!, $cursor: String) {
       }
       nodes {
         name
-        avatarUrl(size: 10)
+        avatarUrl(size: 40)
         login
         url
       }
@@ -209,7 +209,7 @@ query UserFollows($username: String!, $cursor: String) {
         hasPreviousPage
       }
       nodes {
-        avatarUrl(size: 10)
+        avatarUrl(size: 40)
         name
         login
         url

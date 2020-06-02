@@ -1,11 +1,15 @@
 import React from "react";
 import { TextField, Button } from "react95";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { searchInput } from "../store";
 
 export default function SearchInput() {
-  const setInput = useSetRecoilState(searchInput);
-  const [state, setState] = React.useState("edwardpayton");
+  const [input, setInput] = useRecoilState(searchInput);
+  const [state, setState] = React.useState(input);
+
+  React.useEffect(() => {
+    if (input !== state) setState(input);
+  }, [input]);
 
   const handleChange = ({ target }) => {
     setState(target.value.trim());

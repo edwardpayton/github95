@@ -10,10 +10,12 @@ import {
   apiGetUserFollows,
 } from "./api";
 
+import { USER_OBJ } from "../constants";
+
 /**
  * useGithubApi hook
- * returns userProfile & userRepos, functions to access the api data
- * example: const { userProfile, userRepos } = useGithubApi();
+ * returns getUserProfile, getUserRepos, getUserStars, & getUserFollows functions to access the api data
+ * example: const { userProfile, userRepos, getUserStars, getUserFollows } = useGithubApi();
  */
 export default function useGithubApi() {
   const firstCallRef = React.useRef(false);
@@ -44,7 +46,7 @@ export default function useGithubApi() {
       console.error("ERROR", profile); // TODO
     }
 
-    let newUserData = { ...user, profile };
+    let newUserData = { ...USER_OBJ, profile };
     setUser(newUserData);
     firstCallRef.current = true;
   }, [searchInputValue, user, setUser]);

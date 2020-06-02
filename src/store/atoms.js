@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { WINDOW_OBJ } from "../constants";
+import { WINDOW_OBJ, USER_OBJ } from "../constants";
 
 export const searchInput = atom({
   key: "searchInput",
@@ -18,14 +18,7 @@ export const menubarButtons = atom({
 
 export const userData = atom({
   key: "userData",
-  default: {
-    profile: {},
-    activity: {},
-    repos: [],
-    stars: [],
-    followers: [],
-    following: [],
-  },
+  default: USER_OBJ,
 });
 
 export const repos = atom({

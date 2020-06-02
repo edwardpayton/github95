@@ -15,6 +15,8 @@ export default function UserWindow() {
   const user = useRecoilValue(userData);
   const activity = useRecoilValue(userActivity);
   const searchInputValue = useRecoilValue(searchInput);
+  const refTabsList = React.useRef(new Set([]));
+  const [isLoading, setLoading] = React.useState(false);
 
   const {
     getUserProfile,
@@ -25,27 +27,40 @@ export default function UserWindow() {
 
   React.useEffect(() => {
     if (searchInputValue.length) {
+      setLoading(true);
       getUserProfile();
+      refTabsList.current.clear();
     }
   }, [searchInputValue]);
 
+  React.useEffect(() => {
+    if (user.profile.login || user.profile.error) setLoading(false);
+  }, [user]);
+
   const handleTabChange = (activeTab) => {
-    if (activeTab === 1 && !user.repos.length) {
-      getUserRepos();
-    }
-    if (activeTab === 2 && !user.stars.length) {
-      getUserStars();
-    }
-    if (
-      (activeTab === 3 && !user.followers.length) ||
-      (activeTab === 4 && !user.following.length)
-    ) {
-      getUserFollows();
+    if (refTabsList.current.has(activeTab) || activeTab === 0) return;
+
+    switch (activeTab) {
+      case 1: {
+        refTabsList.current.add(1);
+        return getUserRepos();
+      }
+      case 2: {
+        refTabsList.current.add(2);
+        return getUserStars();
+      }
+      case 3:
+      case 4: {
+        refTabsList.current.add(3).add(4);
+        return getUserFollows();
+      }
+      default:
+        return;
     }
   };
 
   const windowContent = () => {
-    if (!user.profile.name)
+    if (isLoading)
       return (
         <div
           className="flex justify-center items-center"
@@ -55,8 +70,9 @@ export default function UserWindow() {
           <p>&nbsp;Finding user...</p>
         </div>
       );
-    if (user.profile.error === "Not found") return <p>not found</p>;
-    if (user.profile.name) {
+    if (!isLoading && user.profile.error === "Not found")
+      return <p>not found</p>;
+    if (!isLoading && user.profile.login)
       return (
         <UserContent
           profile={user.profile}
@@ -70,7 +86,6 @@ export default function UserWindow() {
           onTabChange={handleTabChange}
         />
       );
-    }
     return (
       <div
         className="flex justify-center items-center"

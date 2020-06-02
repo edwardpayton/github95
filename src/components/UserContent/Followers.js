@@ -1,9 +1,59 @@
 import React from "react";
+import PropTypes from "prop-types";
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableDataCell,
+  Anchor,
+  Button,
+} from "react95";
+import { useSetRecoilState } from "recoil";
+import { searchInput } from "../../store";
 
 export default function Followers({ followers }) {
-  console.log(
-    "~/Sites/github95/src/components/UserContent/Followers >>>",
-    followers
+  const setSearch = useSetRecoilState(searchInput);
+
+  const handleClick = (login) => () => {
+    setSearch(login);
+  };
+
+  return (
+    <div className="userFollowers">
+      <h3>Followers</h3>
+      {followers && followers.length > 0 ? (
+        <Table className="table userFollows__table">
+          <TableBody>
+            {followers.map(({ name, avatarUrl, login, url }) => (
+              <TableRow key={name + login}>
+                <TableDataCell className="flex userFollows__cell -details">
+                  <img
+                    src={avatarUrl}
+                    alt=""
+                    className="bevelBorder userFollows__avatar"
+                  />
+                  <div className="userFollows__details">
+                    <p className="userFollows__name">{name || "-"}</p>
+                    <p className="badge -grey userFollows__login">{login}</p>
+                    <Anchor
+                      href={url}
+                      className="userFollows__link"
+                      target="_blank"
+                    >
+                      {url}
+                    </Anchor>
+                  </div>
+                </TableDataCell>
+                <TableDataCell className="userFollows__cell -link">
+                  <Button onClick={handleClick(login)}>Open profile</Button>
+                </TableDataCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <p>TODO</p>
+      )}
+    </div>
   );
-  return <p>Followers</p>;
 }

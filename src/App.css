@@ -282,55 +282,10 @@ overview__statusTitle {
 }
 .userRepos__table {
 }
-.userRepos__table > tbody > tr > td {
-  background-color: #fff;
-  background-image: linear-gradient(
-      45deg,
-      hsla(0, 0%, 100%, 0.55) 25%,
-      transparent 25%,
-      transparent 75%,
-      hsla(0, 0%, 100%, 0.55) 75%,
-      hsla(0, 0%, 100%, 0.55)
-    ),
-    linear-gradient(
-      45deg,
-      hsla(0, 0%, 100%, 0.55) 25%,
-      transparent 25%,
-      transparent 75%,
-      hsla(0, 0%, 100%, 0.55) 75%,
-      hsla(0, 0%, 100%, 0.55)
-    );
-  background-size: 3px 3px;
-  background-position: 0 0, 1.5px 1.5px;
-}
-.userRepos__table > tbody > tr:nth-of-type(even) > td {
-  background-color: #ededed;
-}
-.userRepos__table > tbody > tr:hover > td {
-  background-color: #c9d0ff;
-  color: #000;
-}
-.userRepos__headCell {
-  position: sticky;
-  top: 2px;
-  z-index: 10;
-}
-.userRepos__headCell:before {
-  position: absolute;
-  content: "";
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: -1;
-  box-shadow: 0px 0px 0px 2px #000;
-}
 .userRepos__headCell.-language,
+.userRepos__headCell.-updated,
 .userRepos__headCell.-link {
-  width: 90px;
-}
-.userRepos__bodyCell.userRepos__bodyCell {
-  padding: 1rem;
+  width: 100px;
 }
 .userRepos__bodyCell.userRepos__bodyCell.-link {
   padding-left: 0.5rem;
@@ -359,6 +314,33 @@ overview__statusTitle {
 }
 .userRepos__badges .userRepos__badge:first-of-type {
   margin-left: 0;
+}
+/* User followers & following */
+.userFollows__cell {
+}
+.userFollows__cell.-link {
+  width: 100px;
+}
+.userFollows__cell.-link > a {
+  vertical-align: middle;
+}
+.userFollows__avatar {
+  width: 60px;
+  height: 60px;
+  image-rendering: pixelated;
+}
+.userFollows__details {
+  padding-left: 1rem;
+}
+.userFollows__name {
+  font-size: 14px !important;
+}
+.userFollows__login.userFollows__login {
+  margin-left: 0;
+}
+.userFollows__link {
+  display: inline-block;
+  margin-left: 0.5rem;
 }
 
 /* Scrollable sections 
@@ -479,6 +461,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 
 /* Badge */
 .badge {
+  display: inline-block;
   padding: 3px 5px;
   margin-left: 5px;
   font-size: 8px !important;
@@ -608,4 +591,51 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
     );
   background-size: 3px 3px;
   background-position: 0 0, 1.5px 1.5px;
+}
+
+/* Tables */
+.table > thead > tr > th {
+  position: sticky;
+  top: 2px;
+  z-index: 10;
+}
+.table > thead > tr > th:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  box-shadow: 0px 0px 0px 2px #000;
+}
+.table > tbody > tr > td {
+  background-color: #fff;
+  background-image: linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.55) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.55) 75%,
+      hsla(0, 0%, 100%, 0.55)
+    ),
+    linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.55) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.55) 75%,
+      hsla(0, 0%, 100%, 0.55)
+    );
+  background-size: 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
+  padding: 1rem;
+  vertical-align: middle;
+}
+.table > tbody > tr:nth-of-type(even) > td {
+  background-color: #ededed;
+}
+.table > tbody > tr:hover > td {
+  background-color: #c9d0ff;
+  color: #000;
 }

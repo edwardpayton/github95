@@ -117,6 +117,7 @@ export const apiGetUserFollows = async (username) => {
     const json = await resp.json();
     const followers = json.data.user.followers.nodes;
     const following = json.data.user.following.nodes;
+
     return { followers, following };
   } catch (error) {
     return new Error(error);

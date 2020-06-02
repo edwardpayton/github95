@@ -19,7 +19,7 @@ export default function Repos({ repos }) {
       <div className="userRepos">
         <h3>Repositories</h3>
         {repos && repos.length > 0 ? (
-          <Table className="userRepos__table">
+          <Table className="table userRepos__table">
             <TableHead>
               <TableRow head>
                 <TableHeadCell className="userRepos__headCell -details">

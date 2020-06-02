@@ -8,3 +8,12 @@ export const WINDOW_OBJ = {
   user: [true, true, true],
   repos: [false, false, false],
 };
+
+export const USER_OBJ = {
+  profile: {},
+  activity: {},
+  repos: [],
+  stars: [],
+  followers: [],
+  following: [],
+};
