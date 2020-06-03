@@ -148,10 +148,7 @@ export default function UserWindow() {
               </div>
             )}
             {!user.profile.login && !user.profile.error && (
-              <div
-                className="flex justify-center items-center"
-                style={{ minHeight: 100 }}
-              >
+              <div className="flex justify-center items-center userContent__intro">
                 <p>Search for a user</p>
               </div>
             )}
