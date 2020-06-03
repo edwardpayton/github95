@@ -3,8 +3,8 @@ import { useRecoilState } from "recoil";
 
 import WindowFrame from "./WindowFrame";
 import AboutWindow from "./AboutWindow";
-import UserWindow from "./UserWindow";
-import ReposWindow from "./ReposWindow";
+import UserWindow from "./UserWindow/";
+import ReposWindow from "./ReposWindow/";
 
 import { windowObj } from "../store";
 
@@ -42,7 +42,7 @@ export default function Windows() {
         onClickWindow={handleClickWindow}
         small={small}
       >
-        <ContentComp tuple={currentWindows[windowName]} />
+        <ContentComp />
       </WindowFrame>
     );
   });
