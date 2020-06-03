@@ -1,5 +1,12 @@
 import React from "react";
-import { Tooltip, Button } from "react95";
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableDataCell,
+  Button,
+  Hourglass,
+} from "react95";
 import { useRecoilState } from "recoil";
 
 import { userSearchInput, userSearchMatches } from "../../store";
@@ -11,6 +18,7 @@ import useGithubApi from "../../githubApi";
 export default function Search() {
   const [input, setInput] = useRecoilState(userSearchInput);
   const [matches, setMatches] = useRecoilState(userSearchMatches);
+  const refSearchCard = React.useRef(undefined);
 
   const { getUsersMatches, getUserProfile } = useGithubApi();
 
@@ -25,8 +33,23 @@ export default function Search() {
     getUserProfile(login);
   };
 
+  const handleClickOutside = ({ target }) => {
+    const clickedWithin = refSearchCard.current.contains(target);
+    if (!clickedWithin) {
+      setMatches([]);
+    }
+  };
+
+  React.useEffect(() => {
+    if (matches.length > 0) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
+  }, [matches]);
+
   return (
-    <div className="card -bgWhite userSearch">
+    <div className="card userSearch" ref={refSearchCard}>
       <SearchInput
         labelText="Username"
         placeholder="eg: edwardpayton"
@@ -35,18 +58,27 @@ export default function Search() {
         className="userSearch__input"
       />
       {matches.length > 0 && (
-        <div className="userSearch__matches">
-          {matches.map((match) => (
-            <Tooltip text={match.login} delay={0}>
-              <Button onClick={handleClickMatch(match.login)}>
-                {match.name}
-              </Button>
-            </Tooltip>
-          ))}
-          <p className="userSearch__footer">
-            Haven't found who you're looking for?
-            <br /> Try narrowing down your search.
-          </p>
+        <div className="scrollable -yOnly userSearch__matches">
+          <Table className="table">
+            <TableBody>
+              {matches.map((match) => (
+                <TableRow key={match.login}>
+                  <TableDataCell className="flex justify-between userSearch__match">
+                    <p>
+                      {match.name}
+                      <span className="userSearch__login">{match.login}</span>
+                    </p>
+                    <Button
+                      onClick={handleClickMatch(match.login)}
+                      className="userSearch__button"
+                    >
+                      Open profile
+                    </Button>
+                  </TableDataCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       )}
     </div>

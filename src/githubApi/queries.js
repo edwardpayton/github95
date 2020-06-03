@@ -3,7 +3,7 @@
  */
 export const GET_USER_SEARCH = `
 query UserSearch($username: String!) {
-  search(query: $username, type: USER, first: 10) {
+  search(query: $username, type: USER, first: 20) {
     nodes {
       ... on User {
         name
