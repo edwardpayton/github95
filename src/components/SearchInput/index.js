@@ -7,6 +7,7 @@ export default function SearchInput({
   labelText,
   placeholder,
   defaultValue,
+  className,
   onSearch,
 }) {
   const [state, setState] = React.useState(defaultValue);
@@ -31,7 +32,9 @@ export default function SearchInput({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-center searchInput__form"
+      className={`flex justify-center searchInput__form${
+        className && className.length && " " + className
+      }`}
     >
       <label
         htmlFor={"search_" + labelText.replace(/\s/g, "")}

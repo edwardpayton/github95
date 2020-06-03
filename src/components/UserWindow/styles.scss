@@ -1,10 +1,22 @@
-.userWindow__search {
-  align-items: center;
-  padding-bottom: 10px;
+.userSearch.userSearch {
+  position: relative;
+  width: 500px;
+  padding: 0.5rem;
+  z-index: 20;
 }
+.userSearch__matches {
+  padding-top: 0.5rem;
+}
+.userSearch__matches > p {
+  font-size: 14px !important;
+  padding: 0.5rem 0;
+}
+.userSearch__footer {
+}
+
 .userWindow__content {
   position: absolute;
-  top: 50px;
+  top: 60px;
   bottom: 0;
   left: 0;
   right: 0;

@@ -1,4 +1,20 @@
 /**
+ *
+ */
+export const GET_USER_SEARCH = `
+query UserSearch($username: String!) {
+  search(query: $username, type: USER, first: 10) {
+    nodes {
+      ... on User {
+        name
+        login
+      }
+    }
+  }
+}
+`;
+
+/**
  * get Github user details
  * returns user details, pins, total repos, gists, & stars, first 10 repos
  * $username - string - the user name

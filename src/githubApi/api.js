@@ -1,4 +1,5 @@
 import {
+  GET_USER_SEARCH,
   GET_USER_DETAILS,
   GET_USER_REPOS,
   GET_USER_ACTIVITY,
@@ -14,6 +15,21 @@ const gitHubAPIGraphQL = (body) =>
     },
     body: JSON.stringify(body),
   });
+
+export const apiGetUsersMatches = async (username) => {
+  try {
+    const resp = await gitHubAPIGraphQL({
+      query: GET_USER_SEARCH,
+      variables: { username },
+    });
+    let json = await resp.json();
+    json = json.data.search.nodes;
+
+    return [...json];
+  } catch (error) {
+    return new Error(error);
+  }
+};
 
 export const apiGetUserProfile = async (username) => {
   try {

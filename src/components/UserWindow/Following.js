@@ -8,10 +8,10 @@ import {
   Button,
 } from "react95";
 import { useSetRecoilState } from "recoil";
-import { searchInput } from "../../store";
+import { userSearchInput } from "../../store";
 
 export default function Following({ following }) {
-  const setSearch = useSetRecoilState(searchInput);
+  const setSearch = useSetRecoilState(userSearchInput);
 
   const handleClick = (login) => () => {
     setSearch(login);

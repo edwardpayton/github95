@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody, Hourglass } from "react95";
-import { useRecoilValue, useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 
-import { userData, userActivity, searchInput } from "../../store";
+import { userData, userActivity } from "../../store";
 
-import SearchInput from "../SearchInput";
+import Search from "./Search";
 import Overview from "./Overview";
 import Repos from "./Repos";
 import Stars from "./Stars";
@@ -19,33 +19,15 @@ import "./styles.scss";
 export default function UserWindow() {
   const user = useRecoilValue(userData);
   const activity = useRecoilValue(userActivity);
-  const [input, setInput] = useRecoilState(searchInput);
   const refTabsList = React.useRef(new Set([]));
   const [isSearching, setSearching] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(0);
 
-  const {
-    getUserProfile,
-    getUserRepos,
-    getUserStars,
-    getUserFollows,
-  } = useGithubApi();
-
-  React.useEffect(() => {
-    if (input.length) {
-      setSearching(true);
-      getUserProfile();
-      refTabsList.current.clear();
-    }
-  }, [input]);
+  const { getUserRepos, getUserStars, getUserFollows } = useGithubApi();
 
   React.useEffect(() => {
     if (user.profile.login || user.profile.error) setSearching(false);
   }, [user]);
-
-  const handleSearch = (value) => {
-    setInput(value);
-  };
 
   const handleChange = (value) => {
     setActiveTab(value);
@@ -76,13 +58,8 @@ export default function UserWindow() {
 
   return (
     <>
-      <div className="flex userWindow__search">
-        <SearchInput
-          labelText="Username"
-          placeholder="eg: edwardpayton"
-          defaultValue={input}
-          onSearch={handleSearch}
-        />
+      <div className="flex justify-center userWindow__search">
+        <Search />
       </div>
       <div className="userWindow__content">
         <div className="userContent">

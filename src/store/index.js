@@ -1,16 +1,18 @@
 import {
-  searchInput,
   windowObj,
   menubarButtons,
+  userSearchInput,
+  userSearchMatches,
   userData,
   repos,
 } from "./atoms";
 import { userActivity } from "./selectors";
 
 export {
-  searchInput,
   windowObj,
   menubarButtons,
+  userSearchInput,
+  userSearchMatches,
   userData,
   userActivity,
   repos,

@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { repos, searchInput } from "../../store";
+import { repos, userSearchInput } from "../../store";
 
 import SearchInput from "../SearchInput";
 
@@ -8,7 +8,7 @@ import useGithubApi from "../../githubApi";
 
 export default function AboutWindow() {
   const [repoList, setList] = useRecoilState(repos);
-  const searchInputValue = useRecoilValue(searchInput);
+  const searchInputValue = useRecoilValue(userSearchInput);
 
   return (
     <>
