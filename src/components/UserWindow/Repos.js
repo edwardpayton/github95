@@ -58,7 +58,7 @@ export default function Repos({ repos }) {
                         <div className="userRepos__badges">
                           {repositoryTopics.nodes.map(({ topic }) => (
                             <p
-                              className="badge userRepos__badge"
+                              className="badge -small userRepos__badge"
                               key={name + topic.name}
                             >
                               {topic.name}

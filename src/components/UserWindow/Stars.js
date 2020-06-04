@@ -46,13 +46,13 @@ export default function Stars({ stars }) {
                     <p className="userRepos__repoName">{name}</p>
                     <p className="userRepos__repoDesc">{description}</p>
                     <div className="userRepos__badges">
-                      <div className="badge userRepos__badge">
+                      <div className="badge -small userRepos__badge">
                         Stars: {stargazers.totalCount || 0}
                       </div>
-                      <div className="badge userRepos__badge">
+                      <div className="badge -small userRepos__badge">
                         Forks: {forks.totalCount || 0}
                       </div>
-                      <div className="badge userRepos__badge">
+                      <div className="badge -small userRepos__badge">
                         Updated: {formatDate(updatedAt)}
                       </div>
                     </div>

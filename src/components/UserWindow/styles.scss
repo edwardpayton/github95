@@ -110,7 +110,6 @@
 .overview__login.overview__login {
   position: relative;
   top: -4px;
-  padding: 0.5rem;
 }
 .overview__profileDetails {
   position: relative;
@@ -124,7 +123,7 @@
 }
 .overview__links {
   max-width: 300px;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 .overview__link.overview__link {
   padding-left: 27px;
@@ -157,7 +156,6 @@
 }
 .overview__badge.overview__badge {
   margin-left: 0;
-  padding: 0.5rem;
   margin-right: 0.75rem;
   text-align: center;
 }
@@ -291,9 +289,12 @@
 .userRepos__repoName {
   font-size: 14px !important;
 }
+.userRepos__repoName > .badge {
+  color: #000;
+}
 .userRepos__badges {
 }
-.userRepos__badge.userRepos__badge {
+.userRepos__badge.badge {
   color: #000;
 }
 .userRepos__badges .userRepos__badge:first-of-type {
@@ -322,7 +323,6 @@
 .userFollows__login.userFollows__login {
   position: relative;
   top: -3px;
-  padding: 0.5rem;
   color: #000;
 }
 .userFollows__link {

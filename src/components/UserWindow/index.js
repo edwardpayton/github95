@@ -86,7 +86,9 @@ export default function UserWindow() {
               <p>
                 Repositories
                 <span
-                  className={`badge ${activeTab === 1 ? "-blue" : "-grey"}`}
+                  className={`badge -small ${
+                    activeTab === 1 ? "-blue" : "-grey"
+                  }`}
                 >
                   {user.profile.repositories &&
                     formatBigNumber(user.profile.repositories.totalCount)}
@@ -97,7 +99,9 @@ export default function UserWindow() {
               <p>
                 Stars
                 <span
-                  className={`badge ${activeTab === 2 ? "-blue" : "-grey"}`}
+                  className={`badge -small ${
+                    activeTab === 2 ? "-blue" : "-grey"
+                  }`}
                 >
                   {user.profile.starredRepositories &&
                     formatBigNumber(
@@ -110,7 +114,9 @@ export default function UserWindow() {
               <p>
                 Followers
                 <span
-                  className={`badge ${activeTab === 3 ? "-blue" : "-grey"}`}
+                  className={`badge -small ${
+                    activeTab === 3 ? "-blue" : "-grey"
+                  }`}
                 >
                   {user.profile.followers &&
                     formatBigNumber(user.profile.followers.totalCount)}
@@ -121,7 +127,9 @@ export default function UserWindow() {
               <p>
                 Following
                 <span
-                  className={`badge ${activeTab === 4 ? "-blue" : "-grey"}`}
+                  className={`badge -small ${
+                    activeTab === 4 ? "-blue" : "-grey"
+                  }`}
                 >
                   {user.profile.following &&
                     formatBigNumber(user.profile.following.totalCount)}

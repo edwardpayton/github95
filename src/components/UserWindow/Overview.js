@@ -7,10 +7,31 @@ import HeatChart from "../HeatChart";
 import Card from "../Card";
 import AnchorButton from "../AnchorButton";
 
+import capitalize from "../../utilities/capitalize";
 import formatDate from "../../utilities/formatDate";
 import formatBigNumber from "../../utilities/formatBigNumber";
 
 export default function Overview({ profile, activity, contributions }) {
+  const pinList = () => {
+    const pinSet = new Set();
+    profile.pinnedItems.edges.forEach(
+      ({ node }) =>
+        node.primaryLanguage &&
+        node.primaryLanguage.name &&
+        pinSet.add(node.primaryLanguage.name)
+    );
+    const [last, ...remaining] = [...pinSet].reverse();
+    const pinStr = `${remaining.join(", ")} & ${last}`;
+    return pinStr;
+  };
+  const [pinNames, setPins] = React.useState(pinList);
+
+  React.useEffect(() => {
+    console.log(
+      "~/Sites/github95/src/components/UserWindow/Overview >>> reload pins"
+    );
+  }, [profile]);
+
   return (
     <div className="userContent__bodyInner scrollable -yOnly">
       <div className="overview">
@@ -116,49 +137,57 @@ export default function Overview({ profile, activity, contributions }) {
               <div className="bevelBorder overview__chart"></div>
             </div>
           </Card>
-          <Card className="overview__card">
-            {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
-              <>
-                <h3 className="mb2">Pins</h3>
-                <div className="flex flex-wrap overview__pins">
-                  {profile.pinnedItems.edges.map(({ node }) => (
-                    <div
-                      className="border-box bevelBorder gradientBorder overview__pin"
-                      key={node.name}
-                    >
-                      <div className="overview__pinInner">
-                        <p>
-                          <Anchor
-                            href={node.url}
-                            target="_blank"
-                            className="overview__pinName"
-                          >
-                            {node.name}
-                          </Anchor>
+
+          {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
+            <Card className="overview__card">
+              <h3 className="mb2">Pinned repositories</h3>
+              <p>
+                <span className="badge -grey">{capitalize(profile.login)}</span>{" "}
+                is showcasing {profile.pinnedItems.edges.length}{" "}
+                {profile.pinnedItems.edges.length === 1
+                  ? "repository"
+                  : "repositories"}{" "}
+                demonstrating a talent using {pinNames}
+              </p>
+              <div className="flex flex-wrap overview__pins">
+                {profile.pinnedItems.edges.map(({ node }) => (
+                  <div
+                    className="border-box bevelBorder gradientBorder overview__pin"
+                    key={node.name}
+                  >
+                    <div className="overview__pinInner">
+                      <p>
+                        <Anchor
+                          href={node.url}
+                          target="_blank"
+                          className="overview__pinName"
+                        >
+                          {node.name}
+                        </Anchor>
+                      </p>
+                      <p className="overview__pinDesc">{node.description}</p>
+                      {node.primaryLanguage !== null ? (
+                        <p
+                          className={`userRepos__badge -language -${node.primaryLanguage.name}`}
+                        >
+                          <span
+                            className="badge"
+                            style={{
+                              backgroundColor: node.primaryLanguage.color,
+                            }}
+                          ></span>
+                          {node.primaryLanguage.name}
                         </p>
-                        <p className="overview__pinDesc">{node.description}</p>
-                        {node.primaryLanguage !== null ? (
-                          <p
-                            className={`userRepos__badge -language -${node.primaryLanguage.name}`}
-                          >
-                            <span
-                              className="badge"
-                              style={{
-                                backgroundColor: node.primaryLanguage.color,
-                              }}
-                            ></span>
-                            {node.primaryLanguage.name}
-                          </p>
-                        ) : (
-                          <p>-</p>
-                        )}
-                      </div>
+                      ) : (
+                        <p>-</p>
+                      )}
                     </div>
-                  ))}
-                </div>
-              </>
-            )}
-          </Card>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
           <Card className="overview__card">
             <h3 className="mb2">Contribution calendar</h3>
             {contributions && contributions.totalContributions && (

@@ -199,7 +199,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 /* Badge */
 .badge {
   display: inline-block;
-  padding: 3px 5px;
+  padding: 0.5rem;
   margin-left: 5px;
   font-size: 8px !important;
   line-height: 8px;
@@ -223,6 +223,9 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
     );
   background-size: 3px 3px;
   background-position: 0 0, 1.5px 1.5px;
+}
+.badge.-small {
+  padding: 3px 5px;
 }
 .badge.-red {
   background-color: #f7c4c4;
