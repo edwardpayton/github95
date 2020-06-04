@@ -13,6 +13,7 @@ import Followers from "./Followers";
 import Following from "./Following";
 
 import useGithubApi from "../../githubApi";
+import formatBigNumber from "../../utilities/formatBigNumber";
 
 import "./styles.scss";
 
@@ -22,10 +23,18 @@ export default function UserWindow() {
   const refTabsList = React.useRef(new Set([]));
   const [isSearching, setSearching] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(0);
+  const refLogin = React.useRef("");
 
   const { getUserRepos, getUserStars, getUserFollows } = useGithubApi();
 
   React.useEffect(() => {
+    if (user.profile.login !== refLogin.current) {
+      // Reset active tab & tabs list on user change
+      refLogin.current = user.profile.login;
+      setActiveTab(0);
+      refTabsList.current.clear();
+    }
+    // Stop showing spinner on load or error
     if (user.profile.login || user.profile.error) setSearching(false);
   }, [user]);
 
@@ -80,7 +89,7 @@ export default function UserWindow() {
                   className={`badge ${activeTab === 1 ? "-blue" : "-grey"}`}
                 >
                   {user.profile.repositories &&
-                    user.profile.repositories.totalCount}
+                    formatBigNumber(user.profile.repositories.totalCount)}
                 </span>
               </p>
             </Tab>
@@ -91,7 +100,9 @@ export default function UserWindow() {
                   className={`badge ${activeTab === 2 ? "-blue" : "-grey"}`}
                 >
                   {user.profile.starredRepositories &&
-                    user.profile.starredRepositories.totalCount}
+                    formatBigNumber(
+                      user.profile.starredRepositories.totalCount
+                    )}
                 </span>
               </p>
             </Tab>
@@ -101,7 +112,8 @@ export default function UserWindow() {
                 <span
                   className={`badge ${activeTab === 3 ? "-blue" : "-grey"}`}
                 >
-                  {user.profile.followers && user.profile.followers.totalCount}
+                  {user.profile.followers &&
+                    formatBigNumber(user.profile.followers.totalCount)}
                 </span>
               </p>
             </Tab>
@@ -111,7 +123,8 @@ export default function UserWindow() {
                 <span
                   className={`badge ${activeTab === 4 ? "-blue" : "-grey"}`}
                 >
-                  {user.profile.following && user.profile.following.totalCount}
+                  {user.profile.following &&
+                    formatBigNumber(user.profile.following.totalCount)}
                 </span>
               </p>
             </Tab>

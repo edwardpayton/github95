@@ -8,6 +8,7 @@ import Card from "../Card";
 import AnchorButton from "../AnchorButton";
 
 import formatDate from "../../utilities/formatDate";
+import formatBigNumber from "../../utilities/formatBigNumber";
 
 export default function Overview({ profile, activity, contributions }) {
   return (
@@ -23,15 +24,13 @@ export default function Overview({ profile, activity, contributions }) {
                   className="square"
                 />
               </div>
-              <div className="flex flex-column justify-between overview__profileDetails">
-                <h1 className="overview__title">{profile.name}</h1>
-                <Anchor
-                  href={profile.url}
-                  target="_blank"
-                  className="overview__url"
-                >
-                  github.com/{profile.login}
-                </Anchor>
+              <div className="flex flex-column justify-around overview__profileDetails">
+                <h1 className="overview__title">
+                  {profile.name ? profile.name : "-"}
+                  <span className="badge -grey overview__login">
+                    {profile.login}
+                  </span>
+                </h1>
                 <div className="overview__bio">
                   {/* <p className="overview__bioCopy"> */}
                   <p className="overview__bioCopy">
@@ -70,10 +69,10 @@ export default function Overview({ profile, activity, contributions }) {
                 Joined: {formatDate(profile.createdAt)}
               </p>
               <p className="badge overview__badge -followers">
-                Followers: {profile.followers.totalCount}
+                Followers: {formatBigNumber(profile.followers.totalCount)}
               </p>
               <p className="badge overview__badge -following">
-                Following: {profile.following.totalCount}
+                Following: {formatBigNumber(profile.following.totalCount)}
               </p>
             </div>
           </div>
@@ -98,7 +97,7 @@ export default function Overview({ profile, activity, contributions }) {
           )}
         </div>
         <div className="overview__body">
-          <Card className="flex justify-between overview__charts">
+          <Card className="flex justify-between overview__card -topCard">
             <div className="overview__chartWrapper">
               <h3 className="mb2">Repos over time</h3>
               <div className="bevelBorder overview__chart">
@@ -117,23 +116,42 @@ export default function Overview({ profile, activity, contributions }) {
               <div className="bevelBorder overview__chart"></div>
             </div>
           </Card>
-          <Card className="overview__pins">
+          <Card className="overview__card">
             {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
               <>
                 <h3 className="mb2">Pins</h3>
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap overview__pins">
                   {profile.pinnedItems.edges.map(({ node }) => (
                     <div
-                      className="col-6 border-box bevelBorder overview__pin"
+                      className="border-box bevelBorder gradientBorder overview__pin"
                       key={node.name}
                     >
                       <div className="overview__pinInner">
                         <p>
-                          <a href={node.url} target="_blank">
+                          <Anchor
+                            href={node.url}
+                            target="_blank"
+                            className="overview__pinName"
+                          >
                             {node.name}
-                          </a>
+                          </Anchor>
                         </p>
-                        <p>{node.description}</p>
+                        <p className="overview__pinDesc">{node.description}</p>
+                        {node.primaryLanguage !== null ? (
+                          <p
+                            className={`userRepos__badge -language -${node.primaryLanguage.name}`}
+                          >
+                            <span
+                              className="badge"
+                              style={{
+                                backgroundColor: node.primaryLanguage.color,
+                              }}
+                            ></span>
+                            {node.primaryLanguage.name}
+                          </p>
+                        ) : (
+                          <p>-</p>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -141,7 +159,7 @@ export default function Overview({ profile, activity, contributions }) {
               </>
             )}
           </Card>
-          <Card className="overflow_contributions">
+          <Card className="overview__card">
             <h3 className="mb2">Contribution calendar</h3>
             {contributions && contributions.totalContributions && (
               <p>

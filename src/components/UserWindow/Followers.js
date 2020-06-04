@@ -33,8 +33,12 @@ export default function Followers({ followers }) {
                     className="bevelBorder userFollows__avatar"
                   />
                   <div className="userFollows__details">
-                    <p className="userFollows__name">{name || "-"}</p>
-                    <p className="badge -grey userFollows__login">{login}</p>
+                    <p className="userFollows__name">
+                      {name || "-"}
+                      <span className="badge -grey userFollows__login">
+                        {login}
+                      </span>
+                    </p>
                     <Anchor
                       href={url}
                       className="userFollows__link"

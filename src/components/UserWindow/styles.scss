@@ -107,8 +107,10 @@
 }
 .overview__title {
 }
-.overview__url {
-  margin-top: 0.5rem;
+.overview__login.overview__login {
+  position: relative;
+  top: -4px;
+  padding: 0.5rem;
 }
 .overview__profileDetails {
   position: relative;
@@ -116,7 +118,6 @@
 }
 .overview__bio {
   max-width: 500px;
-  margin-top: 1.5rem;
 }
 .overview__bioCopy {
   line-height: 1.7;
@@ -191,7 +192,7 @@
   position: absolute;
   right: 1rem;
   bottom: 0.75rem;
-  color: #8a96e1;
+  color: #8ca7ec;
   font-size: 7px !important;
 }
 .overview__statusTitle {
@@ -216,8 +217,11 @@
 .overview__body {
   padding: 1rem;
 }
-.overview__charts {
-  margin-top: 1rem;
+.overview__card {
+  margin-top: 2rem;
+}
+.overview__card.-topCard {
+  margin-top: 0;
 }
 .overview__chartWrapper {
   width: calc(50% - 0.75rem);
@@ -225,15 +229,26 @@
 .overview__chart {
   background-color: #fff;
 }
-.overview__pins,
-.overflow_contributions {
-  margin-top: 2rem;
+.overview__pins {
+  width: calc(100% + 1rem);
+  margin-left: -1rem;
 }
 .overview__pin {
+  width: calc(50% - 1rem);
+  margin: 0 0 1rem 1rem;
   padding: 0.5rem;
+  background-color: #fff;
 }
 .overview__pinInner {
   padding: 0.5rem;
+}
+.overview__pinName {
+  display: table;
+  font-size: 14px !important;
+  margin-bottom: 1rem;
+}
+.overview__pinDesc {
+  margin-bottom: 0.5rem;
 }
 .overflow_contributions {
 }
@@ -278,8 +293,8 @@
 }
 .userRepos__badges {
 }
-.userRepos__badge {
-  display: inline-block;
+.userRepos__badge.userRepos__badge {
+  color: #000;
 }
 .userRepos__badges .userRepos__badge:first-of-type {
   margin-left: 0;
@@ -305,7 +320,10 @@
   font-size: 14px !important;
 }
 .userFollows__login.userFollows__login {
-  margin-left: 0;
+  position: relative;
+  top: -3px;
+  padding: 0.5rem;
+  color: #000;
 }
 .userFollows__link {
   display: inline-block;

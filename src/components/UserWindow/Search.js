@@ -19,17 +19,32 @@ export default function Search() {
   const [input, setInput] = useRecoilState(userSearchInput);
   const [matches, setMatches] = useRecoilState(userSearchMatches);
   const refSearchCard = React.useRef(undefined);
+  const refSearch = React.useRef(false);
+  const refLoaded = React.useRef(false);
 
   const { getUsersMatches, getUserProfile } = useGithubApi();
+
+  React.useEffect(() => {
+    // TODO this logic is to trigger getUserProfile on two scenarios - on clicking a match, on clicking a follower/ing user. It is a clumsy way around it, can be refactored
+    if (refSearch.current === false && refLoaded.current === true) {
+      getUserProfile(input);
+    }
+  }, [input]);
+
+  React.useEffect(() => {
+    refLoaded.current = true;
+  }, []);
 
   const handleSearch = (value) => {
     setInput(value);
     getUsersMatches(value);
+    refSearch.current = true;
   };
 
   const handleClickMatch = (login) => () => {
     setInput(login);
     setMatches([]);
+    refSearch.current = false;
     getUserProfile(login);
   };
 
@@ -53,7 +68,7 @@ export default function Search() {
       <SearchInput
         labelText="Username"
         placeholder="eg: edwardpayton"
-        defaultValue={input}
+        initalValue={input}
         onSearch={handleSearch}
         className="userSearch__input"
       />

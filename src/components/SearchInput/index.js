@@ -6,15 +6,15 @@ import "./styles.scss";
 export default function SearchInput({
   labelText,
   placeholder,
-  defaultValue,
+  initalValue,
   className,
   onSearch,
 }) {
-  const [state, setState] = React.useState(defaultValue);
+  const [state, setState] = React.useState(initalValue);
 
   React.useEffect(() => {
-    if (defaultValue !== state) setState(defaultValue);
-  }, [defaultValue]);
+    if (initalValue !== state) setState(initalValue);
+  }, [initalValue]);
 
   const handleChange = ({ target }) => {
     setState(target.value.trim());

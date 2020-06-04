@@ -55,13 +55,9 @@ query UserDetails($username: String!) {
             name
             url
             description
-            languages(first: 5) {
-              edges {
-                node {
-                  name
-                  color
-                }
-              }
+            primaryLanguage {
+              name
+              color
             }
           }
         }

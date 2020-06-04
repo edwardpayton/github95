@@ -255,7 +255,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 .anchorButton:hover,
 .anchorButton:active {
   background-color: #ededed;
-  color: #394dcd;
+  color: #1c44ac;
 }
 .anchorButton:active {
   border-left-color: #050608;
@@ -280,29 +280,59 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 
 /* Atomic styles */
 .bevelBorder {
-  border: 2px outset;
-}
-.bevelBorder-inset {
   border: 2px inset;
 }
-
-.bgBlue {
-  background-color: #394dcd;
-  background-image: linear-gradient(
+.bevelBorder-outset {
+  border: 2px outset;
+}
+.gradientBorder {
+  position: relative;
+}
+.gradientBorder:after {
+  position: absolute;
+  content: "";
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6px;
+  background: linear-gradient(
       45deg,
-      hsla(0, 0%, 100%, 0.55) 25%,
+      hsla(0, 0%, 100%, 0.15) 25%,
       transparent 25%,
       transparent 75%,
-      hsla(0, 0%, 100%, 0.55) 75%,
-      hsla(0, 0%, 100%, 0.55)
+      hsla(0, 0%, 100%, 0.15) 75%,
+      hsla(0, 0%, 100%, 0.15)
     ),
     linear-gradient(
       45deg,
-      hsla(0, 0%, 100%, 0.55) 25%,
+      hsla(0, 0%, 100%, 0.15) 25%,
       transparent 25%,
       transparent 75%,
-      hsla(0, 0%, 100%, 0.55) 75%,
-      hsla(0, 0%, 100%, 0.55)
+      hsla(0, 0%, 100%, 0.15) 75%,
+      hsla(0, 0%, 100%, 0.15)
+    ),
+    linear-gradient(to right, #1c44ac, #8ca7ec 50%, #1c44ac 100%);
+  background-size: 3px 3px, 3px 3px, cover;
+  background-position: 0 0, 1.5px 1.5px, 00;
+}
+
+.bgBlue {
+  background-color: #606e92;
+  background-image: linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.15) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.15) 75%,
+      hsla(0, 0%, 100%, 0.15)
+    ),
+    linear-gradient(
+      45deg,
+      hsla(0, 0%, 100%, 0.15) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(0, 0%, 100%, 0.15) 75%,
+      hsla(0, 0%, 100%, 0.15)
     );
   background-size: 3px 3px;
   background-position: 0 0, 1.5px 1.5px;
@@ -350,19 +380,19 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   background-color: #fff;
   background-image: linear-gradient(
       45deg,
-      hsla(0, 0%, 100%, 0.55) 25%,
+      hsla(0, 0%, 100%, 0.25) 25%,
       transparent 25%,
       transparent 75%,
-      hsla(0, 0%, 100%, 0.55) 75%,
-      hsla(0, 0%, 100%, 0.55)
+      hsla(0, 0%, 100%, 0.25) 75%,
+      hsla(0, 0%, 100%, 0.25)
     ),
     linear-gradient(
       45deg,
-      hsla(0, 0%, 100%, 0.55) 25%,
+      hsla(0, 0%, 100%, 0.25) 25%,
       transparent 25%,
       transparent 75%,
-      hsla(0, 0%, 100%, 0.55) 75%,
-      hsla(0, 0%, 100%, 0.55)
+      hsla(0, 0%, 100%, 0.25) 75%,
+      hsla(0, 0%, 100%, 0.25)
     );
   background-size: 3px 3px;
   background-position: 0 0, 1.5px 1.5px;
@@ -373,6 +403,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   background-color: #ededed;
 }
 .table > tbody > tr:hover > td {
-  background-color: #c9d0ff;
-  color: #000;
+  background-color: #606e92;
 }
+
+/*  */
