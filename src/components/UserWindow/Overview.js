@@ -26,12 +26,6 @@ export default function Overview({ profile, activity, contributions }) {
   };
   const [pinNames, setPins] = React.useState(pinList);
 
-  React.useEffect(() => {
-    console.log(
-      "~/Sites/github95/src/components/UserWindow/Overview >>> reload pins"
-    );
-  }, [profile]);
-
   return (
     <div className="userContent__bodyInner scrollable -yOnly">
       <div className="overview">
@@ -60,24 +54,24 @@ export default function Overview({ profile, activity, contributions }) {
                     aliqua. Ut enim ad minim veniam, quis nostru
                   </p>
                 </div>
+                <div className="overview__links">
+                  <Anchor
+                    href={profile.url}
+                    className="overview__link -profile"
+                    target="_blank"
+                  >
+                    Open on github.com
+                  </Anchor>
+                  {profile.email.length > 0 && (
+                    <Anchor
+                      href={`mailto:${profile.email}`}
+                      className="overview__link -email"
+                    >
+                      Send email
+                    </Anchor>
+                  )}
+                </div>
               </div>
-            </div>
-
-            <div className="overview__links">
-              <AnchorButton
-                href={profile.url}
-                className="overview__link -profile"
-              >
-                Profile link
-              </AnchorButton>
-              {profile.email.length > 0 && (
-                <AnchorButton
-                  href={`mailto:${profile.email}`}
-                  className="overview__link -email"
-                >
-                  Send email
-                </AnchorButton>
-              )}
             </div>
 
             <div className="flex justify-between overview__badges">

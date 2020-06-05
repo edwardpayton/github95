@@ -3,21 +3,19 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { Button } from "react95";
 import PropTypes from "prop-types";
 
-import { userData, windowObj } from "../../store";
+import { windowObj, userCurrentNum, usersListObj } from "../../store";
 import capitalize from "../../utilities/capitalize";
 
 export default function MenubarButton({ name }) {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
-  const user = useRecoilValue(userData);
+  const userList = useRecoilValue(usersListObj);
+  const currentUser = useRecoilValue(userCurrentNum);
   const [buttonText, setText] = React.useState(capitalize(name));
 
   React.useEffect(() => {
-    if (name === "user" && user.profile.name) setText(user.profile.name);
-  }, [name, user.profile]);
-
-  // React.useEffect(() => {
-  //   // TODO if repos...setText()
-  // }, []);
+    if (currentUser && name === "user" && userList[currentUser].name)
+      setText(userList[currentUser].name);
+  }, [name, userList, currentUser]);
 
   const handleClick = () => {
     const isFocused = currentWindows[name][1] && currentWindows[name][2];

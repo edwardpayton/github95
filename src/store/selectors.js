@@ -1,13 +1,17 @@
 import { selector } from "recoil";
-import { userData } from "./atoms";
+import { userCurrentNum, usersListObj } from "./atoms";
 
 export const userActivity = selector({
   key: "userActivity",
   get: ({ get }) => {
-    const {
-      activity: { contributions, creations },
-    } = get(userData);
+    const userList = get(usersListObj);
+    const currentUser = get(userCurrentNum);
+    if (currentUser === null) return;
 
+    const { dataActivity } = userList[currentUser];
+    if (dataActivity === undefined) return;
+
+    const { contributions, creations } = dataActivity;
     if (creations === undefined) return creations;
 
     const _contributions = ["todo", contributions];

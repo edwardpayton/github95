@@ -100,7 +100,6 @@ export const apiGetUserRepos = async (username) => {
       variables: { username, cursor: null },
     });
     let json = await resp.json();
-    console.log("~/Sites/github95/src/data/githubApiNew >>>", json);
     json = json.data.user.repositories.nodes;
 
     return [...json];

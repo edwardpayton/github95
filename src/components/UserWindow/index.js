@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody, Hourglass } from "react95";
 import { useRecoilValue } from "recoil";
 
-import { userData, userActivity } from "../../store";
+import { userCurrentNum, usersListObj, userActivity } from "../../store";
 
 import Search from "./Search";
 import Overview from "./Overview";
@@ -18,8 +18,9 @@ import formatBigNumber from "../../utilities/formatBigNumber";
 import "./styles.scss";
 
 export default function UserWindow() {
-  const user = useRecoilValue(userData);
   const activity = useRecoilValue(userActivity);
+  const userList = useRecoilValue(usersListObj);
+  const currentUser = useRecoilValue(userCurrentNum);
   const refTabsList = React.useRef(new Set([]));
   const [isSearching, setSearching] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(0);
@@ -28,15 +29,19 @@ export default function UserWindow() {
   const { getUserRepos, getUserStars, getUserFollows } = useGithubApi();
 
   React.useEffect(() => {
-    if (user.profile.login !== refLogin.current) {
+    if (currentUser && userList[currentUser].login !== refLogin.current) {
       // Reset active tab & tabs list on user change
-      refLogin.current = user.profile.login;
+      refLogin.current = userList[currentUser].login;
       setActiveTab(0);
       refTabsList.current.clear();
     }
     // Stop showing spinner on load or error
-    if (user.profile.login || user.profile.error) setSearching(false);
-  }, [user]);
+    if (
+      currentUser &&
+      (userList[currentUser].login || userList[currentUser].error)
+    )
+      setSearching(false);
+  }, [userList, currentUser]);
 
   const handleChange = (value) => {
     setActiveTab(value);
@@ -75,9 +80,7 @@ export default function UserWindow() {
           <Tabs
             value={activeTab}
             onChange={handleChange}
-            className={`userContent__tabs${
-              !user.profile.login ? " -disabled" : ""
-            }`}
+            className={`userContent__tabs${!currentUser ? " -disabled" : ""}`}
           >
             <Tab value={0} className="userContent__tab">
               <p>Overview</p>
@@ -90,8 +93,11 @@ export default function UserWindow() {
                     activeTab === 1 ? "-blue" : "-grey"
                   }`}
                 >
-                  {user.profile.repositories &&
-                    formatBigNumber(user.profile.repositories.totalCount)}
+                  {currentUser &&
+                    userList[currentUser].repositories &&
+                    formatBigNumber(
+                      userList[currentUser].repositories.totalCount
+                    )}
                 </span>
               </p>
             </Tab>
@@ -103,9 +109,10 @@ export default function UserWindow() {
                     activeTab === 2 ? "-blue" : "-grey"
                   }`}
                 >
-                  {user.profile.starredRepositories &&
+                  {currentUser &&
+                    userList[currentUser].starredRepositories &&
                     formatBigNumber(
-                      user.profile.starredRepositories.totalCount
+                      userList[currentUser].starredRepositories.totalCount
                     )}
                 </span>
               </p>
@@ -118,8 +125,9 @@ export default function UserWindow() {
                     activeTab === 3 ? "-blue" : "-grey"
                   }`}
                 >
-                  {user.profile.followers &&
-                    formatBigNumber(user.profile.followers.totalCount)}
+                  {currentUser &&
+                    userList[currentUser].followers &&
+                    formatBigNumber(userList[currentUser].followers.totalCount)}
                 </span>
               </p>
             </Tab>
@@ -131,8 +139,9 @@ export default function UserWindow() {
                     activeTab === 4 ? "-blue" : "-grey"
                   }`}
                 >
-                  {user.profile.following &&
-                    formatBigNumber(user.profile.following.totalCount)}
+                  {currentUser &&
+                    userList[currentUser].following &&
+                    formatBigNumber(userList[currentUser].following.totalCount)}
                 </span>
               </p>
             </Tab>
@@ -145,32 +154,30 @@ export default function UserWindow() {
                 <p>&nbsp;Finding user...</p>
               </div>
             )}
-            {!user.profile.login && !user.profile.error && (
+            {!currentUser && (
               <div className="flex justify-center items-center userContent__intro">
                 <p>Search for a user</p>
               </div>
             )}
-            {!isSearching && user.profile.error === "Not found" && (
-              <p>Not found</p>
-            )}
+            {!isSearching && <p>Not found</p>}
 
-            {user.profile.login && (
+            {currentUser && (
               <>
                 <div
                   className="userContent__body"
                   style={{ display: activeTab === 0 ? "block" : "none" }}
                 >
                   <Overview
-                    profile={user.profile}
+                    profile={userList[currentUser]}
                     activity={activity}
-                    contributions={user.contributions}
+                    contributions={userList[currentUser].contributions}
                   />
                 </div>
                 <div
                   className="userContent__body"
                   style={{ display: activeTab === 1 ? "block" : "none" }}
                 >
-                  <Repos repos={user.repos} />
+                  <Repos repos={userList[currentUser].dataRepos} />
                 </div>
 
                 <div
@@ -178,7 +185,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 2 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Stars stars={user.stars} />
+                    <Stars stars={userList[currentUser].dataStars} />
                   </div>
                 </div>
 
@@ -187,7 +194,9 @@ export default function UserWindow() {
                   style={{ display: activeTab === 3 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Followers followers={user.followers} />
+                    <Followers
+                      followers={userList[currentUser].dataFollowers}
+                    />
                   </div>
                 </div>
 
@@ -196,7 +205,9 @@ export default function UserWindow() {
                   style={{ display: activeTab === 4 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Following following={user.following} />
+                    <Following
+                      following={userList[currentUser].dataFollowing}
+                    />
                   </div>
                 </div>
               </>

@@ -202,7 +202,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   padding: 0.5rem;
   margin-left: 5px;
   font-size: 8px !important;
-  line-height: 8px;
+  line-height: 10px;
   border: 1px inset;
   background-color: #b4decb;
   background-image: linear-gradient(
@@ -314,7 +314,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
       hsla(0, 0%, 100%, 0.15) 75%,
       hsla(0, 0%, 100%, 0.15)
     ),
-    linear-gradient(to right, #1c44ac, #8ca7ec 50%, #1c44ac 100%);
+    linear-gradient(to right, #606e92, #8ca7ec 50%, #606e92 100%);
   background-size: 3px 3px, 3px 3px, cover;
   background-position: 0 0, 1.5px 1.5px, 00;
 }

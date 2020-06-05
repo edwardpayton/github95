@@ -7,9 +7,14 @@ import {
   Button,
   Hourglass,
 } from "react95";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-import { userSearchInput, userSearchMatches } from "../../store";
+import {
+  userSearchInput,
+  userSearchMatches,
+  userCurrentNum,
+  usersListObj,
+} from "../../store";
 
 import SearchInput from "../SearchInput";
 
@@ -18,6 +23,8 @@ import useGithubApi from "../../githubApi";
 export default function Search() {
   const [input, setInput] = useRecoilState(userSearchInput);
   const [matches, setMatches] = useRecoilState(userSearchMatches);
+  const userList = useRecoilValue(usersListObj);
+  const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
   const refSearchCard = React.useRef(undefined);
   const refSearch = React.useRef(false);
   const refLoaded = React.useRef(false);
@@ -55,6 +62,20 @@ export default function Search() {
     }
   };
 
+  const handleClickBack = () => {
+    const keys = Object.keys(userList);
+    const prev = keys.indexOf(currentUser) - 1;
+    if (prev < 0) return;
+    setCurrentUser(keys[prev]);
+  };
+
+  const handleClickFwd = () => {
+    const keys = Object.keys(userList);
+    const next = keys.indexOf(currentUser) + 1;
+    if (next === keys.length) return;
+    setCurrentUser(keys[next]);
+  };
+
   React.useEffect(() => {
     if (matches.length > 0) {
       document.addEventListener("click", handleClickOutside);
@@ -65,6 +86,13 @@ export default function Search() {
 
   return (
     <div className="card userSearch" ref={refSearchCard}>
+      <button onClick={handleClickBack}>{"<"} Back</button>
+      <button onClick={handleClickFwd}>Fwd {">"}</button>
+      <div className="userSearch__history">
+        {Object.keys(userList).map((key) => (
+          <p>{key}</p>
+        ))}
+      </div>
       <SearchInput
         labelText="Username"
         placeholder="eg: edwardpayton"

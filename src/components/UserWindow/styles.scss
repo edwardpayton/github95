@@ -96,13 +96,13 @@
 }
 .overview__profileImage {
   position: relative;
-  width: 110px;
-  height: 110px;
+  width: 135px;
+  height: 135px;
   border: 1px outset;
 }
 .overview__profileImage > img {
-  width: 110px;
-  height: 110px;
+  width: 135px;
+  height: 135px;
   image-rendering: pixelated;
 }
 .overview__title {
@@ -119,15 +119,16 @@
   max-width: 500px;
 }
 .overview__bioCopy {
-  line-height: 1.7;
+  line-height: 16px;
 }
 .overview__links {
   max-width: 300px;
   margin-top: 1.5rem;
 }
 .overview__link.overview__link {
-  padding-left: 27px;
-  margin-left: 1rem;
+  position: relative;
+  padding-left: 22px;
+  margin-left: 1.1rem;
 }
 .overview__link:first-of-type {
   margin-left: 0;
@@ -135,19 +136,20 @@
 .overview__link:before {
   position: absolute;
   content: "";
-  top: 7px;
-  width: 18px;
-  height: 18px;
+  bottom: 0;
+  left: 0;
+  width: 25px;
+  height: 25px;
   image-rendering: pixelated;
   background-size: contain;
 }
 .overview__link.-profile:before {
   background-image: url("../../assets/profile-icon.png");
-  left: 10px;
 }
 .overview__link.-email:before {
   background-image: url("../../assets/email-icon.png");
-  left: 6px;
+  bottom: -4px;
+  left: -7px;
 }
 
 .overview__badges {
@@ -275,7 +277,7 @@
 .userRepos__badge.-language {
   position: relative;
   font-size: 8px !important;
-  line-height: 2;
+  line-height: 16px;
   padding: 3px 5px 3px 26px;
 }
 .userRepos__badge.-language > span {

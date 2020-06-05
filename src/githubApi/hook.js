@@ -1,7 +1,12 @@
 import React from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
-import { userData, userSearchInput, userSearchMatches } from "../store";
+import {
+  userSearchInput,
+  userSearchMatches,
+  usersListObj,
+  userCurrentNum,
+} from "../store";
 import {
   apiGetUsersMatches,
   apiGetUserProfile,
@@ -11,8 +16,6 @@ import {
   apiGetUserFollows,
 } from "./api";
 
-import { USER_OBJ } from "../constants";
-
 /**
  * useGithubApi hook
  * returns getUserProfile, getUserRepos, getUserStars, & getUserFollows functions to access the api data
@@ -21,26 +24,34 @@ import { USER_OBJ } from "../constants";
 export default function useGithubApi() {
   const firstCallRef = React.useRef(false);
   const setMatches = useSetRecoilState(userSearchMatches);
-  const [user, setUser] = useRecoilState(userData);
+  const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
+  const [userList, setList] = useRecoilState(usersListObj);
   const searchInput = useRecoilValue(userSearchInput);
 
   const getUserActivity = React.useCallback(async () => {
-    const activity = await apiGetUserActivity(
+    const dataActivity = await apiGetUserActivity(
       searchInput,
-      user.profile.repositories.totalCount
+      userList[currentUser].repositories.totalCount
     );
-    if (activity instanceof Error) {
-      console.error("ERROR", activity); // TODO
+    if (dataActivity instanceof Error) {
+      console.error("ERROR", dataActivity); // TODO
     }
+    const newUserData = {
+      [userList[currentUser].login]: {
+        ...userList[currentUser],
+        dataActivity,
+      },
+    };
 
-    let newUserData = { ...user, activity };
-    setUser(newUserData);
-  }, [searchInput, user, setUser]);
+    setList({ ...userList, ...newUserData });
+  }, [searchInput, userList, setList, currentUser]);
 
   React.useEffect(() => {
     // TODO this logic doesnt work. doesnt trigger on username change
     if (firstCallRef.current) getUserActivity();
-  }, [firstCallRef.current]);
+  }, [firstCallRef.current]); //eslint-disable-line react-hooks/exhaustive-deps
+
+  //
 
   const getUsersMatches = React.useCallback(
     async (input) => {
@@ -50,7 +61,7 @@ export default function useGithubApi() {
       }
       setMatches(matches);
     },
-    [searchInput, user, setUser]
+    [setMatches]
   );
 
   const getUserProfile = React.useCallback(
@@ -59,35 +70,51 @@ export default function useGithubApi() {
       if (profile instanceof Error) {
         console.error("ERROR", profile); // TODO
       }
+      const newUserData = {
+        [profile.login]: profile,
+      };
 
-      let newUserData = { ...USER_OBJ, profile };
-      setUser(newUserData);
+      setCurrentUser(profile.login);
+      setList({ ...userList, ...newUserData });
       firstCallRef.current = true;
     },
-    [searchInput, user, setUser]
+    [userList, setList, setCurrentUser]
   );
 
   const getUserRepos = React.useCallback(async () => {
-    const result = await apiGetUserRepos(user.profile["login"]);
-    const newUserData = { ...user, repos: result };
-    setUser(newUserData);
-  }, [user, setUser]);
+    const dataRepos = await apiGetUserRepos(userList[currentUser].login);
+    const newUserData = {
+      [userList[currentUser].login]: {
+        ...userList[currentUser],
+        dataRepos,
+      },
+    };
+
+    setList({ ...userList, ...newUserData });
+  }, [userList, setList, currentUser]);
 
   const getUserStars = React.useCallback(async () => {
-    const result = await apiGetUserStars(user.profile["login"]);
-    const newUserData = { ...user, stars: result };
-    setUser(newUserData);
-  }, [user, setUser]);
+    const dataStars = await apiGetUserStars(userList[currentUser].login);
+    const newUserData = {
+      [userList[currentUser].login]: {
+        ...userList[currentUser],
+        dataStars,
+      },
+    };
+    setList({ ...userList, ...newUserData });
+  }, [userList, setList, currentUser]);
 
   const getUserFollows = React.useCallback(async () => {
-    const result = await apiGetUserFollows(user.profile["login"]);
+    const result = await apiGetUserFollows(userList[currentUser].login);
     const newUserData = {
-      ...user,
-      followers: result["followers"],
-      following: result["following"],
+      [userList[currentUser].login]: {
+        ...userList[currentUser],
+        dataFollowers: result["followers"],
+        dataFollowing: result["following"],
+      },
     };
-    setUser(newUserData);
-  }, [user, setUser]);
+    setList({ ...userList, ...newUserData });
+  }, [userList, setList, currentUser]);
 
   return {
     getUsersMatches,

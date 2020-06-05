@@ -3,7 +3,8 @@ import {
   menubarButtons,
   userSearchInput,
   userSearchMatches,
-  userData,
+  userCurrentNum,
+  usersListObj,
   repos,
 } from "./atoms";
 import { userActivity } from "./selectors";
@@ -13,7 +14,8 @@ export {
   menubarButtons,
   userSearchInput,
   userSearchMatches,
-  userData,
   userActivity,
+  userCurrentNum,
+  usersListObj,
   repos,
 };
