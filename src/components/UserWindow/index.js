@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 
 import { userCurrentNum, usersListObj, userActivity } from "../../store";
 
-import Search from "./Search";
+import Toolbar from "./Toolbar";
 import Overview from "./Overview";
 import Repos from "./Repos";
 import Stars from "./Stars";
@@ -72,9 +72,7 @@ export default function UserWindow() {
 
   return (
     <>
-      <div className="flex justify-center userWindow__search">
-        <Search />
-      </div>
+      <Toolbar />
       <div className="userWindow__content">
         <div className="userContent">
           <Tabs

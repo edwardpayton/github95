@@ -3,7 +3,7 @@ import { RecoilRoot } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { reset, themes } from "react95";
 
-import Menubar from "./components/Menubar/";
+import Taskbar from "./components/Taskbar/";
 import Desktop from "./components/Desktop";
 import Windows from "./components/Windows";
 import StartupSound from "./components/StartupSound";
@@ -20,7 +20,7 @@ function App() {
       <ResetStyles />
       <ThemeProvider theme={themes.default}>
         {/* <StartupSound /> */}
-        <Menubar />
+        <Taskbar />
         <main>
           <section style={{ height: "100%" }}>
             <Desktop />

@@ -4,7 +4,7 @@ import { Button, List, ListItem, Divider } from "react95";
 
 import { windowObj } from "../../store";
 
-export default function Menu() {
+export default function StartMenu() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
 
   const [isOpen, setOpen] = React.useState(false);

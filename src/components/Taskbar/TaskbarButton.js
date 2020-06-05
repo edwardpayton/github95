@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { windowObj, userCurrentNum, usersListObj } from "../../store";
 import capitalize from "../../utilities/capitalize";
 
-export default function MenubarButton({ name }) {
+export default function TaskbarButton({ name }) {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
   const userList = useRecoilValue(usersListObj);
   const currentUser = useRecoilValue(userCurrentNum);
@@ -42,6 +42,6 @@ export default function MenubarButton({ name }) {
   );
 }
 
-MenubarButton.propTypes = {
+TaskbarButton.propTypes = {
   name: PropTypes.string.isRequired,
 };

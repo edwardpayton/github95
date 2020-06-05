@@ -2,13 +2,13 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { AppBar, Toolbar } from "react95";
 
-import Menu from "./Menu";
-import MenubarButton from "./MenubarButton";
-import MenubarClock from "./MenubarClock";
+import StartMenu from "./StartMenu";
+import TaskbarButton from "./TaskbarButton";
+import TaskbarClock from "./TaskbarClock";
 
 import { menubarButtons, windowObj } from "../../store";
 
-export default function Menubar() {
+export default function Taskbar() {
   const [currentButtons, setButtons] = useRecoilState(menubarButtons);
   const openWindows = useRecoilValue(windowObj);
   const refWindowSet = React.useRef(new Set());
@@ -25,13 +25,13 @@ export default function Menubar() {
     <AppBar style={{ zIndex: 3, bottom: 0, top: "auto" }}>
       <Toolbar className="justify-between">
         <div>
-          <Menu />
+          <StartMenu />
           {currentButtons.map((buttonName) => (
-            <MenubarButton name={buttonName} key={buttonName} />
+            <TaskbarButton name={buttonName} key={buttonName} />
           ))}
         </div>
         <div style={{ paddingRight: 2 }}>
-          <MenubarClock />
+          <TaskbarClock />
         </div>
       </Toolbar>
     </AppBar>

@@ -1,33 +1,7 @@
-.userSearch.userSearch {
-  max-width: 500px;
-  padding: 0.5rem;
-  z-index: 20;
-}
-.userSearch__matches {
-  max-height: 300px;
-  margin-top: 0.5rem;
-  position: relative;
-}
-.userSearch__match.userSearch__match {
+.userToolbar.userToolbar {
+  max-width: 100%;
   padding: 0.25rem;
-  padding-left: 0.75rem;
-}
-.userSearch__match > p {
-  font-size: 14px !important;
-}
-.userSearch__login {
-  font-size: 8px !important;
-  padding-left: 0.5rem;
-}
-.userSearch__button {
-  opacity: 0;
-  visibility: hidden;
-}
-.userSearch__match:hover .userSearch__button {
-  opacity: 1;
-  visibility: visible;
-}
-.userSearch__footer {
+  z-index: 20;
 }
 
 .userWindow__content {

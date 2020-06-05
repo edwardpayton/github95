@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MenubarClock() {
+export default function TaskbarClock() {
   const refClock = React.useRef(undefined);
   const refTimer = React.useRef(0);
 
