@@ -1,7 +1,7 @@
 .toolbar {
   padding-bottom: 7px;
   &__buttons {
-    width: 120px;
+    width: 135px;
   }
   &__button.toolbar__button {
     padding-right: 1rem;
@@ -11,9 +11,8 @@
       width: 10px;
       height: 10px;
       right: 5px;
-      top: 11px;
-      background-image: url("../../assets/arrow.png");
-      background-size: contain;
+      top: calc(50% - 6px);
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHUlEQVQY02NgIB/8xy3xH7fEf9wS/0nUQZqrKAYAK44P8ZRmzLQAAAAASUVORK5CYII=");
     }
     &.-disabled:after {
       opacity: 0.3;
@@ -22,30 +21,32 @@
       padding-right: 0.5rem;
       padding-left: 1rem;
       &:after {
-        left: 5px;
+        left: 3px;
         right: auto;
-        transform: rotate(180deg);
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHklEQVQY02NgoBT8xyX8H5fwf1zCpOjAYwceV1EEAAO2D/HsQ4vsAAAAAElFTkSuQmCC");
       }
     }
   }
-  &__search {
+  &__search > label {
+    font-size: 14px !important;
+    line-height: 33px;
+    padding: 0 0.25rem 0 0.5rem;
   }
   &__history {
-    width: 120px;
+    width: 135px;
     text-align: right;
   }
 }
 
 .searchInput {
   &__form {
-    width: 100%;
+    // width: 100%;
   }
   &__label {
     font-weight: bold;
     line-height: 35px;
   }
   &__input {
-    margin: 0 5px;
   }
   &__input > input {
     width: 300px;
@@ -89,13 +90,13 @@
 
 .searchMatches {
   position: absolute;
+  top: 43px;
   left: 50%;
   transform: translateX(-50%);
 
   &__panel.searchMatches__panel {
     width: 400px;
     height: 300px;
-    margin-top: -5px;
     padding: 0.5rem;
     box-shadow: 0px 5px 5px 0px hsla(0, 0%, 0%, 0.3);
   }

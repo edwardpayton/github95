@@ -17,7 +17,6 @@ export default function Search() {
   const [matches, setMatches] = useRecoilState(userSearchMatches);
   const userList = useRecoilValue(usersListObj);
   const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
-  // const refSearchCard = React.useRef(undefined);
   const refSearch = React.useRef(false);
   const refLoaded = React.useRef(false);
 
@@ -35,7 +34,6 @@ export default function Search() {
   }, []);
 
   const handleSearch = (value) => {
-    console.log("~/Sites/github95/src/components/UserWindow/Toolbar >>>");
     setInput(value);
     getUsersMatches(value);
     refSearch.current = true;
@@ -67,6 +65,7 @@ export default function Search() {
   return (
     <div className="userToolbar">
       <Toolbar
+        label="Search users"
         placeholder="eg: edwardpayton"
         searchValue={input}
         onSearch={handleSearch}

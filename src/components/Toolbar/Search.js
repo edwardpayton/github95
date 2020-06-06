@@ -2,6 +2,7 @@ import React from "react";
 import { TextField, Button } from "react95";
 
 export default function Search({
+  id,
   placeholder,
   initalValue,
   className,
@@ -34,6 +35,7 @@ export default function Search({
       }`}
     >
       <TextField
+        id={id}
         placeholder={placeholder}
         value={state}
         onChange={handleChange}

@@ -14,7 +14,7 @@ export const menubarButtons = atom({
 
 // User window
 export const userSearchInput = atom({
-  key: "userSearch",
+  key: "userSearchInput",
   default: "",
 });
 

@@ -157,7 +157,6 @@ export default function UserWindow() {
                 <p>Search for a user</p>
               </div>
             )}
-            {!isSearching && <p>Not found</p>}
 
             {currentUser && (
               <>

@@ -13,6 +13,7 @@ import Search from "./Search";
 import "./styles.scss";
 
 export default function Toolbar({
+  label,
   placeholder,
   searchValue,
   onSearch,
@@ -98,13 +99,45 @@ export default function Toolbar({
             Forward
           </Button>
         </div>
-        <div className="toolbar__search">
+        <div className="bevelBorder flex justify-center toolbar__search">
+          <label htmlFor={label.replace(/\s/g, "")}>{label}</label>
           <Search
+            id={label.replace(/\s/g, "")}
             placeholder={placeholder}
             initalValue={searchValue}
             onSearch={onSearch}
             className="userSearch__input"
           />
+          <div className="searchMatches" ref={refMatches}>
+            {matchesVisible && (
+              <div className="card searchMatches__panel">
+                <div className="scrollable -yOnly searchMatches__inner">
+                  <Table className="table">
+                    <TableBody>
+                      {searchMatches.map((match) => (
+                        <TableRow key={match.login}>
+                          <TableDataCell className="flex justify-between userMatches__match">
+                            <p>
+                              {match.name}
+                              <span className="userMatches__login">
+                                {match.login}
+                              </span>
+                            </p>
+                            <Button
+                              onClick={handleClickMatch(match.login)}
+                              className="userMatches__button"
+                            >
+                              Open profile
+                            </Button>
+                          </TableDataCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <div className="toolbar__history">
           <Button
@@ -130,36 +163,6 @@ export default function Toolbar({
             ))}
           </div>
         </div>
-      </div>
-      <div className="searchMatches" ref={refMatches}>
-        {matchesVisible && (
-          <div className="card searchMatches__panel">
-            <div className="scrollable -yOnly searchMatches__inner">
-              <Table className="table">
-                <TableBody>
-                  {searchMatches.map((match) => (
-                    <TableRow key={match.login}>
-                      <TableDataCell className="flex justify-between userMatches__match">
-                        <p>
-                          {match.name}
-                          <span className="userMatches__login">
-                            {match.login}
-                          </span>
-                        </p>
-                        <Button
-                          onClick={handleClickMatch(match.login)}
-                          className="userMatches__button"
-                        >
-                          Open profile
-                        </Button>
-                      </TableDataCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-        )}
       </div>
       <Divider />
     </>
