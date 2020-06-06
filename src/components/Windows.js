@@ -37,7 +37,7 @@ export default function Windows() {
       <WindowFrame
         key={windowName}
         name={windowName}
-        tuple={currentWindows[windowName]}
+        window={currentWindows[windowName]}
         onClose={handleCloseWindow}
         onClickWindow={handleClickWindow}
         small={small}

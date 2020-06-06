@@ -7,7 +7,7 @@ import capitalize from "../utilities/capitalize";
 
 export default function WindowFrame({
   name,
-  tuple,
+  window,
   onClose,
   onClickWindow,
   small,
@@ -23,20 +23,6 @@ export default function WindowFrame({
     onClickWindow(name);
   };
 
-  // const handleClickOutside = ({ target }) => {
-  //   const clickedWithin = refWindow.current.contains(target);
-  //   if (!clickedWithin) {
-  //     // setList({ ...list, about: [true, true, false] });
-  //   }
-  // };
-
-  // React.useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
   return (
     <Draggable
       positionOffset={{ x: "-50%", y: "calc(-50% - 25px)" }}
@@ -45,19 +31,19 @@ export default function WindowFrame({
       <div
         ref={refWindow}
         style={{
-          display: tuple[1] ? "block" : "none",
-          zIndex: tuple[2] ? 2 : 1,
+          display: window[1] ? "block" : "none",
+          zIndex: window[2] ? 2 : 1,
         }}
         className={`fit windowFrame${small ? " __small" : ""}`}
       >
         <Window
           onClick={handleClickWindow}
-          shadow={tuple[2]}
+          shadow={window[2]}
           className="flex-column windowFrame__inner"
         >
           <WindowHeader
             className={`flex items-center justify-between handle windowHeader${
-              tuple[2] ? "" : " -inactive"
+              window[2] ? "" : " -inactive"
             }`}
           >
             <span>{capitalize(name)}</span>
