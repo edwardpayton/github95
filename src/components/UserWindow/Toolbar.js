@@ -1,12 +1,4 @@
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableDataCell,
-  Button,
-  Hourglass,
-} from "react95";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
@@ -25,7 +17,7 @@ export default function Search() {
   const [matches, setMatches] = useRecoilState(userSearchMatches);
   const userList = useRecoilValue(usersListObj);
   const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
-  const refSearchCard = React.useRef(undefined);
+  // const refSearchCard = React.useRef(undefined);
   const refSearch = React.useRef(false);
   const refLoaded = React.useRef(false);
 
@@ -43,6 +35,7 @@ export default function Search() {
   }, []);
 
   const handleSearch = (value) => {
+    console.log("~/Sites/github95/src/components/UserWindow/Toolbar >>>");
     setInput(value);
     getUsersMatches(value);
     refSearch.current = true;
@@ -53,13 +46,6 @@ export default function Search() {
     setMatches([]);
     refSearch.current = false;
     getUserProfile(login);
-  };
-
-  const handleClickOutside = ({ target }) => {
-    const clickedWithin = refSearchCard.current.contains(target);
-    if (!clickedWithin) {
-      setMatches([]);
-    }
   };
 
   const handleClickBack = () => {
@@ -78,16 +64,8 @@ export default function Search() {
     setInput(keys[next]);
   };
 
-  React.useEffect(() => {
-    if (matches.length > 0) {
-      document.addEventListener("click", handleClickOutside);
-    } else {
-      document.removeEventListener("click", handleClickOutside);
-    }
-  }, [matches]);
-
   return (
-    <div className="userToolbar" ref={refSearchCard}>
+    <div className="userToolbar">
       <Toolbar
         placeholder="eg: edwardpayton"
         searchValue={input}

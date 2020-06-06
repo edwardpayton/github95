@@ -22,24 +22,81 @@ export default function Toolbar({
   onForward,
   historyList,
 }) {
-  const [menuVisible, setVisible] = React.useState(false);
+  const [menuVisible, setMenuVisible] = React.useState(false);
+  const [matchesVisible, setMatchesVisible] = React.useState(
+    searchMatches.length > 0
+  );
+  const refMatches = React.useRef(undefined);
 
   const handleClickMatch = (match) => () => {
     onClickMatch(match);
   };
 
-  const handleToggleMenu = () => setVisible(!menuVisible);
+  const handleToggleMenu = () => setMenuVisible(!menuVisible);
 
   const handleClickHistory = (name) => () => {
     onClickMatch(name);
   };
 
+  const disabledBack = () => {
+    const [first] = historyList.slice(0, 1);
+    if (
+      historyList.length === 0 ||
+      searchMatches.length > 0 ||
+      searchValue === first
+    )
+      return true;
+    return false;
+  };
+
+  const disabledFwd = () => {
+    const [last] = historyList.slice(-1);
+    if (
+      historyList.length === 0 ||
+      searchMatches.length > 0 ||
+      searchValue === last
+    )
+      return true;
+    return false;
+  };
+
+  const handleClickOutside = ({ target }) => {
+    const clickedMatches = refMatches.current.contains(target);
+    if (!clickedMatches) {
+      setMatchesVisible(false);
+    }
+  };
+
+  React.useEffect(() => {
+    if (searchMatches.length > 0) {
+      document.addEventListener("click", handleClickOutside);
+      setMatchesVisible(true);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+      setMatchesVisible(false);
+    }
+  }, [searchMatches]);
+
   return (
     <>
       <div className="flex justify-between toolbar">
         <div className="flex justify-between toolbar__buttons">
-          <Button onClick={onBack}>{"<"} Back</Button>
-          <Button onClick={onForward}>Fwd {">"}</Button>
+          <Button
+            onClick={onBack}
+            disabled={disabledBack()}
+            className={`toolbar__button -back${
+              disabledBack() ? " -disabled" : ""
+            }`}
+          >
+            Back
+          </Button>
+          <Button
+            onClick={onForward}
+            disabled={disabledFwd()}
+            className={`toolbar__button${disabledFwd() ? " -disabled" : ""}`}
+          >
+            Forward
+          </Button>
         </div>
         <div className="toolbar__search">
           <Search
@@ -50,7 +107,11 @@ export default function Toolbar({
           />
         </div>
         <div className="toolbar__history">
-          <Button onClick={handleToggleMenu} active={menuVisible}>
+          <Button
+            onClick={handleToggleMenu}
+            active={menuVisible}
+            disabled={!historyList.length}
+          >
             History
           </Button>
           <div
@@ -70,8 +131,8 @@ export default function Toolbar({
           </div>
         </div>
       </div>
-      <div className="searchMatches">
-        {searchMatches.length > 0 && (
+      <div className="searchMatches" ref={refMatches}>
+        {matchesVisible && (
           <div className="card searchMatches__panel">
             <div className="scrollable -yOnly searchMatches__inner">
               <Table className="table">

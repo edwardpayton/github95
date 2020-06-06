@@ -1,12 +1,37 @@
 .toolbar {
   padding-bottom: 7px;
   &__buttons {
-    width: 125px;
+    width: 120px;
+  }
+  &__button.toolbar__button {
+    padding-right: 1rem;
+    &:after {
+      position: absolute;
+      content: "";
+      width: 10px;
+      height: 10px;
+      right: 5px;
+      top: 11px;
+      background-image: url("../../assets/arrow.png");
+      background-size: contain;
+    }
+    &.-disabled:after {
+      opacity: 0.3;
+    }
+    &.-back {
+      padding-right: 0.5rem;
+      padding-left: 1rem;
+      &:after {
+        left: 5px;
+        right: auto;
+        transform: rotate(180deg);
+      }
+    }
   }
   &__search {
   }
   &__history {
-    width: 125px;
+    width: 120px;
     text-align: right;
   }
 }
