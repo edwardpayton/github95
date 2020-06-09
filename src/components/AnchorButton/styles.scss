@@ -1,0 +1,30 @@
+/* Anchor button (styles copied & amended from react95) */
+.anchorButton {
+  position: relative;
+  box-sizing: border-box;
+  /* display: inline-block; */
+  background-color: #ced0cf;
+  color: #050608;
+  border-style: solid;
+  border-width: 2px;
+  border-left-color: #ffffff;
+  border-top-color: #ffffff;
+  border-right-color: #050608;
+  border-bottom-color: #050608;
+  box-shadow: inset 1px 1px 0px 1px #dfe0e3, inset -1px -1px 0 1px #888c8f;
+  height: 30px;
+  padding: 0.5rem;
+  text-align: center;
+}
+.anchorButton:hover,
+.anchorButton:active {
+  background-color: #ededed;
+  color: #1c44ac;
+}
+.anchorButton:active {
+  border-left-color: #050608;
+  border-top-color: #050608;
+  border-right-color: #ffffff;
+  border-bottom-color: #ffffff;
+  box-shadow: inset 1px 1px 0px 1px #888c8f, inset -1px -1px 0 1px #dfe0e3;
+}

@@ -1,24 +1,23 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { repos, userSearchInput } from "../../store";
+import { reposListObj, reposSearchInput } from "../../store";
 
-import SearchInput from "../SearchInput";
+import Toolbar from "./Toolbar";
 
 import useGithubApi from "../../githubApi";
 
+import "./styles.scss";
+
 export default function AboutWindow() {
-  const [repoList, setList] = useRecoilState(repos);
-  const searchInputValue = useRecoilValue(userSearchInput);
+  const [repoList, setList] = useRecoilState(reposListObj);
+  const searchInputValue = useRecoilValue(reposSearchInput);
 
   return (
     <>
-      <SearchInput
-        labelText="Repos"
-        placeholder=""
-        defaultValue={""}
-        onSearch={() => ""}
-      />
-      {repoList ? <p>repos</p> : <p>Not found</p>}
+      <Toolbar />
+      <div className="repoWindow__content">
+        <div className="repoContent">Repos</div>
+      </div>
     </>
   );
 }

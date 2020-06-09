@@ -1,0 +1,49 @@
+/* Desktop */
+.desktop__button {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  outline: none;
+  border: none;
+  color: #fff;
+}
+.desktop__image {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Windows */
+.windowFrame {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 725px;
+  max-height: 100%;
+  &.-small {
+    width: auto;
+    height: auto;
+  }
+  &__inner.windowFrame__inner {
+    display: flex;
+    height: 100%;
+  }
+  &__content.windowFrame__content {
+    flex: 1;
+    padding: 0.25rem;
+  }
+  &__contentInner {
+    position: relative;
+    height: calc(100% - 4px);
+  }
+}
+.windowHeader.-inactive {
+  background: #999;
+}
+.windowButton__icon.-close {
+  font-weight: bold;
+  transform: translateY(-2px);
+  pointer-events: none;
+}

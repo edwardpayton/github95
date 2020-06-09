@@ -12,11 +12,6 @@ export default function TaskbarButton({ name }) {
   const currentUser = useRecoilValue(userCurrentNum);
   const [buttonText, setText] = React.useState(capitalize(name));
 
-  React.useEffect(() => {
-    if (currentUser && name === "user" && userList[currentUser].name)
-      setText(userList[currentUser].name);
-  }, [name, userList, currentUser]);
-
   const handleClick = () => {
     const isFocused = currentWindows[name][1] && currentWindows[name][2];
     if (isFocused) {

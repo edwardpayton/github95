@@ -1,0 +1,11 @@
+.card {
+  position: relative;
+  color: #050608;
+  background-color: #ced0cf;
+  border: 2px outset #c0c0c0;
+  box-shadow: inset 1px 1px 0px 1px #dfe0e3, inset -1px -1px 0 1px #888c8f;
+  padding: 1rem;
+}
+.card.-bgWhite {
+  background-color: #fff;
+}

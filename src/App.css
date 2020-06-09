@@ -1,201 +1,4 @@
-/* Desktop */
-.desktop__button {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  outline: none;
-  border: none;
-  color: #fff;
-}
-.desktop__image {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
-
-/* Start menu */
-.startMenu.startMenu {
-  padding-left: 30px;
-}
-.startMenu:before {
-  position: absolute;
-  content: "";
-  background-color: #808080;
-  width: 30px;
-  height: calc(100% - 4px);
-  top: 1px;
-  left: 1px;
-}
-.startMenu:after {
-  position: absolute;
-  content: "Github95";
-  left: 8px;
-  bottom: 0;
-  color: #d2d2d2;
-  text-shadow: 1px 0px #d2d2d2;
-  letter-spacing: 2px;
-  transform: rotate(-90deg);
-  transform-origin: 0 0;
-}
-.startMenu__logo {
-  width: 22px;
-  padding-right: 5px;
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-}
-
-/* Window */
-.windowFrame {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 900px;
-  height: 700px;
-  max-height: 100%;
-}
-.windowFrame.-small {
-  width: auto;
-  height: auto;
-}
-.windowFrame__inner.windowFrame__inner {
-  display: flex;
-  height: 100%;
-}
-.windowFrame__content.windowFrame__content {
-  flex: 1;
-  padding: 0;
-}
-.windowFrame__contentInner {
-  position: relative;
-  height: calc(100% - 4px);
-}
-.windowHeader.-inactive {
-  background: #999;
-}
-.windowButton__icon.-close {
-  font-weight: bold;
-  transform: translateY(-2px);
-  pointer-events: none;
-}
-
-/* Scrollable sections 
-https://codepen.io/louh/pen/oZJQvm?editors=1100
-(no custom scroll bars for Firefox mac. This may work on FF windows but basic appearance -> https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars)
-*/
-
-.scrollable.-yOnly {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.scrollable.-xOnly {
-  overflow-x: auto;
-}
-.scrollable::-webkit-scrollbar {
-  width: 16px;
-  height: 16px;
-}
-
-.scrollable::-webkit-scrollbar-track {
-  border-left: 1px solid #cfd0cf;
-  background-color: #9a9a9a;
-  background-image: linear-gradient(
-      45deg,
-      #cfd0cf 25%,
-      transparent 25%,
-      transparent 75%,
-      #cfd0cf 75%,
-      #cfd0cf
-    ),
-    linear-gradient(
-      45deg,
-      #cfd0cf 25%,
-      transparent 25%,
-      transparent 75%,
-      #cfd0cf 75%,
-      #cfd0cf
-    );
-  background-size: 3px 3px;
-  background-position: 0 0, 1.5px 1.5px;
-}
-.scrollable::-webkit-scrollbar-track:active {
-  background-color: #606060;
-}
-
-.scrollable::-webkit-scrollbar-thumb {
-  border-top: 1px solid #ced0cf;
-  border-left: 1px solid #ced0cf;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
-  box-shadow: inset 1px 1px 0 0 #fff, inset -1px -1px 0 0 #868a8e;
-  width: 16px;
-  height: 16px;
-  background-color: #ced0cf;
-  z-index: 1;
-}
-
-.scrollable::-webkit-scrollbar-corner {
-  background-color: #ced0cf;
-}
-
-.scrollable::-webkit-scrollbar-button,
-.scrollable::-webkit-scrollbar-button {
-  border-top: 1px solid #ced0cf;
-  border-left: 1px solid #ced0cf;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
-  box-shadow: inset 1px 1px 0 0 #fff, inset -1px -1px 0 0 #868a8e;
-  display: block;
-  width: 16px;
-  height: 16px;
-  background-color: #c3c7cb;
-  image-rendering: pixelated;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-.scrollable::-webkit-scrollbar-button:active,
-.scrollable::-webkit-scrollbar-button:active {
-  background-position: 2px 2px;
-}
-.scrollable::-webkit-scrollbar-button:horizontal:decrement,
-.scrollable::-webkit-scrollbar-button:horizontal:decrement {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHklEQVQY02NgoBT8xyX8H5fwf1zCpOjAYwceV1EEAAO2D/HsQ4vsAAAAAElFTkSuQmCC");
-}
-.scrollable::-webkit-scrollbar-button:horizontal:increment,
-.scrollable::-webkit-scrollbar-button:horizontal:increment {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHUlEQVQY02NgIB/8xy3xH7fEf9wS/0nUQZqrKAYAK44P8ZRmzLQAAAAASUVORK5CYII=");
-}
-.scrollable::-webkit-scrollbar-button:vertical:decrement,
-.scrollable::-webkit-scrollbar-button:vertical:decrement {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGklEQVR4AWMYxuA/SYphmETFhDX9x4mHGQAAcL4P8dQiMq8AAAAASUVORK5CYII=");
-}
-.scrollable::-webkit-scrollbar-button:vertical:increment,
-.scrollable::-webkit-scrollbar-button:vertical:increment {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAF0lEQVQY02NgoBf4jwJxSOHQhcNAOgMAWWAP8Rv2U3UAAAAASUVORK5CYII=");
-}
-.scrollable::-webkit-scrollbar-button:horizontal:increment:start,
-.scrollable::-webkit-scrollbar-button:horizontal:increment:start {
-  display: none;
-}
-.scrollable::-webkit-scrollbar-button:horizontal:decrement:end,
-.scrollable::-webkit-scrollbar-button:horizontal:decrement:end {
-  display: none;
-}
-.scrollable::-webkit-scrollbar-button:vertical:increment:start,
-.scrollable::-webkit-scrollbar-button:vertical:increment:start {
-  display: none;
-}
-.scrollable::-webkit-scrollbar-button:vertical:decrement:end,
-.scrollable::-webkit-scrollbar-button:vertical:decrement:end {
-  display: none;
-}
-.scrollable::-webkit-scrollbar-button:active,
-.scrollable::-webkit-scrollbar-button:active {
-  border: 1px solid #868a8e;
-  box-shadow: none;
-}
-
+/* General styles -  these are used throughout the app */
 /* Badge */
 .badge {
   display: inline-block;
@@ -204,7 +7,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   font-size: 8px !important;
   line-height: 10px;
   border: 1px inset;
-  background-color: #b4decb;
+  background-color: #dbf4e8;
   background-image: linear-gradient(
       45deg,
       hsla(0, 0%, 100%, 0.55) 25%,
@@ -231,57 +34,13 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   background-color: #f7c4c4;
 }
 .badge.-grey {
-  background-color: #e2e2e2;
+  background-color: #ededed;
 }
 .badge.-blue {
   background-color: #c9d0ff;
 }
 
-/* Anchor button (styles copied & amended from react95) */
-.anchorButton {
-  position: relative;
-  box-sizing: border-box;
-  /* display: inline-block; */
-  background-color: #ced0cf;
-  color: #050608;
-  border-style: solid;
-  border-width: 2px;
-  border-left-color: #ffffff;
-  border-top-color: #ffffff;
-  border-right-color: #050608;
-  border-bottom-color: #050608;
-  box-shadow: inset 1px 1px 0px 1px #dfe0e3, inset -1px -1px 0 1px #888c8f;
-  height: 30px;
-  padding: 0.5rem;
-  text-align: center;
-}
-.anchorButton:hover,
-.anchorButton:active {
-  background-color: #ededed;
-  color: #1c44ac;
-}
-.anchorButton:active {
-  border-left-color: #050608;
-  border-top-color: #050608;
-  border-right-color: #ffffff;
-  border-bottom-color: #ffffff;
-  box-shadow: inset 1px 1px 0px 1px #888c8f, inset -1px -1px 0 1px #dfe0e3;
-}
-
-/* Card */
-.card {
-  position: relative;
-  color: #050608;
-  background-color: #ced0cf;
-  border: 2px outset #c0c0c0;
-  box-shadow: inset 1px 1px 0px 1px #dfe0e3, inset -1px -1px 0 1px #888c8f;
-  padding: 1rem;
-}
-.card.-bgWhite {
-  background-color: #fff;
-}
-
-/* Atomic styles */
+/* Borders */
 .bevelBorder {
   border: 2px inset;
 }
@@ -319,6 +78,7 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   background-position: 0 0, 1.5px 1.5px, 00;
 }
 
+/* Backgrounds */
 .bgBlue {
   background-color: #606e92;
   background-image: linear-gradient(
@@ -342,22 +102,22 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 }
 
 .bgGrey {
-  background-color: #e2e2e2;
+  background-color: #ededed;
   background-image: linear-gradient(
       45deg,
-      #ececec 25%,
+      #ededed 25%,
       transparent 25%,
       transparent 75%,
-      #ececec 75%,
-      #ececec
+      #ededed 75%,
+      #ededed
     ),
     linear-gradient(
       45deg,
-      #ececec 25%,
+      #ededed 25%,
       transparent 25%,
       transparent 75%,
-      #ececec 75%,
-      #ececec
+      #ededed 75%,
+      #ededed
     );
   background-size: 3px 3px;
   background-position: 0 0, 1.5px 1.5px;
@@ -409,4 +169,118 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
   background-color: #606e92;
 }
 
-/*  */
+/* Scrollable sections 
+https://codepen.io/louh/pen/oZJQvm?editors=1100
+(no custom scroll bars for Firefox mac. This may work on FF windows but basic appearance -> https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars)
+*/
+
+.scrollable.-yOnly {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.scrollable.-xOnly {
+  overflow-x: auto;
+}
+.scrollable::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  border-left: 1px solid #ced0cf;
+  background-color: #999;
+  background-image: linear-gradient(
+      45deg,
+      #ced0cf 25%,
+      transparent 25%,
+      transparent 75%,
+      #ced0cf 75%,
+      #ced0cf
+    ),
+    linear-gradient(
+      45deg,
+      #ced0cf 25%,
+      transparent 25%,
+      transparent 75%,
+      #ced0cf 75%,
+      #ced0cf
+    );
+  background-size: 3px 3px;
+  background-position: 0 0, 1.5px 1.5px;
+}
+.scrollable::-webkit-scrollbar-track:active {
+  background-color: #6c6c6c;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  border-top: 1px solid #ced0cf;
+  border-left: 1px solid #ced0cf;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  box-shadow: inset 1px 1px 0 0 #fff, inset -1px -1px 0 0 #6c6c6c;
+  width: 16px;
+  height: 16px;
+  background-color: #ced0cf;
+  z-index: 1;
+}
+
+.scrollable::-webkit-scrollbar-corner {
+  background-color: #ced0cf;
+}
+
+.scrollable::-webkit-scrollbar-button,
+.scrollable::-webkit-scrollbar-button {
+  border-top: 1px solid #ced0cf;
+  border-left: 1px solid #ced0cf;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  box-shadow: inset 1px 1px 0 0 #fff, inset -1px -1px 0 0 #6c6c6c;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: #ced0cf;
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.scrollable::-webkit-scrollbar-button:active,
+.scrollable::-webkit-scrollbar-button:active {
+  background-position: 2px 2px;
+}
+.scrollable::-webkit-scrollbar-button:horizontal:decrement,
+.scrollable::-webkit-scrollbar-button:horizontal:decrement {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHklEQVQY02NgoBT8xyX8H5fwf1zCpOjAYwceV1EEAAO2D/HsQ4vsAAAAAElFTkSuQmCC");
+}
+.scrollable::-webkit-scrollbar-button:horizontal:increment,
+.scrollable::-webkit-scrollbar-button:horizontal:increment {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHUlEQVQY02NgIB/8xy3xH7fEf9wS/0nUQZqrKAYAK44P8ZRmzLQAAAAASUVORK5CYII=");
+}
+.scrollable::-webkit-scrollbar-button:vertical:decrement,
+.scrollable::-webkit-scrollbar-button:vertical:decrement {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAGklEQVR4AWMYxuA/SYphmETFhDX9x4mHGQAAcL4P8dQiMq8AAAAASUVORK5CYII=");
+}
+.scrollable::-webkit-scrollbar-button:vertical:increment,
+.scrollable::-webkit-scrollbar-button:vertical:increment {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAF0lEQVQY02NgoBf4jwJxSOHQhcNAOgMAWWAP8Rv2U3UAAAAASUVORK5CYII=");
+}
+.scrollable::-webkit-scrollbar-button:horizontal:increment:start,
+.scrollable::-webkit-scrollbar-button:horizontal:increment:start {
+  display: none;
+}
+.scrollable::-webkit-scrollbar-button:horizontal:decrement:end,
+.scrollable::-webkit-scrollbar-button:horizontal:decrement:end {
+  display: none;
+}
+.scrollable::-webkit-scrollbar-button:vertical:increment:start,
+.scrollable::-webkit-scrollbar-button:vertical:increment:start {
+  display: none;
+}
+.scrollable::-webkit-scrollbar-button:vertical:decrement:end,
+.scrollable::-webkit-scrollbar-button:vertical:decrement:end {
+  display: none;
+}
+.scrollable::-webkit-scrollbar-button:active,
+.scrollable::-webkit-scrollbar-button:active {
+  border: 1px solid #6c6c6c;
+  box-shadow: none;
+}

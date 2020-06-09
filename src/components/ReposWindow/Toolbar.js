@@ -65,8 +65,8 @@ export default function Search() {
   return (
     <div className="userToolbar">
       <Toolbar
-        title="User Profiles"
-        placeholder="Find user eg. edwardpayton"
+        label="Search repos"
+        placeholder="eg: docker, typescript, ..."
         searchValue={input}
         onSearch={handleSearch}
         searchMatches={matches}

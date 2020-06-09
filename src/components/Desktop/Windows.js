@@ -2,11 +2,11 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import WindowFrame from "./WindowFrame";
-import AboutWindow from "./AboutWindow";
-import UserWindow from "./UserWindow/";
-import ReposWindow from "./ReposWindow/";
+import AboutWindow from "../AboutWindow/";
+import UserWindow from "../UserWindow/";
+import ReposWindow from "../ReposWindow/";
 
-import { windowObj } from "../store";
+import { windowObj } from "../../store";
 
 const componentList = {
   about: AboutWindow,

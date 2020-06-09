@@ -1,10 +1,10 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 
-import { WINDOW_OBJ } from "../constants";
-import { windowObj } from "../store";
+import { WINDOW_OBJ } from "../../constants";
+import { windowObj } from "../../store";
 
-import capitalize from "../utilities/capitalize";
+import capitalize from "../../utilities/capitalize";
 
 export default function Desktop() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
@@ -39,7 +39,7 @@ export default function Desktop() {
             onDoubleClick={handleIconDblClick}
           >
             <img
-              src={require(`../assets/${name}.png`)}
+              src={require(`../../assets/${name}.png`)}
               className="desktop__image"
               alt="icon"
               width="50"

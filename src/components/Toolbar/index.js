@@ -13,7 +13,7 @@ import Search from "./Search";
 import "./styles.scss";
 
 export default function Toolbar({
-  label,
+  title,
   placeholder,
   searchValue,
   onSearch,
@@ -28,6 +28,7 @@ export default function Toolbar({
     searchMatches.length > 0
   );
   const refMatches = React.useRef(undefined);
+  const refHistory = React.useRef(undefined);
 
   const handleClickMatch = (match) => () => {
     onClickMatch(match);
@@ -61,31 +62,47 @@ export default function Toolbar({
     return false;
   };
 
-  const handleClickOutside = ({ target }) => {
+  const handleClickOutsideMatches = ({ target }) => {
     const clickedMatches = refMatches.current.contains(target);
     if (!clickedMatches) {
+      document.removeEventListener("click", handleClickOutsideMatches);
       setMatchesVisible(false);
+    }
+  };
+
+  const handleClickOutsideHistory = ({ target }) => {
+    const clickedHistory = refHistory.current.contains(target);
+    if (!clickedHistory) {
+      setMenuVisible(false);
+      document.removeEventListener("click", handleClickOutsideHistory);
     }
   };
 
   React.useEffect(() => {
     if (searchMatches.length > 0) {
-      document.addEventListener("click", handleClickOutside);
+      document.addEventListener("click", handleClickOutsideMatches);
       setMatchesVisible(true);
     } else {
-      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutsideMatches);
       setMatchesVisible(false);
     }
-  }, [searchMatches]);
+  }, [searchMatches]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  React.useEffect(() => {
+    if (menuVisible) {
+      document.addEventListener("click", handleClickOutsideHistory);
+      setMenuVisible(true);
+    }
+  }, [menuVisible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>
       <div className="flex justify-between toolbar">
-        <div className="flex justify-between toolbar__buttons">
+        <div className="flex toolbar__buttons">
           <Button
             onClick={onBack}
             disabled={disabledBack()}
-            className={`toolbar__button -back${
+            className={`toolbar__button -nav -back${
               disabledBack() ? " -disabled" : ""
             }`}
           >
@@ -94,61 +111,23 @@ export default function Toolbar({
           <Button
             onClick={onForward}
             disabled={disabledFwd()}
-            className={`toolbar__button${disabledFwd() ? " -disabled" : ""}`}
+            className={`toolbar__button -nav -forward${
+              disabledFwd() ? " -disabled" : ""
+            }`}
           >
             Forward
           </Button>
-        </div>
-        <div className="bevelBorder flex justify-center toolbar__search">
-          <label htmlFor={label.replace(/\s/g, "")}>{label}</label>
-          <Search
-            id={label.replace(/\s/g, "")}
-            placeholder={placeholder}
-            initalValue={searchValue}
-            onSearch={onSearch}
-            className="userSearch__input"
-          />
-          <div className="searchMatches" ref={refMatches}>
-            {matchesVisible && (
-              <div className="card searchMatches__panel">
-                <div className="scrollable -yOnly searchMatches__inner">
-                  <Table className="table">
-                    <TableBody>
-                      {searchMatches.map((match) => (
-                        <TableRow key={match.login}>
-                          <TableDataCell className="flex justify-between userMatches__match">
-                            <p>
-                              {match.name}
-                              <span className="userMatches__login">
-                                {match.login}
-                              </span>
-                            </p>
-                            <Button
-                              onClick={handleClickMatch(match.login)}
-                              className="userMatches__button"
-                            >
-                              Open profile
-                            </Button>
-                          </TableDataCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        <div className="toolbar__history">
           <Button
             onClick={handleToggleMenu}
             active={menuVisible}
             disabled={!historyList.length}
+            className="toolbar__button -history"
           >
             History
           </Button>
           <div
             className={`card searchHistory${menuVisible ? " -visible" : ""}`}
+            ref={refHistory}
           >
             {historyList.map((item) => (
               <Button
@@ -163,8 +142,49 @@ export default function Toolbar({
             ))}
           </div>
         </div>
+
+        <div className="toolbar__title">
+          <h1>{title}</h1>
+        </div>
+
+        <div className="flex justify-center toolbar__search">
+          <Search
+            placeholder={placeholder}
+            initalValue={searchValue}
+            onSearch={onSearch}
+          />
+          <div className="searchMatches" ref={refMatches}>
+            {matchesVisible && (
+              <div className="card searchMatches__panel">
+                <div className="scrollable -yOnly searchMatches__inner">
+                  <Table className="table">
+                    <TableBody>
+                      {searchMatches.map((match) => (
+                        <TableRow key={match.login}>
+                          <TableDataCell className="flex justify-between searchMatches__match">
+                            <p>
+                              {match.name}
+                              <span className="searchMatches__login">
+                                {match.login}
+                              </span>
+                            </p>
+                            <Button
+                              onClick={handleClickMatch(match.login)}
+                              className="searchMatches__button"
+                            >
+                              Open profile
+                            </Button>
+                          </TableDataCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-      <Divider />
     </>
   );
 }

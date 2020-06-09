@@ -3,7 +3,7 @@ import React from "react";
 import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
 
-import capitalize from "../utilities/capitalize";
+import capitalize from "../../utilities/capitalize";
 
 export default function WindowFrame({
   name,
@@ -34,7 +34,7 @@ export default function WindowFrame({
           display: window[1] ? "block" : "none",
           zIndex: window[2] ? 2 : 1,
         }}
-        className={`fit windowFrame${small ? " __small" : ""}`}
+        className={`windowFrame${small ? " -small" : ""}`}
       >
         <Window
           onClick={handleClickWindow}

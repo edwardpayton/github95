@@ -8,7 +8,7 @@ export default function StartupSound() {
   React.useEffect(() => {
     refSound.current = new Howl({
       // @ts-ignore
-      src: [require("../assets/startup-sound.wav")],
+      src: [require("../../assets/startup-sound.wav")],
       volume: 0.5,
       onend: () => {
         refSound.current = null;

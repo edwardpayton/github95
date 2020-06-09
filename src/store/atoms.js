@@ -34,7 +34,12 @@ export const usersListObj = atom({
 });
 
 // Repo window
-export const repos = atom({
-  key: "repos",
+export const reposSearchInput = atom({
+  key: "reposSearchInput",
+  default: "",
+});
+
+export const reposListObj = atom({
+  key: "reposListObj",
   default: {},
 });

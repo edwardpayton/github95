@@ -8,6 +8,8 @@ import TaskbarClock from "./TaskbarClock";
 
 import { menubarButtons, windowObj } from "../../store";
 
+import "./styles.scss";
+
 export default function Taskbar() {
   const [currentButtons, setButtons] = useRecoilState(menubarButtons);
   const openWindows = useRecoilValue(windowObj);

@@ -2,10 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Anchor, Hourglass } from "react95";
 
-import AreaChart from "../AreaChart";
-import HeatChart from "../HeatChart";
+import { AreaChart, HeatChart } from "../Charts";
 import Card from "../Card";
-import AnchorButton from "../AnchorButton";
 
 import capitalize from "../../utilities/capitalize";
 import formatDate from "../../utilities/formatDate";
