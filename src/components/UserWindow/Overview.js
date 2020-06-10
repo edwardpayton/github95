@@ -38,12 +38,12 @@ export default function Overview({ profile, activity, contributions }) {
                 />
               </div>
               <div className="flex flex-column justify-around overview__profileDetails">
-                <h1 className="overview__title">
+                <h2 className="overview__title">
                   {profile.name ? profile.name : "-"}
                   <span className="badge -grey overview__login">
                     {profile.login}
                   </span>
-                </h1>
+                </h2>
                 <div className="overview__bio">
                   {/* <p className="overview__bioCopy"> */}
                   <p className="overview__bioCopy">
