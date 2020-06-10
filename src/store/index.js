@@ -1,6 +1,7 @@
 import {
   windowObj,
   menubarButtons,
+  focusedElement,
   userSearchInput,
   userSearchMatches,
   userCurrentNum,
@@ -13,6 +14,7 @@ import { userActivity } from "./selectors";
 export {
   windowObj,
   menubarButtons,
+  focusedElement,
   userSearchInput,
   userSearchMatches,
   userActivity,

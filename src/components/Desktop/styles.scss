@@ -1,16 +1,34 @@
 /* Desktop */
-.desktop__button {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  outline: none;
-  border: none;
-  color: #fff;
+.desktop {
+  width: calc(100% - 40px);
+  height: calc(100% - 60px);
+  padding: 30px 20px;
 }
-.desktop__image {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+.desktopButton {
+  width: 65px;
+  height: 90px;
+  margin-bottom: 1rem;
+  &__button {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    outline: none;
+    border: none;
+    color: #fff;
+    text-align: center;
+    &.-focused {
+      outline: 1px dotted #000;
+    }
+  }
+  &__image {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    pointer-events: none;
+  }
+  &__name {
+    padding-top: 10px;
+    pointer-events: none;
+  }
 }
 
 /* Windows */

@@ -1,7 +1,9 @@
 import React from "react";
-
 import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
+import { useRecoilValue } from "recoil";
+
+import { focusedElement } from "../../store";
 
 import capitalize from "../../utilities/capitalize";
 
@@ -13,7 +15,7 @@ export default function WindowFrame({
   small,
   children,
 }) {
-  const refWindow = React.useRef(undefined);
+  const focused = useRecoilValue(focusedElement);
   const refCloseBtn = React.useRef(undefined);
 
   const handleClose = () => onClose(name);
@@ -29,21 +31,21 @@ export default function WindowFrame({
       handle=".handle"
     >
       <div
-        ref={refWindow}
+        data-name={name}
         style={{
           display: window[1] ? "block" : "none",
-          zIndex: window[2] ? 2 : 1,
+          zIndex: focused === name ? 2 : 1,
         }}
         className={`windowFrame${small ? " -small" : ""}`}
       >
         <Window
           onClick={handleClickWindow}
-          shadow={window[2]}
+          shadow={focused === name}
           className="flex-column windowFrame__inner"
         >
           <WindowHeader
             className={`flex items-center justify-between handle windowHeader${
-              window[2] ? "" : " -inactive"
+              focused === name ? "" : " -inactive"
             }`}
           >
             <span>{capitalize(name)}</span>

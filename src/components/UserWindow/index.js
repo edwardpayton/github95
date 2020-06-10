@@ -73,7 +73,7 @@ export default function UserWindow() {
   return (
     <>
       <Toolbar />
-      <div className="userWindow__content">
+      <section className="userWindow__content">
         <div className="userContent">
           <Tabs
             value={activeTab}
@@ -160,7 +160,7 @@ export default function UserWindow() {
 
             {currentUser && (
               <>
-                <div
+                <section
                   className="userContent__body"
                   style={{ display: activeTab === 0 ? "block" : "none" }}
                 >
@@ -169,24 +169,24 @@ export default function UserWindow() {
                     activity={activity}
                     contributions={userList[currentUser].contributions}
                   />
-                </div>
-                <div
+                </section>
+                <section
                   className="userContent__body"
                   style={{ display: activeTab === 1 ? "block" : "none" }}
                 >
                   <Repos repos={userList[currentUser].dataRepos} />
-                </div>
+                </section>
 
-                <div
+                <section
                   className="userContent__body"
                   style={{ display: activeTab === 2 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
                     <Stars stars={userList[currentUser].dataStars} />
                   </div>
-                </div>
+                </section>
 
-                <div
+                <section
                   className="userContent__body"
                   style={{ display: activeTab === 3 ? "block" : "none" }}
                 >
@@ -195,9 +195,9 @@ export default function UserWindow() {
                       followers={userList[currentUser].dataFollowers}
                     />
                   </div>
-                </div>
+                </section>
 
-                <div
+                <section
                   className="userContent__body"
                   style={{ display: activeTab === 4 ? "block" : "none" }}
                 >
@@ -206,12 +206,12 @@ export default function UserWindow() {
                       following={userList[currentUser].dataFollowing}
                     />
                   </div>
-                </div>
+                </section>
               </>
             )}
           </TabBody>
         </div>
-      </div>
+      </section>
     </>
   );
 }

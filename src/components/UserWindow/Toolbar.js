@@ -34,7 +34,7 @@ export default function Search() {
   }, []);
 
   const handleSearch = (value) => {
-    setInput(value);
+    // setInput(value);
     getUsersMatches(value);
     refSearch.current = true;
   };

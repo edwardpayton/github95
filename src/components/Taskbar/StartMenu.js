@@ -6,7 +6,6 @@ import { windowObj } from "../../store";
 
 export default function StartMenu() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
-
   const [isOpen, setOpen] = React.useState(false);
   const refMenu = React.useRef(undefined);
 
@@ -23,8 +22,8 @@ export default function StartMenu() {
     toggleMenu(!isOpen);
   };
 
-  const handleListClick = (name) => {
-    setWindows({ ...currentWindows, [name]: [true, true, true] });
+  const handleListClick = (name) => () => {
+    setWindows({ ...currentWindows, [name]: [true, true] });
     toggleMenu(false);
   };
 
@@ -33,34 +32,59 @@ export default function StartMenu() {
     toggleMenu(false);
   };
 
+  const handleSoundToggle = () => {
+    console.log("~/Sites/github95/src/components/Taskbar/StartMenu >>>");
+  };
+
   return (
-    <div style={{ position: "relative", float: "left" }} ref={refMenu}>
+    <div className="startMenu" ref={refMenu}>
       {isOpen && (
         <List
           horizontalAlign="left"
           verticalAlign="top"
           open={isOpen}
-          className="startMenu"
+          className="startMenu__menu"
         >
-          <ListItem onClick={() => handleListClick("about")}>👨‍💻 About</ListItem>
-          <ListItem onClick={() => handleListClick("profile")}>
-            👨‍💻 Profile
+          <ListItem onClick={handleListClick("about")}>
+            <p className="startMenu__menuItem">
+              <span role="img" aria-label="about">
+                👨‍💻
+              </span>{" "}
+              About
+            </p>
           </ListItem>
-          <ListItem onClick={() => handleListClick("code")}>
-            📁 View Code
+          <ListItem onClick={handleListClick("user")}>
+            <p className="startMenu__menuItem">
+              <span role="img" aria-label="profile">
+                👨‍💻
+              </span>{" "}
+              Profile
+            </p>
+          </ListItem>
+          <ListItem onClick={handleListClick("code")}>
+            <p className="startMenu__menuItem">
+              <span role="img" aria-label="view code">
+                📁
+              </span>{" "}
+              View Code
+            </p>
           </ListItem>
           <Divider />
-          <ListItem>Sounds: ON</ListItem>
+          <ListItem onClick={handleSoundToggle}>
+            <p className="startMenu__menuItem -soundItem">
+              Startup sound: <span className="badge -grey">On</span>
+            </p>
+          </ListItem>
         </List>
       )}
       <Button
         onClick={handleButtonClick}
         active={isOpen}
-        style={{ textShadow: "-1px 0 hsla(0, 0%, 0%, 0.7)" }}
-        className="mr1"
+        className="mr1 startMenu__triggerButton"
       >
         <img
           src={require("../../assets/win-logo.png")}
+          alt=""
           className="startMenu__logo"
         />
         Github 95

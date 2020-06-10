@@ -18,7 +18,7 @@ export default function Windows() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
 
   const handleCloseWindow = (currentWindow) => {
-    setWindows({ ...currentWindows, [currentWindow]: [false, false, false] });
+    setWindows({ ...currentWindows, [currentWindow]: [false, false] });
   };
 
   const handleClickWindow = (currentWindow) => {

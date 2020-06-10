@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableDataCell,
-  Button,
-  Divider,
-} from "react95";
+import { Table, TableBody, TableRow, TableDataCell, Button } from "react95";
 
 import Search from "./Search";
 
@@ -96,95 +89,93 @@ export default function Toolbar({
   }, [menuVisible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <>
-      <div className="flex justify-between toolbar">
-        <div className="flex toolbar__buttons">
-          <Button
-            onClick={onBack}
-            disabled={disabledBack()}
-            className={`toolbar__button -nav -back${
-              disabledBack() ? " -disabled" : ""
-            }`}
-          >
-            Back
-          </Button>
-          <Button
-            onClick={onForward}
-            disabled={disabledFwd()}
-            className={`toolbar__button -nav -forward${
-              disabledFwd() ? " -disabled" : ""
-            }`}
-          >
-            Forward
-          </Button>
-          <Button
-            onClick={handleToggleMenu}
-            active={menuVisible}
-            disabled={!historyList.length}
-            className="toolbar__button -history"
-          >
-            History
-          </Button>
-          <div
-            className={`card searchHistory${menuVisible ? " -visible" : ""}`}
-            ref={refHistory}
-          >
-            {historyList.map((item) => (
-              <Button
-                key={item}
-                onClick={handleClickHistory(item)}
-                className={`searchHistory__button${
-                  item === searchValue ? " -current" : ""
-                }`}
-              >
-                {item}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        <div className="toolbar__title">
-          <h1>{title}</h1>
-        </div>
-
-        <div className="flex justify-center toolbar__search">
-          <Search
-            placeholder={placeholder}
-            initalValue={searchValue}
-            onSearch={onSearch}
-          />
-          <div className="searchMatches" ref={refMatches}>
-            {matchesVisible && (
-              <div className="card searchMatches__panel">
-                <div className="scrollable -yOnly searchMatches__inner">
-                  <Table className="table">
-                    <TableBody>
-                      {searchMatches.map((match) => (
-                        <TableRow key={match.login}>
-                          <TableDataCell className="flex justify-between searchMatches__match">
-                            <p>
-                              {match.name}
-                              <span className="searchMatches__login">
-                                {match.login}
-                              </span>
-                            </p>
-                            <Button
-                              onClick={handleClickMatch(match.login)}
-                              className="searchMatches__button"
-                            >
-                              Open profile
-                            </Button>
-                          </TableDataCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              </div>
-            )}
-          </div>
+    <section className="flex justify-between toolbar">
+      <div className="flex toolbar__buttons">
+        <Button
+          onClick={onBack}
+          disabled={disabledBack()}
+          className={`toolbar__button -nav -back${
+            disabledBack() ? " -disabled" : ""
+          }`}
+        >
+          Back
+        </Button>
+        <Button
+          onClick={onForward}
+          disabled={disabledFwd()}
+          className={`toolbar__button -nav -forward${
+            disabledFwd() ? " -disabled" : ""
+          }`}
+        >
+          Forward
+        </Button>
+        <Button
+          onClick={handleToggleMenu}
+          active={menuVisible}
+          disabled={!historyList.length}
+          className="toolbar__button -history"
+        >
+          History
+        </Button>
+        <div
+          className={`card searchHistory${menuVisible ? " -visible" : ""}`}
+          ref={refHistory}
+        >
+          {historyList.map((item) => (
+            <Button
+              key={item}
+              onClick={handleClickHistory(item)}
+              className={`searchHistory__button${
+                item === searchValue ? " -current" : ""
+              }`}
+            >
+              {item}
+            </Button>
+          ))}
         </div>
       </div>
-    </>
+
+      <div className="toolbar__title">
+        <h1>{title}</h1>
+      </div>
+
+      <div className="flex justify-center toolbar__search">
+        <Search
+          placeholder={placeholder}
+          initalValue={searchValue}
+          onSearch={onSearch}
+        />
+        <div className="searchMatches" ref={refMatches}>
+          {matchesVisible && (
+            <div className="card searchMatches__panel">
+              <div className="scrollable -yOnly searchMatches__inner">
+                <Table className="table">
+                  <TableBody>
+                    {searchMatches.map((match) => (
+                      <TableRow key={match.login}>
+                        <TableDataCell className="flex justify-between searchMatches__match">
+                          <p>
+                            {match.name}
+                            <span className="searchMatches__login">
+                              {match.login}
+                            </span>
+                          </p>
+                          <Button
+                            onClick={handleClickMatch(match.login)}
+                            className="searchMatches__button"
+                          >
+                            Open profile
+                          </Button>
+                        </TableDataCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }

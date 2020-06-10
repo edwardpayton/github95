@@ -1,8 +1,13 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
 
 import { Howl } from "howler";
+import { startupSound } from "../../store";
+import useCookie from "../../hooks/useCookie";
 
 export default function StartupSound() {
+  const [soundCookie, setCookie] = useCookie("github95_noSound", false);
+
   const refSound = React.useRef(undefined);
 
   React.useEffect(() => {

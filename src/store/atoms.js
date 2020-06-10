@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { WINDOW_OBJ, USER_OBJ } from "../constants";
+import { WINDOW_OBJ } from "../constants";
 
 // General
 export const windowObj = atom({
@@ -10,6 +10,11 @@ export const windowObj = atom({
 export const menubarButtons = atom({
   key: "menubarButtons",
   default: [],
+});
+
+export const focusedElement = atom({
+  key: "focusedElement",
+  default: "",
 });
 
 // User window

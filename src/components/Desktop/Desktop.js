@@ -4,49 +4,33 @@ import { useRecoilState } from "recoil";
 import { WINDOW_OBJ } from "../../constants";
 import { windowObj } from "../../store";
 
-import capitalize from "../../utilities/capitalize";
+import DesktopButton from "./DesktopButton";
 
 export default function Desktop() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
+  const [active, setActive] = React.useState("");
 
-  const handleIconDblClick = (e) => {
+  const handleDesktopClick = ({ target }) => {
+    const { name } = target.dataset;
+    setActive(name || "");
+  };
+
+  const handleButtonDblClick = (name) => (e) => {
     e.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation(); // TODO needed?
-    const name = e.currentTarget.id.replace("desktopButton", "");
     window.setTimeout(() => {
-      setWindows({ ...currentWindows, [name]: [true, true, true] });
+      setWindows({ ...currentWindows, [name]: [true, true] });
     }, 300);
   };
 
   return (
-    <section
-      className="flex flex-column max-width-5 ml1"
-      style={{ height: "calc(100% - 30px)", paddingTop: 30 }}
-    >
+    <section className="flex flex-column desktop" onClick={handleDesktopClick}>
       {Object.keys(WINDOW_OBJ).map((name) => (
-        <div
+        <DesktopButton
+          name={name}
+          active={active}
+          onDoubleClick={handleButtonDblClick(name)}
           key={name}
-          style={{
-            width: 100,
-            height: 100,
-            margin: "10px 0 20px",
-            textAlign: "center",
-          }}
-        >
-          <button
-            id={"desktopButton" + name}
-            className="desktop__button"
-            onDoubleClick={handleIconDblClick}
-          >
-            <img
-              src={require(`../../assets/${name}.png`)}
-              className="desktop__image"
-              alt="icon"
-              width="50"
-            />
-            <p style={{ paddingTop: 10 }}>{capitalize(name)}</p>
-          </button>
-        </div>
+        />
       ))}
     </section>
   );
