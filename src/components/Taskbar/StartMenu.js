@@ -3,8 +3,10 @@ import { useRecoilState } from "recoil";
 import { Button, List, ListItem, Divider } from "react95";
 
 import { windowObj } from "../../store";
+import useCookie from "../../hooks/useCookie";
 
 export default function StartMenu() {
+  const [soundCookie, setCookie] = useCookie("github95_noSound", "Off");
   const [currentWindows, setWindows] = useRecoilState(windowObj);
   const [isOpen, setOpen] = React.useState(false);
   const refMenu = React.useRef(undefined);
@@ -33,7 +35,11 @@ export default function StartMenu() {
   };
 
   const handleSoundToggle = () => {
-    console.log("~/Sites/github95/src/components/Taskbar/StartMenu >>>");
+    const cookieValue = {
+      Off: "On",
+      On: "Off",
+    };
+    setCookie(cookieValue[soundCookie]);
   };
 
   return (
@@ -72,7 +78,7 @@ export default function StartMenu() {
           <Divider />
           <ListItem onClick={handleSoundToggle}>
             <p className="startMenu__menuItem -soundItem">
-              Startup sound: <span className="badge -grey">On</span>
+              Startup sound: <span className="badge -grey">{soundCookie}</span>
             </p>
           </ListItem>
         </List>

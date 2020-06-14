@@ -42,6 +42,8 @@
     &.-soundItem {
       padding-right: 0;
       > span {
+        position: relative;
+        top: -2px;
         color: #000 !important;
       }
     }

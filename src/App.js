@@ -3,10 +3,11 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { reset, themes } from "react95";
 
-import Taskbar from "./components/Taskbar/";
-import Desktop, { Windows, StartupSound } from "./components/Desktop";
+import Desktop from "./components/Desktop";
+import StartupSound from "./components/StartupSound";
 
 import { menubarButtons, focusedElement } from "./store";
+import useCookie from "./hooks/useCookie";
 
 import "./App.css";
 
@@ -14,7 +15,7 @@ const ResetStyles = createGlobalStyle`
   ${reset}
 `;
 
-function AppWrapper() {
+function App() {
   const [focused, setfocused] = useRecoilState(focusedElement);
   const currentButtons = useRecoilValue(menubarButtons);
   const handleClick = React.useCallback(
@@ -32,27 +33,19 @@ function AppWrapper() {
     document.addEventListener("click", handleClick);
   }, []);
 
-  return (
-    <>
-      <ResetStyles />
-      <ThemeProvider theme={themes.default}>
-        {/* <StartupSound /> */}
-        <Taskbar />
-        <main>
-          <section style={{ height: "100%" }}>
-            <Desktop />
-            <Windows />
-          </section>
-        </main>
-      </ThemeProvider>
-    </>
-  );
+  return <Desktop />;
 }
 
-export default function App() {
+export default () => {
+  const [soundCookie, _] = useCookie("github95_noSound");
+
   return (
     <RecoilRoot>
-      <AppWrapper />
+      <ResetStyles />
+      {soundCookie === "On" && <StartupSound />}
+      <ThemeProvider theme={themes.default}>
+        <App />
+      </ThemeProvider>
     </RecoilRoot>
   );
-}
+};
