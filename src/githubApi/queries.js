@@ -1,5 +1,11 @@
 /**
- *
+ * _______USERS_______
+ */
+
+/**
+ * get list of users from search query
+ * returns 20 results with name, login (username)
+ * $username - string the login (username)
  */
 export const GET_USER_SEARCH = `
 query UserSearch($username: String!) {
@@ -232,8 +238,12 @@ query UserFollows($username: String!, $cursor: String) {
 `;
 
 /**
+ * _______Repos_______
+ */
+
+/**
  * get Github repos from search
- * returns 10 repos per page
+ * returns 20 repos per page
  * $query: string - the package name
  * $cursor: string - the id of the repo to start after
  */
@@ -247,8 +257,8 @@ query RepoSearch($query: String!, $cursor: String) {
     }
     nodes {
       ... on Repository {
-        id
         name
+        url
         updatedAt
       }
     }
