@@ -15,6 +15,7 @@ import {
   apiGetUserStars,
   apiGetUserFollows,
 } from "./api";
+import { List } from "react95/dist/prod";
 
 /**
  * useGithubApi hook
@@ -81,17 +82,34 @@ export default function useGithubApi() {
     [userList, setList, setCurrentUser]
   );
 
-  const getUserRepos = React.useCallback(async () => {
-    const dataRepos = await apiGetUserRepos(userList[currentUser].login);
-    const newUserData = {
-      [userList[currentUser].login]: {
-        ...userList[currentUser],
-        dataRepos,
-      },
-    };
+  const getUserRepos = React.useCallback(
+    async (cursor = null) => {
+      const result = await apiGetUserRepos(userList[currentUser].login, cursor);
 
-    setList({ ...userList, ...newUserData });
-  }, [userList, setList, currentUser]);
+      let repos = {};
+      if (cursor) {
+        repos = {
+          nodes: [
+            ...userList[userList[currentUser].login].dataRepos.nodes,
+            ...result.nodes,
+          ],
+          pageInfo: result.pageInfo,
+        };
+      } else {
+        repos = result;
+      }
+
+      const newUserData = {
+        [userList[currentUser].login]: {
+          ...userList[currentUser],
+          dataRepos: repos,
+        },
+      };
+
+      setList({ ...userList, ...newUserData });
+    },
+    [userList, setList, currentUser]
+  );
 
   const getUserStars = React.useCallback(async () => {
     const dataStars = await apiGetUserStars(userList[currentUser].login);

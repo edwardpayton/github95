@@ -93,16 +93,16 @@ export const apiGetUserActivity = async (username, numRepos) => {
 //   return reposAll;
 // };
 
-export const apiGetUserRepos = async (username) => {
+export const apiGetUserRepos = async (username, cursor) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_REPOS,
-      variables: { username, cursor: null },
+      variables: { username, cursor },
     });
     let json = await resp.json();
-    json = json.data.user.repositories.nodes;
+    json = json.data.user.repositories;
 
-    return [...json];
+    return json;
   } catch (error) {
     return new Error(error);
   }

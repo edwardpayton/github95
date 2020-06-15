@@ -5,6 +5,9 @@ export const WINDOW_OBJ = {
       window focused (is active window, button pressed) TODO
     ] */
   about: [false, false],
-  user: [true, true],
+  // user: [false, false],
   repos: [false, false],
+  // for demo
+  user: [true, true],
+  // repos: [true, true],
 };

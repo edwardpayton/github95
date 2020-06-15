@@ -70,6 +70,11 @@ export default function UserWindow() {
     }
   };
 
+  const handleReposPagination = () => {
+    console.log("~/Sites/github95/src/components/UserWindow/index >>>");
+    getUserRepos(userList[currentUser].dataRepos.pageInfo.endCursor);
+  };
+
   return (
     <>
       <Toolbar />
@@ -174,7 +179,11 @@ export default function UserWindow() {
                   className="userContent__body"
                   style={{ display: activeTab === 1 ? "block" : "none" }}
                 >
-                  <Repos repos={userList[currentUser].dataRepos} />
+                  <Repos
+                    repos={userList[currentUser].dataRepos}
+                    total={userList[currentUser].repositories.totalCount}
+                    onPageChange={handleReposPagination}
+                  />
                 </section>
 
                 <section
