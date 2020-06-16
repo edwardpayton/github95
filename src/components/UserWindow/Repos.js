@@ -18,17 +18,6 @@ export default function Repos({ repos, total, onPageChange }) {
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
 
-  const processRepos = () => {
-    const { nodes } = repos;
-    const grouped = nodes.reduce((newArray, item, i) => {
-      const groupI = Math.floor(i / 10);
-      if (!newArray[groupI]) newArray[groupI] = [];
-      newArray[groupI].push(item);
-      return newArray;
-    }, []);
-    return grouped;
-  };
-
   const handleClickNextPage = (page) => {
     setPageNumber(page);
     if (!paginated[page]) {
@@ -36,11 +25,22 @@ export default function Repos({ repos, total, onPageChange }) {
     }
   };
 
+  const processRepos = React.useCallback(() => {
+    let reversed = [...repos].reverse();
+    const grouped = reversed.reduce((newArray, item, i) => {
+      const groupI = Math.floor(i / 20);
+      if (!newArray[groupI]) newArray[groupI] = [];
+      newArray[groupI].push(item);
+      return newArray;
+    }, []);
+    return grouped;
+  }, [repos]);
+
   React.useEffect(() => {
-    if (repos && repos.nodes.length) {
+    if (repos && repos.length) {
       setPaginated(processRepos());
     }
-  }, [repos]);
+  }, [repos, processRepos]);
 
   return (
     <div className="userContent__bodyInner scrollable -yOnly">
@@ -48,7 +48,6 @@ export default function Repos({ repos, total, onPageChange }) {
         <h3>Repositories</h3>
         {paginated && paginated.length > 0 ? (
           <>
-            <Pagination onPageChange={handleClickNextPage} totalCount={total} />
             <Table className="table userRepos__table">
               <TableHead>
                 <TableRow head>
@@ -70,15 +69,18 @@ export default function Repos({ repos, total, onPageChange }) {
                 {paginated[pageNumber] &&
                   paginated[pageNumber].map(
                     ({
-                      name,
-                      isFork,
-                      description,
-                      url,
-                      updatedAt,
-                      primaryLanguage,
-                      repositoryTopics,
+                      cursor,
+                      node: {
+                        name,
+                        isFork,
+                        description,
+                        url,
+                        updatedAt,
+                        primaryLanguage,
+                        repositoryTopics,
+                      },
                     }) => (
-                      <TableRow key={name}>
+                      <TableRow key={cursor}>
                         <TableDataCell className="userRepos__bodyCell">
                           <p className="userRepos__repoName">
                             {name}
@@ -92,7 +94,7 @@ export default function Repos({ repos, total, onPageChange }) {
                               {repositoryTopics.nodes.map(({ topic }) => (
                                 <p
                                   className="badge -small userRepos__badge"
-                                  key={name + topic.name}
+                                  key={cursor + topic.name}
                                 >
                                   {topic.name}
                                 </p>
@@ -133,6 +135,12 @@ export default function Repos({ repos, total, onPageChange }) {
                   )}
               </TableBody>
             </Table>
+            {total > 20 && (
+              <Pagination
+                onPageChange={handleClickNextPage}
+                totalCount={total}
+              />
+            )}
           </>
         ) : (
           <p>TODO</p>

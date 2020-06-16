@@ -104,6 +104,9 @@
     padding: 0.25rem;
     padding-left: 0.75rem;
     > p {
+      max-width: 250px;
+      overflow: hidden;
+      text-overflow: ellipsis;
       font-size: 12px !important;
     }
   }

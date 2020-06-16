@@ -84,25 +84,20 @@ export default function useGithubApi() {
 
   const getUserRepos = React.useCallback(
     async (cursor = null) => {
-      const result = await apiGetUserRepos(userList[currentUser].login, cursor);
+      let result = await apiGetUserRepos(userList[currentUser].login, cursor);
 
-      let repos = {};
       if (cursor) {
-        repos = {
-          nodes: [
-            ...userList[userList[currentUser].login].dataRepos.nodes,
-            ...result.nodes,
-          ],
-          pageInfo: result.pageInfo,
-        };
-      } else {
-        repos = result;
+        // if cursor, add new results to old (new results first)
+        result = [
+          ...result,
+          ...userList[userList[currentUser].login].dataRepos,
+        ];
       }
 
       const newUserData = {
         [userList[currentUser].login]: {
           ...userList[currentUser],
-          dataRepos: repos,
+          dataRepos: result,
         },
       };
 
@@ -111,16 +106,28 @@ export default function useGithubApi() {
     [userList, setList, currentUser]
   );
 
-  const getUserStars = React.useCallback(async () => {
-    const dataStars = await apiGetUserStars(userList[currentUser].login);
-    const newUserData = {
-      [userList[currentUser].login]: {
-        ...userList[currentUser],
-        dataStars,
-      },
-    };
-    setList({ ...userList, ...newUserData });
-  }, [userList, setList, currentUser]);
+  const getUserStars = React.useCallback(
+    async (cursor = null) => {
+      let result = await apiGetUserStars(userList[currentUser].login, cursor);
+
+      if (cursor) {
+        // if cursor, add new results to old (new results first)
+        result = [
+          ...result,
+          ...userList[userList[currentUser].login].dataStars,
+        ];
+      }
+
+      const newUserData = {
+        [userList[currentUser].login]: {
+          ...userList[currentUser],
+          dataStars: result,
+        },
+      };
+      setList({ ...userList, ...newUserData });
+    },
+    [userList, setList, currentUser]
+  );
 
   const getUserFollows = React.useCallback(async () => {
     const result = await apiGetUserFollows(userList[currentUser].login);

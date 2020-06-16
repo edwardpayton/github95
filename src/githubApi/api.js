@@ -76,23 +76,6 @@ export const apiGetUserActivity = async (username, numRepos) => {
   }
 };
 
-// const reposApi = async (url, pageNum = 0) => {
-//   let reposCurrentPage = [];
-//   let reposAll = [];
-//   let pageNumCurrent = pageNum + 1;
-
-//   do {
-//     const page = pageNumCurrent >= 2 ? `&page=${pageNumCurrent}` : "";
-//     const resp = await fetch(`${url}?sort=created&per_page=100${page}`);
-//     reposCurrentPage.length = 0;
-//     reposCurrentPage = await resp.json();
-//     reposAll = [...reposAll, ...reposCurrentPage];
-//     pageNumCurrent += 1;
-//   } while (reposCurrentPage.length === 100);
-
-//   return reposAll;
-// };
-
 export const apiGetUserRepos = async (username, cursor) => {
   try {
     const resp = await gitHubAPIGraphQL({
@@ -100,7 +83,7 @@ export const apiGetUserRepos = async (username, cursor) => {
       variables: { username, cursor },
     });
     let json = await resp.json();
-    json = json.data.user.repositories;
+    json = json.data.user.repositories.edges;
 
     return json;
   } catch (error) {
@@ -108,14 +91,14 @@ export const apiGetUserRepos = async (username, cursor) => {
   }
 };
 
-export const apiGetUserStars = async (username) => {
+export const apiGetUserStars = async (username, cursor) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_STARS,
-      variables: { username, cursor: null },
+      variables: { username, cursor },
     });
     let json = await resp.json();
-    json = json.data.user.starredRepositories.nodes;
+    json = json.data.user.starredRepositories.edges;
 
     return [...json];
   } catch (error) {

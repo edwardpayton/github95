@@ -1,9 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Button } from "react95";
+
+import "./styles.scss";
 
 export default function Pagination({ onPageChange, totalCount, perPage = 20 }) {
   const [page, setPage] = React.useState(0);
-  const refTotalPages = React.useRef(Math.ceil(totalCount / perPage));
+  const [totalPages, setTotal] = React.useState(
+    Math.ceil(totalCount / perPage)
+  );
 
   const actions = {
     prev: -1,
@@ -16,31 +21,32 @@ export default function Pagination({ onPageChange, totalCount, perPage = 20 }) {
     setPage(page + count);
   };
 
+  React.useEffect(() => {
+    setTotal(Math.ceil(totalCount / perPage));
+  }, [totalCount, perPage]);
+
   return (
     <nav className="pagination">
-      <ul className="pagination__list">
+      <ul className="flex justify-center items-center pagination__list">
         <li>
-          <button
-            onClick={handleClick("prev")}
-            className="pagination__button -prev"
-            disabled={page === 0}
-          >
+          <Button onClick={handleClick("prev")} disabled={page === 0}>
             Prev
-          </button>
+          </Button>
         </li>
         <li>
-          <button
+          <p className="pagination__details">
+            Page {page + 1} of {totalPages}
+          </p>
+        </li>
+        <li>
+          <Button
             onClick={handleClick("next")}
-            className="pagination__button"
-            disabled={page + 1 === refTotalPages.current}
+            disabled={page + 1 === totalPages}
           >
             Next
-          </button>
+          </Button>
         </li>
       </ul>
-      <p className="pagination__details">
-        Page {page + 1} of {refTotalPages.current}
-      </p>
     </nav>
   );
 }

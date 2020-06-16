@@ -140,29 +140,28 @@ query UserActivity($username: String!, $numRepos: Int!) {
 export const GET_USER_REPOS = `
 query UserRepos($username: String!, $cursor: String) {
   user(login: $username) {
-    repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, last: 20, before: $cursor) {
-      nodes {
-        name
-        description
-        updatedAt
-        url
-        isPrivate
-        isFork
-        primaryLanguage {
+    repositories(privacy: PUBLIC, orderBy: {field: PUSHED_AT, direction: ASC}, last: 20, before: $cursor) {
+      edges {
+        cursor
+        node {
           name
-          color
-        }
-        repositoryTopics(first: 10) {
-          nodes {
-            topic {
-              name
+          description
+          updatedAt
+          url
+          isPrivate
+          isFork
+          primaryLanguage {
+            name
+            color
+          }
+          repositoryTopics(first: 10) {
+            nodes {
+              topic {
+                name
+              }
             }
           }
         }
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
       }
     }
   }
@@ -175,26 +174,25 @@ query UserRepos($username: String!, $cursor: String) {
 export const GET_USER_STARS = `
 query UserStars($username: String!, $cursor: String) {
   user(login: $username) {
-    starredRepositories(after: $cursor, orderBy: {field: STARRED_AT, direction: DESC}, first: 20) {
-      nodes {
-        name
-        stargazers {
-          totalCount
-        }
-        forks {
-          totalCount
-        }
-        url
-        description
-        primaryLanguage {
+    starredRepositories(last: 20, before: $cursor) {
+      edges {
+        cursor
+        node {
           name
-          color
+          description
+          updatedAt
+          url
+          stargazers {
+            totalCount
+          }
+          forks {
+            totalCount
+          }
+          primaryLanguage {
+            name
+            color
+          } 
         }
-        updatedAt
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
       }
     }
   }

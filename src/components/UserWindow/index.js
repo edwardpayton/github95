@@ -71,8 +71,11 @@ export default function UserWindow() {
   };
 
   const handleReposPagination = () => {
-    console.log("~/Sites/github95/src/components/UserWindow/index >>>");
-    getUserRepos(userList[currentUser].dataRepos.pageInfo.endCursor);
+    getUserRepos(userList[currentUser].dataRepos[0].cursor);
+  };
+
+  const handleStarsPagination = () => {
+    getUserStars(userList[currentUser].dataStars[0].cursor);
   };
 
   return (
@@ -191,7 +194,13 @@ export default function UserWindow() {
                   style={{ display: activeTab === 2 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Stars stars={userList[currentUser].dataStars} />
+                    <Stars
+                      stars={userList[currentUser].dataStars}
+                      total={
+                        userList[currentUser].starredRepositories.totalCount
+                      }
+                      onPageChange={handleStarsPagination}
+                    />
                   </div>
                 </section>
 
