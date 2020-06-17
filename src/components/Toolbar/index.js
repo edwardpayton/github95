@@ -1,5 +1,12 @@
 import React from "react";
-import { Table, TableBody, TableRow, TableDataCell, Button } from "react95";
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableDataCell,
+  Tooltip,
+  Button,
+} from "react95";
 
 import Search from "./Search";
 
@@ -91,24 +98,24 @@ export default function Toolbar({
   return (
     <section className="flex justify-between toolbar">
       <div className="flex toolbar__buttons">
-        <Button
-          onClick={onBack}
-          disabled={disabledBack()}
-          className={`toolbar__button -nav -back${
-            disabledBack() ? " -disabled" : ""
-          }`}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={onForward}
-          disabled={disabledFwd()}
-          className={`toolbar__button -nav -forward${
-            disabledFwd() ? " -disabled" : ""
-          }`}
-        >
-          Forward
-        </Button>
+        <Tooltip text="Back" delay="250">
+          <Button
+            onClick={onBack}
+            disabled={disabledBack()}
+            className={`toolbar__button -nav -back${
+              disabledBack() ? " -disabled" : ""
+            }`}
+          />
+        </Tooltip>
+        <Tooltip text="Forward" delay="250">
+          <Button
+            onClick={onForward}
+            disabled={disabledFwd()}
+            className={`toolbar__button -nav -forward${
+              disabledFwd() ? " -disabled" : ""
+            }`}
+          />
+        </Tooltip>
         <Button
           onClick={handleToggleMenu}
           active={menuVisible}

@@ -10,23 +10,20 @@
   }
   &__button.toolbar__button {
     &.-nav {
-      padding-right: 1rem;
+      width: 35px;
     }
     &.-nav:after {
       position: absolute;
       content: "";
-      width: 10px;
-      height: 10px;
-      right: 5px;
-      top: calc(50% - 6px);
+      width: 16px;
+      height: 16px;
+      left: calc(50% - 8px);
+      top: calc(50% - 8px);
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHUlEQVQY02NgIB/8xy3xH7fEf9wS/0nUQZqrKAYAK44P8ZRmzLQAAAAASUVORK5CYII=");
+      background-size: contain;
     }
     &.-nav.-back {
-      padding-right: 0.5rem;
-      padding-left: 1rem;
       &:after {
-        left: 3px;
-        right: auto;
         background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAQAAAD8fJRsAAAAHklEQVQY02NgoBT8xyX8H5fwf1zCpOjAYwceV1EEAAO2D/HsQ4vsAAAAAElFTkSuQmCC");
       }
     }
