@@ -118,8 +118,8 @@ export default function Overview({ profile, activity, contributions }) {
                 {activity && (
                   <AreaChart
                     name="Repos"
-                    xaxis={activity.creations.monthsList}
-                    data={activity.creations.repoTotals}
+                    xaxis={activity.newRepos.monthsList}
+                    data={activity.newRepos.repoTotals}
                   />
                 )}
               </div>

@@ -67,7 +67,7 @@ export const apiGetUserActivity = async (username, numRepos) => {
 
     json = {
       contributions: json.data.user.contributionsCollection,
-      creations: json.data.user.repositories.nodes,
+      newRepos: json.data.user.repositories.nodes,
     };
 
     return json;

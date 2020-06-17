@@ -71,11 +71,11 @@ export default function UserWindow() {
   };
 
   const handleReposPagination = () => {
-    getUserRepos(userList[currentUser].dataRepos[0].cursor);
+    getUserRepos(userList[currentUser].apiData.repos[0].cursor);
   };
 
   const handleStarsPagination = () => {
-    getUserStars(userList[currentUser].dataStars[0].cursor);
+    getUserStars(userList[currentUser].apiData.stars[0].cursor);
   };
 
   return (
@@ -183,7 +183,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 1 ? "block" : "none" }}
                 >
                   <Repos
-                    repos={userList[currentUser].dataRepos}
+                    repos={userList[currentUser].apiData.repos}
                     total={userList[currentUser].repositories.totalCount}
                     onPageChange={handleReposPagination}
                   />
@@ -195,7 +195,7 @@ export default function UserWindow() {
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
                     <Stars
-                      stars={userList[currentUser].dataStars}
+                      stars={userList[currentUser].apiData.stars}
                       total={
                         userList[currentUser].starredRepositories.totalCount
                       }
@@ -210,7 +210,9 @@ export default function UserWindow() {
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
                     <Followers
-                      followers={userList[currentUser].dataFollowers}
+                      followers={userList[currentUser].apiData.followers}
+                      total={userList[currentUser].followers.totalCount}
+                      url={userList[currentUser].url}
                     />
                   </div>
                 </section>
@@ -221,7 +223,9 @@ export default function UserWindow() {
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
                     <Following
-                      following={userList[currentUser].dataFollowing}
+                      following={userList[currentUser].apiData.following}
+                      total={userList[currentUser].following.totalCount}
+                      url={userList[currentUser].url}
                     />
                   </div>
                 </section>

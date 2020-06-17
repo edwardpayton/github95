@@ -15,7 +15,6 @@ import {
   apiGetUserStars,
   apiGetUserFollows,
 } from "./api";
-import { List } from "react95/dist/prod";
 
 /**
  * useGithubApi hook
@@ -30,17 +29,21 @@ export default function useGithubApi() {
   const searchInput = useRecoilValue(userSearchInput);
 
   const getUserActivity = React.useCallback(async () => {
-    const dataActivity = await apiGetUserActivity(
+    const activity = await apiGetUserActivity(
       searchInput,
       userList[currentUser].repositories.totalCount
     );
-    if (dataActivity instanceof Error) {
-      console.error("ERROR", dataActivity); // TODO
+    if (activity instanceof Error) {
+      console.error("ERROR", activity); // TODO
     }
+    const existingData = userList[userList[currentUser].login]["apiData"];
     const newUserData = {
       [userList[currentUser].login]: {
         ...userList[currentUser],
-        dataActivity,
+        apiData: {
+          ...existingData,
+          activity,
+      },
       },
     };
 
@@ -67,10 +70,15 @@ export default function useGithubApi() {
 
   const getUserProfile = React.useCallback(
     async (input) => {
-      const profile = await apiGetUserProfile(input);
+      let profile = await apiGetUserProfile(input);
       if (profile instanceof Error) {
         console.error("ERROR", profile); // TODO
       }
+
+      profile = {
+        ...profile,
+        apiData: {},
+      };
       const newUserData = {
         [profile.login]: profile,
       };
@@ -84,20 +92,23 @@ export default function useGithubApi() {
 
   const getUserRepos = React.useCallback(
     async (cursor = null) => {
-      let result = await apiGetUserRepos(userList[currentUser].login, cursor);
+      let repos = await apiGetUserRepos(userList[currentUser].login, cursor);
 
       if (cursor) {
         // if cursor, add new results to old (new results first)
-        result = [
-          ...result,
-          ...userList[userList[currentUser].login].dataRepos,
+        repos = [
+          ...repos,
+          ...userList[userList[currentUser].login].apiData.repos,
         ];
       }
-
+      const existingData = userList[userList[currentUser].login]["apiData"];
       const newUserData = {
         [userList[currentUser].login]: {
           ...userList[currentUser],
-          dataRepos: result,
+          apiData: {
+            ...existingData,
+            repos,
+        },
         },
       };
 
@@ -108,15 +119,32 @@ export default function useGithubApi() {
 
   const getUserStars = React.useCallback(
     async (cursor = null) => {
-      let result = await apiGetUserStars(userList[currentUser].login, cursor);
+      let stars = await apiGetUserStars(userList[currentUser].login, cursor);
 
       if (cursor) {
         // if cursor, add new results to old (new results first)
-        result = [
-          ...result,
-          ...userList[userList[currentUser].login].dataStars,
+        stars = [
+          // TODO fix TS error 'Type 'any[] | Error' must have a '[Symbol.iterator]()' method that returns an iterator.'
+          // @ts-ignore.
+          ...stars,
+          ...userList[userList[currentUser].login].apiData.stars,
         ];
       }
+      const existingData = userList[userList[currentUser].login]["apiData"];
+      const newUserData = {
+        [userList[currentUser].login]: {
+          ...userList[currentUser],
+          apiData: {
+            ...existingData,
+            stars,
+          },
+        },
+      };
+      setList({ ...userList, ...newUserData });
+    },
+    [userList, setList, currentUser]
+  );
+
 
       const newUserData = {
         [userList[currentUser].login]: {
@@ -131,11 +159,15 @@ export default function useGithubApi() {
 
   const getUserFollows = React.useCallback(async () => {
     const result = await apiGetUserFollows(userList[currentUser].login);
+    const existingData = userList[userList[currentUser].login]["apiData"];
     const newUserData = {
       [userList[currentUser].login]: {
         ...userList[currentUser],
-        dataFollowers: result["followers"],
-        dataFollowing: result["following"],
+        apiData: {
+          ...existingData,
+          followers: result["followers"],
+          following: result["following"],
+        },
       },
     };
     setList({ ...userList, ...newUserData });

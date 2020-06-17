@@ -23,6 +23,6 @@ export default function AnchorButton({
 AnchorButton.propTypes = {
   href: PropTypes.string.isRequired,
   className: PropTypes.string,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   target: PropTypes.string,
 };

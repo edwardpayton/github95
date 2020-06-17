@@ -205,7 +205,7 @@ query UserStars($username: String!, $cursor: String) {
 export const GET_USER_FOLLOWS = `
 query UserFollows($username: String!, $cursor: String) {
   user(login: $username) {
-    followers(first: 20, after: $cursor) {
+    followers(last: 20, before: $cursor) {
       totalCount
       pageInfo {
         endCursor
@@ -218,7 +218,7 @@ query UserFollows($username: String!, $cursor: String) {
         url
       }
     }
-    following(first: 20, after: $cursor) {
+    following(last: 20, before: $cursor) {
       totalCount
       pageInfo {
         endCursor

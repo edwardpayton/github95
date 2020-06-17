@@ -6,17 +6,19 @@ export const userActivity = selector({
   get: ({ get }) => {
     const userList = get(usersListObj);
     const currentUser = get(userCurrentNum);
-    if (currentUser === null) return;
+    if (currentUser === null || userList[currentUser].apiData === undefined) {
+      return;
+    }
 
-    const { dataActivity } = userList[currentUser];
-    if (dataActivity === undefined) return;
+    const { activity } = userList[currentUser].apiData;
+    if (activity === undefined) return;
 
-    const { contributions, creations } = dataActivity;
-    if (creations === undefined) return creations;
+    const { contributions, newRepos } = activity;
+    if (newRepos === undefined) return newRepos;
 
     const _contributions = ["todo", contributions];
 
-    const firstRepo = new Date(creations[0].createdAt);
+    const firstRepo = new Date(newRepos[0].createdAt);
     const today = new Date();
     let monthsSinceFirstRepo =
       today.getFullYear() * 12 +
@@ -35,7 +37,7 @@ export const userActivity = selector({
       })
       .reverse();
 
-    const dateGroups = creations.reduce((groups, repo) => {
+    const dateGroups = newRepos.reduce((groups, repo) => {
       const month = repo.createdAt.split("-").slice(0, 2).join("-");
       if (!groups[month]) groups[month] = [];
       groups[month].push(repo.name);
@@ -50,7 +52,7 @@ export const userActivity = selector({
 
     return {
       _contributions,
-      creations: { monthsList, repoTotals },
+      newRepos: { monthsList, repoTotals },
     };
   },
 });
