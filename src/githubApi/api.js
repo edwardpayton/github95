@@ -5,6 +5,7 @@ import {
   GET_USER_ACTIVITY,
   GET_USER_STARS,
   GET_USER_FOLLOWS,
+  GET_USER_GISTS,
 } from "./queries";
 
 const gitHubAPIGraphQL = (body) =>
@@ -99,6 +100,21 @@ export const apiGetUserStars = async (username, cursor) => {
     });
     let json = await resp.json();
     json = json.data.user.starredRepositories.edges;
+
+    return [...json];
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetUserGists = async (username, cursor) => {
+  try {
+    const resp = await gitHubAPIGraphQL({
+      query: GET_USER_GISTS,
+      variables: { username, cursor },
+    });
+    let json = await resp.json();
+    json = json.data.user.gists.edges;
 
     return [...json];
   } catch (error) {

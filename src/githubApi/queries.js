@@ -202,6 +202,34 @@ query UserStars($username: String!, $cursor: String) {
 /**
  *
  */
+export const GET_USER_GISTS = `
+query UserGists($username: String!, $cursor: String) {
+  user(login: $username) {
+    gists(last: 10, before:  $cursor) {
+      edges {
+        node {
+          url
+          isFork
+          updatedAt
+          stargazers {
+            totalCount
+          }
+          files {
+            name
+            extension
+            text
+          }
+        }
+        cursor
+      }
+    }
+  }
+}
+`;
+
+/**
+ *
+ */
 export const GET_USER_FOLLOWS = `
 query UserFollows($username: String!, $cursor: String) {
   user(login: $username) {

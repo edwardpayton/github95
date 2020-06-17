@@ -16,6 +16,7 @@ import useGithubApi from "../../githubApi";
 import formatBigNumber from "../../utilities/formatBigNumber";
 
 import "./styles.scss";
+import Gists from "./Gists";
 
 export default function UserWindow() {
   const activity = useRecoilValue(userActivity);
@@ -26,7 +27,12 @@ export default function UserWindow() {
   const [activeTab, setActiveTab] = React.useState(0);
   const refLogin = React.useRef("");
 
-  const { getUserRepos, getUserStars, getUserFollows } = useGithubApi();
+  const {
+    getUserRepos,
+    getUserStars,
+    getUserGists,
+    getUserFollows,
+  } = useGithubApi();
 
   React.useEffect(() => {
     if (currentUser && userList[currentUser].login !== refLogin.current) {
@@ -65,6 +71,11 @@ export default function UserWindow() {
         refTabsList.current.add(3).add(4);
         return getUserFollows();
       }
+      case 5: {
+        refTabsList.current.add(5);
+        console.log("~/Sites/github95/src/components/UserWindow/index >>>");
+        return getUserGists();
+      }
       default:
         return;
     }
@@ -76,6 +87,10 @@ export default function UserWindow() {
 
   const handleStarsPagination = () => {
     getUserStars(userList[currentUser].apiData.stars[0].cursor);
+  };
+
+  const handleGistsPagination = () => {
+    getUserGists(userList[currentUser].apiData.gists[0].cursor);
   };
 
   return (
@@ -151,6 +166,20 @@ export default function UserWindow() {
                 </span>
               </p>
             </Tab>
+            <Tab value={5} className="userContent__tab">
+              <p>
+                Gists
+                <span
+                  className={`badge -small ${
+                    activeTab === 5 ? "-blue" : "-grey"
+                  }`}
+                >
+                  {currentUser &&
+                    userList[currentUser].gists &&
+                    formatBigNumber(userList[currentUser].gists.totalCount)}
+                </span>
+              </p>
+            </Tab>
           </Tabs>
 
           <TabBody className="userContent__tabBody">
@@ -182,11 +211,13 @@ export default function UserWindow() {
                   className="userContent__body"
                   style={{ display: activeTab === 1 ? "block" : "none" }}
                 >
-                  <Repos
-                    repos={userList[currentUser].apiData.repos}
-                    total={userList[currentUser].repositories.totalCount}
-                    onPageChange={handleReposPagination}
-                  />
+                  <div className="userContent__bodyInner scrollable -yOnly">
+                    <Repos
+                      repos={userList[currentUser].apiData.repos}
+                      total={userList[currentUser].repositories.totalCount}
+                      onPageChange={handleReposPagination}
+                    />
+                  </div>
                 </section>
 
                 <section
@@ -226,6 +257,19 @@ export default function UserWindow() {
                       following={userList[currentUser].apiData.following}
                       total={userList[currentUser].following.totalCount}
                       url={userList[currentUser].url}
+                    />
+                  </div>
+                </section>
+
+                <section
+                  className="userContent__body"
+                  style={{ display: activeTab === 5 ? "block" : "none" }}
+                >
+                  <div className="userContent__bodyInner scrollable -yOnly">
+                    <Gists
+                      gists={userList[currentUser].apiData.gists}
+                      total={userList[currentUser].gists.totalCount}
+                      onPageChange={handleGistsPagination}
                     />
                   </div>
                 </section>

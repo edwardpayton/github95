@@ -305,3 +305,25 @@
   display: inline-block;
   margin-left: 0.5rem;
 }
+
+.gists {
+}
+.gist {
+  &__block {
+  }
+  &__title {
+  }
+  &__cutout {
+    max-height: 300px;
+    overflow: hidden;
+    background-color: #3a3a3a;
+  }
+  &__code {
+    color: #fff;
+    padding: 0.65rem;
+    line-height: 1.8;
+    > p {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

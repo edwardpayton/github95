@@ -13,6 +13,7 @@ import {
   apiGetUserActivity,
   apiGetUserRepos,
   apiGetUserStars,
+  apiGetUserGists,
   apiGetUserFollows,
 } from "./api";
 
@@ -43,7 +44,7 @@ export default function useGithubApi() {
         apiData: {
           ...existingData,
           activity,
-      },
+        },
       },
     };
 
@@ -108,7 +109,7 @@ export default function useGithubApi() {
           apiData: {
             ...existingData,
             repos,
-        },
+          },
         },
       };
 
@@ -145,11 +146,25 @@ export default function useGithubApi() {
     [userList, setList, currentUser]
   );
 
+  const getUserGists = React.useCallback(
+    async (cursor = null) => {
+      let gists = await apiGetUserGists(userList[currentUser].login, cursor);
 
+      if (cursor) {
+        // if cursor, add new results to old (new results first)
+        gists = [
+          ...gists,
+          ...userList[userList[currentUser].login].apiData.gists,
+        ];
+      }
+      const existingData = userList[userList[currentUser].login]["apiData"];
       const newUserData = {
         [userList[currentUser].login]: {
           ...userList[currentUser],
-          dataStars: result,
+          apiData: {
+            ...existingData,
+            gists,
+          },
         },
       };
       setList({ ...userList, ...newUserData });
@@ -178,6 +193,7 @@ export default function useGithubApi() {
     getUserProfile,
     getUserRepos,
     getUserStars,
+    getUserGists,
     getUserFollows,
   };
 }
