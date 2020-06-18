@@ -51,15 +51,15 @@ export default function StartMenu() {
           open={isOpen}
           className="startMenu__menu"
         >
-          <ListItem onClick={handleListClick("about")}>
+          <ListItem onClick={handleListClick("repos")} data-name="repos">
             <p className="startMenu__menuItem">
-              <span role="img" aria-label="about">
+              <span role="img" aria-label="repos">
                 👨‍💻
               </span>{" "}
-              About
+              Repositories
             </p>
           </ListItem>
-          <ListItem onClick={handleListClick("user")}>
+          <ListItem onClick={handleListClick("user")} data-name="user">
             <p className="startMenu__menuItem">
               <span role="img" aria-label="profile">
                 👨‍💻
@@ -67,12 +67,12 @@ export default function StartMenu() {
               Profile
             </p>
           </ListItem>
-          <ListItem onClick={handleListClick("code")}>
+          <ListItem onClick={handleListClick("about")} data-name="about">
             <p className="startMenu__menuItem">
-              <span role="img" aria-label="view code">
-                📁
+              <span role="img" aria-label="about">
+                👨‍💻
               </span>{" "}
-              View Code
+              About
             </p>
           </ListItem>
           <Divider />

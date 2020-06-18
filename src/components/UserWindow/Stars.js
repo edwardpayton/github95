@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useRecoilValue } from "recoil";
 import {
   Table,
   TableHead,
@@ -12,9 +13,11 @@ import {
 import AnchorButton from "../AnchorButton";
 import Pagination from "../Pagination";
 
+import { userCurrentNum } from "../../store";
 import formatDate from "../../utilities/formatDate";
 
 export default function Stars({ stars, total, onPageChange }) {
+  const currentUser = useRecoilValue(userCurrentNum);
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
 
@@ -41,6 +44,10 @@ export default function Stars({ stars, total, onPageChange }) {
       setPaginated(processStars());
     }
   }, [stars, processStars]);
+
+  React.useEffect(() => {
+    setPageNumber(0);
+  }, [currentUser]);
 
   return (
     <div className="userRepos">

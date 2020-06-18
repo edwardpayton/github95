@@ -309,7 +309,12 @@
 .gists {
 }
 .gist {
+  padding: 1rem;
+  &__header {
+    padding: 0 0 0.5rem 5px;
+  }
   &__block {
+    position: relative;
   }
   &__title {
   }
@@ -319,11 +324,29 @@
     background-color: #3a3a3a;
   }
   &__code {
+    position: relative;
     color: #fff;
     padding: 0.65rem;
     line-height: 1.8;
     > p {
       margin-bottom: 0.5rem;
+      text-shadow: -1px 0 #fff;
+      letter-spacing: 1px;
     }
+
+    &:after {
+      position: absolute;
+      content: "";
+      height: 90px;
+      left: 0;
+      right: 0;
+      top: 210px;
+      background-image: linear-gradient(0deg, #3a3a3a 20%, transparent 100%);
+    }
+  }
+  &__url {
+    position: absolute;
+    bottom: 2rem;
+    right: 1.25rem;
   }
 }

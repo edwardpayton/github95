@@ -1,8 +1,4 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-
-import { focusedElement } from "../../store";
-
 import capitalize from "../../utilities/capitalize";
 
 export default function DesktopButton({ name, active, onDoubleClick }) {

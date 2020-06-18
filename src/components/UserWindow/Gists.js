@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Cutout, Anchor } from "react95";
+import { useRecoilValue } from "recoil";
+import { Cutout } from "react95";
 import Pagination from "../Pagination";
+import AnchorButton from "../AnchorButton";
 
+import { userCurrentNum } from "../../store";
 import formatDate from "../../utilities/formatDate";
 
 export default function Gists({ gists, total, onPageChange }) {
+  const currentUser = useRecoilValue(userCurrentNum);
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
 
@@ -33,6 +37,10 @@ export default function Gists({ gists, total, onPageChange }) {
     }
   }, [gists, processGists]);
 
+  React.useEffect(() => {
+    setPageNumber(0);
+  }, [currentUser]);
+
   const processName = (name) => {
     return name.split(".").slice(0, -1).join(".");
   };
@@ -50,17 +58,19 @@ export default function Gists({ gists, total, onPageChange }) {
               }) => {
                 const name = processName(files[0].name);
                 return (
-                  <div key={cursor}>
-                    <h3>{files[0].name}</h3>
-                    {isFork && (
-                      <p className="badge -small userRepos__badge">Fork</p>
-                    )}
-                    <p className="badge -small userRepos__badge">
-                      Updated at: {updatedAt}
-                    </p>
-                    <p className="badge -small userRepos__badge">
-                      Number of stars: {stargazers.totalCount}
-                    </p>
+                  <section className="gist" key={cursor}>
+                    <div className="flex items-center gist__header">
+                      <h3>{files[0].name}</h3>
+                      {isFork && (
+                        <p className="badge -small userRepos__badge">Fork</p>
+                      )}
+                      <p className="badge -small userRepos__badge">
+                        Updated at: {formatDate(updatedAt)}
+                      </p>
+                      <p className="badge -small userRepos__badge">
+                        Number of stars: {stargazers.totalCount}
+                      </p>
+                    </div>
 
                     <div className="gist__block">
                       <Cutout className="gist__cutout">
@@ -69,15 +79,19 @@ export default function Gists({ gists, total, onPageChange }) {
                             C: \ Github95 {">"} cd {name} \
                           </p>
                           <p>
-                            C: \ Github95 {">"} print {name}.
+                            C: \ Github95 {">"} print {name}
                             {files[0].extension}
                           </p>
                           <pre>{files[0].text}</pre>
                         </div>
                       </Cutout>
+                      <div className="gist__url">
+                        <AnchorButton href={url}>
+                          Open on gist.github.com
+                        </AnchorButton>
+                      </div>
                     </div>
-                    <Anchor href={url}>Open on gist.github.com</Anchor>
-                  </div>
+                  </section>
                 );
               }
             )}

@@ -1,10 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useRecoilValue } from "recoil";
 import { Button } from "react95";
+
+import { userCurrentNum } from "../../store";
 
 import "./styles.scss";
 
 export default function Pagination({ onPageChange, totalCount, perPage = 20 }) {
+  const currentUser = useRecoilValue(userCurrentNum);
   const [page, setPage] = React.useState(0);
   const [totalPages, setTotal] = React.useState(
     Math.ceil(totalCount / perPage)
@@ -23,7 +27,8 @@ export default function Pagination({ onPageChange, totalCount, perPage = 20 }) {
 
   React.useEffect(() => {
     setTotal(Math.ceil(totalCount / perPage));
-  }, [totalCount, perPage]);
+    setPage(0); // TODO bug
+  }, [totalCount, perPage, currentUser]);
 
   return (
     <nav className="pagination">

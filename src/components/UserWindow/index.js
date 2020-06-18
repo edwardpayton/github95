@@ -1,22 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody, Hourglass } from "react95";
 import { useRecoilValue } from "recoil";
-
-import { userCurrentNum, usersListObj, userActivity } from "../../store";
-
 import Toolbar from "./Toolbar";
 import Overview from "./Overview";
 import Repos from "./Repos";
 import Stars from "./Stars";
 import Followers from "./Followers";
 import Following from "./Following";
+import Gists from "./Gists";
 
+import { userCurrentNum, usersListObj, userActivity } from "../../store";
 import useGithubApi from "../../githubApi";
 import formatBigNumber from "../../utilities/formatBigNumber";
 
 import "./styles.scss";
-import Gists from "./Gists";
 
 export default function UserWindow() {
   const activity = useRecoilValue(userActivity);
@@ -73,7 +70,6 @@ export default function UserWindow() {
       }
       case 5: {
         refTabsList.current.add(5);
-        console.log("~/Sites/github95/src/components/UserWindow/index >>>");
         return getUserGists();
       }
       default:

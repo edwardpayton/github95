@@ -98,23 +98,27 @@ export default function Toolbar({
   return (
     <section className="flex justify-between toolbar">
       <div className="flex toolbar__buttons">
-        <Tooltip text="Back" delay="250">
+        <Tooltip text="Back" delay={250}>
           <Button
             onClick={onBack}
             disabled={disabledBack()}
             className={`toolbar__button -nav -back${
               disabledBack() ? " -disabled" : ""
             }`}
-          />
+          >
+            {""}
+          </Button>
         </Tooltip>
-        <Tooltip text="Forward" delay="250">
+        <Tooltip text="Forward" delay={250}>
           <Button
             onClick={onForward}
             disabled={disabledFwd()}
             className={`toolbar__button -nav -forward${
               disabledFwd() ? " -disabled" : ""
             }`}
-          />
+          >
+            {""}
+          </Button>
         </Tooltip>
         <Button
           onClick={handleToggleMenu}
