@@ -21,6 +21,7 @@ function App() {
   const handleClick = React.useCallback(
     (e) => {
       console.log("src/App >>> duplicate event listeners?");
+      if (e.target.dataset && e.target.dataset.name === "start-menu") return;
       const closest = e.target.closest("[data-name]");
       if (!closest) return setfocused("");
       const { name } = closest.dataset;

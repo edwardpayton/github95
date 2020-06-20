@@ -3,12 +3,12 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
   userSearchInput,
-  userSearchMatches,
+  userSearchResults,
   usersListObj,
   userCurrentNum,
 } from "../store";
 import {
-  apiGetUsersMatches,
+  apiGetUserSearchResults,
   apiGetUserProfile,
   apiGetUserActivity,
   apiGetUserRepos,
@@ -18,13 +18,13 @@ import {
 } from "./api";
 
 /**
- * useGithubApi hook
- * returns getUserProfile, getUserRepos, getUserStars, & getUserFollows functions to access the api data
- * example: const { userProfile, userRepos, getUserStars, getUserFollows } = useGithubApi();
+ * Github api hook
+ * returns getUserProfile, getUserRepos, getUserStars, getUserGists, & getUserFollows functions to access the api data
+ * example: const { userProfile, userRepos, getUserStars, getUserGists, getUserFollows } = githubApi();
  */
-export default function useGithubApi() {
+export default function useUserApi() {
   const firstCallRef = React.useRef(false);
-  const setMatches = useSetRecoilState(userSearchMatches);
+  const setResults = useSetRecoilState(userSearchResults);
   const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
   const [userList, setList] = useRecoilState(usersListObj);
   const searchInput = useRecoilValue(userSearchInput);
@@ -58,15 +58,15 @@ export default function useGithubApi() {
 
   //
 
-  const getUsersMatches = React.useCallback(
+  const getUserSearchResults = React.useCallback(
     async (input) => {
-      const matches = await apiGetUsersMatches(input);
-      if (!matches || matches instanceof Error) {
-        console.error("ERROR", matches); // TODO
+      const results = await apiGetUserSearchResults(input);
+      if (!results || results instanceof Error) {
+        console.error("ERROR", results); // TODO
       }
-      setMatches(matches);
+      setResults(results);
     },
-    [setMatches]
+    [setResults]
   );
 
   const getUserProfile = React.useCallback(
@@ -189,7 +189,7 @@ export default function useGithubApi() {
   }, [userList, setList, currentUser]);
 
   return {
-    getUsersMatches,
+    getUserSearchResults,
     getUserProfile,
     getUserRepos,
     getUserStars,

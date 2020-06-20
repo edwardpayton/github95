@@ -84,6 +84,7 @@ export default function StartMenu() {
         </List>
       )}
       <Button
+        data-name="start-menu"
         onClick={handleButtonClick}
         active={isOpen}
         className="mr1 startMenu__triggerButton"

@@ -1,3 +1,4 @@
-import useGithubApi from "./hook";
+import useUserApi from "./hookUser";
+import useReposApi from "./hookRepos";
 
-export default useGithubApi;
+export { useUserApi, useReposApi };

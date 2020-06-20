@@ -1,15 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useRecoilValue } from "recoil";
+
 import { Anchor, Hourglass } from "react95";
 
 import { AreaChart, HeatChart } from "../Charts";
 import Card from "../Card";
 
+import { userActivity } from "../../store";
+
 import capitalize from "../../utilities/capitalize";
 import formatDate from "../../utilities/formatDate";
 import formatBigNumber from "../../utilities/formatBigNumber";
 
-export default function Overview({ profile, activity, contributions }) {
+export default function Overview({ profile }) {
+  const activity = useRecoilValue(userActivity);
   const pinList = () => {
     const pinSet = new Set();
     profile.pinnedItems.edges.forEach(
@@ -182,15 +187,16 @@ export default function Overview({ profile, activity, contributions }) {
 
           <Card className="overview__card">
             <h3 className="mb2">Contribution calendar</h3>
-            {contributions && contributions.totalContributions && (
-              <p>
-                {contributions.totalContributions} contributions in the last 12
-                months
-              </p>
-            )}
+            {profile.contributions &&
+              profile.contributions.totalContributions && (
+                <p>
+                  {profile.contributions.totalContributions} contributions in
+                  the last 12 months
+                </p>
+              )}
             <div className="bevelBorder overflow_contributionsTable">
-              {contributions && contributions.calendar ? (
-                <HeatChart data={contributions.calendar} />
+              {profile.contributions && profile.contributions.calendar ? (
+                <HeatChart data={profile.contributions.calendar} />
               ) : (
                 <p>loading</p>
               )}

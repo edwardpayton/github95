@@ -17,34 +17,34 @@ export default function Toolbar({
   placeholder,
   searchValue,
   onSearch,
-  searchMatches,
-  onClickMatch,
+  searchResults,
+  onClickSearchResult,
   onBack,
   onForward,
   historyList,
 }) {
   const [menuVisible, setMenuVisible] = React.useState(false);
-  const [matchesVisible, setMatchesVisible] = React.useState(
-    searchMatches.length > 0
+  const [resultsVisible, setResultsVisible] = React.useState(
+    searchResults.length > 0
   );
-  const refMatches = React.useRef(undefined);
+  const refResults = React.useRef(undefined);
   const refHistory = React.useRef(undefined);
 
-  const handleClickMatch = (match) => () => {
-    onClickMatch(match);
+  const handleClickOnResult = (result) => () => {
+    onClickSearchResult(result);
   };
 
   const handleToggleMenu = () => setMenuVisible(!menuVisible);
 
   const handleClickHistory = (name) => () => {
-    onClickMatch(name);
+    onClickSearchResult(name);
   };
 
   const disabledBack = () => {
     const [first] = historyList.slice(0, 1);
     if (
       historyList.length === 0 ||
-      searchMatches.length > 0 ||
+      searchResults.length > 0 ||
       searchValue === first
     )
       return true;
@@ -55,18 +55,18 @@ export default function Toolbar({
     const [last] = historyList.slice(-1);
     if (
       historyList.length === 0 ||
-      searchMatches.length > 0 ||
+      searchResults.length > 0 ||
       searchValue === last
     )
       return true;
     return false;
   };
 
-  const handleClickOutsideMatches = ({ target }) => {
-    const clickedMatches = refMatches.current.contains(target);
-    if (!clickedMatches) {
-      document.removeEventListener("click", handleClickOutsideMatches);
-      setMatchesVisible(false);
+  const handleClickOutsideResults = ({ target }) => {
+    const clickedResults = refResults.current.contains(target);
+    if (!clickedResults) {
+      document.removeEventListener("click", handleClickOutsideResults);
+      setResultsVisible(false);
     }
   };
 
@@ -79,14 +79,14 @@ export default function Toolbar({
   };
 
   React.useEffect(() => {
-    if (searchMatches.length > 0) {
-      document.addEventListener("click", handleClickOutsideMatches);
-      setMatchesVisible(true);
+    if (searchResults.length > 0) {
+      document.addEventListener("click", handleClickOutsideResults);
+      setResultsVisible(true);
     } else {
-      document.removeEventListener("click", handleClickOutsideMatches);
-      setMatchesVisible(false);
+      document.removeEventListener("click", handleClickOutsideResults);
+      setResultsVisible(false);
     }
-  }, [searchMatches]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
     if (menuVisible) {
@@ -156,24 +156,24 @@ export default function Toolbar({
           initalValue={searchValue}
           onSearch={onSearch}
         />
-        <div className="searchMatches" ref={refMatches}>
-          {matchesVisible && (
-            <div className="card searchMatches__panel">
-              <div className="scrollable -yOnly searchMatches__inner">
+        <div className="searchResults" ref={refResults}>
+          {resultsVisible && (
+            <div className="card searchResults__panel">
+              <div className="scrollable -yOnly searchResults__inner">
                 <Table className="table">
                   <TableBody>
-                    {searchMatches.map((match) => (
-                      <TableRow key={match.login}>
-                        <TableDataCell className="flex justify-between searchMatches__match">
+                    {searchResults.map((row) => (
+                      <TableRow key={row.login}>
+                        <TableDataCell className="flex justify-between searchResults__row">
                           <p>
-                            {match.name}
-                            <span className="searchMatches__login">
-                              {match.login}
+                            {row.name}
+                            <span className="searchResults__login">
+                              {row.login}
                             </span>
                           </p>
                           <Button
-                            onClick={handleClickMatch(match.login)}
-                            className="searchMatches__button"
+                            onClick={handleClickOnResult(row.login)}
+                            className="searchResults__button"
                           >
                             Open profile
                           </Button>

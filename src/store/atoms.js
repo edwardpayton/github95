@@ -23,8 +23,8 @@ export const userSearchInput = atom({
   default: "",
 });
 
-export const userSearchMatches = atom({
-  key: "userSearchMatches",
+export const userSearchResults = atom({
+  key: "userSearchResults",
   default: [],
 });
 

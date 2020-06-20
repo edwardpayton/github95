@@ -17,7 +17,7 @@ const gitHubAPIGraphQL = (body) =>
     body: JSON.stringify(body),
   });
 
-export const apiGetUsersMatches = async (username) => {
+export const apiGetUserSearchResults = async (username) => {
   try {
     const resp = await gitHubAPIGraphQL({
       query: GET_USER_SEARCH,

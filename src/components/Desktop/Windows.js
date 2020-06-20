@@ -25,7 +25,6 @@ export default function Windows() {
     const newList = {};
     Object.keys(currentWindows).forEach((windowName) => {
       newList[windowName] = [...currentWindows[windowName]];
-      newList[windowName][2] = currentWindow === windowName;
     });
     setWindows(newList);
   };

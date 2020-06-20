@@ -35,6 +35,7 @@
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+    pointer-events: none;
   }
   &__menuItem {
     font-size: 12px !important;

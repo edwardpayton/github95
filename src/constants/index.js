@@ -6,8 +6,8 @@ export const WINDOW_OBJ = {
     ] */
   about: [false, false],
   // user: [false, false],
-  repos: [false, false],
+  // repos: [false, false],
   // for demo
   user: [true, true],
-  // repos: [true, true],
+  repos: [true, true],
 };

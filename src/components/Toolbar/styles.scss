@@ -82,12 +82,12 @@
   }
 }
 
-.searchMatches {
+.searchResults {
   position: absolute;
   top: 43px;
   right: 5px;
 
-  &__panel.searchMatches__panel {
+  &__panel.searchResults__panel {
     width: 300px;
     height: 300px;
     padding: 0.5rem;
@@ -96,7 +96,7 @@
   &__inner {
     height: 100%;
   }
-  &__match.searchMatches__match {
+  &__row.searchResults__row {
     position: relative;
     padding: 0.25rem;
     padding-left: 0.75rem;
@@ -111,13 +111,13 @@
     font-size: 8px !important;
     padding-left: 0.5rem;
   }
-  &__button.searchMatches__button {
+  &__button.searchResults__button {
     position: absolute;
     right: 0.25rem;
     opacity: 0;
     visibility: hidden;
   }
-  &__match:hover .searchMatches__button {
+  &__row:hover .searchResults__button {
     opacity: 1;
     visibility: visible;
   }

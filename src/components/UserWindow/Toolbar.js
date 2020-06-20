@@ -3,27 +3,27 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
   userSearchInput,
-  userSearchMatches,
+  userSearchResults,
   userCurrentNum,
   usersListObj,
 } from "../../store";
 
 import Toolbar from "../Toolbar";
 
-import useGithubApi from "../../githubApi";
+import { useUserApi } from "../../githubApi";
 
 export default function Search() {
   const [input, setInput] = useRecoilState(userSearchInput);
-  const [matches, setMatches] = useRecoilState(userSearchMatches);
+  const [results, setResults] = useRecoilState(userSearchResults);
   const userList = useRecoilValue(usersListObj);
   const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
   const refSearch = React.useRef(false);
   const refLoaded = React.useRef(false);
 
-  const { getUsersMatches, getUserProfile } = useGithubApi();
+  const { getUserSearchResults, getUserProfile } = useUserApi();
 
   React.useEffect(() => {
-    // TODO this logic is to trigger getUserProfile on two scenarios - on clicking a match, on clicking a follower/ing user. It is a clumsy way around it, can be refactored
+    // TODO this logic is to trigger getUserProfile on two scenarios - on clicking a result, on clicking a follower/ing user. It is a clumsy way around it, can be refactored
     if (refSearch.current === false && refLoaded.current === true) {
       getUserProfile(input);
     }
@@ -34,13 +34,13 @@ export default function Search() {
   }, []);
 
   const handleSearch = (value) => {
-    getUsersMatches(value);
+    getUserSearchResults(value);
     refSearch.current = true;
   };
 
-  const handleClickMatch = (login) => {
+  const handleClickSearchResult = (login) => {
     setInput(login);
-    setMatches([]);
+    setResults([]);
     refSearch.current = false;
     getUserProfile(login);
   };
@@ -68,8 +68,8 @@ export default function Search() {
         placeholder="Find user eg. edwardpayton"
         searchValue={input}
         onSearch={handleSearch}
-        searchMatches={matches}
-        onClickMatch={handleClickMatch}
+        searchResults={results}
+        onClickSearchResult={handleClickSearchResult}
         onBack={handleClickBack}
         onForward={handleClickFwd}
         historyList={Object.keys(userList)}

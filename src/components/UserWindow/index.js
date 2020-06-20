@@ -9,14 +9,13 @@ import Followers from "./Followers";
 import Following from "./Following";
 import Gists from "./Gists";
 
-import { userCurrentNum, usersListObj, userActivity } from "../../store";
-import useGithubApi from "../../githubApi";
+import { userCurrentNum, usersListObj } from "../../store";
+import { useUserApi } from "../../githubApi";
 import formatBigNumber from "../../utilities/formatBigNumber";
 
 import "./styles.scss";
 
 export default function UserWindow() {
-  const activity = useRecoilValue(userActivity);
   const userList = useRecoilValue(usersListObj);
   const currentUser = useRecoilValue(userCurrentNum);
   const refTabsList = React.useRef(new Set([]));
@@ -29,7 +28,7 @@ export default function UserWindow() {
     getUserStars,
     getUserGists,
     getUserFollows,
-  } = useGithubApi();
+  } = useUserApi();
 
   React.useEffect(() => {
     if (currentUser && userList[currentUser].login !== refLogin.current) {
@@ -197,11 +196,7 @@ export default function UserWindow() {
                   className="userContent__body"
                   style={{ display: activeTab === 0 ? "block" : "none" }}
                 >
-                  <Overview
-                    profile={userList[currentUser]}
-                    activity={activity}
-                    contributions={userList[currentUser].contributions}
-                  />
+                  <Overview profile={userList[currentUser]} />
                 </section>
                 <section
                   className="userContent__body"
