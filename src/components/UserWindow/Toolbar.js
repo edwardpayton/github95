@@ -4,7 +4,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   searchInputOfType,
   searchResultsOfType,
-  userCurrentNum,
+  currentRecordOfType,
   usersListObj,
 } from "../../store";
 
@@ -17,7 +17,9 @@ export default function UserToolbar() {
   const [input, setInput] = useRecoilState(searchInputOfType(USER));
   const [results, setResults] = useRecoilState(searchResultsOfType(USER));
   const userList = useRecoilValue(usersListObj);
-  const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
+  const [currentUser, setCurrentUser] = useRecoilState(
+    currentRecordOfType(USER)
+  );
   const refSearch = React.useRef(false);
   const refLoaded = React.useRef(false);
 

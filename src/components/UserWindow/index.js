@@ -9,15 +9,16 @@ import Followers from "./Followers";
 import Following from "./Following";
 import Gists from "./Gists";
 
-import { userCurrentNum, usersListObj } from "../../store";
+import { currentRecordOfType, usersListObj } from "../../store";
 import { useUserApi } from "../../githubApi";
 import formatBigNumber from "../../utilities/formatBigNumber";
+import { USER } from "../../constants";
 
 import "./styles.scss";
 
 export default function UserWindow() {
   const userList = useRecoilValue(usersListObj);
-  const currentUser = useRecoilValue(userCurrentNum);
+  const currentUser = useRecoilValue(currentRecordOfType(USER));
   const refTabsList = React.useRef(new Set([]));
   const [isSearching, setSearching] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(0);

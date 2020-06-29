@@ -4,9 +4,8 @@ import {
   focusedElement,
   searchInputOfType,
   searchResultsOfType,
-  userCurrentNum,
+  currentRecordOfType,
   usersListObj,
-  reposListObj,
   reposSearchTopic,
 } from "./atoms";
 import { userActivity } from "./selectors";
@@ -17,9 +16,8 @@ export {
   focusedElement,
   searchInputOfType,
   searchResultsOfType,
+  currentRecordOfType,
   userActivity,
-  userCurrentNum,
   usersListObj,
-  reposListObj,
   reposSearchTopic,
 };

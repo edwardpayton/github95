@@ -1,11 +1,12 @@
 import { selector } from "recoil";
-import { userCurrentNum, usersListObj } from "./atoms";
+import { currentRecordOfType, usersListObj } from "./atoms";
+import { USER } from "../constants";
 
 export const userActivity = selector({
   key: "userActivity",
   get: ({ get }) => {
     const userList = get(usersListObj);
-    const currentUser = get(userCurrentNum);
+    const currentUser = get(currentRecordOfType(USER));
     if (currentUser === null || userList[currentUser].apiData === undefined) {
       return;
     }

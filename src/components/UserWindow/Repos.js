@@ -13,11 +13,12 @@ import {
 import AnchorButton from "../AnchorButton";
 import Pagination from "../Pagination";
 
-import { userCurrentNum } from "../../store";
+import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
+import { USER } from "../../constants";
 
 export default function Repos({ repos, total, onPageChange }) {
-  const currentUser = useRecoilValue(userCurrentNum);
+  const currentUser = useRecoilValue(currentRecordOfType(USER));
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
 

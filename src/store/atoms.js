@@ -35,23 +35,20 @@ export const searchResultsOfType = memoize((type) =>
   })
 );
 
-// User window
-export const userCurrentNum = atom({
-  key: "userCurrentNum",
-  default: null, // the user.profile.login
-});
+export const currentRecordOfType = memoize((type) =>
+  atom({
+    key: `currentRecordOfType${type}`,
+    default: null, // the user.profile.login
+  })
+);
 
+// User window
 export const usersListObj = atom({
   key: "usersListObj",
   default: {}, // object of users eg: { userLogin1: {...}, userLogin2: {...}}
 });
 
 // Repo window
-export const reposListObj = atom({
-  key: "reposListObj",
-  default: {},
-});
-
 export const reposSearchTopic = atom({
   key: "reposSearchTopic",
   default: {},

@@ -13,20 +13,30 @@ import {
 import Pagination from "../Pagination";
 import AnchorButton from "../AnchorButton";
 
-import { searchResultsOfType } from "../../store";
+import { searchResultsOfType, currentRecordOfType } from "../../store";
 import { REPOS } from "../../constants";
 import formatDate from "../../utilities/formatDate";
 
 export default function SearchResults({ onPageChange }) {
   const results = useRecoilValue(searchResultsOfType(REPOS));
+  const currentRepo = useRecoilValue(currentRecordOfType(REPOS));
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
+  const refCurrent = React.useRef("");
 
   React.useEffect(() => {
-    if (results.nodes && results.nodes.length) {
-      setPaginated([...paginated, [...results.nodes]]);
+    let newArray = [];
+    if (refCurrent.current !== currentRepo) {
+      newArray = [[...results.nodes]];
+      setPageNumber(0);
+      refCurrent.current = currentRepo;
+    } else {
+      newArray = [...paginated, [...results.nodes]];
     }
+    setPaginated(newArray);
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
+  // 'paginated' - crashes
+  // 'currentRecord' - extra render, incorrect results
 
   const handleClickNextPage = (page) => {
     setPageNumber(page);

@@ -5,7 +5,7 @@ import {
   searchInputOfType,
   searchResultsOfType,
   usersListObj,
-  userCurrentNum,
+  currentRecordOfType,
 } from "../store";
 import {
   apiGetUserSearchResults,
@@ -26,7 +26,9 @@ import { USER } from "../constants";
 export default function useUserApi() {
   const firstCallRef = React.useRef(false);
   const setResults = useSetRecoilState(searchResultsOfType(USER));
-  const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
+  const [currentUser, setCurrentUser] = useRecoilState(
+    currentRecordOfType(USER)
+  );
   const [userList, setList] = useRecoilState(usersListObj);
   const searchInput = useRecoilValue(searchInputOfType(USER));
 
