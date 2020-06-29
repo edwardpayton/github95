@@ -2,11 +2,10 @@ import {
   windowObj,
   menubarButtons,
   focusedElement,
-  userSearchInput,
-  userSearchResults,
+  searchInputOfType,
+  searchResultsOfType,
   userCurrentNum,
   usersListObj,
-  reposSearchInput,
   reposListObj,
 } from "./atoms";
 import { userActivity } from "./selectors";
@@ -15,11 +14,10 @@ export {
   windowObj,
   menubarButtons,
   focusedElement,
-  userSearchInput,
-  userSearchResults,
+  searchInputOfType,
+  searchResultsOfType,
   userActivity,
   userCurrentNum,
   usersListObj,
-  reposSearchInput,
   reposListObj,
 };

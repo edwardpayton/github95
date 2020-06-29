@@ -11,3 +11,7 @@ export const WINDOW_OBJ = {
   user: [true, true],
   repos: [true, true],
 };
+
+// Used for recoil atom ids
+export const USER = "user";
+export const REPOS = "repos";

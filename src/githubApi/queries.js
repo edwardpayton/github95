@@ -273,7 +273,7 @@ query UserFollows($username: String!, $cursor: String) {
  * $query: string - the package name
  * $cursor: string - the id of the repo to start after
  */
-export const GET_REPOS_FROM_SEARCH = `
+export const GET_REPOS_SEARCH = `
 query RepoSearch($query: String!, $cursor: String) {
   search(query: $query, type: REPOSITORY, last: 20, before: $cursor) {
     repositoryCount

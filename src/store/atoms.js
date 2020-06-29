@@ -1,4 +1,7 @@
 import { atom } from "recoil";
+
+import memoize from "../utilities/memoize";
+
 import { WINDOW_OBJ } from "../constants";
 
 // General
@@ -17,17 +20,22 @@ export const focusedElement = atom({
   default: "",
 });
 
+// Memoized with ID (id = user, repositories, ...)
+export const searchInputOfType = memoize((type) =>
+  atom({
+    key: `searchInput${type}`,
+    default: "",
+  })
+);
+
+export const searchResultsOfType = memoize((type) =>
+  atom({
+    key: `searchResults${type}`,
+    default: [],
+  })
+);
+
 // User window
-export const userSearchInput = atom({
-  key: "userSearchInput",
-  default: "",
-});
-
-export const userSearchResults = atom({
-  key: "userSearchResults",
-  default: [],
-});
-
 export const userCurrentNum = atom({
   key: "userCurrentNum",
   default: null, // the user.profile.login
@@ -39,11 +47,6 @@ export const usersListObj = atom({
 });
 
 // Repo window
-export const reposSearchInput = atom({
-  key: "reposSearchInput",
-  default: "",
-});
-
 export const reposListObj = atom({
   key: "reposListObj",
   default: {},

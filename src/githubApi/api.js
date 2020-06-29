@@ -6,6 +6,7 @@ import {
   GET_USER_STARS,
   GET_USER_FOLLOWS,
   GET_USER_GISTS,
+  GET_REPOS_SEARCH,
 } from "./queries";
 
 const gitHubAPIGraphQL = (body) =>
@@ -133,6 +134,21 @@ export const apiGetUserFollows = async (username) => {
     const following = json.data.user.following.nodes;
 
     return { followers, following };
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetRepoSearchResults = async (query, cursor) => {
+  try {
+    const resp = await gitHubAPIGraphQL({
+      query: GET_REPOS_SEARCH,
+      variables: { query, cursor },
+    });
+    let json = await resp.json();
+    json = json.data.repositories.nodes;
+
+    return [...json];
   } catch (error) {
     return new Error(error);
   }

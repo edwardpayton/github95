@@ -2,8 +2,8 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import {
-  userSearchInput,
-  userSearchResults,
+  searchInputOfType,
+  searchResultsOfType,
   userCurrentNum,
   usersListObj,
 } from "../../store";
@@ -11,10 +11,11 @@ import {
 import Toolbar from "../Toolbar";
 
 import { useUserApi } from "../../githubApi";
+import { USER } from "../../constants";
 
-export default function Search() {
-  const [input, setInput] = useRecoilState(userSearchInput);
-  const [results, setResults] = useRecoilState(userSearchResults);
+export default function UserToolbar() {
+  const [input, setInput] = useRecoilState(searchInputOfType(USER));
+  const [results, setResults] = useRecoilState(searchResultsOfType(USER));
   const userList = useRecoilValue(usersListObj);
   const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
   const refSearch = React.useRef(false);

@@ -2,8 +2,8 @@ import React from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
-  userSearchInput,
-  userSearchResults,
+  searchInputOfType,
+  searchResultsOfType,
   usersListObj,
   userCurrentNum,
 } from "../store";
@@ -16,6 +16,7 @@ import {
   apiGetUserGists,
   apiGetUserFollows,
 } from "./api";
+import { USER } from "../constants";
 
 /**
  * Github api hook
@@ -24,10 +25,10 @@ import {
  */
 export default function useUserApi() {
   const firstCallRef = React.useRef(false);
-  const setResults = useSetRecoilState(userSearchResults);
+  const setResults = useSetRecoilState(searchResultsOfType(USER));
   const [currentUser, setCurrentUser] = useRecoilState(userCurrentNum);
   const [userList, setList] = useRecoilState(usersListObj);
-  const searchInput = useRecoilValue(userSearchInput);
+  const searchInput = useRecoilValue(searchInputOfType(USER));
 
   const getUserActivity = React.useCallback(async () => {
     const activity = await apiGetUserActivity(

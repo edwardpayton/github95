@@ -9,10 +9,11 @@ import {
 } from "react95";
 import AnchorButton from "../AnchorButton";
 import { useSetRecoilState } from "recoil";
-import { userSearchInput } from "../../store";
+import { searchInputOfType } from "../../store";
+import { USER } from "../../constants";
 
 export default function Following({ following, total, url }) {
-  const setSearch = useSetRecoilState(userSearchInput);
+  const setSearch = useSetRecoilState(searchInputOfType(USER));
 
   const handleClick = (login) => () => {
     setSearch(login);
