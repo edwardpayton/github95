@@ -146,9 +146,9 @@ export const apiGetRepoSearchResults = async (query, cursor) => {
       variables: { query, cursor },
     });
     let json = await resp.json();
-    json = json.data.repositories.nodes;
+    json = json.data.search;
 
-    return [...json];
+    return { ...json };
   } catch (error) {
     return new Error(error);
   }

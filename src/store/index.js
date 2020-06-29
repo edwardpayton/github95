@@ -7,6 +7,7 @@ import {
   userCurrentNum,
   usersListObj,
   reposListObj,
+  reposSearchTopic,
 } from "./atoms";
 import { userActivity } from "./selectors";
 
@@ -20,4 +21,5 @@ export {
   userCurrentNum,
   usersListObj,
   reposListObj,
+  reposSearchTopic,
 };

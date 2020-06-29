@@ -51,3 +51,8 @@ export const reposListObj = atom({
   key: "reposListObj",
   default: {},
 });
+
+export const reposSearchTopic = atom({
+  key: "reposSearchTopic",
+  default: {},
+});

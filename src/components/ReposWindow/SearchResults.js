@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import {
   Table,
@@ -10,16 +9,24 @@ import {
   TableDataCell,
   Hourglass,
 } from "react95";
-import AnchorButton from "../AnchorButton";
-import Pagination from "../Pagination";
 
-import { userCurrentNum } from "../../store";
+import Pagination from "../Pagination";
+import AnchorButton from "../AnchorButton";
+
+import { searchResultsOfType } from "../../store";
+import { REPOS } from "../../constants";
 import formatDate from "../../utilities/formatDate";
 
-export default function Repos({ repos, total, onPageChange }) {
-  const currentUser = useRecoilValue(userCurrentNum);
+export default function SearchResults({ onPageChange }) {
+  const results = useRecoilValue(searchResultsOfType(REPOS));
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
+
+  React.useEffect(() => {
+    if (results.nodes && results.nodes.length) {
+      setPaginated([...paginated, [...results.nodes]]);
+    }
+  }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClickNextPage = (page) => {
     setPageNumber(page);
@@ -28,34 +35,8 @@ export default function Repos({ repos, total, onPageChange }) {
     }
   };
 
-  const processRepos = React.useCallback(() => {
-    let reversed = [...repos].reverse();
-    const grouped = reversed.reduce((newArray, item, i) => {
-      const groupI = Math.floor(i / 20);
-      if (!newArray[groupI]) newArray[groupI] = [];
-      newArray[groupI].push(item);
-      return newArray;
-    }, []);
-    console.log(
-      "~/Sites/github95/src/components/UserWindow/Repos >>>",
-      grouped
-    );
-    return grouped;
-  }, [repos]);
-
-  React.useEffect(() => {
-    if (repos && repos.length) {
-      setPaginated(processRepos());
-    }
-  }, [repos, processRepos]);
-
-  React.useEffect(() => {
-    setPageNumber(0);
-  }, [currentUser]);
-
   return (
-    <div className="userRepos">
-      <h3>Repositories</h3>
+    <div className="reposResults">
       {paginated && paginated.length > 0 ? (
         <>
           <Table className="table userRepos__table">
@@ -79,18 +60,17 @@ export default function Repos({ repos, total, onPageChange }) {
               {paginated[pageNumber] &&
                 paginated[pageNumber].map(
                   ({
-                    cursor,
-                    node: {
-                      name,
-                      isFork,
-                      description,
-                      url,
-                      updatedAt,
-                      primaryLanguage,
-                      repositoryTopics,
-                    },
+                    name,
+                    owner: { login },
+                    description,
+                    url,
+                    id,
+                    pushedAt,
+                    isFork,
+                    primaryLanguage,
+                    repositoryTopics,
                   }) => (
-                    <TableRow key={cursor}>
+                    <TableRow key={id}>
                       <TableDataCell className="userRepos__bodyCell">
                         <p className="userRepos__repoName">
                           {name}
@@ -102,7 +82,7 @@ export default function Repos({ repos, total, onPageChange }) {
                             {repositoryTopics.nodes.map(({ topic }) => (
                               <p
                                 className="badge -small userRepos__badge"
-                                key={cursor + topic.name}
+                                key={id + topic.name}
                               >
                                 {topic.name}
                               </p>
@@ -128,7 +108,7 @@ export default function Repos({ repos, total, onPageChange }) {
                         )}
                       </TableDataCell>
                       <TableDataCell className="userRepos__bodyCell">
-                        {formatDate(updatedAt)}
+                        {formatDate(pushedAt)}
                       </TableDataCell>
                       <TableDataCell className="userRepos__bodyCell -link">
                         <AnchorButton
@@ -143,8 +123,11 @@ export default function Repos({ repos, total, onPageChange }) {
                 )}
             </TableBody>
           </Table>
-          {total > 20 && (
-            <Pagination onPageChange={handleClickNextPage} totalCount={total} />
+          {results.repositoryCount > 20 && (
+            <Pagination
+              onPageChange={handleClickNextPage}
+              totalCount={results.repositoryCount}
+            />
           )}
         </>
       ) : (

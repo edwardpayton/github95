@@ -74,8 +74,7 @@ query UserDetails($username: String!) {
         name
         description
         updatedAt
-        url
-        isPrivate
+        url       
         primaryLanguage {
           name
           color
@@ -111,7 +110,6 @@ query UserActivity($username: String!, $numRepos: Int!) {
       nodes {
         name
         createdAt
-        isPrivate
       }
     }
     contributionsCollection {
@@ -148,7 +146,6 @@ query UserRepos($username: String!, $cursor: String) {
           description
           updatedAt
           url
-          isPrivate
           isFork
           primaryLanguage {
             name
@@ -274,8 +271,8 @@ query UserFollows($username: String!, $cursor: String) {
  * $cursor: string - the id of the repo to start after
  */
 export const GET_REPOS_SEARCH = `
-query RepoSearch($query: String!, $cursor: String) {
-  search(query: $query, type: REPOSITORY, last: 20, before: $cursor) {
+query RepoSearch($query: String! $cursor: String) {
+  search(query: $query, type: REPOSITORY, last: 20, after: $cursor) {
     repositoryCount
     pageInfo {
       endCursor
@@ -284,8 +281,28 @@ query RepoSearch($query: String!, $cursor: String) {
     nodes {
       ... on Repository {
         name
+        owner {
+          login
+        }
+        description
         url
-        updatedAt
+        id
+        pushedAt
+        isFork
+        primaryLanguage {
+          color
+          name
+        }
+        repositoryTopics(first: 10) {
+          nodes {
+            topic {
+              name
+            }
+          }
+        }
+        stargazers {
+          totalCount
+        }
       }
     }
   }
