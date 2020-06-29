@@ -37,10 +37,6 @@ export default function Repos({ repos, total, onPageChange }) {
       newArray[groupI].push(item);
       return newArray;
     }, []);
-    console.log(
-      "~/Sites/github95/src/components/UserWindow/Repos >>>",
-      grouped
-    );
     return grouped;
   }, [repos]);
 

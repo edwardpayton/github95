@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { TextField, Button } from "react95";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import Topic from "./Topic";
 import Filter from "./Filter";
@@ -19,7 +18,7 @@ import "./styles.scss";
 
 export default function ReposWindow() {
   const [input, setInput] = useRecoilState(searchInputOfType(REPOS));
-  const [results, setResults] = useRecoilState(searchResultsOfType(REPOS));
+  const results = useRecoilValue(searchResultsOfType(REPOS));
   const setCurrentRepo = useSetRecoilState(currentRecordOfType(REPOS));
   const refSort = React.useRef("");
 
