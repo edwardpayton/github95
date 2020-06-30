@@ -69,19 +69,16 @@
 
 .sort {
   position: relative;
-  &:after {
-    position: absolute;
-    content: "";
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: #ced0cf;
-    opacity: 0;
-  }
   &.-disabled {
     pointer-events: none;
     &:after {
+      position: absolute;
+      content: "";
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #ced0cf;
       opacity: 0.5;
     }
   }

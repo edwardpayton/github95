@@ -69,7 +69,7 @@ export default function StartMenu() {
               <span role="img" aria-label="profile">
                 👨‍💻
               </span>{" "}
-              Profile
+              Explore Users
             </p>
           </ListItem>
           <ListItem onClick={handleListClick("about")} data-name="about">

@@ -9,7 +9,7 @@ export default function Search({ placeholder, initalValue, onSearch }) {
   }, [initalValue]);
 
   const handleChange = ({ target }) => {
-    setState(target.value.trim());
+    setState(target.value);
   };
 
   const handleClick = () => {

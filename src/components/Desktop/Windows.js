@@ -38,20 +38,24 @@ export default function Windows() {
     setWindows(newList);
   };
 
-  return Object.keys(currentWindows).map((name) => {
-    const ContentComp = componentList[name];
-    const small = name === "about";
-    return (
-      <WindowFrame
-        key={name}
-        name={name}
-        window={currentWindows[name]}
-        onClose={handleCloseWindow}
-        onClickWindow={handleClickWindow}
-        small={small}
-      >
-        <ContentComp />
-      </WindowFrame>
-    );
-  });
+  return (
+    <>
+      {Object.keys(currentWindows).map((name) => {
+        const ContentComp = componentList[name];
+        const small = name === "about";
+        return (
+          <WindowFrame
+            key={name}
+            name={name}
+            window={currentWindows[name]}
+            onClose={handleCloseWindow}
+            onClickWindow={handleClickWindow}
+            small={small}
+          >
+            <ContentComp />
+          </WindowFrame>
+        );
+      })}
+    </>
+  );
 }

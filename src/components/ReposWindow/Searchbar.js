@@ -13,7 +13,7 @@ export default function Searchbar({ placeholder, onSearch }) {
   const { getRepoSearchResults } = useReposApi();
 
   const handleChange = ({ target }) => {
-    setInput(target.value.trim());
+    setInput(target.value);
   };
 
   const handleClick = () => {
