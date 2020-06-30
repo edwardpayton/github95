@@ -68,7 +68,7 @@
 }
 
 .sort {
-  &__disabled {
+  &.-disabled {
     pointer-events: none;
   }
 }

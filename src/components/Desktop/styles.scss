@@ -9,6 +9,7 @@
   height: 90px;
   margin-bottom: 1rem;
   &__button {
+    width: 90px;
     width: 100%;
     padding: 0.5rem 1rem;
     background: transparent;
@@ -30,6 +31,7 @@
     width: 90px;
     margin-left: -1rem;
     padding-top: 10px;
+    text-align: center;
     pointer-events: none;
     overflow: hidden;
     text-overflow: ellipsis;

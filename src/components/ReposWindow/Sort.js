@@ -24,7 +24,7 @@ export default function Sort({ onChange }) {
   };
 
   return (
-    <div className={`sort ${!results.length ? " -disabled" : ""}`}>
+    <div className={`sort${!results.repositoryCount ? " -disabled" : ""}`}>
       <Select
         items={options}
         onChange={handleChange}
