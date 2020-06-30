@@ -13,14 +13,15 @@ import "./styles.scss";
 export default function Taskbar() {
   const [currentButtons, setButtons] = useRecoilState(menubarButtons);
   const openWindows = useRecoilValue(windowObj);
-  const refWindowSet = React.useRef(new Set());
+  const refWindowMap = React.useRef(new Map());
 
   React.useEffect(() => {
     Object.keys(openWindows).forEach((window) => {
-      if (openWindows[window][0]) refWindowSet.current.add(window);
-      else refWindowSet.current.delete(window);
+      if (openWindows[window].visibility[0])
+        refWindowMap.current.set(window, openWindows[window]);
+      else refWindowMap.current.delete(window);
     });
-    setButtons([...refWindowSet.current]);
+    setButtons([...refWindowMap.current]);
   }, [openWindows]);
 
   return (
@@ -28,8 +29,8 @@ export default function Taskbar() {
       <Toolbar className="justify-between">
         <div>
           <StartMenu />
-          {currentButtons.map((buttonName) => (
-            <TaskbarButton name={buttonName} key={buttonName} />
+          {[...currentButtons].map((name) => (
+            <TaskbarButton name={name[0]} label={name[1].label} key={name[0]} />
           ))}
         </div>
         <div style={{ paddingRight: 2 }}>

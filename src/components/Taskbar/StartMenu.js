@@ -25,7 +25,13 @@ export default function StartMenu() {
   };
 
   const handleListClick = (name) => () => {
-    setWindows({ ...currentWindows, [name]: [true, true] });
+    const updated = {
+      [name]: {
+        ...currentWindows[name],
+        visibility: [true, true],
+      },
+    };
+    setWindows({ ...currentWindows, ...updated });
     toggleMenu(false);
   };
 

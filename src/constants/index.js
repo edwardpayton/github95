@@ -1,15 +1,29 @@
+const defaultWindow = {
+  label: ">default<",
+  header: "", // if empty, use icon
+  size: null,
+  visibility: [false, false], // [ button visible (show button), window visible (show window) ]
+};
+const about = {
+  label: "About",
+  header: "About this project",
+  visibility: [false, false],
+};
+const user = {
+  label: "Explore Users",
+  header: "Explore Users - Search Github for users",
+  visibility: [false, false],
+};
+const repos = {
+  label: "Repositories",
+  header: "Search Repositories - Find the latest, hottest, and trending repos",
+  visibility: [true, true], //[false, false], // true while working on feature
+};
+
 export const WINDOW_OBJ = {
-  /* [
-      button visible (show button), 
-      window visible (show window), 
-      window focused (is active window, button pressed) TODO
-    ] */
-  about: [false, false],
-  // user: [false, false],
-  // repos: [false, false],
-  // for demo
-  user: [true, true],
-  repos: [true, true],
+  about,
+  user,
+  repos,
 };
 
 // Used for recoil atom ids

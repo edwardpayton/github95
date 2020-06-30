@@ -5,10 +5,11 @@
   padding: 30px 20px;
 }
 .desktopButton {
-  width: 65px;
+  width: 90px;
   height: 90px;
   margin-bottom: 1rem;
   &__button {
+    width: 100%;
     padding: 0.5rem 1rem;
     background: transparent;
     outline: none;
@@ -26,8 +27,13 @@
     pointer-events: none;
   }
   &__name {
+    width: 90px;
+    margin-left: -1rem;
     padding-top: 10px;
     pointer-events: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 

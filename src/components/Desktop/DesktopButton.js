@@ -1,7 +1,6 @@
 import React from "react";
-import capitalize from "../../utilities/capitalize";
 
-export default function DesktopButton({ name, active, onDoubleClick }) {
+export default function DesktopButton({ name, label, active, onDoubleClick }) {
   return (
     <div key={name} className="desktopButton">
       <button
@@ -15,7 +14,7 @@ export default function DesktopButton({ name, active, onDoubleClick }) {
           alt="icon"
           width="50"
         />
-        <p className="desktopButton__name">{capitalize(name)}</p>
+        <p className="desktopButton__name">{label}</p>
       </button>
     </div>
   );

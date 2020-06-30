@@ -6,22 +6,34 @@ import PropTypes from "prop-types";
 import { windowObj, focusedElement } from "../../store";
 import capitalize from "../../utilities/capitalize";
 
-export default function TaskbarButton({ name }) {
+export default function TaskbarButton({ name, label }) {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
   const focused = useRecoilValue(focusedElement);
 
   const handleClick = () => {
-    const isFocused = currentWindows[name][1] && focused === name;
+    const isFocused = currentWindows[name].visibility[1] && focused === name;
     if (isFocused) {
-      setWindows({ ...currentWindows, [name]: [true, false] });
+      const updated = {
+        [name]: {
+          ...currentWindows[name],
+          visibility: [true, false],
+        },
+      };
+      setWindows({ ...currentWindows, ...updated });
     } else {
-      setWindows({ ...currentWindows, [name]: [true, true] });
+      const updated = {
+        [name]: {
+          ...currentWindows[name],
+          visibility: [true, true],
+        },
+      };
+      setWindows({ ...currentWindows, ...updated });
     }
   };
 
   return (
     <>
-      {currentWindows[name][0] && (
+      {currentWindows[name].visibility[0] && (
         <Button
           data-name={name}
           onClick={handleClick}
@@ -29,7 +41,7 @@ export default function TaskbarButton({ name }) {
           className={`bold taskbarButton${focused === name ? " -focused" : ""}`}
           style={{ marginRight: 3 }}
         >
-          {capitalize(name)}
+          {label ? label : name}
         </Button>
       )}
     </>

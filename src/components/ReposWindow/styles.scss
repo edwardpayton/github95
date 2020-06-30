@@ -66,3 +66,9 @@
     line-height: 2;
   }
 }
+
+.sort {
+  &__disabled {
+    pointer-events: none;
+  }
+}

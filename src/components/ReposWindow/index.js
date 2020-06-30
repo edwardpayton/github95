@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 import { Tabs, Tab, TabBody, Hourglass } from "react95";
 
 import Topic from "./Topic";
-import Filter from "./Filter";
+import Sort from "./Sort";
 import Searchbar from "./Searchbar";
 import SearchResults from "./SearchResults";
 
@@ -69,7 +69,7 @@ export default function ReposWindow() {
                   placeholder="Repository name"
                   onSearch={handleSearch}
                 />
-                <Filter onChange={handleSort} />
+                <Sort onChange={handleSort} />
               </div>
             </div>
             <div className="flex-auto repoTab__body">

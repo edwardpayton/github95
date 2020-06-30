@@ -33,7 +33,7 @@ export default function WindowFrame({
       <div
         data-name={name}
         style={{
-          display: window[1] ? "block" : "none",
+          display: window.visibility[1] ? "block" : "none",
           zIndex: focused === name ? 2 : 1,
         }}
         className={`windowFrame${small ? " -small" : ""}`}
@@ -48,7 +48,7 @@ export default function WindowFrame({
               focused === name ? "" : " -inactive"
             }`}
           >
-            <span>{capitalize(name)}</span>
+            <span>{window.header}</span>
             <span ref={refCloseBtn}>
               <Button
                 style={{ marginRight: -6, marginTop: 1 }}

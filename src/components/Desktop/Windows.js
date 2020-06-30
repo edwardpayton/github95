@@ -17,26 +17,35 @@ const componentList = {
 export default function Windows() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
 
-  const handleCloseWindow = (currentWindow) => {
-    setWindows({ ...currentWindows, [currentWindow]: [false, false] });
+  const handleCloseWindow = (name) => {
+    const updated = {
+      [name]: {
+        ...currentWindows[name],
+        visibility: [false, false],
+      },
+    };
+    setWindows({
+      ...currentWindows,
+      ...updated,
+    });
   };
 
-  const handleClickWindow = (currentWindow) => {
+  const handleClickWindow = () => {
     const newList = {};
     Object.keys(currentWindows).forEach((windowName) => {
-      newList[windowName] = [...currentWindows[windowName]];
+      newList[windowName] = { ...currentWindows[windowName] };
     });
     setWindows(newList);
   };
 
-  return Object.keys(currentWindows).map((windowName) => {
-    const ContentComp = componentList[windowName];
-    const small = windowName === "about";
+  return Object.keys(currentWindows).map((name) => {
+    const ContentComp = componentList[name];
+    const small = name === "about";
     return (
       <WindowFrame
-        key={windowName}
-        name={windowName}
-        window={currentWindows[windowName]}
+        key={name}
+        name={name}
+        window={currentWindows[name]}
         onClose={handleCloseWindow}
         onClickWindow={handleClickWindow}
         small={small}

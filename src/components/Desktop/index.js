@@ -21,8 +21,15 @@ export default function Desktop() {
 
   const handleButtonDblClick = (name) => (e) => {
     e.stopPropagation();
+    const updated = {
+      [name]: {
+        ...currentWindows[name],
+        visibility: [true, true],
+      },
+    };
+
     window.setTimeout(() => {
-      setWindows({ ...currentWindows, [name]: [true, true] });
+      setWindows({ ...currentWindows, ...updated });
     }, 300);
   };
 
@@ -35,14 +42,18 @@ export default function Desktop() {
             className="flex flex-column desktop"
             onClick={handleDesktopClick}
           >
-            {Object.keys(WINDOW_OBJ).map((name) => (
-              <DesktopButton
-                name={name}
-                active={active}
-                onDoubleClick={handleButtonDblClick(name)}
-                key={name}
-              />
-            ))}
+            {Object.keys(WINDOW_OBJ).map((name) => {
+              const { label } = WINDOW_OBJ[name];
+              return (
+                <DesktopButton
+                  name={name}
+                  label={label}
+                  active={active}
+                  onDoubleClick={handleButtonDblClick(name)}
+                  key={name}
+                />
+              );
+            })}
           </section>
           <Windows />
         </section>
