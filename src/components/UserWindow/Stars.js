@@ -51,18 +51,20 @@ export default function Stars({ stars, total, onPageChange }) {
   }, [currentUser]);
 
   return (
-    <div className="userRepos">
+    <div className="userStars">
       <h3>Stars</h3>
       {paginated && paginated.length > 0 ? (
         <>
-          <Table className="table userRepos__table">
+          <Table className="table">
             <TableHead>
               <TableRow head>
-                <TableHeadCell>Details</TableHeadCell>
-                <TableHeadCell className="userRepos__headCell -language">
+                <TableHeadCell className="table__headCell">
+                  Details
+                </TableHeadCell>
+                <TableHeadCell className="table__headCell -fixedWidth">
                   Main language
                 </TableHeadCell>
-                <TableHeadCell className="userRepos__headCell -link">
+                <TableHeadCell className="table__headCell -fixedWidth">
                   Link
                 </TableHeadCell>
               </TableRow>
@@ -82,26 +84,26 @@ export default function Stars({ stars, total, onPageChange }) {
                       forks,
                     },
                   }) => (
-                    <TableRow key={cursor}>
-                      <TableDataCell>
-                        <p className="userRepos__repoName">{name}</p>
-                        <p className="userRepos__repoDesc">{description}</p>
-                        <div className="userRepos__badges">
-                          <div className="badge -small userRepos__badge">
+                    <TableRow key={cursor} className="table__bodyRow">
+                      <TableDataCell className="table__bodyCell">
+                        <p className="fontSize14">{name}</p>
+                        <p>{description}</p>
+                        <div>
+                          <div className="badge -small -textBlack">
                             Stars: {stargazers.totalCount || 0}
                           </div>
-                          <div className="badge -small userRepos__badge">
+                          <div className="badge -small -textBlack">
                             Forks: {forks.totalCount || 0}
                           </div>
-                          <div className="badge -small userRepos__badge">
+                          <div className="badge -small -textBlack">
                             Updated: {formatDate(updatedAt)}
                           </div>
                         </div>
                       </TableDataCell>
-                      <TableDataCell>
+                      <TableDataCell className="table__bodyCell">
                         {primaryLanguage !== null ? (
                           <p
-                            className={`userRepos__badge -language -${primaryLanguage.name}`}
+                            className={`languageBadge -textBlack -${primaryLanguage.name}`}
                           >
                             <span
                               className="badge"
@@ -113,7 +115,7 @@ export default function Stars({ stars, total, onPageChange }) {
                           <p>-</p>
                         )}
                       </TableDataCell>
-                      <TableDataCell>
+                      <TableDataCell className="table__bodyCell">
                         <AnchorButton href={url} target="_blank">
                           Go to repo
                         </AnchorButton>

@@ -13,7 +13,7 @@ import Toolbar from "../Toolbar";
 import { useUserApi } from "../../githubApi";
 import { USER } from "../../constants";
 
-export default function UserToolbar() {
+export default function Searchbar() {
   const [input, setInput] = useRecoilState(searchInputOfType(USER));
   const [results, setResults] = useRecoilState(searchResultsOfType(USER));
   const userList = useRecoilValue(usersListObj);

@@ -26,7 +26,9 @@
 .userContent__tabs.-disabled {
   pointer-events: none;
 }
-.userContent__tab {
+.userContent__tabs .userContent__tab {
+  min-width: 100px;
+  text-align: center;
 }
 .userContent__tabs.-disabled .userContent__tab {
   color: #6c6c6c;
@@ -236,55 +238,8 @@
 }
 
 /* User repos */
-.userRepos {
-}
-.userRepos__table {
-}
-.userRepos__headCell.-language,
-.userRepos__headCell.-updated,
-.userRepos__headCell.-link {
-  width: 100px;
-}
-.userRepos__bodyCell.userRepos__bodyCell.-link {
-  padding-left: 0.5rem;
-}
-.userRepos__badge.-language {
-  position: relative;
-  font-size: 8px !important;
-  line-height: 16px;
-  padding: 3px 5px 3px 26px;
-}
-.userRepos__badge.-language > span {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  left: -5px;
-  top: 0;
-}
-.userRepos__repoName {
-  font-size: 14px !important;
-}
-.userRepos__repoName > .badge {
-  color: #000;
-}
-.userRepos__badges {
-}
-.userRepos__badge.badge {
-  color: #000;
-}
-.userRepos__badges .userRepos__badge:first-of-type {
-  margin-left: 0;
-}
+//
 /* User followers & following */
-.userFollows__cell {
-}
-.userFollows__cell.-link {
-  width: 100px;
-}
-.userFollows__cell.-link > a {
-  vertical-align: middle;
-}
 .userFollows__avatar {
   width: 60px;
   height: 60px;
@@ -293,21 +248,12 @@
 .userFollows__details {
   padding-left: 1rem;
 }
-.userFollows__name {
-  font-size: 14px !important;
-}
 .userFollows__login.userFollows__login {
   position: relative;
   top: -3px;
   color: #000;
 }
-.userFollows__link {
-  display: inline-block;
-  margin-left: 0.5rem;
-}
-
-.gists {
-}
+/* User gists */
 .gist {
   padding: 1rem;
   &__header {

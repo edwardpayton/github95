@@ -53,3 +53,8 @@ export const reposSearchTopic = atom({
   key: "reposSearchTopic",
   default: {},
 });
+
+export const reposSort = atom({
+  key: "reposSort",
+  default: "",
+});

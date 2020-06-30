@@ -1,7 +1,7 @@
 import React from "react";
 import { Tabs, Tab, TabBody, Hourglass } from "react95";
 import { useRecoilValue } from "recoil";
-import Toolbar from "./Toolbar";
+import Searchbar from "./Searchbar";
 import Overview from "./Overview";
 import Repos from "./Repos";
 import Stars from "./Stars";
@@ -91,7 +91,7 @@ export default function UserWindow() {
 
   return (
     <>
-      <Toolbar />
+      <Searchbar />
       <section className="userWindow__content">
         <div className="userContent">
           <Tabs

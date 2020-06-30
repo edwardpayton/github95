@@ -63,13 +63,11 @@ export default function Gists({ gists, total, onPageChange }) {
                   <section className="gist" key={cursor}>
                     <div className="flex items-center gist__header">
                       <h3>{files[0].name}</h3>
-                      {isFork && (
-                        <p className="badge -small userRepos__badge">Fork</p>
-                      )}
-                      <p className="badge -small userRepos__badge">
+                      {isFork && <p className="badge -small">Fork</p>}
+                      <p className="badge -small">
                         Updated at: {formatDate(updatedAt)}
                       </p>
-                      <p className="badge -small userRepos__badge">
+                      <p className="badge -small">
                         Number of stars: {stargazers.totalCount}
                       </p>
                     </div>

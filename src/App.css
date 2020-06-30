@@ -1,4 +1,8 @@
 /* General styles -  these are used throughout the app */
+.fontSize14 {
+  font-size: 14px !important;
+}
+
 /* Badge */
 .badge {
   display: inline-block;
@@ -38,6 +42,24 @@
 }
 .badge.-blue {
   background-color: #c9d0ff;
+}
+.badge.-textBlack {
+  color: #000 !important;
+}
+
+.languageBadge {
+  position: relative;
+  font-size: 8px !important;
+  line-height: 16px;
+  padding: 3px 5px 3px 26px;
+}
+.languageBadge > .badge {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  left: -5px;
+  top: 0;
 }
 
 /* Borders */
@@ -124,12 +146,17 @@
 }
 
 /* Tables */
-.table > thead > tr > th {
+.table__headCell {
   position: sticky;
   top: 2px;
   z-index: 10;
 }
-.table > thead > tr > th:before {
+.table__headCell.-fixedWidth,
+.table__bodyCell.-fixedWidth {
+  width: 100px;
+}
+
+.table__headCell:before {
   position: absolute;
   content: "";
   left: 0;
@@ -139,7 +166,7 @@
   z-index: -1;
   box-shadow: 0px 0px 0px 2px #000;
 }
-.table > tbody > tr > td {
+.table__bodyCell.table__bodyCell {
   background-color: #fff;
   background-image: linear-gradient(
       45deg,
@@ -162,10 +189,10 @@
   padding: 1rem;
   vertical-align: middle;
 }
-.table > tbody > tr:nth-of-type(even) > td {
+.table__bodyRow:nth-of-type(even) > .table__bodyCell {
   background-color: #ededed;
 }
-.table > tbody > tr:hover > td {
+.table__bodyRow:hover > .table__bodyCell {
   background-color: #606e92;
 }
 

@@ -58,16 +58,16 @@ export default function Repos({ repos, total, onPageChange }) {
           <Table className="table userRepos__table">
             <TableHead>
               <TableRow head>
-                <TableHeadCell className="userRepos__headCell -details">
+                <TableHeadCell className="table__headCell">
                   Details
                 </TableHeadCell>
-                <TableHeadCell className="userRepos__headCell -language">
+                <TableHeadCell className="table__headCell -fixedWidth">
                   Main language
                 </TableHeadCell>
-                <TableHeadCell className="userRepos__headCell -updated">
+                <TableHeadCell className="table__headCell -fixedWidth">
                   Updated
                 </TableHeadCell>
-                <TableHeadCell className="userRepos__headCell -link">
+                <TableHeadCell className="table__headCell -fixedWidth">
                   Link
                 </TableHeadCell>
               </TableRow>
@@ -87,18 +87,20 @@ export default function Repos({ repos, total, onPageChange }) {
                       repositoryTopics,
                     },
                   }) => (
-                    <TableRow key={cursor}>
-                      <TableDataCell className="userRepos__bodyCell">
-                        <p className="userRepos__repoName">
+                    <TableRow key={cursor} className="table__bodyRow">
+                      <TableDataCell className="table__bodyCell">
+                        <p className="fontSize14">
                           {name}
-                          {isFork && <span className="badge -grey">Fork</span>}
+                          {isFork && (
+                            <span className="badge -grey -textBlack">Fork</span>
+                          )}
                         </p>
                         <p className="userRepos__repoDesc">{description}</p>
                         {repositoryTopics.nodes.length > 0 && (
-                          <div className="userRepos__badges">
+                          <div>
                             {repositoryTopics.nodes.map(({ topic }) => (
                               <p
-                                className="badge -small userRepos__badge"
+                                className="badge -small -textBlack"
                                 key={cursor + topic.name}
                               >
                                 {topic.name}
@@ -107,10 +109,10 @@ export default function Repos({ repos, total, onPageChange }) {
                           </div>
                         )}
                       </TableDataCell>
-                      <TableDataCell>
+                      <TableDataCell className="table__bodyCell">
                         {primaryLanguage !== null ? (
                           <p
-                            className={`userRepos__badge -language -${primaryLanguage.name}`}
+                            className={`languageBadge -textBlack -${primaryLanguage.name}`}
                           >
                             <span
                               className="badge"
@@ -124,16 +126,11 @@ export default function Repos({ repos, total, onPageChange }) {
                           <p>-</p>
                         )}
                       </TableDataCell>
-                      <TableDataCell className="userRepos__bodyCell">
+                      <TableDataCell className="table__bodyCell">
                         {formatDate(updatedAt)}
                       </TableDataCell>
-                      <TableDataCell className="userRepos__bodyCell -link">
-                        <AnchorButton
-                          href={url}
-                          className="userRepos__repoLink"
-                        >
-                          Go to repo
-                        </AnchorButton>
+                      <TableDataCell className="pl1 table__bodyCell">
+                        <AnchorButton href={url}>Go to repo</AnchorButton>
                       </TableDataCell>
                     </TableRow>
                   )

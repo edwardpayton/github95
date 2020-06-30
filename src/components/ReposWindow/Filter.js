@@ -1,9 +1,8 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { Select } from "react95";
 
-import { searchInputOfType } from "../../store";
-import { REPOS } from "../../constants";
+import { reposSort } from "../../store";
 
 const options = [
   { value: 0, label: "Best Match" },
@@ -15,12 +14,19 @@ const options = [
 const optionsList = ["", "stars", "forks", "updated"];
 
 export default function Filter({ onChange }) {
-  const input = useRecoilValue(searchInputOfType(REPOS));
-  const [selected, setselected] = React.useState();
+  const setSort = useSetRecoilState(reposSort);
 
-  const handleChange = (val, label) => {
+  const handleChange = (val) => {
     onChange(optionsList[val]);
+    setSort(optionsList[val]);
   };
 
-  return <Select items={options} onChange={handleChange} width={150} />;
+  return (
+    <Select
+      items={options}
+      onChange={handleChange}
+      width={150}
+      className="searchFilter"
+    />
+  );
 }

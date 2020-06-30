@@ -7,3 +7,62 @@
     right: 0;
   }
 }
+
+.repoTabs {
+  &__tabBody.repoTabs__tabBody {
+    padding: 0.75rem;
+  }
+  &__tab {
+    min-width: 100px;
+    text-align: center;
+  }
+}
+
+.repoTab {
+  &__content {
+    height: 100%;
+  }
+  &__header {
+    text-align: center;
+    > h1 {
+      line-height: 35px;
+      text-shadow: 1px 0 #050608;
+      letter-spacing: 1px;
+      padding-bottom: 0.5rem;
+    }
+  }
+  &__body {
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  &__results {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px inset;
+  }
+}
+
+.searchBar {
+  width: 500px;
+  margin: auto;
+}
+
+.topic {
+  margin: 1rem;
+  h3 {
+    padding-bottom: 1rem;
+  }
+}
+
+.searchResults {
+}
+
+.searchFilter {
+  > div {
+    font-size: 10px;
+    line-height: 2;
+  }
+}

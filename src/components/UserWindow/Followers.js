@@ -25,33 +25,29 @@ export default function Followers({ followers, total, url }) {
       <h3>Followers</h3>
       {followers && followers.length > 0 ? (
         <>
-          <Table className="table userFollows__table">
+          <Table className="table">
             <TableBody>
               {followers.map(({ name, avatarUrl, login, url }) => (
-                <TableRow key={name + login}>
-                  <TableDataCell className="flex userFollows__cell -details">
+                <TableRow key={name + login} className="table__bodyRow">
+                  <TableDataCell className="flex table__bodyCell">
                     <img
                       src={avatarUrl}
                       alt=""
                       className="bevelBorder userFollows__avatar"
                     />
                     <div className="userFollows__details">
-                      <p className="userFollows__name">
+                      <p className="fontSize14">
                         {name || "-"}
                         <span className="badge -grey userFollows__login">
                           {login}
                         </span>
                       </p>
-                      <Anchor
-                        href={url}
-                        className="userFollows__link"
-                        target="_blank"
-                      >
+                      <Anchor href={url} target="_blank">
                         {url}
                       </Anchor>
                     </div>
                   </TableDataCell>
-                  <TableDataCell className="userFollows__cell -link">
+                  <TableDataCell className="table__bodyCell -fixedWidth">
                     <Button onClick={handleClick(login)}>Open profile</Button>
                   </TableDataCell>
                 </TableRow>

@@ -156,24 +156,24 @@ export default function Toolbar({
           initalValue={searchValue}
           onSearch={onSearch}
         />
-        <div className="searchResults" ref={refResults}>
+        <div className="searchResultsOverlay" ref={refResults}>
           {resultsVisible && (
-            <div className="card searchResults__panel">
-              <div className="scrollable -yOnly searchResults__inner">
+            <div className="card searchResultsOverlay__panel">
+              <div className="scrollable -yOnly searchResultsOverlay__inner">
                 <Table className="table">
                   <TableBody>
                     {searchResults.map((row) => (
                       <TableRow key={row.login}>
-                        <TableDataCell className="flex justify-between searchResults__row">
+                        <TableDataCell className="flex justify-between searchResultsOverlay__row">
                           <p>
                             {row.name}
-                            <span className="searchResults__login">
+                            <span className="searchResultsOverlay__login">
                               {row.login}
                             </span>
                           </p>
                           <Button
                             onClick={handleClickOnResult(row.login)}
-                            className="searchResults__button"
+                            className="searchResultsOverlay__button"
                           >
                             Open profile
                           </Button>

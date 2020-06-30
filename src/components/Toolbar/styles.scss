@@ -1,5 +1,5 @@
 .toolbar {
-  &__title {
+  &__title > h1 {
     line-height: 35px;
     text-shadow: 1px 0 #050608;
     letter-spacing: 1px;
@@ -82,12 +82,12 @@
   }
 }
 
-.searchResults {
+.searchResultsOverlay {
   position: absolute;
   top: 43px;
   right: 5px;
 
-  &__panel.searchResults__panel {
+  &__panel.searchResultsOverlay__panel {
     width: 300px;
     height: 300px;
     padding: 0.5rem;
@@ -96,7 +96,7 @@
   &__inner {
     height: 100%;
   }
-  &__row.searchResults__row {
+  &__row.searchResultsOverlay__row {
     position: relative;
     padding: 0.25rem;
     padding-left: 0.75rem;
@@ -111,13 +111,13 @@
     font-size: 8px !important;
     padding-left: 0.5rem;
   }
-  &__button.searchResults__button {
+  &__button.searchResultsOverlay__button {
     position: absolute;
     right: 0.25rem;
     opacity: 0;
     visibility: hidden;
   }
-  &__row:hover .searchResults__button {
+  &__row:hover .searchResultsOverlay__button {
     opacity: 1;
     visibility: visible;
   }
