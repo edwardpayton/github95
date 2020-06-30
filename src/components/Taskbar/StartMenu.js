@@ -50,11 +50,10 @@ export default function StartMenu() {
 
   return (
     <div className="startMenu" ref={refMenu}>
-      {isOpen && (
+      <div className={`startMenu__slide${isOpen ? " -isOpen" : ""}`}>
         <List
           horizontalAlign="left"
           verticalAlign="top"
-          open={isOpen}
           className="startMenu__menu"
         >
           <ListItem onClick={handleListClick("repos")} data-name="repos">
@@ -88,7 +87,7 @@ export default function StartMenu() {
             </p>
           </ListItem>
         </List>
-      )}
+      </div>
       <Button
         data-name="start-menu"
         onClick={handleButtonClick}

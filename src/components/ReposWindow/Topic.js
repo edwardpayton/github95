@@ -13,7 +13,7 @@ export default function Topic() {
         <h3>{topic.display_name}</h3>
         <p>{topic.short_description}</p>
       </div>
-      {topic.released && <div className="badge">Released{topic.released}</div>}
+      {topic.released && <div className="badge">Released {topic.released}</div>}
     </div>
   ) : (
     <></>

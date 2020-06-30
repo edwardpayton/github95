@@ -1,13 +1,33 @@
+.taskbar.taskbar {
+  z-index: 3;
+  bottom: 0;
+  top: auto;
+  &__buttonWrapper {
+    flex: 1;
+  }
+}
+
 .startMenu {
   position: relative;
-  float: left;
+  &__slide {
+    position: absolute;
+    bottom: 36px;
+    overflow: hidden;
+    max-height: 0;
+    &.-isOpen {
+      max-height: 200px;
+      .startMenu__menu {
+        transform: translateY(0);
+        transition: 0.15s;
+      }
+    }
+  }
   &__menu.startMenu__menu {
     padding-left: 30px;
-    &:before,
-    &:after {
-      position: absolute;
-    }
+    position: relative;
+    transform: translateY(100%);
     &:before {
+      position: absolute;
       content: "";
       background-color: #808080;
       width: 30px;
@@ -16,6 +36,7 @@
       left: 1px;
     }
     &:after {
+      position: absolute;
       content: "Github95";
       left: 8px;
       bottom: 0;

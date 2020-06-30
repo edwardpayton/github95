@@ -25,9 +25,9 @@ export default function Taskbar() {
   }, [openWindows]);
 
   return (
-    <AppBar style={{ zIndex: 3, bottom: 0, top: "auto" }}>
+    <AppBar className="taskbar">
       <Toolbar className="justify-between">
-        <div>
+        <div className="flex taskbar__buttonWrapper">
           <StartMenu />
           {[...currentButtons].map((name) => (
             <TaskbarButton name={name[0]} label={name[1].label} key={name[0]} />
