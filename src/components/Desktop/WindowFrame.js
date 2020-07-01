@@ -5,13 +5,10 @@ import { useRecoilValue } from "recoil";
 
 import { focusedElement } from "../../store";
 
-import capitalize from "../../utilities/capitalize";
-
 export default function WindowFrame({
   name,
   window,
   onClose,
-  onClickWindow,
   small,
   children,
 }) {
@@ -19,11 +16,6 @@ export default function WindowFrame({
   const refCloseBtn = React.useRef(undefined);
 
   const handleClose = () => onClose(name);
-
-  const handleClickWindow = ({ target }) => {
-    if (target.parentNode === refCloseBtn.current) return;
-    onClickWindow(name);
-  };
 
   return (
     <Draggable
@@ -39,7 +31,6 @@ export default function WindowFrame({
         className={`windowFrame${small ? " -small" : ""}`}
       >
         <Window
-          onClick={handleClickWindow}
           shadow={focused === name}
           className="flex-column windowFrame__inner"
         >

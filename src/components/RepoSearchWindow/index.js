@@ -5,7 +5,7 @@ import TabAll from "./TabAll";
 
 import "./styles.scss";
 
-export default function ReposWindow() {
+export default function RepoSearchWindow() {
   const [activeTab, setActiveTab] = React.useState(0);
 
   const handleTabChange = (value) => {

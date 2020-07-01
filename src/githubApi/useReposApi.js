@@ -27,7 +27,21 @@ export default function useReposApi() {
       if (topic.name !== input) {
         setTopic({});
         const topics = await apiGetTopic(input);
-        if (topics.items[0].description) setTopic(topics.items[0]);
+
+        let i = 0;
+        let topicResult = {};
+        do {
+          if (
+            topics.items[i] &&
+            topics.items[i].name.toLowerCase() === input.toLowerCase()
+          ) {
+            topicResult = topics.items[i];
+            break;
+          }
+          i++;
+        } while (i < 10);
+
+        setTopic(topicResult);
       }
     },
     [setResults, topic, setTopic]

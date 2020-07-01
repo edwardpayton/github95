@@ -7,6 +7,21 @@
   }
 }
 
+.taskbarButton.taskbarButton {
+  max-width: 100px;
+  > div {
+    width: 100%;
+  }
+}
+.taskbarButton {
+  &__label {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 .startMenu {
   position: relative;
   &__slide {

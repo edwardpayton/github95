@@ -11,7 +11,7 @@ import {
 } from "react95";
 
 import Pagination from "../Pagination";
-import AnchorButton from "../AnchorButton";
+import RepoButton from "../RepoButton";
 
 import {
   searchResultsOfType,
@@ -128,7 +128,7 @@ export default function SearchResults({ onPageChange }) {
                         {formatDate(pushedAt)}
                       </TableDataCell>
                       <TableDataCell className="pl1 table__bodyCell">
-                        <AnchorButton href={url}>Go to repo</AnchorButton>
+                        <RepoButton name={name} owner={login} />
                       </TableDataCell>
                     </TableRow>
                   )

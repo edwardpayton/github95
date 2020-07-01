@@ -12,17 +12,17 @@ import "./styles.scss";
 
 export default function Taskbar() {
   const [currentButtons, setButtons] = useRecoilState(menubarButtons);
-  const openWindows = useRecoilValue(windowObj);
+  const currentWindows = useRecoilValue(windowObj);
   const refWindowMap = React.useRef(new Map());
 
   React.useEffect(() => {
-    Object.keys(openWindows).forEach((window) => {
-      if (openWindows[window].visibility[0])
-        refWindowMap.current.set(window, openWindows[window]);
+    Object.keys(currentWindows).forEach((window) => {
+      if (currentWindows[window].visibility[0])
+        refWindowMap.current.set(window, currentWindows[window]);
       else refWindowMap.current.delete(window);
     });
     setButtons([...refWindowMap.current]);
-  }, [openWindows]);
+  }, [currentWindows]);
 
   return (
     <AppBar className="taskbar">

@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Button } from "react95";
+import { Button, Tooltip } from "react95";
 import PropTypes from "prop-types";
 
 import { windowObj, focusedElement } from "../../store";
@@ -41,7 +41,9 @@ export default function TaskbarButton({ name, label }) {
           className={`bold taskbarButton${focused === name ? " -focused" : ""}`}
           style={{ marginRight: 3 }}
         >
-          {label ? label : name}
+          <Tooltip text={label ? label : name} className="tooltipTop">
+            <span className="taskbarButton__label">{label ? label : name}</span>
+          </Tooltip>
         </Button>
       )}
     </>

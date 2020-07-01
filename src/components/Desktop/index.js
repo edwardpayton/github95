@@ -43,15 +43,18 @@ export default function Desktop() {
             onClick={handleDesktopClick}
           >
             {Object.keys(WINDOW_OBJ).map((name) => {
-              const { label } = WINDOW_OBJ[name];
+              const { label, desktopIcon } = WINDOW_OBJ[name];
               return (
-                <DesktopButton
-                  name={name}
-                  label={label}
-                  active={active}
-                  onDoubleClick={handleButtonDblClick(name)}
-                  key={name}
-                />
+                <React.Fragment key={name}>
+                  {desktopIcon && (
+                    <DesktopButton
+                      name={name}
+                      label={label}
+                      active={active}
+                      onDoubleClick={handleButtonDblClick(name)}
+                    />
+                  )}
+                </React.Fragment>
               );
             })}
           </section>

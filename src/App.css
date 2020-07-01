@@ -145,6 +145,11 @@
   background-position: 0 0, 1.5px 1.5px;
 }
 
+/* Tooltip */
+.tooltipTop.tooltipTop {
+  transform: translate(-50%, -120%);
+}
+
 /* Tables */
 .table__headCell {
   position: sticky;

@@ -10,7 +10,7 @@ import {
   TableDataCell,
   Hourglass,
 } from "react95";
-import AnchorButton from "../AnchorButton";
+import RepoButton from "../RepoButton";
 import Pagination from "../Pagination";
 
 import { currentRecordOfType } from "../../store";
@@ -130,7 +130,7 @@ export default function Repos({ repos, total, onPageChange }) {
                         {formatDate(updatedAt)}
                       </TableDataCell>
                       <TableDataCell className="pl1 table__bodyCell">
-                        <AnchorButton href={url}>Go to repo</AnchorButton>
+                        <RepoButton name={name} owner={currentUser.login} />
                       </TableDataCell>
                     </TableRow>
                   )
