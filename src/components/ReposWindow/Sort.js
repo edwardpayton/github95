@@ -24,12 +24,17 @@ export default function Sort({ onChange }) {
   };
 
   return (
-    <div className={`sort${!results.repositoryCount ? " -disabled" : ""}`}>
+    <div
+      className={`flex items-center sort${
+        !results.repositoryCount ? " -disabled" : ""
+      }`}
+    >
+      <p>Sort</p>
       <Select
         items={options}
         onChange={handleChange}
         width={150}
-        className="searchFilter"
+        className="sort__select"
       />
     </div>
   );

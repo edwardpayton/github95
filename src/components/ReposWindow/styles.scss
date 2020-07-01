@@ -11,6 +11,9 @@
 .repoTabs {
   &__tabBody.repoTabs__tabBody {
     padding: 0.75rem;
+    > section {
+      height: 100%;
+    }
   }
   &__tab {
     min-width: 100px;
@@ -19,9 +22,6 @@
 }
 
 .repoTab {
-  &__content {
-    height: 100%;
-  }
   &__header {
     text-align: center;
     > h1 {
@@ -31,47 +31,42 @@
       padding-bottom: 0.5rem;
     }
   }
+  &__toolbar {
+    padding: 0.5rem;
+    .badge {
+      width: 100px;
+      line-height: 17px;
+    }
+  }
   &__body {
     position: relative;
     margin-top: 1rem;
   }
-
   &__results {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     border: 1px inset;
+    background-color: #fff;
   }
 }
 
 .searchBar {
   width: 500px;
-  margin: auto;
-}
-
-.topic {
-  margin: 1rem;
-  h3 {
-    padding-bottom: 1rem;
-  }
-}
-
-.searchResults {
-}
-
-.searchFilter {
-  > div {
-    font-size: 10px;
-    line-height: 2;
-  }
 }
 
 .sort {
   position: relative;
+  &__select {
+    > div {
+      font-size: 10px;
+      line-height: 2;
+    }
+  }
   &.-disabled {
     pointer-events: none;
-    &:after {
+    > div:after {
       position: absolute;
       content: "";
       left: 0;
@@ -82,4 +77,25 @@
       opacity: 0.5;
     }
   }
+  > p {
+    padding: 0 0.25rem 0 0.5rem;
+  }
+}
+
+.topic {
+  margin: 1rem;
+  &__copy {
+    padding-left: 1rem;
+  }
+  h3 {
+    padding-bottom: 1rem;
+  }
+  .badge {
+    margin-left: auto;
+    line-height: 12px;
+    text-align: center;
+  }
+}
+
+.searchResults {
 }

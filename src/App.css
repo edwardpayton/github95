@@ -171,9 +171,9 @@
   content: "";
   left: 0;
   right: 0;
-  top: -4px;
+  top: -3px;
   z-index: -1;
-  box-shadow: 0px 0px 0px 2px #888c8f;
+  box-shadow: 0px 0px 0px 1px #888c8f;
 }
 .table__bodyCell.table__bodyCell {
   background-color: #fff;
