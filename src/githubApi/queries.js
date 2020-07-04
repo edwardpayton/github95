@@ -308,3 +308,92 @@ query RepoSearch($query: String! $cursor: String) {
   }
 }
 `;
+
+/**
+ * get Github repo details
+ * returns the name & other details, forks & watchers counts, topic list, (root) file list, last 5 commit messages, latest release
+ * $name: string - the repo name
+ * $owner: string - the repo owner
+ */
+export const GET_REPO_DETAILS = `
+query RepoDetails($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    name
+    description
+    url
+    homepageUrl
+    openGraphImageUrl
+    updatedAt
+    isFork
+    forks {
+      totalCount
+    }
+    watchers {
+      totalCount
+    }
+    repositoryTopics(first: 10) {
+      edges {
+        node {
+          topic {
+            name
+          }
+        }
+      }
+    }
+    object(expression: "master:") {
+      ... on Tree {
+        entries {
+          name
+          type
+          object {
+            ... on Blob {
+              byteSize
+            }
+          }
+        }
+      }
+    }
+    commitComments(last: 5) {
+      edges {
+        node {
+          body
+          author {
+            login
+            avatarUrl
+          }
+        }
+      }
+    }
+    releases(last: 1) {
+      edges {
+        node {
+          name
+          description
+          url
+          publishedAt
+        }
+      }
+      totalCount
+    }
+  }
+}
+`;
+
+/**
+ * get Github repo file
+ * returns the file contents - used for getting the README file
+ * $name: string - the repo name
+ * $owner: string - the repo owner
+ */
+export const GET_REPO_FILE_CONTENTS = `
+query RepoReadme($name: String!, $owner: String!, $file: String!) {
+  repository(name: $name, owner: $owner) {
+    name
+    object(expression: $file) {
+      ... on Blob {
+        text
+      }
+    }
+  }
+}
+`;

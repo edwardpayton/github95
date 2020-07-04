@@ -16,6 +16,7 @@ export default function RepoButton({ name, owner }) {
       [windowName]: {
         ...DEFAULT_WINDOW,
         label: `Repo: ${owner}/${name}`,
+        header: `${owner} ${name}`,
         visibility: [true, true],
         details: {
           owner,

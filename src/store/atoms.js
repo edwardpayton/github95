@@ -58,3 +58,8 @@ export const reposSort = atom({
   key: "reposSort",
   default: "",
 });
+
+export const repoWindows = atom({
+  key: `repoWindows`,
+  default: {},
+});

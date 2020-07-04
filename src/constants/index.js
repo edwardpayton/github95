@@ -25,7 +25,7 @@ export const WINDOW_OBJ = {
 
 export const DEFAULT_WINDOW = {
   label: ">default<",
-  header: "", // if empty, use icon
+  header: "", // if empty, use label
   desktopIcon: false,
   visibility: [false, false],
 };

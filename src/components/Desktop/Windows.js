@@ -33,7 +33,7 @@ export default function Windows() {
 
   const getContent = (name) => {
     const Comp = componentList[name];
-    if (Comp === undefined) return <RepoWindow id={name} />;
+    if (Comp === undefined) return <RepoWindow name={name} />;
 
     return <Comp />;
   };

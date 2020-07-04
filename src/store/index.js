@@ -8,6 +8,7 @@ import {
   usersListObj,
   reposSearchTopic,
   reposSort,
+  repoWindows,
 } from "./atoms";
 import { userActivity } from "./selectors";
 
@@ -22,4 +23,5 @@ export {
   usersListObj,
   reposSearchTopic,
   reposSort,
+  repoWindows,
 };

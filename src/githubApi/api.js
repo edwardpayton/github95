@@ -7,9 +7,11 @@ import {
   GET_USER_FOLLOWS,
   GET_USER_GISTS,
   GET_REPOS_SEARCH,
+  GET_REPO_DETAILS,
+  GET_REPO_FILE_CONTENTS,
 } from "./queries";
 
-const gitHubAPIGraphQL = (body) =>
+const githubApiGraphQL = (body) =>
   fetch("https://api.github.com/graphql", {
     method: "POST",
     headers: {
@@ -20,7 +22,7 @@ const gitHubAPIGraphQL = (body) =>
 
 export const apiGetUserSearchResults = async (username) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_USER_SEARCH,
       variables: { username },
     });
@@ -35,7 +37,7 @@ export const apiGetUserSearchResults = async (username) => {
 
 export const apiGetUserProfile = async (username) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_USER_DETAILS,
       variables: { username },
     });
@@ -56,7 +58,7 @@ export const apiGetUserProfile = async (username) => {
 
 export const apiGetUserActivity = async (username, numRepos) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_USER_ACTIVITY,
       variables: { username, numRepos },
     });
@@ -80,7 +82,7 @@ export const apiGetUserActivity = async (username, numRepos) => {
 
 export const apiGetUserRepos = async (username, cursor) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_USER_REPOS,
       variables: { username, cursor },
     });
@@ -95,7 +97,7 @@ export const apiGetUserRepos = async (username, cursor) => {
 
 export const apiGetUserStars = async (username, cursor) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_USER_STARS,
       variables: { username, cursor },
     });
@@ -110,7 +112,7 @@ export const apiGetUserStars = async (username, cursor) => {
 
 export const apiGetUserGists = async (username, cursor) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_USER_GISTS,
       variables: { username, cursor },
     });
@@ -125,7 +127,7 @@ export const apiGetUserGists = async (username, cursor) => {
 
 export const apiGetUserFollows = async (username) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_USER_FOLLOWS,
       variables: { username, cursor: null },
     });
@@ -141,12 +143,48 @@ export const apiGetUserFollows = async (username) => {
 
 export const apiGetRepoSearchResults = async (query, cursor) => {
   try {
-    const resp = await gitHubAPIGraphQL({
+    const resp = await githubApiGraphQL({
       query: GET_REPOS_SEARCH,
       variables: { query, cursor },
     });
     let json = await resp.json();
     json = json.data.search;
+
+    return { ...json };
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetRepoDetails = async (name, owner) => {
+  try {
+    const resp = await githubApiGraphQL({
+      query: GET_REPO_DETAILS,
+      variables: { name, owner },
+    });
+    let json = await resp.json();
+    json = json.data.repository;
+
+    console.log("~/Sites/github95/src/githubApi/api >>>", json);
+
+    const readme =
+      json.object &&
+      json.object.entries.filter(
+        (files) => files.name.split(".")[0] === "README" && files.name
+      )[0];
+
+    if (readme) {
+      const respFile = await githubApiGraphQL({
+        query: GET_REPO_FILE_CONTENTS,
+        variables: { name, owner, file: `master:${readme.name}` },
+      });
+
+      let jsonReadme = await respFile.json();
+
+      json.apiData = {
+        readme: jsonReadme.data.repository.object.text,
+      };
+    }
 
     return { ...json };
   } catch (error) {

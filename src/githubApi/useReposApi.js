@@ -1,19 +1,15 @@
 import React from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
-import {
-  searchInputOfType,
-  searchResultsOfType,
-  reposSearchTopic,
-} from "../store";
-import { apiGetRepoSearchResults } from "./api";
+import { searchResultsOfType, reposSearchTopic, repoWindows } from "../store";
+import { apiGetRepoSearchResults, apiGetRepoDetails } from "./api";
 import { apiGetTopic } from "./api.v3";
 import { REPOS } from "../constants";
 
 export default function useReposApi() {
   const setResults = useSetRecoilState(searchResultsOfType(REPOS));
-  const searchInput = useRecoilValue(searchInputOfType(REPOS));
   const [topic, setTopic] = useRecoilState(reposSearchTopic);
+  const [currentDetailWindows, setDetails] = useRecoilState(repoWindows);
 
   const getRepoSearchResults = React.useCallback(
     async (input, sort = "", cursor) => {
@@ -47,7 +43,17 @@ export default function useReposApi() {
     [setResults, topic, setTopic]
   );
 
+  const getRepoDetails = React.useCallback(async (name, owner) => {
+    const results = await apiGetRepoDetails(name, owner);
+    if (!results || results instanceof Error) {
+      console.error("ERROR", results); // TODO
+    }
+
+    setDetails({ ...currentDetailWindows, [`${owner}${name}`]: results });
+  }, []);
+
   return {
     getRepoSearchResults,
+    getRepoDetails,
   };
 }
