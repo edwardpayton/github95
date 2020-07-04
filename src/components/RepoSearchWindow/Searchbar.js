@@ -16,7 +16,8 @@ export default function Searchbar({ placeholder, onSearch }) {
     setInput(target.value);
   };
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (input.length) {
       getRepoSearchResults(input);
       setCurrentRepo(input);
@@ -25,16 +26,16 @@ export default function Searchbar({ placeholder, onSearch }) {
   };
 
   return (
-    <div className="flex searchBar">
+    <form onSubmit={handleSubmit} className="flex searchBar">
       <TextField
         value={input}
         placeholder={placeholder}
         onChange={handleChange}
         className="searchForm__input"
       />
-      <Button onClick={handleClick} className="searchForm__button">
+      <Button onClick={handleSubmit} className="searchForm__button">
         Search
       </Button>
-    </div>
+    </form>
   );
 }

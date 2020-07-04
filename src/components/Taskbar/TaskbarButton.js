@@ -41,7 +41,7 @@ export default function TaskbarButton({ name, label }) {
           className={`bold taskbarButton${focused === name ? " -focused" : ""}`}
           style={{ marginRight: 3 }}
         >
-          <Tooltip text={label ? label : name} className="tooltipTop">
+          <Tooltip text={label ? label : name} className="tooltipOverlay">
             <span className="taskbarButton__label">{label ? label : name}</span>
           </Tooltip>
         </Button>

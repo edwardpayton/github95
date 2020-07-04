@@ -28,7 +28,11 @@ export default function RepoButton({ name, owner }) {
   };
 
   return (
-    <Button onClick={handleClick} className="repoButton">
+    <Button
+      onClick={handleClick}
+      className="repoButton"
+      data-name={`${owner}${name}`}
+    >
       Open
     </Button>
   );

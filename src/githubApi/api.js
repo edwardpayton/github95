@@ -165,7 +165,8 @@ export const apiGetRepoDetails = async (name, owner) => {
     let json = await resp.json();
     json = json.data.repository;
 
-    console.log("~/Sites/github95/src/githubApi/api >>>", json);
+    // console.log("~/Sites/github95/src/githubApi/api >>>", json);
+    // Todo - Readme sometimes errors because 'repository' / 'entries' are undefined.
 
     const readme =
       json.object &&

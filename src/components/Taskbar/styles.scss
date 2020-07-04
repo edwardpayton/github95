@@ -2,8 +2,23 @@
   z-index: 3;
   bottom: 0;
   top: auto;
+}
+
+.taskbar {
+  &__toolbar.taskbar__toolbar {
+    padding-right: 55px;
+  }
   &__buttonWrapper {
     flex: 1;
+  }
+  &__applications {
+    flex: 1;
+    overflow: auto;
+  }
+  &__applicationsButtons {
+    position: absolute;
+    left: 0;
+    right: 0;
   }
 }
 
@@ -22,8 +37,18 @@
   }
 }
 
+.taskbarClock {
+  position: absolute;
+  right: 2px;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 0.5rem;
+  border: 2px inset;
+}
+
 .startMenu {
   position: relative;
+  width: 120px; // button width + extra space
   &__slide {
     position: absolute;
     bottom: 36px;

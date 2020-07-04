@@ -149,6 +149,9 @@
 .tooltipTop.tooltipTop {
   transform: translate(-50%, -120%);
 }
+.tooltipOverlay.tooltipOverlay {
+  transform: translate(-50%, 0%);
+}
 
 /* Tables */
 .table__headCell {

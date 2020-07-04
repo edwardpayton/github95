@@ -26,16 +26,22 @@ export default function Taskbar() {
 
   return (
     <AppBar className="taskbar">
-      <Toolbar className="justify-between">
+      <Toolbar className="justify-between relative taskbar__toolbar">
         <div className="flex taskbar__buttonWrapper">
           <StartMenu />
-          {[...currentButtons].map((name) => (
-            <TaskbarButton name={name[0]} label={name[1].label} key={name[0]} />
-          ))}
+          <div className="relative taskbar__applications">
+            <div className="flex taskbar__applicationsButtons">
+              {[...currentButtons].map((name) => (
+                <TaskbarButton
+                  name={name[0]}
+                  label={name[1].label}
+                  key={name[0]}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <div style={{ paddingRight: 2 }}>
-          <TaskbarClock />
-        </div>
+        <TaskbarClock />
       </Toolbar>
     </AppBar>
   );

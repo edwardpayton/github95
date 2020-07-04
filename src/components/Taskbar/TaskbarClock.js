@@ -28,17 +28,5 @@ export default function TaskbarClock() {
     };
   }, []);
 
-  return (
-    <p
-      ref={refClock}
-      style={{
-        height: 35,
-        lineHeight: "35px", // must add px
-        padding: "0 .5rem",
-        border: "2px solid #fff",
-        borderTopColor: "#888c8f",
-        borderLeftColor: "#888c8f",
-      }}
-    ></p>
-  );
+  return <p ref={refClock} className="taskbarClock"></p>;
 }
