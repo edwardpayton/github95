@@ -1,0 +1,31 @@
+.repoWindow {
+  flex: 1;
+  &__tabBody.repoWindow__tabBody {
+    position: relative;
+    overflow: hidden;
+  }
+  &__body {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem;
+  }
+
+  &__about {
+    padding: 1rem;
+    border: 1px inset;
+  }
+  &__details {
+    background-color: #fff;
+    padding: 1rem 3rem calc(1rem + 6px);
+  }
+}
+
+.readme {
+  &__body {
+    padding: 1rem;
+    background-color: #fff;
+    border: 2px inset;
+  }
+}

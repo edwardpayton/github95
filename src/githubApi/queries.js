@@ -320,16 +320,31 @@ query RepoDetails($name: String!, $owner: String!) {
   repository(name: $name, owner: $owner) {
     name
     description
+    owner {
+      login
+    }
     url
     homepageUrl
+    sshUrl
     openGraphImageUrl
     updatedAt
     isFork
+    watchers {
+      totalCount
+    }
+    stargazers {
+      totalCount
+    }
     forks {
       totalCount
     }
-    watchers {
-      totalCount
+    languages(first: 10) {
+      edges {
+        node {
+          color
+          name
+        }
+      }
     }
     repositoryTopics(first: 10) {
       edges {

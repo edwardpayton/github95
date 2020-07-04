@@ -14,7 +14,7 @@ export default function RepoSearchWindow() {
 
   return (
     <>
-      <div className="flex flex-column repoWindow__content">
+      <div className="flex flex-column repoSearch__content">
         <div className="repoTabs">
           <Tabs value={activeTab} onChange={handleTabChange}>
             <Tab value={0} className="repoTabs__tab">

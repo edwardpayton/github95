@@ -14,13 +14,23 @@ const repos = {
   label: "Repositories",
   header: "Search Repositories - Find the latest, hottest, and trending repos",
   desktopIcon: true,
-  visibility: [true, true], //[false, false], // true while working on feature
+  // visibility: [true, true], // true while working on feature
+  visibility: [false, false],
+};
+
+const facebookreact = {
+  label: "Repo: facebook/react",
+  header: "facebook react",
+  desktopIcon: false,
+  visibility: [true, true],
+  details: { owner: "facebook", name: "react" },
 };
 
 export const WINDOW_OBJ = {
   about,
   user,
   repos,
+  facebookreact,
 };
 
 export const DEFAULT_WINDOW = {
