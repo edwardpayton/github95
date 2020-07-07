@@ -326,8 +326,7 @@ query RepoDetails($name: String!, $owner: String!) {
     url
     homepageUrl
     sshUrl
-    openGraphImageUrl
-    updatedAt
+    pushedAt
     isFork
     watchers {
       totalCount
@@ -338,7 +337,8 @@ query RepoDetails($name: String!, $owner: String!) {
     forks {
       totalCount
     }
-    languages(first: 10) {
+    languages(orderBy: {field: SIZE, direction: DESC}, first: 5) {
+      totalCount
       edges {
         node {
           color
@@ -361,20 +361,17 @@ query RepoDetails($name: String!, $owner: String!) {
           name
           type
           object {
-            ... on Blob {
-              byteSize
+            abbreviatedOid
+            ... on Tree {
+              id
+              entries {
+                name
+                type
+                object {
+                  abbreviatedOid
+                }
+              }
             }
-          }
-        }
-      }
-    }
-    commitComments(last: 5) {
-      edges {
-        node {
-          body
-          author {
-            login
-            avatarUrl
           }
         }
       }
@@ -389,6 +386,10 @@ query RepoDetails($name: String!, $owner: String!) {
         }
       }
       totalCount
+    }
+    licenseInfo {
+      spdxId
+      description
     }
   }
 }

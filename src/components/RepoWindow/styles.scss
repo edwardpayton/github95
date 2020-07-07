@@ -1,5 +1,12 @@
 .repoWindow {
   flex: 1;
+  &__tab.repoWindow__tab {
+    //   top: 0;
+    //   height: 30px;
+    min-width: 100px;
+    text-align: center;
+    //   line-height: 25px;
+  }
   &__tabBody.repoWindow__tabBody {
     position: relative;
     overflow: hidden;
