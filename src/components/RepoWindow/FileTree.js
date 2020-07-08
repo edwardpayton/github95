@@ -44,7 +44,7 @@ function TreeBranch({ row, path, onClick }) {
               <TreeBranch
                 key={subRow.object.abbreviatedOid}
                 row={subRow}
-                path={`${name}/${subRow.name}`}
+                path={`${row.name}/${subRow.name}`}
                 onClick={onClick}
               />
             ))}

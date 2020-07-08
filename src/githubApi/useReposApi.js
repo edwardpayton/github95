@@ -15,6 +15,16 @@ export default function useReposApi() {
   const [topic, setTopic] = useRecoilState(reposSearchTopic);
   const [currentDetailWindows, setDetails] = useRecoilState(repoWindows);
 
+  React.useEffect(() => {
+    console.log(
+      "~/Sites/github95/src/githubApi/useReposApi >>>",
+      currentDetailWindows["facebookreact"]?.object?.entries[6].object
+        ?.entries[0],
+      currentDetailWindows["facebookreact"]?.object?.entries[6].object
+        ?.entries[0].object
+    );
+  }, [currentDetailWindows]);
+
   const getRepoSearchResults = React.useCallback(
     async (input, sort = "", cursor) => {
       const repoQuery = sort !== "" ? `${input} sort:${sort}` : input;
@@ -24,7 +34,7 @@ export default function useReposApi() {
       }
       setResults(results);
 
-      if (topic.name !== input) {
+      if (topic["name"] !== input) {
         setTopic({});
         const topics = await apiGetTopic(input);
 
@@ -47,14 +57,17 @@ export default function useReposApi() {
     [setResults, topic, setTopic]
   );
 
-  const getRepoDetails = React.useCallback(async (name, owner) => {
-    const results = await apiGetRepoDetails(name, owner);
-    if (!results || results instanceof Error) {
-      console.error("ERROR", results); // TODO
-    }
+  const getRepoDetails = React.useCallback(
+    async (name, owner) => {
+      const results = await apiGetRepoDetails(name, owner);
+      if (!results || results instanceof Error) {
+        console.error("ERROR", results); // TODO
+      }
 
-    setDetails({ ...currentDetailWindows, [`${owner}${name}`]: results });
-  }, []);
+      setDetails({ ...currentDetailWindows, [`${owner}${name}`]: results });
+    },
+    [currentDetailWindows]
+  );
 
   const getRepoFileTree = React.useCallback(
     async (name, owner, file) => {
@@ -84,13 +97,11 @@ export default function useReposApi() {
 
       setDetails({ ...currentDetailWindows, ...details }); // TODO this doesnt trigger view update
 
-      // console.log(
-      //   "~/Sites/github95/src/githubApi/useReposApi >>>",
-      //   { ...details },
-      //   details
-      // );
+      console.log("~/Sites/github95/src/githubApi/useReposApi >>>", details);
+
+      // return { ...results };
     },
-    [currentDetailWindows]
+    [currentDetailWindows, setDetails]
   );
 
   return {

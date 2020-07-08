@@ -26,10 +26,11 @@ function RepoWindow({ name }) {
   };
 
   React.useEffect(() => {
-    console.log(
-      "~/Sites/github95/src/components/RepoWindow/index >>>",
-      currentDetailWindows[name]?.object?.entries[6].object?.entries[0].object
-    );
+    // console.log(
+    //   "~/Sites/github95/src/components/RepoWindow/index >>>",
+    //   currentDetailWindows[name]?.object?.entries[6].object?.entries[0],
+    //   currentDetailWindows[name]?.object?.entries[6].object?.entries[0].object
+    // );
     if (!currentDetailWindows.hasOwnProperty(name)) {
       const { details } = currentWindows[name];
       getRepoDetails(details.name, details.owner);
