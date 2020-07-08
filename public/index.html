@@ -52,6 +52,26 @@
       }
       body {
         background-color: #008080;
+        position: relative;
+      }
+      body:after {
+        position: fixed;
+        content: "";
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        pointer-events: none;
+        background-image: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 1px,
+          hsl(0, 0%, 0%) 3px
+        );
+        background-size: 100% 100%, 100% 6px;
+        opacity: 0.05;
+        z-index: 99999;
       }
       body,
       h1,
