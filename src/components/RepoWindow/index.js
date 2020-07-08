@@ -6,7 +6,6 @@ import Content from "./Content";
 
 import { windowObj, repoWindows } from "../../store";
 import { useReposApi } from "../../githubApi";
-import getPathToObjectKey from "../../utilities/getPathToObjectKey";
 
 import "./styles.scss";
 
@@ -14,7 +13,7 @@ function RepoWindow({ name }) {
   const currentWindows = useRecoilValue(windowObj);
   const currentDetailWindows = useRecoilValue(repoWindows);
 
-  const { getRepoDetails } = useReposApi();
+  const { getRepoDetails, getRepoFileTree } = useReposApi();
 
   const handleClickTree = ([fileName, filePath]) => {
     const details = currentDetailWindows[name];
@@ -23,20 +22,7 @@ function RepoWindow({ name }) {
       owner: { login },
     } = details;
 
-    const objPath = getPathToObjectKey(
-      currentDetailWindows[name],
-      "name",
-      fileName
-    );
-
-    console.log(
-      "~/Sites/github95/src/components/RepoWindow/index >>>",
-      fileName,
-      filePath,
-      repoName,
-      login,
-      objPath
-    );
+    getRepoFileTree(repoName, login, filePath);
   };
 
   React.useEffect(() => {

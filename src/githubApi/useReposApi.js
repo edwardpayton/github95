@@ -2,7 +2,11 @@ import React from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import { searchResultsOfType, reposSearchTopic, repoWindows } from "../store";
-import { apiGetRepoSearchResults, apiGetRepoDetails } from "./api";
+import {
+  apiGetRepoSearchResults,
+  apiGetRepoDetails,
+  apiGetFileTree,
+} from "./api";
 import { apiGetTopic } from "./api.v3";
 import { REPOS } from "../constants";
 
@@ -52,8 +56,40 @@ export default function useReposApi() {
     setDetails({ ...currentDetailWindows, [`${owner}${name}`]: results });
   }, []);
 
+  const getRepoFileTree = React.useCallback(
+    async (name, owner, file) => {
+      const results = await apiGetFileTree(name, owner, file);
+      if (!results || results instanceof Error) {
+        console.error("ERROR", results); // TODO
+      }
+
+      const details = JSON.parse(
+        JSON.stringify(currentDetailWindows[`${owner}${name}`])
+      ); // needed because start objects use Object.preventExtensions() so cannot be modified
+      const fileNameArr = file.split("/");
+      let depth = 0;
+      const recursiveUpdate = (row) => {
+        row.object.entries.forEach((entry) => {
+          if (entry.name !== fileNameArr[depth]) return;
+          if (entry.object.entries !== undefined) {
+            depth++;
+            return recursiveUpdate(entry);
+          }
+          Object.assign(entry.object, { ...results });
+          return entry;
+        });
+      };
+
+      recursiveUpdate(details);
+
+      setDetails({ ...currentDetailWindows, ...details }); // TODO this doesnt trigger view update
+    },
+    [currentDetailWindows]
+  );
+
   return {
     getRepoSearchResults,
     getRepoDetails,
+    getRepoFileTree,
   };
 }
