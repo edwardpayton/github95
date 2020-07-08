@@ -395,6 +395,24 @@ query RepoDetails($name: String!, $owner: String!) {
 }
 `;
 
+export const GET_REPO_FILE_TREE = `
+query RepoFileTree($name: String!, $owner: String!, $file: String!) {
+  repository(name: $name, owner: $owner) {
+    object(expression: $file) {
+      ... on Tree {
+        entries {
+          name
+          type
+          object {
+            abbreviatedOid
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
 /**
  * get Github repo file
  * returns the file contents - used for getting the README file

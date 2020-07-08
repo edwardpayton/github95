@@ -8,6 +8,7 @@ import {
   GET_USER_GISTS,
   GET_REPOS_SEARCH,
   GET_REPO_DETAILS,
+  GET_REPO_FILE_TREE,
   GET_REPO_FILE_CONTENTS,
 } from "./queries";
 
@@ -186,6 +187,21 @@ export const apiGetRepoDetails = async (name, owner) => {
         readme: jsonReadme.data.repository.object.text,
       };
     }
+
+    return { ...json };
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetFileTree = async (name, owner, file) => {
+  try {
+    const resp = await githubApiGraphQL({
+      query: GET_REPO_FILE_TREE,
+      variables: { name, owner, file: `master:${file}` },
+    });
+    let json = await resp.json();
+    json = json.data.repository.object;
 
     return { ...json };
   } catch (error) {

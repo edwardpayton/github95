@@ -6,19 +6,12 @@ import Readme from "./Readme";
 import FileTree from "./FileTree";
 import Issues from "./Issues";
 
-export default function WindowContent({ content }) {
+export default function Content({ content, onClickTree }) {
   const [activeTab, setActiveTab] = React.useState(0);
 
   const handleTabChange = (value) => {
     setActiveTab(value);
   };
-
-  React.useEffect(() => {
-    console.log(
-      "~/Sites/github95/src/components/RepoWindow/Content >>>",
-      content
-    );
-  }, []);
 
   return (
     <section className="flex flex-column repoWindow">
@@ -116,7 +109,7 @@ export default function WindowContent({ content }) {
         >
           <div className="repoWindow__bodyInner scrollable -yOnly">
             <p>Files</p>
-            <FileTree files={content.object.entries} />
+            <FileTree files={content.object.entries} onClick={onClickTree} />
           </div>
         </section>
 

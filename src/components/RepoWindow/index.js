@@ -6,6 +6,7 @@ import Content from "./Content";
 
 import { windowObj, repoWindows } from "../../store";
 import { useReposApi } from "../../githubApi";
+import getPathToObjectKey from "../../utilities/getPathToObjectKey";
 
 import "./styles.scss";
 
@@ -14,6 +15,29 @@ function RepoWindow({ name }) {
   const currentDetailWindows = useRecoilValue(repoWindows);
 
   const { getRepoDetails } = useReposApi();
+
+  const handleClickTree = ([fileName, filePath]) => {
+    const details = currentDetailWindows[name];
+    const {
+      name: repoName,
+      owner: { login },
+    } = details;
+
+    const objPath = getPathToObjectKey(
+      currentDetailWindows[name],
+      "name",
+      fileName
+    );
+
+    console.log(
+      "~/Sites/github95/src/components/RepoWindow/index >>>",
+      fileName,
+      filePath,
+      repoName,
+      login,
+      objPath
+    );
+  };
 
   React.useEffect(() => {
     if (!currentDetailWindows.hasOwnProperty(name)) {
@@ -26,7 +50,10 @@ function RepoWindow({ name }) {
   return (
     <>
       {currentDetailWindows.hasOwnProperty(name) ? (
-        <Content content={currentDetailWindows[name]} />
+        <Content
+          content={currentDetailWindows[name]}
+          onClickTree={handleClickTree}
+        />
       ) : (
         <p>Loading</p>
       )}
