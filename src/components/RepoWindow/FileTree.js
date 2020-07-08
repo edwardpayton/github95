@@ -1,8 +1,8 @@
 import React from "react";
 
 export default function FileTree({ files, onClick }) {
-  const handleClick = (...args) => {
-    onClick(args);
+  const handleClick = (path) => {
+    onClick(path);
   };
   return (
     <ul>
@@ -10,7 +10,6 @@ export default function FileTree({ files, onClick }) {
         <TreeBranch
           row={row}
           key={row.object.abbreviatedOid}
-          name={row.name}
           path={row.name}
           onClick={handleClick}
         />
@@ -20,12 +19,12 @@ export default function FileTree({ files, onClick }) {
 }
 
 // TODO call api for next file in tree
-function TreeBranch({ row, name, path, onClick }) {
+function TreeBranch({ row, path, onClick }) {
   const [isOpen, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(!isOpen);
-    if (row.object.entries === undefined) onClick(name, path);
+    if (row.object.entries === undefined) onClick(path);
   };
 
   return (
@@ -45,7 +44,6 @@ function TreeBranch({ row, name, path, onClick }) {
               <TreeBranch
                 key={subRow.object.abbreviatedOid}
                 row={subRow}
-                name={subRow.name}
                 path={`${name}/${subRow.name}`}
                 onClick={onClick}
               />

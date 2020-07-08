@@ -83,6 +83,12 @@ export default function useReposApi() {
       recursiveUpdate(details);
 
       setDetails({ ...currentDetailWindows, ...details }); // TODO this doesnt trigger view update
+
+      // console.log(
+      //   "~/Sites/github95/src/githubApi/useReposApi >>>",
+      //   { ...details },
+      //   details
+      // );
     },
     [currentDetailWindows]
   );

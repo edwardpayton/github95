@@ -15,7 +15,7 @@ function RepoWindow({ name }) {
 
   const { getRepoDetails, getRepoFileTree } = useReposApi();
 
-  const handleClickTree = ([fileName, filePath]) => {
+  const handleClickTree = (filePath) => {
     const details = currentDetailWindows[name];
     const {
       name: repoName,
@@ -26,6 +26,10 @@ function RepoWindow({ name }) {
   };
 
   React.useEffect(() => {
+    console.log(
+      "~/Sites/github95/src/components/RepoWindow/index >>>",
+      currentDetailWindows[name]?.object?.entries[6].object?.entries[0].object
+    );
     if (!currentDetailWindows.hasOwnProperty(name)) {
       const { details } = currentWindows[name];
       getRepoDetails(details.name, details.owner);
@@ -51,4 +55,4 @@ RepoWindow.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
-export default React.memo(RepoWindow);
+export default RepoWindow;
