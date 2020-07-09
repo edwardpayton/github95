@@ -413,6 +413,72 @@ query RepoFileTree($name: String!, $owner: String!, $file: String!) {
 }
 `;
 
+export const GET_REPO_ISSUES = `
+query RepoIssues($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    issues(states: OPEN, first: 10, orderBy: {field: COMMENTS, direction: DESC}) {
+      totalCount
+      edges {
+        node {
+          title
+          createdAt
+          updatedAt
+          url
+          author {
+            login
+          }
+          comments(last: 1) {
+            edges {
+              node {
+                bodyText
+                updatedAt
+                url
+                author {
+                  login
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+export const GET_REPO_PULL_REQUESTS = `
+query RepoPullRequests($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    pullRequests(states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10) {
+      totalCount
+      nodes {
+        title
+        author {
+          login
+        }
+        createdAt
+        updatedAt
+        url
+        mergeable
+        locked
+        comments(last: 1) {
+          edges {
+            node {
+              bodyText
+              updatedAt
+              url
+              author {
+                login
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
 /**
  * get Github repo file
  * returns the file contents - used for getting the README file
