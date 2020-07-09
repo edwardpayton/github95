@@ -7,7 +7,7 @@ import Desktop from "./components/Desktop";
 import StartupSound from "./components/StartupSound";
 
 import { menubarButtons, focusedElement } from "./store";
-import useCookie from "./hooks/useCookie";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 import "./App.css";
 
@@ -37,12 +37,12 @@ function App() {
 }
 
 export default () => {
-  const [soundCookie, _] = useCookie("github95_noSound");
+  const [soundStorage, _] = useLocalStorage("github95_noSound");
 
   return (
     <RecoilRoot>
       <ResetStyles />
-      {soundCookie === "On" && <StartupSound />}
+      {soundStorage !== "Off" && <StartupSound />}
       <ThemeProvider theme={themes.default}>
         <App />
       </ThemeProvider>
