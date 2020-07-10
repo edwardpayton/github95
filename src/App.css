@@ -225,6 +225,10 @@ https://codepen.io/louh/pen/oZJQvm?editors=1100
 .scrollable.-xOnly {
   overflow-x: auto;
 }
+.scrollable.-xAndY {
+  overflow: auto;
+}
+
 .scrollable::-webkit-scrollbar {
   width: 16px;
   height: 16px;

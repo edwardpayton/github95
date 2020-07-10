@@ -1,11 +1,17 @@
 import React from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
-import { searchResultsOfType, reposSearchTopic, repoWindows } from "../store";
+import {
+  searchResultsOfType,
+  reposSearchTopic,
+  repoWindows,
+  repoFiles,
+} from "../store";
 import {
   apiGetRepoSearchResults,
   apiGetRepoDetails,
   apiGetFileTree,
+  apiGetFileContents,
 } from "./api";
 import { apiGetTopic } from "./api.v3";
 import { REPOS } from "../constants";
@@ -14,16 +20,7 @@ export default function useReposApi() {
   const setResults = useSetRecoilState(searchResultsOfType(REPOS));
   const [topic, setTopic] = useRecoilState(reposSearchTopic);
   const [currentDetailWindows, setDetails] = useRecoilState(repoWindows);
-
-  React.useEffect(() => {
-    console.log(
-      "~/Sites/github95/src/githubApi/useReposApi >>>",
-      currentDetailWindows["facebookreact"]?.object?.entries[6].object
-        ?.entries[0],
-      currentDetailWindows["facebookreact"]?.object?.entries[6].object
-        ?.entries[0].object
-    );
-  }, [currentDetailWindows]);
+  const [files, setFiles] = useRecoilState(repoFiles);
 
   const getRepoSearchResults = React.useCallback(
     async (input, sort = "", cursor) => {
@@ -76,9 +73,7 @@ export default function useReposApi() {
         console.error("ERROR", results); // TODO
       }
 
-      const details = JSON.parse(
-        JSON.stringify(currentDetailWindows[`${owner}${name}`])
-      ); // needed because start objects use Object.preventExtensions() so cannot be modified
+      const details = JSON.parse(JSON.stringify(currentDetailWindows)); // needed because state objects use Object.preventExtensions() so cannot be modified
       const fileNameArr = file.split("/");
       let depth = 0;
       const recursiveUpdate = (row) => {
@@ -93,20 +88,28 @@ export default function useReposApi() {
         });
       };
 
-      recursiveUpdate(details);
+      recursiveUpdate(details[`${owner}${name}`]);
 
-      setDetails({ ...currentDetailWindows, ...details }); // TODO this doesnt trigger view update
-
-      console.log("~/Sites/github95/src/githubApi/useReposApi >>>", details);
-
-      // return { ...results };
+      setDetails({ ...details });
     },
     [currentDetailWindows, setDetails]
   );
+
+  const getRepoFileContents = React.useCallback(async (name, owner, file) => {
+    const results = await apiGetFileContents(name, owner, file);
+    if (!results || results instanceof Error) {
+      console.error("ERROR", results); // TODO
+    }
+
+    const fileName = `${name}${file}`.replace(/[^A-Za-z0-9]/g, "");
+
+    setFiles({ ...files, [fileName]: results });
+  }, []);
 
   return {
     getRepoSearchResults,
     getRepoDetails,
     getRepoFileTree,
+    getRepoFileContents,
   };
 }

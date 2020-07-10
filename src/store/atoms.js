@@ -63,3 +63,8 @@ export const repoWindows = atom({
   key: `repoWindows`,
   default: {},
 });
+
+export const repoFiles = atom({
+  key: "repoFiles",
+  default: {},
+});

@@ -201,6 +201,23 @@ export const apiGetFileTree = async (name, owner, file) => {
       variables: { name, owner, file: `master:${file}` },
     });
     let json = await resp.json();
+
+    json = json.data.repository.object;
+
+    return { ...json };
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetFileContents = async (name, owner, file) => {
+  try {
+    const resp = await githubApiGraphQL({
+      query: GET_REPO_FILE_CONTENTS,
+      variables: { name, owner, file: `master:${file}` },
+    });
+
+    let json = await resp.json();
     json = json.data.repository.object;
 
     return { ...json };

@@ -15,7 +15,7 @@ function RepoWindow({ name }) {
 
   const { getRepoDetails, getRepoFileTree } = useReposApi();
 
-  const handleClickTree = (filePath) => {
+  const handleTreeClick = (filePath) => {
     const details = currentDetailWindows[name];
     const {
       name: repoName,
@@ -26,11 +26,6 @@ function RepoWindow({ name }) {
   };
 
   React.useEffect(() => {
-    // console.log(
-    //   "~/Sites/github95/src/components/RepoWindow/index >>>",
-    //   currentDetailWindows[name]?.object?.entries[6].object?.entries[0],
-    //   currentDetailWindows[name]?.object?.entries[6].object?.entries[0].object
-    // );
     if (!currentDetailWindows.hasOwnProperty(name)) {
       const { details } = currentWindows[name];
       getRepoDetails(details.name, details.owner);
@@ -43,7 +38,7 @@ function RepoWindow({ name }) {
       {currentDetailWindows.hasOwnProperty(name) ? (
         <Content
           content={currentDetailWindows[name]}
-          onClickTree={handleClickTree}
+          onTreeClick={handleTreeClick}
         />
       ) : (
         <p>Loading</p>

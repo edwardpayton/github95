@@ -53,7 +53,7 @@ export default function SearchResults({ onPageChange }) {
   };
 
   return (
-    <div className="searchResults">
+    <div className="flex flex-column searchResults">
       {paginated && paginated.length > 0 ? (
         <>
           <Table className="table">

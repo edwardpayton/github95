@@ -1,17 +1,39 @@
 import React from "react";
 import { Tabs, Tab, TabBody } from "react95";
+import { useRecoilValue } from "recoil";
 
 import AnchorButton from "../AnchorButton";
 import Readme from "./Readme";
 import FileTree from "./FileTree";
+import Preview from "./Preview";
 import Issues from "./Issues";
+import PullRequests from "./PullRequests";
 
-export default function Content({ content, onClickTree }) {
+import { repoFiles } from "../../store";
+import { useReposApi } from "../../githubApi";
+
+export default function Content({ content, onTreeClick }) {
   const [activeTab, setActiveTab] = React.useState(0);
+  const files = useRecoilValue(repoFiles);
+  const refFileName = React.useRef("");
+  const [fileState, setFile] = React.useState("");
+
+  const { getRepoFileContents } = useReposApi();
 
   const handleTabChange = (value) => {
     setActiveTab(value);
   };
+
+  const handleFileClick = (file) => {
+    refFileName.current = `${content.name}${file}`.replace(/[^A-Za-z0-9]/g, "");
+    getRepoFileContents(content.name, content.owner.login, file);
+  };
+
+  React.useEffect(() => {
+    if (files[refFileName.current]) {
+      setFile(files[refFileName.current].text);
+    }
+  }, [files]);
 
   return (
     <section className="flex flex-column repoWindow">
@@ -39,9 +61,6 @@ export default function Content({ content, onClickTree }) {
           </Tab>
           <Tab value={3} className="repoWindow__tab">
             <p>Pull Requests</p>
-          </Tab>
-          <Tab value={4} className="repoWindow__tab">
-            <p>Insights</p>
           </Tab>
         </Tabs>
       </div>
@@ -107,9 +126,18 @@ export default function Content({ content, onClickTree }) {
           className="flex flex-column absolute repoWindow__body"
           style={{ display: activeTab === 1 ? "flex" : "none" }}
         >
-          <div className="repoWindow__bodyInner scrollable -yOnly">
-            <p>Files</p>
-            <FileTree files={content.object.entries} onClick={onClickTree} />
+          <p className="repoWindow__tabTitle">Browse the repo files</p>
+          <div className="flex repoWindow__files">
+            <div className="repoWindow__filesCol -tree scrollable -xAndY">
+              <FileTree
+                files={content.object.entries}
+                onRowClick={onTreeClick}
+                onFileClick={handleFileClick}
+              />
+            </div>
+            <div className="flex-auto repoWindow__filesCol -preview scrollable -yOnly">
+              <Preview fileName={refFileName.current}>{fileState}</Preview>
+            </div>
           </div>
         </section>
 
@@ -117,8 +145,17 @@ export default function Content({ content, onClickTree }) {
           className="flex flex-column absolute repoWindow__body"
           style={{ display: activeTab === 2 ? "flex" : "none" }}
         >
-          <div className="repoWindow__bodyInner scrollable -yOnly">
+          <div className="scrollable -yOnly">
             <Issues />
+          </div>
+        </section>
+
+        <section
+          className="flex flex-column absolute repoWindow__body"
+          style={{ display: activeTab === 3 ? "flex" : "none" }}
+        >
+          <div className="scrollable -yOnly">
+            <PullRequests />
           </div>
         </section>
       </TabBody>

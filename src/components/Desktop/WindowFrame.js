@@ -5,6 +5,10 @@ import { useRecoilValue } from "recoil";
 
 import { focusedElement } from "../../store";
 
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export default function WindowFrame({
   name,
   window,
@@ -14,12 +18,20 @@ export default function WindowFrame({
 }) {
   const focused = useRecoilValue(focusedElement);
   const refCloseBtn = React.useRef(undefined);
+  const [pos, setPos] = React.useState([]);
 
   const handleClose = () => onClose(name);
 
+  React.useEffect(() => {
+    setPos([randomInt(-40, 40), randomInt(10, 30)]);
+  }, [name]);
+
   return (
     <Draggable
-      positionOffset={{ x: "-50%", y: "calc(-50% - 25px)" }}
+      positionOffset={{
+        x: `calc(-50% + ${pos[0]}px)`,
+        y: `calc(-50% - ${pos[1]}px)`,
+      }}
       handle=".handle"
     >
       <div

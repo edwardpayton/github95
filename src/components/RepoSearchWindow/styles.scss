@@ -100,4 +100,8 @@
 }
 
 .searchResults {
+  height: 100%;
+  > div {
+    flex: auto;
+  }
 }

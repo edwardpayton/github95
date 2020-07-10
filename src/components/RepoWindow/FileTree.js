@@ -1,51 +1,73 @@
 import React from "react";
 
-export default function FileTree({ files, onClick }) {
+export default function FileTree({ files, onRowClick, onFileClick }) {
   const handleClick = (path) => {
-    onClick(path);
+    onRowClick(path);
   };
+
   return (
-    <ul>
-      {files.map((row) => (
-        <TreeBranch
-          row={row}
-          key={row.object.abbreviatedOid}
-          path={row.name}
-          onClick={handleClick}
-        />
-      ))}
-    </ul>
+    <div className="fileTree">
+      <ul className="list-reset fileTree__tree">
+        {files.map((row) => (
+          <TreeBranch
+            row={row}
+            key={row.object.abbreviatedOid}
+            path={row.name}
+            onRowClick={handleClick}
+            onFileClick={onFileClick}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }
 
 // TODO call api for next file in tree
-function TreeBranch({ row, path, onClick }) {
+function TreeBranch({ row, path, onRowClick, onFileClick }) {
   const [isOpen, setOpen] = React.useState(false);
 
-  const handleClick = () => {
+  const handleRowClick = () => {
     setOpen(!isOpen);
-    if (row.object.entries === undefined) onClick(path);
+    if (row.object.entries === undefined) onRowClick(path);
+  };
+
+  const handleFileClick = () => {
+    onFileClick(path);
+  };
+
+  const cssClass = () => {
+    if (row.type !== "tree") return "";
+    let treeClass = " -isTree";
+    if (isOpen) treeClass += " -isOpen";
+    return treeClass;
   };
 
   return (
-    <li>
-      {row.type === "tree" ? (
-        <button onClick={handleClick} onDoubleClick={handleClick}>
-          {isOpen ? "-" : "+"}
+    <li className={`fileTree__branch${cssClass()}`}>
+      {row.type === "tree" && (
+        <button
+          onClick={handleRowClick}
+          onDoubleClick={handleRowClick}
+          className="fileTree__button"
+        >
           {row.name}
         </button>
-      ) : (
-        <p>{row.name}</p>
+      )}
+      {row.type === "blob" && (
+        <button className="fileTree__button" onClick={handleFileClick}>
+          {row.name}
+        </button>
       )}
       {isOpen && (
-        <ul>
+        <ul className="list-reset fileTree__tree -subTree">
           {row.object.entries &&
             row.object.entries.map((subRow) => (
               <TreeBranch
                 key={subRow.object.abbreviatedOid}
                 row={subRow}
-                path={`${row.name}/${subRow.name}`}
-                onClick={onClick}
+                path={`${path}/${subRow.name}`}
+                onRowClick={onRowClick}
+                onFileClick={onFileClick}
               />
             ))}
         </ul>

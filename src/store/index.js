@@ -9,6 +9,7 @@ import {
   reposSearchTopic,
   reposSort,
   repoWindows,
+  repoFiles,
 } from "./atoms";
 import { userActivity } from "./selectors";
 
@@ -24,4 +25,5 @@ export {
   reposSearchTopic,
   reposSort,
   repoWindows,
+  repoFiles,
 };

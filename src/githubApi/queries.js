@@ -488,7 +488,6 @@ query RepoPullRequests($name: String!, $owner: String!) {
 export const GET_REPO_FILE_CONTENTS = `
 query RepoReadme($name: String!, $owner: String!, $file: String!) {
   repository(name: $name, owner: $owner) {
-    name
     object(expression: $file) {
       ... on Blob {
         text
