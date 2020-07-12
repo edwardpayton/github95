@@ -7,7 +7,10 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      direction: rtl;
+      text-shadow: 1px 0 #050608;
+      line-height: 20px;
+      letter-spacing: 1px;
+      padding-left: 0.25rem;
     }
     > div > .badge {
       text-align: center;
@@ -57,7 +60,12 @@
 
   &__details {
     background-color: #fff;
-    padding: 1rem 3rem calc(1rem + 6px);
+    padding: 0.75rem 3rem 1.5rem;
+    img {
+      position: relative;
+      top: 3px;
+      margin-right: 0.25rem;
+    }
   }
 
   &__languages {

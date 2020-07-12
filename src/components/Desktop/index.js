@@ -10,6 +10,15 @@ import DesktopButton from "./DesktopButton";
 
 import "./styles.scss";
 
+const desktopIcons = (() => {
+  let aa = Object.keys(WINDOW_OBJ)
+    .filter((name) => (WINDOW_OBJ[name].desktopIcon ? name : null))
+    .sort(
+      (a, b) => WINDOW_OBJ[a].desktopPosition - WINDOW_OBJ[b].desktopPosition
+    );
+  return aa;
+})();
+
 export default function Desktop() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
   const [active, setActive] = React.useState("");
@@ -42,7 +51,7 @@ export default function Desktop() {
             className="flex flex-column desktop"
             onClick={handleDesktopClick}
           >
-            {Object.keys(WINDOW_OBJ).map((name) => {
+            {desktopIcons.map((name) => {
               const { label, desktopIcon } = WINDOW_OBJ[name];
               return (
                 <React.Fragment key={name}>
@@ -57,6 +66,24 @@ export default function Desktop() {
                 </React.Fragment>
               );
             })}
+            {/* <DesktopButton
+              name={"repos"}
+              label={"Find Repos"}
+              active={active}
+              onDoubleClick={handleButtonDblClick("repos")}
+            />
+            <DesktopButton
+              name={"user"}
+              label={""}
+              active={active}
+              onDoubleClick={handleButtonDblClick("repos")}
+            />
+            <DesktopButton
+              name={"repos"}
+              label={"Find Repos"}
+              active={active}
+              onDoubleClick={handleButtonDblClick("repos")}
+            /> */}
           </section>
           <Windows />
         </section>

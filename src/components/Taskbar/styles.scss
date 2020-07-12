@@ -109,5 +109,10 @@
         color: #000 !important;
       }
     }
+    > img {
+      position: relative;
+      top: 3px;
+      margin-right: 0.5rem;
+    }
   }
 }

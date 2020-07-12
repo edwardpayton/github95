@@ -51,6 +51,10 @@
   &.-small {
     width: auto;
     height: auto;
+    .windowFrame__content {
+      padding: 1rem;
+      min-height: 100px;
+    }
   }
   &__inner.windowFrame__inner {
     display: flex;

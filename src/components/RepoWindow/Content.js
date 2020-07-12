@@ -11,6 +11,7 @@ import PullRequests from "./PullRequests";
 
 import { repoFiles } from "../../store";
 import { useReposApi } from "../../githubApi";
+import capitalize from "../../utilities/capitalize";
 
 export default function Content({ content, onTreeClick }) {
   const [activeTab, setActiveTab] = React.useState(0);
@@ -39,7 +40,7 @@ export default function Content({ content, onTreeClick }) {
     <section className="flex flex-column repoWindow">
       <div className="flex justify-between repoWindow__header">
         <h1>
-          {content.owner.login} / {content.name}
+          {content.owner.login}/{content.name}
         </h1>
         <div className="flex">
           <p className="badge -grey">Watchers: {content.watchers.totalCount}</p>
@@ -72,7 +73,9 @@ export default function Content({ content, onTreeClick }) {
         >
           <div className="repoWindow__about scrollable -yOnly">
             <div className="repoWindow__aboutHeader">
-              <p className="repoWindow__tabTitle -name">{content.name}</p>
+              <p className="repoWindow__tabTitle -name">
+                {capitalize(content.name)}
+              </p>
               <p className="repoWindow__description">{content.description}</p>
             </div>
             <div className="flex repoWindow__topics">
@@ -84,10 +87,38 @@ export default function Content({ content, onTreeClick }) {
                 ))}
             </div>
             <div className="flex justify-between bevelBorder gradientBorder repoWindow__details">
-              <p>{content.commits.history.totalCount} commits</p>
-              <p>{content.branches.totalCount} branches</p>
-              <p>{content.releases.totalCount} releases</p>
-              <p>{content.tags.totalCount} tags</p>
+              <p>
+                <img
+                  src={`${require("../../assets/commits.png")}`}
+                  alt=""
+                  width="20"
+                />
+                {content.commits.history.totalCount} commits
+              </p>
+              <p>
+                <img
+                  src={`${require("../../assets/branches.png")}`}
+                  alt=""
+                  width="20"
+                />
+                {content.branches.totalCount} branches
+              </p>
+              <p>
+                <img
+                  src={`${require("../../assets/releases.png")}`}
+                  alt=""
+                  width="20"
+                />
+                {content.releases.totalCount} releases
+              </p>
+              <p>
+                <img
+                  src={`${require("../../assets/tags.png")}`}
+                  alt=""
+                  width="20"
+                />
+                {content.tags.totalCount} tags
+              </p>
             </div>
             <div className="flex justify-between items-center repoWindow__languages">
               {content.languages && (
@@ -125,7 +156,6 @@ export default function Content({ content, onTreeClick }) {
                 <p>No readme (todo)</p>
               </div>
             )}
-            <p>Add link on desktop</p>
           </div>
         </section>
 

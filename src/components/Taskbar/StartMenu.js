@@ -58,25 +58,31 @@ export default function StartMenu() {
         >
           <ListItem onClick={handleListClick("repos")} data-name="repos">
             <p className="startMenu__menuItem">
-              <span role="img" aria-label="repos">
-                👨‍💻
-              </span>{" "}
+              <img
+                src={`${require("../../assets/repos.png")}`}
+                alt=""
+                width="20"
+              />
               Repositories
             </p>
           </ListItem>
           <ListItem onClick={handleListClick("user")} data-name="user">
             <p className="startMenu__menuItem">
-              <span role="img" aria-label="profile">
-                👨‍💻
-              </span>{" "}
+              <img
+                src={`${require("../../assets/user.png")}`}
+                alt=""
+                width="20"
+              />
               Explore Users
             </p>
           </ListItem>
           <ListItem onClick={handleListClick("about")} data-name="about">
             <p className="startMenu__menuItem">
-              <span role="img" aria-label="about">
-                👨‍💻
-              </span>{" "}
+              <img
+                src={`${require("../../assets/about.png")}`}
+                alt=""
+                width="20"
+              />
               About
             </p>
           </ListItem>
