@@ -66,24 +66,6 @@ export default function Desktop() {
                 </React.Fragment>
               );
             })}
-            {/* <DesktopButton
-              name={"repos"}
-              label={"Find Repos"}
-              active={active}
-              onDoubleClick={handleButtonDblClick("repos")}
-            />
-            <DesktopButton
-              name={"user"}
-              label={""}
-              active={active}
-              onDoubleClick={handleButtonDblClick("repos")}
-            />
-            <DesktopButton
-              name={"repos"}
-              label={"Find Repos"}
-              active={active}
-              onDoubleClick={handleButtonDblClick("repos")}
-            /> */}
           </section>
           <Windows />
         </section>

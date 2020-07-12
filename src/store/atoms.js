@@ -68,3 +68,14 @@ export const repoFiles = atom({
   key: "repoFiles",
   default: {},
 });
+
+// Trending window
+export const trendingRepos = atom({
+  key: `trendingRepos`,
+  default: {},
+});
+
+export const trendingDevs = atom({
+  key: `trendingDevs`,
+  default: {},
+});

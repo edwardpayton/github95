@@ -2,7 +2,7 @@ const about = {
   label: "About",
   header: "About this project",
   desktopIcon: true,
-  desktopPosition: 2,
+  desktopPosition: 3,
   visibility: [false, false], // eg [button visible (show button), window visible (show window)]
 };
 const user = {
@@ -17,8 +17,15 @@ const repos = {
   header: "Search Repositories - Find the latest, hottest, and trending repos",
   desktopIcon: true,
   desktopPosition: 0,
-  // visibility: [true, true], // true while working on feature
   visibility: [false, false],
+};
+const trending = {
+  label: "Trending Repos",
+  header: "Trending Repos",
+  desktopIcon: true,
+  desktopPosition: 2,
+  visibility: [true, true], // true while working on feature
+  // visibility: [false, false],
 };
 
 // For testing - TODO remove
@@ -28,6 +35,7 @@ const facebookreact = {
   desktopIcon: false,
   desktopPosition: null,
   visibility: [true, true],
+  // visibility: [false, false],
   details: { owner: "facebook", name: "react" },
 };
 
@@ -35,6 +43,7 @@ export const WINDOW_OBJ = {
   about,
   user,
   repos,
+  trending,
   facebookreact,
 };
 

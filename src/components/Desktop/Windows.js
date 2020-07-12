@@ -5,6 +5,7 @@ import WindowFrame from "./WindowFrame";
 import AboutWindow from "../AboutWindow";
 import UserWindow from "../UserWindow";
 import RepoSearchWindow from "../RepoSearchWindow";
+import TrendingWindow from "../TrendingWindow";
 import RepoWindow from "../RepoWindow";
 
 import { windowObj } from "../../store";
@@ -13,6 +14,7 @@ const componentList = {
   about: AboutWindow,
   user: UserWindow,
   repos: RepoSearchWindow,
+  trending: TrendingWindow,
 };
 
 const smallWindows = ["about"];
