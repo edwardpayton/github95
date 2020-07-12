@@ -376,6 +376,19 @@ query RepoDetails($name: String!, $owner: String!) {
         }
       }
     }
+    commits:object(expression:"master") {
+      ... on Commit {
+        history {
+          totalCount
+        }
+      }
+    }
+    branches:refs(first: 0, refPrefix: "refs/heads/") {
+      totalCount
+    }
+    tags:refs(first: 0, refPrefix: "refs/tags/") {
+      totalCount
+    }
     releases(last: 1) {
       edges {
         node {

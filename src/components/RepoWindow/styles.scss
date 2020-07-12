@@ -1,5 +1,22 @@
 .repoWindow {
   flex: 1;
+  &__header {
+    padding: 0.5rem 2px;
+    > h1 {
+      max-width: 420px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      direction: rtl;
+    }
+    > div > .badge {
+      text-align: center;
+      line-height: 11px;
+    }
+    > div > a {
+      margin-left: 5px;
+    }
+  }
   &__tab.repoWindow__tab {
     //   top: 0;
     //   height: 30px;
@@ -20,16 +37,40 @@
   }
 
   &__tabTitle {
+    font-size: 16px !important;
     padding: 0.5rem 0 1rem;
+    &.-name {
+      padding-top: 0;
+    }
+  }
+
+  &__description {
+    margin-bottom: 1rem;
+  }
+
+  &__topics {
+    margin-bottom: 1rem;
+    > p:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &__details {
+    background-color: #fff;
+    padding: 1rem 3rem calc(1rem + 6px);
+  }
+
+  &__languages {
+    margin: 1rem 0;
+  }
+  &__moreLanguages {
+    font-size: 8px !important;
+    margin-left: 0.5rem;
   }
 
   &__about {
     padding: 1rem;
     border: 1px inset;
-  }
-  &__details {
-    background-color: #fff;
-    padding: 1rem 3rem calc(1rem + 6px);
   }
 
   // Files tab
@@ -58,6 +99,23 @@
     padding: 1rem;
     background-color: #fff;
     border: 2px inset;
+    * {
+      padding-bottom: 0.5rem;
+      line-height: 2;
+    }
+  }
+  h1 a {
+    font-size: 100% !important;
+  }
+  ul,
+  ol {
+    list-style: disc;
+    list-style-type: disc;
+    padding-left: 1rem;
+    > li {
+      list-style: disc;
+      list-style-type: disc;
+    }
   }
 }
 

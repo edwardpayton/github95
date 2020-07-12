@@ -72,8 +72,8 @@ export default function Content({ content, onTreeClick }) {
         >
           <div className="repoWindow__about scrollable -yOnly">
             <div className="repoWindow__aboutHeader">
-              <p>{content.name}</p>
-              <p>{content.description}</p>
+              <p className="repoWindow__tabTitle -name">{content.name}</p>
+              <p className="repoWindow__description">{content.description}</p>
             </div>
             <div className="flex repoWindow__topics">
               {content.repositoryTopics &&
@@ -84,30 +84,37 @@ export default function Content({ content, onTreeClick }) {
                 ))}
             </div>
             <div className="flex justify-between bevelBorder gradientBorder repoWindow__details">
-              <p>commits</p>
-              <p>branches</p>
-              <p>releases</p>
-              <p>contributors</p>
+              <p>{content.commits.history.totalCount} commits</p>
+              <p>{content.branches.totalCount} branches</p>
+              <p>{content.releases.totalCount} releases</p>
+              <p>{content.tags.totalCount} tags</p>
             </div>
-            <p>releases, used by, contributor, languages</p>
-            <div className="flex repoWindow__topics">
-              {content.languages &&
-                content.languages.edges.map(({ node }) => (
-                  <p
-                    className={`languageBadge -textBlack -${node.name}`}
-                    key={node.name}
-                  >
-                    <span
-                      className="badge"
-                      style={{
-                        backgroundColor: node.color,
-                      }}
-                    ></span>
-                    {node.name}
-                  </p>
-                ))}
-              {content.languages && content.languages.totalCount > 5 && (
-                <p>+ {content.languages.totalCount - 5} more</p>
+            <div className="flex justify-between items-center repoWindow__languages">
+              {content.languages && (
+                <div className="flex items-center">
+                  {content.languages.edges.map(({ node }) => (
+                    <p
+                      className={`languageBadge -textBlack -${node.name}`}
+                      key={node.name}
+                    >
+                      <span
+                        className="badge"
+                        style={{
+                          backgroundColor: node.color,
+                        }}
+                      ></span>
+                      {node.name}
+                    </p>
+                  ))}
+                  {content.languages.totalCount > 5 && (
+                    <p className="repoWindow__moreLanguages">
+                      + {content.languages.totalCount - 5} more
+                    </p>
+                  )}
+                </div>
+              )}
+              {content.licenseInfo && content.licenseInfo.spdxId && (
+                <p>{content.licenseInfo.spdxId} license</p>
               )}
             </div>
 
