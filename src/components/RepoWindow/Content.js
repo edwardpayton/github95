@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil";
 import AnchorButton from "../AnchorButton";
 import Readme from "./Readme";
 import FileTree from "./FileTree";
-import Preview from "./Preview";
+import FilePreview from "./FilePreview";
 import Issues from "./Issues";
 import PullRequests from "./PullRequests";
 
@@ -15,7 +15,7 @@ import { useReposApi } from "../../githubApi";
 export default function Content({ content, onTreeClick }) {
   const [activeTab, setActiveTab] = React.useState(0);
   const files = useRecoilValue(repoFiles);
-  const refFileName = React.useRef("");
+  const refFile = React.useRef("");
   const [fileState, setFile] = React.useState("");
 
   const { getRepoFileContents } = useReposApi();
@@ -25,13 +25,13 @@ export default function Content({ content, onTreeClick }) {
   };
 
   const handleFileClick = (file) => {
-    refFileName.current = `${content.name}${file}`.replace(/[^A-Za-z0-9]/g, "");
+    refFile.current = `${content.name}${file}`.replace(/[^A-Za-z0-9]/g, "");
     getRepoFileContents(content.name, content.owner.login, file);
   };
 
   React.useEffect(() => {
-    if (files[refFileName.current]) {
-      setFile(files[refFileName.current].text);
+    if (files[refFile.current]) {
+      setFile(files[refFile.current]);
     }
   }, [files]);
 
@@ -143,7 +143,7 @@ export default function Content({ content, onTreeClick }) {
               />
             </div>
             <div className="flex-auto repoWindow__filesCol -preview scrollable -yOnly">
-              <Preview fileName={refFileName.current}>{fileState}</Preview>
+              <FilePreview>{fileState}</FilePreview>
             </div>
           </div>
         </section>

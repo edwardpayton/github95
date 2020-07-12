@@ -101,9 +101,15 @@ export default function useReposApi() {
       console.error("ERROR", results); // TODO
     }
 
-    const fileName = `${name}${file}`.replace(/[^A-Za-z0-9]/g, "");
+    const newFile = `${name}${file}`.replace(/[^A-Za-z0-9]/g, "");
 
-    setFiles({ ...files, [fileName]: results });
+    setFiles({
+      ...files,
+      [newFile]: {
+        name: file,
+        ...results,
+      },
+    });
   }, []);
 
   return {

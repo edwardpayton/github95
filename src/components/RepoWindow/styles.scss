@@ -100,21 +100,30 @@
     background-color: #fff;
     border: 2px inset;
     * {
-      padding-bottom: 0.5rem;
+      margin-bottom: 0.5rem;
       line-height: 2;
     }
-  }
-  h1 a {
-    font-size: 100% !important;
-  }
-  ul,
-  ol {
-    list-style: disc;
-    list-style-type: disc;
-    padding-left: 1rem;
-    > li {
+    h1,
+    h2,
+    h3 {
+      margin: 1rem 0;
+    }
+    h1 a {
+      font-size: 100% !important;
+    }
+    ul,
+    ol {
       list-style: disc;
       list-style-type: disc;
+      padding-left: 1rem;
+      > li {
+        list-style: disc;
+        list-style-type: disc;
+      }
+    }
+    pre {
+      background-color: #ededed;
+      padding: 1rem;
     }
   }
 }
@@ -176,5 +185,11 @@
     font: inherit;
     outline: inherit;
     white-space: nowrap;
+  }
+}
+
+.filePreview {
+  h2 {
+    margin-bottom: 1rem;
   }
 }
