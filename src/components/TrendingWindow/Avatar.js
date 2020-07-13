@@ -7,12 +7,12 @@ export default function Avatar({ src }) {
     const ctx = refCanvas.current.getContext("2d");
     const img = new Image();
     img.src = src;
-    img.width = 50;
-    img.height = 50;
+    img.width = 60;
+    img.height = 60;
 
     img.onload = () => {
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(img, 0, 0, 50, 50);
+      ctx.drawImage(img, 0, 0, 60, 60);
     };
   }, [src]);
 
@@ -20,11 +20,11 @@ export default function Avatar({ src }) {
     <>
       <canvas
         ref={refCanvas}
-        height="50"
-        width="50"
+        height="60"
+        width="60"
         style={{
-          width: 50,
-          height: 50,
+          width: 60,
+          height: 60,
         }}
       />
     </>

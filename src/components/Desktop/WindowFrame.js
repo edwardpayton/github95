@@ -51,7 +51,12 @@ export default function WindowFrame({
               focused === name ? "" : " -inactive"
             }`}
           >
-            <span>{window.header}</span>
+            <span
+              dangerouslySetInnerHTML={{
+                __html: window.header,
+              }}
+              className="flex items-center windowHeader__title"
+            ></span>
             <span ref={refCloseBtn}>
               <Button
                 style={{ marginRight: -6, marginTop: 1 }}

@@ -98,8 +98,7 @@
   }
   &__row.searchResultsOverlay__row {
     position: relative;
-    padding: 0.25rem;
-    padding-left: 0.75rem;
+    padding: 0.75rem;
     > p {
       max-width: 250px;
       overflow: hidden;
@@ -113,6 +112,7 @@
   }
   &__button.searchResultsOverlay__button {
     position: absolute;
+    top: 6px;
     right: 0.25rem;
     opacity: 0;
     visibility: hidden;

@@ -21,11 +21,12 @@
     }
   }
   &__tab.repoWindow__tab {
-    //   top: 0;
-    //   height: 30px;
     min-width: 100px;
     text-align: center;
-    //   line-height: 25px;
+    > p {
+      position: relative;
+      top: 8px;
+    }
   }
   &__tabBody.repoWindow__tabBody {
     position: relative;
@@ -199,5 +200,8 @@
 .filePreview {
   h2 {
     margin-bottom: 1rem;
+  }
+  pre {
+    white-space: pre-wrap;
   }
 }

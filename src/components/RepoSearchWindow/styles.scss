@@ -18,6 +18,10 @@
   &__tab {
     min-width: 100px;
     text-align: center;
+    > p {
+      position: relative;
+      top: 8px;
+    }
   }
 }
 
@@ -93,7 +97,7 @@
     padding-bottom: 1rem;
   }
   .badge {
-    margin-left: auto;
+    margin: auto 0 auto auto;
     line-height: 12px;
     text-align: center;
   }

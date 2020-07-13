@@ -21,7 +21,10 @@ const repos = {
 };
 const trending = {
   label: "Trending Repos",
-  header: "Trending Repos",
+  header:
+    '<img src="' +
+    require("../assets/folder-open.png") +
+    '" /> Exploring - Github\\Trending Repos',
   desktopIcon: true,
   desktopPosition: 2,
   visibility: [true, true], // true while working on feature
@@ -34,8 +37,8 @@ const facebookreact = {
   header: "facebook react",
   desktopIcon: false,
   desktopPosition: null,
-  visibility: [true, true],
-  // visibility: [false, false],
+  // visibility: [true, true],
+  visibility: [false, false],
   details: { owner: "facebook", name: "react" },
 };
 

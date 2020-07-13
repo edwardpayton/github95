@@ -1,0 +1,108 @@
+.trendingWindow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  &__header {
+    height: 40px;
+    margin-top: -5px;
+  }
+  &__headerButtons {
+    border: 2px outset;
+    padding: 0.25rem;
+    > p {
+      padding: 0 0.5rem;
+    }
+  }
+  &__bar {
+    height: 30px !important;
+  }
+  &__logo {
+    position: relative;
+    width: 60px;
+    background-color: #000;
+    > img {
+      position: relative;
+      margin: auto;
+    }
+  }
+  &__logoBg {
+    position: absolute;
+    top: 8px;
+    left: 18px;
+    background: linear-gradient(
+        0deg,
+        #1c44ac 0%,
+        #1c44ac 50%,
+        #e35f5f 50%,
+        #e35f5f 100%
+      ),
+      linear-gradient(0deg, #dfe300 0%, #dfe300 50%, #208c71 50%, #208c71 100%);
+    background-size: 10px, 10px;
+    background-position: 0 0, 10px 0px;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    filter: blur(5px);
+  }
+
+  &__panelHeader {
+    padding: 4px 0 2px;
+    > p {
+      border: 2px inset;
+      padding: 0.25rem 0.5rem;
+      width: 25%;
+      &:last-of-type {
+        width: 75%;
+        margin-left: 4px;
+      }
+    }
+  }
+  &__panel {
+    border: 2px inset;
+    padding: 0.5rem;
+    margin-top: 2px;
+    background-color: #fff;
+    &.-tree {
+      width: 25%;
+    }
+    &.-icons {
+      width: 75%;
+      margin-left: 4px;
+      > pre {
+        white-space: pre-wrap;
+      }
+    }
+  }
+  &__footer {
+    position: relative;
+    top: 4px;
+    border: 2px inset;
+    > p {
+      padding: 0.25rem 0.5rem;
+    }
+  }
+}
+.trendingIcon {
+  width: 100px;
+  height: 120px;
+  padding: 0.5rem;
+  text-align: center;
+  background: transparent;
+  outline: none;
+  border: none;
+  > canvas {
+    margin: auto;
+    pointer-events: none;
+  }
+
+  &__name {
+    margin: auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    pointer-events: none;
+  }
+}

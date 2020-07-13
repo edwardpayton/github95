@@ -29,6 +29,10 @@
 .userContent__tabs .userContent__tab {
   min-width: 100px;
   text-align: center;
+  > p {
+    position: relative;
+    top: 8px;
+  }
 }
 .userContent__tabs.-disabled .userContent__tab {
   color: #6c6c6c;

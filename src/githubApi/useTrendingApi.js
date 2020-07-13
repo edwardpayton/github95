@@ -24,10 +24,8 @@ export default function useTrendingApi() {
     if (!results[0]) {
       results = ["No results"];
     }
-    const aa = { ...devs, [time]: results };
-    console.log("~/Sites/github95/src/githubApi/useTrendingApi >>>", aa);
 
-    setDevs(aa);
+    setDevs({ ...devs, [time]: results });
   };
 
   return {
