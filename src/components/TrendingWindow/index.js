@@ -1,9 +1,9 @@
 import React from "react";
-import { Bar } from "react95";
+import { Bar, Button } from "react95";
 import { useRecoilValue } from "recoil";
 
-import Avatar from "./Avatar";
-import Icon from "./Icon";
+import Tree from "./Tree";
+import Shortcuts from "./Shortcuts";
 
 import { trendingRepos, trendingDevs } from "../../store";
 import { useTrendingApi } from "../../githubApi";
@@ -21,13 +21,13 @@ export default function TrendingWindow() {
     getTrendingDevelopers();
   }, []);
 
-  React.useEffect(() => {
+  const handleTreeClick = (type, period) => {
     console.log(
-      "~/Sites/github95/src/components/RepoTrendingWindow/index >>>",
-      repos
-      // devs
+      "~/Sites/github95/src/components/TrendingWindow/index >>>",
+      type,
+      period
     );
-  }, [repos]);
+  };
 
   return (
     <>
@@ -35,9 +35,15 @@ export default function TrendingWindow() {
         <div className="flex justify-between trendingWindow__header">
           <div className="flex flex-auto items-center trendingWindow__headerButtons">
             <Bar className="trendingWindow__bar" />
-            <p>File</p>
-            <p>Edit</p>
-            <p>View</p>
+            <Button variant="menu" size="sm">
+              File
+            </Button>
+            <Button variant="menu" size="sm">
+              Edit
+            </Button>
+            <Button variant="menu" size="sm">
+              View
+            </Button>
           </div>
           <div className="flex trendingWindow__logo">
             <div className="trendingWindow__logoBg" />
@@ -54,19 +60,11 @@ export default function TrendingWindow() {
         </div>
         <div className="flex flex-auto trendingWindow__panels">
           <div className="trendingWindow__panel -tree scrollable -yOnly">
-            <ul>
-              <li>tree</li>
-            </ul>
+            <Tree onClick={handleTreeClick} />
           </div>
 
           <div className="flex flex-wrap trendingWindow__panel -icons scrollable -yOnly">
-            {repos.daily &&
-              Object.keys(repos.daily).map((repo) => {
-                const data = repos.daily[repo];
-                return (
-                  <Icon key={data.name} avatar={data.avatar} name={data.name} />
-                );
-              })}
+            <Shortcuts shortcuts={repos.daily} />
           </div>
         </div>
 

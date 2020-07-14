@@ -5,6 +5,8 @@ export default function FileTree({ files, onRowClick, onFileClick }) {
     onRowClick(path);
   };
 
+  console.log("~/Sites/github95/src/components/RepoWindow/FileTree >>>", files);
+
   return (
     <div className="fileTree">
       <ul className="list-reset fileTree__tree">
@@ -45,11 +47,7 @@ function TreeBranch({ row, path, onRowClick, onFileClick }) {
   return (
     <li className={`fileTree__branch${cssClass()}`}>
       {row.type === "tree" && (
-        <button
-          onClick={handleRowClick}
-          onDoubleClick={handleRowClick}
-          className="fileTree__button"
-        >
+        <button onClick={handleRowClick} className="fileTree__button">
           {row.name}
         </button>
       )}

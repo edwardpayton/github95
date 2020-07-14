@@ -11,12 +11,10 @@
   &__headerButtons {
     border: 2px outset;
     padding: 0.25rem;
-    > p {
-      padding: 0 0.5rem;
-    }
   }
   &__bar {
     height: 30px !important;
+    margin-right: 0.5rem;
   }
   &__logo {
     position: relative;
@@ -84,6 +82,7 @@
     }
   }
 }
+
 .trendingIcon {
   width: 100px;
   height: 120px;

@@ -138,7 +138,6 @@
 }
 
 .fileTree {
-  $root: ".fileTree";
   &__tree {
     position: relative;
     &:before {
@@ -152,6 +151,17 @@
     &.-subTree {
       margin: 0 0 0.5rem 2rem;
     }
+
+    &.-withTitle {
+      margin-left: 0.5rem;
+    }
+  }
+  &__title {
+    position: relative;
+    left: -0.5rem;
+    margin-bottom: 0.15rem;
+    padding-bottom: 0.5rem;
+    background: #fff;
   }
   &__branch {
     position: relative;
@@ -185,6 +195,16 @@
         content: "-";
       }
     }
+  }
+  // complicated way to hide the dotted border on the last tree
+  &__tree > .fileTree__branch:last-child .fileTree__tree.-subTree:after {
+    position: absolute;
+    content: "";
+    top: -10px;
+    bottom: 0;
+    width: 3px;
+    background: white;
+    left: calc(-2rem + 3px);
   }
   &__button {
     background: none;
