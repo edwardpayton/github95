@@ -10,8 +10,7 @@ import {
   reposSort,
   repoWindows,
   repoFiles,
-  trendingRepos,
-  trendingDevs,
+  trending,
 } from "./atoms";
 import { userActivity } from "./selectors";
 
@@ -28,6 +27,5 @@ export {
   reposSort,
   repoWindows,
   repoFiles,
-  trendingRepos,
-  trendingDevs,
+  trending,
 };

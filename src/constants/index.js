@@ -60,3 +60,48 @@ export const DEFAULT_WINDOW = {
 // Used for recoil atom ids
 export const USER = "user";
 export const REPOS = "repos";
+
+// copying the github api file tree structure for use in the trending window
+export const TRENDING_TREE = [
+  {
+    name: "repositories",
+    type: "tree",
+    open: true, // my addition to have this tree open by default
+    object: {
+      entries: [
+        {
+          name: "daily",
+          type: "blob",
+        },
+        {
+          name: "weekly",
+          type: "blob",
+        },
+        {
+          name: "monthly",
+          type: "blob",
+        },
+      ],
+    },
+  },
+  {
+    name: "developers",
+    type: "tree",
+    object: {
+      entries: [
+        {
+          name: "daily",
+          type: "blob",
+        },
+        {
+          name: "weekly",
+          type: "blob",
+        },
+        {
+          name: "monthly",
+          type: "blob",
+        },
+      ],
+    },
+  },
+];

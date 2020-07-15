@@ -1,20 +1,26 @@
 import React from "react";
 
-export default function FileTree({ files, onRowClick, onFileClick }) {
+import "./styles.scss";
+
+export default function FileTree({ files, titleRow, onRowClick, onFileClick }) {
   const handleClick = (path) => {
     onRowClick(path);
   };
 
-  console.log("~/Sites/github95/src/components/RepoWindow/FileTree >>>", files);
-
   return (
     <div className="fileTree">
-      <ul className="list-reset fileTree__tree">
+      <ul
+        className={`list-reset fileTree__tree${
+          titleRow !== "" ? " -withTitle" : ""
+        }`}
+      >
+        {titleRow !== "" && <li className="fileTree__title">{titleRow}</li>}
         {files.map((row) => (
-          <TreeBranch
+          <Branch
             row={row}
-            key={row.object.abbreviatedOid}
+            key={row.name}
             path={row.name}
+            defaultOpen={!!row.open}
             onRowClick={handleClick}
             onFileClick={onFileClick}
           />
@@ -24,9 +30,8 @@ export default function FileTree({ files, onRowClick, onFileClick }) {
   );
 }
 
-// TODO call api for next file in tree
-function TreeBranch({ row, path, onRowClick, onFileClick }) {
-  const [isOpen, setOpen] = React.useState(false);
+function Branch({ row, path, onRowClick, onFileClick, defaultOpen = false }) {
+  const [isOpen, setOpen] = React.useState(defaultOpen);
 
   const handleRowClick = () => {
     setOpen(!isOpen);
@@ -60,10 +65,11 @@ function TreeBranch({ row, path, onRowClick, onFileClick }) {
         <ul className="list-reset fileTree__tree -subTree">
           {row.object.entries &&
             row.object.entries.map((subRow) => (
-              <TreeBranch
-                key={subRow.object.abbreviatedOid}
+              <Branch
+                key={path + subRow.name}
                 row={subRow}
                 path={`${path}/${subRow.name}`}
+                defaultOpen={!!subRow.open}
                 onRowClick={onRowClick}
                 onFileClick={onFileClick}
               />

@@ -2,31 +2,37 @@ import React from "react";
 import { Bar, Button } from "react95";
 import { useRecoilValue } from "recoil";
 
-import Tree from "./Tree";
 import Shortcuts from "./Shortcuts";
+import FileTree from "../FileTree";
 
-import { trendingRepos, trendingDevs } from "../../store";
+import { trending } from "../../store";
 import { useTrendingApi } from "../../githubApi";
+import { TRENDING_TREE } from "../../constants";
 
 import "./styles.scss";
 
 export default function TrendingWindow() {
-  const repos = useRecoilValue(trendingRepos);
-  const devs = useRecoilValue(trendingDevs);
+  const trends = useRecoilValue(trending);
+  const [shortcuts, setShortcuts] = React.useState(trends);
+  const [type, setType] = React.useState("repositories");
+  const [period, setPeriod] = React.useState("daily");
 
-  const { getTrendingRepos, getTrendingDevelopers } = useTrendingApi();
+  const { getTrending } = useTrendingApi();
 
   React.useEffect(() => {
-    getTrendingRepos();
-    getTrendingDevelopers();
+    getTrending("repositories");
   }, []);
 
-  const handleTreeClick = (type, period) => {
-    console.log(
-      "~/Sites/github95/src/components/TrendingWindow/index >>>",
-      type,
-      period
-    );
+  React.useEffect(() => {
+    setShortcuts(trends[type][period]);
+  }, [trends]);
+
+  const handleTreeClick = (branch) => {
+    const [type, period] = branch.split("/");
+    setType(type);
+    setPeriod(period);
+    if (trends[type][period]) return setShortcuts(trends[type][period]);
+    return getTrending(type, period);
   };
 
   return (
@@ -56,20 +62,29 @@ export default function TrendingWindow() {
         </div>
         <div className="flex trendingWindow__panelHeader">
           <p>All Folders</p>
-          <p>Contents of trending repos</p>
+          <p>
+            Contents of {type} \ {period}
+          </p>
         </div>
         <div className="flex flex-auto trendingWindow__panels">
           <div className="trendingWindow__panel -tree scrollable -yOnly">
-            <Tree onClick={handleTreeClick} />
+            <FileTree
+              files={TRENDING_TREE}
+              titleRow="Github"
+              onRowClick={() => ""}
+              onFileClick={handleTreeClick}
+            />
           </div>
 
           <div className="flex flex-wrap trendingWindow__panel -icons scrollable -yOnly">
-            <Shortcuts shortcuts={repos.daily} />
+            {trends[type][period] && (
+              <Shortcuts shortcuts={shortcuts} type={type} />
+            )}
           </div>
         </div>
 
         <div className="trendingWindow__footer">
-          <p>{repos.daily ? Object.keys(repos.daily).length : 0} items</p>
+          <p>{shortcuts ? Object.keys(shortcuts).length : 0} items</p>
         </div>
       </section>
     </>

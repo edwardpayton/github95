@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 
 import AnchorButton from "../AnchorButton";
 import Readme from "./Readme";
-import FileTree from "./FileTree";
+import FileTree from "../FileTree";
 import FilePreview from "./FilePreview";
 import Issues from "./Issues";
 import PullRequests from "./PullRequests";

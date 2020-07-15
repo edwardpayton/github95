@@ -1,35 +1,25 @@
-import React from "react";
 import { useRecoilState } from "recoil";
 
-import { trendingRepos, trendingDevs } from "../store";
-import { apiGetTrending } from "./api.v3";
+import { trending } from "../store";
+import { apiGetTrending } from "./api.unofficial";
 
 export default function useTrendingApi() {
-  const [repos, setRepos] = useRecoilState(trendingRepos);
-  const [devs, setDevs] = useRecoilState(trendingDevs);
+  const [trends, setTrending] = useRecoilState(trending);
 
-  const getTrendingRepos = async (time = "daily") => {
-    let results = await apiGetTrending("repositories", time);
-
+  const getTrending = async (type, time = "daily") => {
+    let results = await apiGetTrending(type, time);
     if (!results[0]) {
       results = ["No results"];
     }
 
-    setRepos({ ...repos, [time]: results });
-  };
-
-  const getTrendingDevelopers = async (time = "daily") => {
-    let results = await apiGetTrending("developers", time);
-
-    if (!results[0]) {
-      results = ["No results"];
-    }
-
-    setDevs({ ...devs, [time]: results });
+    const newTrends = {
+      ...trends[type],
+      [time]: results,
+    };
+    setTrending({ ...trends, [type]: newTrends });
   };
 
   return {
-    getTrendingRepos,
-    getTrendingDevelopers,
+    getTrending,
   };
 }
