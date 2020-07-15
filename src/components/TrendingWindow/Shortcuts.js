@@ -10,12 +10,6 @@ export default function Shortcuts({ shortcuts, type }) {
   const handleClick = (name, owner) => () => {
     if (type === "developers") return;
 
-    console.log(
-      "~/Sites/github95/src/components/TrendingWindow/Shortcuts >>>",
-      name,
-      owner
-    );
-
     open(name, owner);
   };
 
