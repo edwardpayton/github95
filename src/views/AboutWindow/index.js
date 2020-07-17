@@ -36,20 +36,41 @@ export default function AboutWindow() {
           <p>Built using:</p>
           <p>
             -{" "}
-            <Anchor href="https://docs.github.com/en/graphql" target="_blank">
-              Github GraphQL api
-            </Anchor>
-          </p>
-          <p>
-            -{" "}
             <Anchor href="https://reactjs.org" target="_blank">
               React
             </Anchor>
           </p>
           <p>
             -{" "}
+            <Anchor href="https://recoiljs.org" target="_blank">
+              Recoil
+            </Anchor>
+          </p>
+          <p>
+            -{" "}
             <Anchor href="https://github.com/arturbien/React95" target="_blank">
-              React95 component library
+              React95 Component Library
+            </Anchor>
+          </p>
+          <p>
+            -{" "}
+            <Anchor href="https://docs.github.com/en/graphql" target="_blank">
+              Github GraphQL Api
+            </Anchor>
+          </p>
+          <p>
+            -{" "}
+            <Anchor href="https://docs.github.com/en/rest" target="_blank">
+              Github Rest Api
+            </Anchor>
+          </p>
+          <p>
+            -{" "}
+            <Anchor
+              href="https://github.com/huchenme/github-trending-api"
+              target="_blank"
+            >
+              (Unofficial) Github Trending Api
             </Anchor>
           </p>
           <p>

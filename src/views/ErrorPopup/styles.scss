@@ -1,0 +1,15 @@
+.errorPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 430px;
+  height: 170px;
+  z-index: 10;
+  &__body {
+    > img {
+      width: 40px;
+      margin-right: 1.25rem;
+    }
+  }
+}

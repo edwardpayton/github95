@@ -1,26 +1,28 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import Taskbar from "../../components/Taskbar";
+import ErrorPopup from "../ErrorPopup";
 import Windows from "./Windows";
 import DesktopButton from "./DesktopButton";
 
 import { WINDOW_OBJ } from "../../constants";
-import { windowObj } from "../../store";
+import { apiLimit, windowObj } from "../../store";
 
 import "./styles.scss";
 
 const desktopIcons = (() => {
-  let aa = Object.keys(WINDOW_OBJ)
+  const icons = Object.keys(WINDOW_OBJ)
     .filter((name) => (WINDOW_OBJ[name].desktopIcon ? name : null))
     .sort(
       (a, b) => WINDOW_OBJ[a].desktopPosition - WINDOW_OBJ[b].desktopPosition
     );
-  return aa;
+  return icons;
 })();
 
 export default function Desktop() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
+  const limit = useRecoilValue(apiLimit);
   const [active, setActive] = React.useState("");
 
   const handleDesktopClick = ({ target }) => {
@@ -67,7 +69,18 @@ export default function Desktop() {
               );
             })}
           </section>
-          <Windows />
+
+          {limit.exceeded ? (
+            <ErrorPopup
+              header="Github 95 has encountered an error"
+              dismissable={false}
+            >
+              <p>The Github Api limit has been exceeded.</p>
+              <p>Please try again after {limit.resetAt}.</p>
+            </ErrorPopup>
+          ) : (
+            <Windows />
+          )}
         </section>
       </main>
     </>

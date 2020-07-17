@@ -12,9 +12,10 @@ import {
   repoFiles,
   trending,
 } from "./atoms";
-import { userActivity } from "./selectors";
+import { apiLimit, userActivity } from "./selectors";
 
 export {
+  apiLimit,
   windowObj,
   menubarButtons,
   focusedElement,

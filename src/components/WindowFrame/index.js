@@ -5,6 +5,8 @@ import { useRecoilValue } from "recoil";
 
 import { focusedElement } from "../../store";
 
+import "./styles.scss";
+
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }

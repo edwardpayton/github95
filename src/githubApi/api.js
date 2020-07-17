@@ -1,4 +1,5 @@
 import {
+  GET_RATE_LIMIT,
   GET_USER_SEARCH,
   GET_USER_DETAILS,
   GET_USER_REPOS,
@@ -20,6 +21,21 @@ const githubApiGraphQL = (body) =>
     },
     body: JSON.stringify(body),
   });
+
+export const apiGetLimit = async () => {
+  try {
+    const resp = await githubApiGraphQL({
+      query: GET_RATE_LIMIT,
+    });
+    let json = await resp.json();
+
+    json = json.data.rateLimit;
+
+    return { ...json };
+  } catch (error) {
+    return new Error(error);
+  }
+};
 
 export const apiGetUserSearchResults = async (username) => {
   try {

@@ -1,6 +1,36 @@
 import { selector } from "recoil";
-import { currentRecordOfType, usersListObj } from "./atoms";
+import { rateLimit, currentRecordOfType, usersListObj } from "./atoms";
 import { USER } from "../constants";
+import formatDate from "../utilities/formatDate";
+
+export const apiLimit = selector({
+  key: "apiLimit",
+  get: ({ get }) => get(rateLimit),
+  set: ({ set }, newValue) => {
+    const { remaining, resetAt } = newValue;
+
+    const formatted = formatDate(resetAt, {
+      time: true,
+      month: false,
+      year: false,
+    });
+
+    const formattedSplit = formatted.split(", ");
+
+    const valueDate = formattedSplit[0].split("/")[0];
+    const todaysDate = new Date().getDate();
+
+    let resetDay = Number(valueDate) === todaysDate ? "" : " tomorrow";
+
+    const value = {
+      ...remaining,
+      resetAt: `${formattedSplit[1]}${resetDay}`,
+      exceeded: Number(formattedSplit[1]) === 0,
+    };
+
+    set(rateLimit, value);
+  },
+});
 
 export const userActivity = selector({
   key: "userActivity",

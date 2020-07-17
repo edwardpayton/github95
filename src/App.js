@@ -6,6 +6,7 @@ import { reset, themes } from "react95";
 import Desktop from "./views/Desktop";
 import StartupSound from "./components/StartupSound";
 
+import { useGeneralApi } from "./githubApi";
 import { menubarButtons, focusedElement } from "./store";
 import useLocalStorage from "./hooks/useLocalStorage";
 
@@ -18,6 +19,9 @@ const ResetStyles = createGlobalStyle`
 function App() {
   const [focused, setfocused] = useRecoilState(focusedElement);
   const currentButtons = useRecoilValue(menubarButtons);
+
+  const { getApiLimit } = useGeneralApi();
+
   const handleClick = React.useCallback(
     (e) => {
       if (e.target.dataset && e.target.dataset.name === "start-menu") return;
@@ -30,6 +34,7 @@ function App() {
   );
 
   React.useEffect(() => {
+    getApiLimit();
     document.addEventListener("click", handleClick);
   }, []);
 

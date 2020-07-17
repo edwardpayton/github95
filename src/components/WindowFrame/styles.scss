@@ -1,0 +1,39 @@
+.windowFrame {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  &__inner.windowFrame__inner {
+    display: flex;
+    height: 100%;
+  }
+  &__content.windowFrame__content {
+    flex: 1;
+    padding: 0.25rem;
+  }
+  &__contentInner {
+    position: relative;
+    height: calc(100% - 4px);
+  }
+
+  // Window specific styles
+  &.-about {
+    width: auto;
+    height: auto;
+  }
+}
+.windowHeader.-inactive {
+  background: #999;
+}
+.windowHeader__title {
+  > img {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+  }
+}
+.windowButton__icon.-close {
+  font-weight: bold;
+  transform: translateY(-2px);
+  pointer-events: none;
+}

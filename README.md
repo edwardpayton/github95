@@ -8,3 +8,8 @@ https://www.deviantart.com/fanatixx/art/All-Windows-95-OSR2-Icons-92282438?d=183
 ## Trello board
 
 https://trello.com/b/bDlRhlOA
+
+## Notes
+
+For state management I'm using the beta Recoil library from Facebook.
+There's a console error when running the app locally that's caused by a Recoil bug, as documented here: https://github.com/facebookexperimental/Recoil/issues/12

@@ -1,4 +1,22 @@
 /**
+ * _______GENERAL_______
+ */
+
+/**
+ * get the remaining api allowance
+ * returns the number of api calls left (max 5000) & reset time
+ */
+export const GET_RATE_LIMIT = `
+query RateLimit {
+  rateLimit {
+    remaining
+    resetAt
+  }
+}
+
+`;
+
+/**
  * _______USERS_______
  */
 
