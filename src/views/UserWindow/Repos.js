@@ -8,10 +8,11 @@ import {
   TableRow,
   TableHeadCell,
   TableDataCell,
-  Hourglass,
 } from "react95";
+
 import RepoButton from "../../components/RepoButton";
 import Pagination from "../../components/Pagination";
+import Loading from "../../components/Loading";
 
 import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
@@ -142,7 +143,7 @@ export default function Repos({ repos, total, onPageChange }) {
           )}
         </>
       ) : (
-        <p>TODO</p>
+        <Loading message="Loading results" />
       )}
     </div>
   );

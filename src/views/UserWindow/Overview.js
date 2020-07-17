@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
-
 import { Anchor, Hourglass } from "react95";
 
 import { AreaChart, HeatChart } from "../../components/Charts";
 import Card from "../../components/Card";
 
 import { userActivity } from "../../store";
-
 import capitalize from "../../utilities/capitalize";
 import formatDate from "../../utilities/formatDate";
 import formatBigNumber from "../../utilities/formatBigNumber";
@@ -198,7 +196,7 @@ export default function Overview({ profile }) {
               {profile.contributions && profile.contributions.calendar ? (
                 <HeatChart data={profile.contributions.calendar} />
               ) : (
-                <p>loading</p>
+                <Hourglass />
               )}
             </div>
           </Card>

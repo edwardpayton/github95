@@ -2,12 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import { Cutout } from "react95";
+
 import Pagination from "../../components/Pagination";
 import AnchorButton from "../../components/AnchorButton";
+import Loading from "../../components/Loading";
 
 import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
-
 import { USER } from "../../constants";
 
 export default function Gists({ gists, total, onPageChange }) {
@@ -105,7 +106,7 @@ export default function Gists({ gists, total, onPageChange }) {
           )}
         </>
       ) : (
-        <p>TODO</p>
+        <Loading message="Loading results" />
       )}
     </div>
   );

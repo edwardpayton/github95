@@ -1,12 +1,12 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 
-import { WINDOW_OBJ } from "../../constants";
-import { windowObj } from "../../store";
-
 import Taskbar from "../../components/Taskbar";
 import Windows from "./Windows";
 import DesktopButton from "./DesktopButton";
+
+import { WINDOW_OBJ } from "../../constants";
+import { windowObj } from "../../store";
 
 import "./styles.scss";
 

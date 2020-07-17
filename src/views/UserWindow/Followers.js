@@ -8,7 +8,10 @@ import {
   Anchor,
   Button,
 } from "react95";
+
 import AnchorButton from "../../components/AnchorButton";
+import Loading from "../../components/Loading";
+
 import { useSetRecoilState } from "recoil";
 import { searchInputOfType } from "../../store";
 import { USER } from "../../constants";
@@ -59,7 +62,7 @@ export default function Followers({ followers, total, url }) {
           </AnchorButton>
         </>
       ) : (
-        <p>TODO</p>
+        <Loading message="Loading results" />
       )}
     </div>
   );

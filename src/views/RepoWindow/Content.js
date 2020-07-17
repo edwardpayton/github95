@@ -3,10 +3,10 @@ import { Tabs, Tab, TabBody } from "react95";
 import { useRecoilValue } from "recoil";
 
 import AnchorButton from "../../components/AnchorButton";
-import Readme from "./Readme";
 import FileTree from "../../components/FileTree";
 import FilePreview from "./FilePreview";
 import Issues from "./Issues";
+import Readme from "./Readme";
 import PullRequests from "./PullRequests";
 
 import { repoFiles } from "../../store";
@@ -37,7 +37,7 @@ export default function Content({ content, onTreeClick }) {
   }, [files]);
 
   return (
-    <section className="flex flex-column repoWindow">
+    <section className="flex flex-column repoWindow__content">
       <div className="flex justify-between repoWindow__header">
         <h1>
           {content.owner.login}/{content.name}

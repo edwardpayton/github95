@@ -1,6 +1,7 @@
 import React from "react";
 import { Tabs, Tab, TabBody, Hourglass } from "react95";
 import { useRecoilValue } from "recoil";
+
 import Searchbar from "./Searchbar";
 import Overview from "./Overview";
 import Repos from "./Repos";
@@ -11,8 +12,8 @@ import Gists from "./Gists";
 
 import { currentRecordOfType, usersListObj } from "../../store";
 import { useUserApi } from "../../githubApi";
-import formatBigNumber from "../../utilities/formatBigNumber";
 import { USER } from "../../constants";
+import formatBigNumber from "../../utilities/formatBigNumber";
 
 import "./styles.scss";
 
@@ -20,7 +21,6 @@ export default function UserWindow() {
   const userList = useRecoilValue(usersListObj);
   const currentUser = useRecoilValue(currentRecordOfType(USER));
   const refTabsList = React.useRef(new Set([]));
-  const [isSearching, setSearching] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState(0);
   const refLogin = React.useRef("");
 
@@ -38,12 +38,6 @@ export default function UserWindow() {
       setActiveTab(0);
       refTabsList.current.clear();
     }
-    // Stop showing spinner on load or error
-    if (
-      currentUser &&
-      (userList[currentUser].login || userList[currentUser].error)
-    )
-      setSearching(false);
   }, [userList, currentUser]);
 
   const handleChange = (value) => {
@@ -179,12 +173,6 @@ export default function UserWindow() {
           </Tabs>
 
           <TabBody className="userContent__tabBody">
-            {isSearching && (
-              <div className="flex justify-center items-center card userWindow__hourglass">
-                <Hourglass size={32} />
-                <p>&nbsp;Finding user...</p>
-              </div>
-            )}
             {!currentUser && (
               <div className="flex justify-center items-center userContent__intro">
                 <p>Search for a user</p>

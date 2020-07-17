@@ -1,12 +1,12 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 
-import WindowFrame from "./WindowFrame";
 import AboutWindow from "../AboutWindow";
 import UserWindow from "../UserWindow";
 import RepoSearchWindow from "../RepoSearchWindow";
 import TrendingWindow from "../TrendingWindow";
 import RepoWindow from "../RepoWindow";
+import WindowFrame from "./WindowFrame";
 
 import { windowObj } from "../../store";
 

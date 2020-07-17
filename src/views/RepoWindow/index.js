@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 
+import Loading from "../../components/Loading";
 import Content from "./Content";
 
 import { windowObj, repoWindows } from "../../store";
@@ -34,16 +35,16 @@ function RepoWindow({ name }) {
   // 'getRepoDetails' undeeded
 
   return (
-    <>
+    <div className="repoWindow">
       {currentDetailWindows.hasOwnProperty(name) ? (
         <Content
           content={currentDetailWindows[name]}
           onTreeClick={handleTreeClick}
         />
       ) : (
-        <p>Loading</p>
+        <Loading message="Loading repository" />
       )}
-    </>
+    </div>
   );
 }
 

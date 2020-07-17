@@ -2,8 +2,8 @@ import React from "react";
 import { Bar, Button } from "react95";
 import { useRecoilValue } from "recoil";
 
-import Shortcuts from "./Shortcuts";
 import FileTree from "../../components/FileTree";
+import Shortcuts from "./Shortcuts";
 
 import { trending } from "../../store";
 import { useTrendingApi } from "../../githubApi";
