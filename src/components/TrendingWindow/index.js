@@ -63,7 +63,7 @@ export default function TrendingWindow() {
         <div className="flex trendingWindow__panelHeader">
           <p>All Folders</p>
           <p>
-            Contents of {type} \ {period}
+            Contents of '{type} \ {period}''
           </p>
         </div>
         <div className="flex flex-auto trendingWindow__panels">

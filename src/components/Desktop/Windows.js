@@ -17,8 +17,6 @@ const componentList = {
   trending: TrendingWindow,
 };
 
-const smallWindows = ["about"];
-
 export default function Windows() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
 
@@ -46,14 +44,12 @@ export default function Windows() {
     <>
       {Object.keys(currentWindows).map((name) => {
         const content = getContent(name);
-        const small = smallWindows.indexOf(name) >= 0;
         return (
           <WindowFrame
             key={name}
             name={name}
             window={currentWindows[name]}
             onClose={handleCloseWindow}
-            small={small}
           >
             {content}
           </WindowFrame>

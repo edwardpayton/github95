@@ -90,10 +90,10 @@ export default function UserWindow() {
   };
 
   return (
-    <>
+    <div className="flex flex-column userWindow">
       <Searchbar />
       <section className="userWindow__content">
-        <div className="userContent">
+        <div className="flex flex-column userContent">
           <Tabs
             value={activeTab}
             onChange={handleChange}
@@ -270,6 +270,6 @@ export default function UserWindow() {
           </TabBody>
         </div>
       </section>
-    </>
+    </div>
   );
 }

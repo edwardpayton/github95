@@ -29,3 +29,25 @@ export const apiGetTopic = async (query) => {
     return new Error(error);
   }
 };
+
+export const apiGetUserEvents = async (user) => {
+  try {
+    const resp = await fetch(`https://api.github.com/users/${user}/events`, {
+      headers: {
+        Accept: "application/vnd.github.mercy-preview+json",
+      },
+    });
+    const json = await resp.json();
+
+    if (json.message === "Not Found") {
+      json.error = "Not found";
+      return json;
+    }
+
+    return {
+      ...json,
+    };
+  } catch (error) {
+    return new Error(error);
+  }
+};

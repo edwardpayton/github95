@@ -1,9 +1,6 @@
 .trendingWindow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  width: 750px;
+  height: 550px;
   &__header {
     height: 40px;
     margin-top: -5px;

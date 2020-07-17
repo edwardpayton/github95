@@ -45,17 +45,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 900px;
-  height: 725px;
-  max-height: 100%;
-  &.-small {
-    width: auto;
-    height: auto;
-    .windowFrame__content {
-      padding: 1rem;
-      min-height: 100px;
-    }
-  }
+  // width: 900px;
+  // height: 725px;
+  // max-height: 100%;
   &__inner.windowFrame__inner {
     display: flex;
     height: 100%;
@@ -67,6 +59,12 @@
   &__contentInner {
     position: relative;
     height: calc(100% - 4px);
+  }
+
+  // Window specific styles
+  &.-about {
+    width: auto;
+    height: auto;
   }
 }
 .windowHeader.-inactive {

@@ -9,13 +9,7 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default function WindowFrame({
-  name,
-  window,
-  onClose,
-  small,
-  children,
-}) {
+export default function WindowFrame({ name, window, onClose, children }) {
   const focused = useRecoilValue(focusedElement);
   const refCloseBtn = React.useRef(undefined);
   const [pos, setPos] = React.useState([]);
@@ -40,7 +34,7 @@ export default function WindowFrame({
           display: window.visibility[1] ? "block" : "none",
           zIndex: focused === name ? 2 : 1,
         }}
-        className={`windowFrame${small ? " -small" : ""}`}
+        className={`windowFrame -${name}`}
       >
         <Window
           shadow={focused === name}
