@@ -1,9 +1,11 @@
 const about = {
   label: "About",
-  header: "About this project",
+  header: "About this project - Notepad",
   desktopIcon: true,
   desktopPosition: 3,
-  visibility: [false, false], // eg [button visible (show button), window visible (show window)]
+  visibility: [true, true], // true while working on feature
+
+  //visibility: [false, false], // eg [button visible (show button), window visible (show window)]
 };
 const user = {
   label: "User Profiles",
@@ -27,8 +29,7 @@ const trending = {
     '" /> Exploring - Github\\Trending Repos',
   desktopIcon: true,
   desktopPosition: 2,
-  visibility: [true, true], // true while working on feature
-  // visibility: [false, false],
+  visibility: [false, false],
 };
 
 // For testing - TODO remove

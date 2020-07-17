@@ -1,0 +1,30 @@
+.aboutWindow {
+  &__header {
+    height: 30px;
+    margin-top: -5px;
+  }
+  &__body {
+    width: 400px;
+    height: 450px;
+    border: 2px inset;
+    background-color: #fff;
+  }
+  &__bodyInner {
+    padding: 1rem;
+    > h1 {
+      line-height: 2;
+      margin-bottom: 1rem;
+    }
+    > p {
+      margin-bottom: 1rem;
+    }
+  }
+  &__button {
+    // mimic an anchor
+    outline: none;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    color: #1034a6;
+  }
+}

@@ -154,6 +154,9 @@
 }
 
 /* Tables */
+.table {
+  table-layout: fixed;
+}
 .table__headCell {
   position: sticky;
   top: 4px;
