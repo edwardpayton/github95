@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import { Cutout } from "react95";
-import Pagination from "../Pagination";
-import AnchorButton from "../AnchorButton";
+import Pagination from "../../components/Pagination";
+import AnchorButton from "../../components/AnchorButton";
 
 import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";

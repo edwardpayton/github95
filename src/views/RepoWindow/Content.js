@@ -2,9 +2,9 @@ import React from "react";
 import { Tabs, Tab, TabBody } from "react95";
 import { useRecoilValue } from "recoil";
 
-import AnchorButton from "../AnchorButton";
+import AnchorButton from "../../components/AnchorButton";
 import Readme from "./Readme";
-import FileTree from "../FileTree";
+import FileTree from "../../components/FileTree";
 import FilePreview from "./FilePreview";
 import Issues from "./Issues";
 import PullRequests from "./PullRequests";

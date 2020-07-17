@@ -10,14 +10,14 @@ import {
   TableDataCell,
   Hourglass,
 } from "react95";
-import RepoButton from "../RepoButton";
-import Pagination from "../Pagination";
+import AnchorButton from "../../components/AnchorButton";
+import Pagination from "../../components/Pagination";
 
 import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
 import { USER } from "../../constants";
 
-export default function Repos({ repos, total, onPageChange }) {
+export default function Stars({ stars, total, onPageChange }) {
   const currentUser = useRecoilValue(currentRecordOfType(USER));
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
@@ -29,8 +29,8 @@ export default function Repos({ repos, total, onPageChange }) {
     }
   };
 
-  const processRepos = React.useCallback(() => {
-    let reversed = [...repos].reverse();
+  const processStars = React.useCallback(() => {
+    let reversed = [...stars].reverse();
     const grouped = reversed.reduce((newArray, item, i) => {
       const groupI = Math.floor(i / 20);
       if (!newArray[groupI]) newArray[groupI] = [];
@@ -38,24 +38,24 @@ export default function Repos({ repos, total, onPageChange }) {
       return newArray;
     }, []);
     return grouped;
-  }, [repos]);
+  }, [stars]);
 
   React.useEffect(() => {
-    if (repos && repos.length) {
-      setPaginated(processRepos());
+    if (stars && stars.length) {
+      setPaginated(processStars());
     }
-  }, [repos, processRepos]);
+  }, [stars, processStars]);
 
   React.useEffect(() => {
     setPageNumber(0);
   }, [currentUser]);
 
   return (
-    <div className="userRepos">
-      <h3>Repositories</h3>
+    <div className="userStars">
+      <h3>Stars</h3>
       {paginated && paginated.length > 0 ? (
         <>
-          <Table className="table userRepos__table">
+          <Table className="table">
             <TableHead>
               <TableRow head>
                 <TableHeadCell className="table__headCell">
@@ -63,9 +63,6 @@ export default function Repos({ repos, total, onPageChange }) {
                 </TableHeadCell>
                 <TableHeadCell className="table__headCell -fixedWidth">
                   Main language
-                </TableHeadCell>
-                <TableHeadCell className="table__headCell -fixedWidth">
-                  Updated
                 </TableHeadCell>
                 <TableHeadCell className="table__headCell -fixedWidth">
                   Link
@@ -79,35 +76,29 @@ export default function Repos({ repos, total, onPageChange }) {
                     cursor,
                     node: {
                       name,
-                      isFork,
                       description,
                       url,
                       updatedAt,
                       primaryLanguage,
-                      repositoryTopics,
+                      stargazers,
+                      forks,
                     },
                   }) => (
                     <TableRow key={cursor} className="table__bodyRow">
                       <TableDataCell className="table__bodyCell">
-                        <p className="fontSize14">
-                          {name}
-                          {isFork && (
-                            <span className="badge -grey -textBlack">Fork</span>
-                          )}
-                        </p>
-                        <p className="userRepos__repoDesc">{description}</p>
-                        {repositoryTopics.nodes.length > 0 && (
-                          <div>
-                            {repositoryTopics.nodes.map(({ topic }) => (
-                              <p
-                                className="badge -small -textBlack"
-                                key={cursor + topic.name}
-                              >
-                                {topic.name}
-                              </p>
-                            ))}
+                        <p className="fontSize14">{name}</p>
+                        <p>{description}</p>
+                        <div>
+                          <div className="badge -small -textBlack">
+                            Stars: {stargazers.totalCount || 0}
                           </div>
-                        )}
+                          <div className="badge -small -textBlack">
+                            Forks: {forks.totalCount || 0}
+                          </div>
+                          <div className="badge -small -textBlack">
+                            Updated: {formatDate(updatedAt)}
+                          </div>
+                        </div>
                       </TableDataCell>
                       <TableDataCell className="table__bodyCell">
                         {primaryLanguage !== null ? (
@@ -116,9 +107,7 @@ export default function Repos({ repos, total, onPageChange }) {
                           >
                             <span
                               className="badge"
-                              style={{
-                                backgroundColor: primaryLanguage.color,
-                              }}
+                              style={{ backgroundColor: primaryLanguage.color }}
                             ></span>
                             {primaryLanguage.name}
                           </p>
@@ -127,10 +116,9 @@ export default function Repos({ repos, total, onPageChange }) {
                         )}
                       </TableDataCell>
                       <TableDataCell className="table__bodyCell">
-                        {formatDate(updatedAt)}
-                      </TableDataCell>
-                      <TableDataCell className="pl1 table__bodyCell">
-                        <RepoButton name={name} owner={currentUser.login} />
+                        <AnchorButton href={url} target="_blank">
+                          Go to repo
+                        </AnchorButton>
                       </TableDataCell>
                     </TableRow>
                   )

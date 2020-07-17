@@ -3,7 +3,7 @@ import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { reset, themes } from "react95";
 
-import Desktop from "./components/Desktop";
+import Desktop from "./views/Desktop";
 import StartupSound from "./components/StartupSound";
 
 import { menubarButtons, focusedElement } from "./store";

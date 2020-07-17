@@ -7,7 +7,7 @@ import {
   Anchor,
   Button,
 } from "react95";
-import AnchorButton from "../AnchorButton";
+import AnchorButton from "../../components/AnchorButton";
 import { useSetRecoilState } from "recoil";
 import { searchInputOfType } from "../../store";
 import { USER } from "../../constants";

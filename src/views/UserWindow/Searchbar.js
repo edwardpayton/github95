@@ -8,7 +8,7 @@ import {
   usersListObj,
 } from "../../store";
 
-import Toolbar from "../Toolbar";
+import Toolbar from "../../components/Toolbar";
 
 import { useUserApi } from "../../githubApi";
 import { USER } from "../../constants";

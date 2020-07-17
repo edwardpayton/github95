@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import {
   Table,
@@ -9,41 +10,17 @@ import {
   TableDataCell,
   Hourglass,
 } from "react95";
+import RepoButton from "../../components/RepoButton";
+import Pagination from "../../components/Pagination";
 
-import Pagination from "../Pagination";
-import RepoButton from "../RepoButton";
-
-import {
-  searchResultsOfType,
-  currentRecordOfType,
-  reposSort,
-} from "../../store";
-import { REPOS } from "../../constants";
+import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
+import { USER } from "../../constants";
 
-export default function SearchResults({ onPageChange }) {
-  const results = useRecoilValue(searchResultsOfType(REPOS));
-  const currentRepo = useRecoilValue(currentRecordOfType(REPOS));
-  const currentSort = useRecoilValue(reposSort);
+export default function Repos({ repos, total, onPageChange }) {
+  const currentUser = useRecoilValue(currentRecordOfType(USER));
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
-  const refCurrent = React.useRef("");
-  const refSort = React.useRef("");
-
-  React.useEffect(() => {
-    let newArray = [];
-    if (refCurrent.current !== currentRepo || refSort.current !== currentSort) {
-      newArray = [[...results.nodes]];
-      setPageNumber(0);
-      refCurrent.current = currentRepo;
-      refSort.current = currentSort;
-    } else {
-      newArray = [...paginated, [...results.nodes]];
-    }
-    setPaginated(newArray);
-  }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
-  // 'paginated' - crashes
-  // 'currentRecord' & 'currentSort' - extra render, incorrect results
 
   const handleClickNextPage = (page) => {
     setPageNumber(page);
@@ -52,11 +29,33 @@ export default function SearchResults({ onPageChange }) {
     }
   };
 
+  const processRepos = React.useCallback(() => {
+    let reversed = [...repos].reverse();
+    const grouped = reversed.reduce((newArray, item, i) => {
+      const groupI = Math.floor(i / 20);
+      if (!newArray[groupI]) newArray[groupI] = [];
+      newArray[groupI].push(item);
+      return newArray;
+    }, []);
+    return grouped;
+  }, [repos]);
+
+  React.useEffect(() => {
+    if (repos && repos.length) {
+      setPaginated(processRepos());
+    }
+  }, [repos, processRepos]);
+
+  React.useEffect(() => {
+    setPageNumber(0);
+  }, [currentUser]);
+
   return (
-    <div className="flex flex-column searchResults">
+    <div className="userRepos">
+      <h3>Repositories</h3>
       {paginated && paginated.length > 0 ? (
         <>
-          <Table className="table">
+          <Table className="table userRepos__table">
             <TableHead>
               <TableRow head>
                 <TableHeadCell className="table__headCell">
@@ -77,29 +76,32 @@ export default function SearchResults({ onPageChange }) {
               {paginated[pageNumber] &&
                 paginated[pageNumber].map(
                   ({
-                    name,
-                    owner: { login },
-                    description,
-                    url,
-                    id,
-                    pushedAt,
-                    isFork,
-                    primaryLanguage,
-                    repositoryTopics,
+                    cursor,
+                    node: {
+                      name,
+                      isFork,
+                      description,
+                      url,
+                      updatedAt,
+                      primaryLanguage,
+                      repositoryTopics,
+                    },
                   }) => (
-                    <TableRow key={id} className="table__bodyRow">
+                    <TableRow key={cursor} className="table__bodyRow">
                       <TableDataCell className="table__bodyCell">
                         <p className="fontSize14">
                           {name}
-                          {isFork && <span className="badge -grey">Fork</span>}
+                          {isFork && (
+                            <span className="badge -grey -textBlack">Fork</span>
+                          )}
                         </p>
-                        <p>{description}</p>
+                        <p className="userRepos__repoDesc">{description}</p>
                         {repositoryTopics.nodes.length > 0 && (
                           <div>
                             {repositoryTopics.nodes.map(({ topic }) => (
                               <p
                                 className="badge -small -textBlack"
-                                key={id + topic.name}
+                                key={cursor + topic.name}
                               >
                                 {topic.name}
                               </p>
@@ -110,7 +112,7 @@ export default function SearchResults({ onPageChange }) {
                       <TableDataCell className="table__bodyCell">
                         {primaryLanguage !== null ? (
                           <p
-                            className={`languageBadge -${primaryLanguage.name}`}
+                            className={`languageBadge -textBlack -${primaryLanguage.name}`}
                           >
                             <span
                               className="badge"
@@ -125,21 +127,18 @@ export default function SearchResults({ onPageChange }) {
                         )}
                       </TableDataCell>
                       <TableDataCell className="table__bodyCell">
-                        {formatDate(pushedAt)}
+                        {formatDate(updatedAt)}
                       </TableDataCell>
                       <TableDataCell className="pl1 table__bodyCell">
-                        <RepoButton name={name} owner={login} />
+                        <RepoButton name={name} owner={currentUser.login} />
                       </TableDataCell>
                     </TableRow>
                   )
                 )}
             </TableBody>
           </Table>
-          {results.repositoryCount > 20 && (
-            <Pagination
-              onPageChange={handleClickNextPage}
-              totalCount={results.repositoryCount}
-            />
+          {total > 20 && (
+            <Pagination onPageChange={handleClickNextPage} totalCount={total} />
           )}
         </>
       ) : (

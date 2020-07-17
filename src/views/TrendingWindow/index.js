@@ -3,7 +3,7 @@ import { Bar, Button } from "react95";
 import { useRecoilValue } from "recoil";
 
 import Shortcuts from "./Shortcuts";
-import FileTree from "../FileTree";
+import FileTree from "../../components/FileTree";
 
 import { trending } from "../../store";
 import { useTrendingApi } from "../../githubApi";

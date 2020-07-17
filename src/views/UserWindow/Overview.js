@@ -4,8 +4,8 @@ import { useRecoilValue } from "recoil";
 
 import { Anchor, Hourglass } from "react95";
 
-import { AreaChart, HeatChart } from "../Charts";
-import Card from "../Card";
+import { AreaChart, HeatChart } from "../../components/Charts";
+import Card from "../../components/Card";
 
 import { userActivity } from "../../store";
 
