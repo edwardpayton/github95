@@ -67,7 +67,7 @@ export default function Searchbar() {
     <div className="userToolbar">
       <Toolbar
         title="User Profiles"
-        placeholder="Find user eg. edwardpayton"
+        placeholder="Search with login or name"
         searchValue={input}
         onSearch={handleSearch}
         searchResults={results}

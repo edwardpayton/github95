@@ -43,6 +43,16 @@ query UserSearch($username: String!) {
  * returns user details, pins, total repos, gists, & stars, first 10 repos
  * $username - string - the user name
  *
+ * TODO - consider adding in user readme if it exists:
+    repository(name: $username) {
+      object(expression: "master:README.md") {
+        ... on Blob {
+          id
+          text
+        }
+      }
+    }
+ *
  */
 export const GET_USER_DETAILS = `
 query UserDetails($username: String!) {
@@ -66,6 +76,9 @@ query UserDetails($username: String!) {
     following {
       totalCount
     }
+    watching {
+      totalCount
+    }
     gists {
       totalCount
     }
@@ -86,6 +99,20 @@ query UserDetails($username: String!) {
           }
         }
       }
+    }
+    issues(orderBy: {field: COMMENTS, direction: DESC}, last: 10) {
+      nodes {
+        state
+        updatedAt
+      }
+      totalCount
+    }
+    pullRequests(orderBy: {field: UPDATED_AT, direction: DESC}, last: 10) {
+      nodes {
+        state
+        updatedAt
+      }
+      totalCount
     }
     repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10) {
       nodes {

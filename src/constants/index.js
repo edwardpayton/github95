@@ -10,7 +10,8 @@ const user = {
   header: "Explore Users - Search Github for users",
   desktopIcon: true,
   desktopPosition: 1,
-  visibility: [false, false],
+  // visibility: [false, false],
+  visibility: [true, true], // true while working on feature
 };
 const repos = {
   label: "Search Repos",

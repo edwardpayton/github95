@@ -13,7 +13,7 @@ import formatBigNumber from "../../utilities/formatBigNumber";
 
 export default function Overview({ profile }) {
   const activity = useRecoilValue(userActivity);
-  const pinList = () => {
+  const pinNamesInitialState = () => {
     const pinSet = new Set();
     profile.pinnedItems.edges.forEach(
       ({ node }) =>
@@ -25,98 +25,98 @@ export default function Overview({ profile }) {
     const pinStr = `${remaining.join(", ")} & ${last}`;
     return pinStr;
   };
-  const [pinNames, setPins] = React.useState(pinList);
+  const [pinNames, setPins] = React.useState(pinNamesInitialState);
 
   return (
     <div className="userContent__bodyInner scrollable -yOnly">
       <div className="overview">
-        <div className="bgBlue overview__header">
-          <div className="card -bgWhite overview__profile">
+        <div className="flex bgBlue overview__header">
+          <div className="overview__headerCol">
             <div className="flex">
-              <div className="bevelBorder overview__profileImage">
-                <img
-                  src={profile.avatarUrl}
-                  alt="Github avatar"
-                  className="square"
-                />
+              <div className="bevelBorder-outset overview__profileImage">
+                <img src={profile.avatarUrl} alt="" />
               </div>
-              <div className="flex flex-column justify-around overview__profileDetails">
-                <h2 className="overview__title">
+              <div className="overview__user">
+                <h2 className="overview__name">
                   {profile.name ? profile.name : "-"}
-                  <span className="badge -grey overview__login">
-                    {profile.login}
-                  </span>
                 </h2>
-                <div className="overview__bio">
-                  {/* <p className="overview__bioCopy"> */}
-                  <p className="overview__bioCopy">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostru
+                <p className="badge -grey -small overview__login">
+                  {profile.login}
+                </p>
+                <Anchor
+                  href={profile.url}
+                  className="overview__link -profile"
+                  target="_blank"
+                >
+                  Open on github.com
+                </Anchor>
+                {profile.email.length > 0 && (
+                  <Anchor
+                    href={`mailto:${profile.email}`}
+                    className="overview__link -email"
+                  >
+                    Send email
+                  </Anchor>
+                )}
+              </div>
+            </div>
+            <div className="overview__bio">
+              <p>{profile.bio}</p>
+            </div>
+            {profile.status && (
+              <div className="flex items-center overview__status">
+                <p>Update</p>
+                <p className="overview__statusUpdate">
+                  {profile.status.message}
+                  <span>
+                    {formatDate(profile.status.updatedAt, {
+                      time: true,
+                      day: true,
+                      month: true,
+                      year: true,
+                    })}
+                  </span>
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="flex overview__headerCol">
+            <Card className="flex flex-column flex-auto">
+              <div className="flex justify-between">
+                <div className="bevelBorder gradientBorder overview__headerBadge">
+                  <p>
+                    <span className="overview__headerBadgeNumber">
+                      {profile.issues.totalCount || "0"}
+                    </span>
+                    issues
                   </p>
                 </div>
-                <div className="overview__links">
-                  <Anchor
-                    href={profile.url}
-                    className="overview__link -profile"
-                    target="_blank"
-                  >
-                    Open on github.com
-                  </Anchor>
-                  {profile.email.length > 0 && (
-                    <Anchor
-                      href={`mailto:${profile.email}`}
-                      className="overview__link -email"
-                    >
-                      Send email
-                    </Anchor>
-                  )}
+                <div className="bevelBorder gradientBorder overview__headerBadge">
+                  <p>
+                    <span className="overview__headerBadgeNumber">
+                      {profile.pullRequests.totalCount || "0"}
+                    </span>
+                    pull requests
+                  </p>
+                </div>
+                <div className="bevelBorder gradientBorder overview__headerBadge">
+                  <p>
+                    <span className="overview__headerBadgeNumber">
+                      {profile.watching.totalCount || "0"}
+                    </span>
+                    watchers
+                  </p>
                 </div>
               </div>
-            </div>
-
-            <div className="flex justify-between overview__badges">
-              {profile.location && (
-                <p className="badge overview__badge -location">
-                  Based in: {profile.location}
-                </p>
-              )}
-              <p className="badge overview__badge -createdAt">
-                Joined: {formatDate(profile.createdAt)}
-              </p>
-              <p className="badge overview__badge -followers">
-                Followers: {formatBigNumber(profile.followers.totalCount)}
-              </p>
-              <p className="badge overview__badge -following">
-                Following: {formatBigNumber(profile.following.totalCount)}
-              </p>
-            </div>
+              <div>based, member since, updated at</div>
+            </Card>
           </div>
-
-          {profile.status && (
-            <div className="overview__statusWrapper">
-              <p className="overview__status">
-                {profile.status.message}
-                <span>
-                  {formatDate(profile.status.updatedAt, {
-                    time: true,
-                    day: true,
-                    month: true,
-                    year: true,
-                  })}
-                </span>
-              </p>
-              <div className="overview__statusTitle">
-                <p className="badge -grey overview__badge">Current status</p>
-              </div>
-            </div>
-          )}
         </div>
         <div className="overview__body">
-          <Card className="flex justify-between overview__card -topCard">
-            <div className="overview__chartWrapper">
-              <h3 className="mb2">Repos over time</h3>
-              <div className="bevelBorder overview__chart">
+          <div className="flex justify-between p2 bevelBorder overview__chartWrapper">
+            <div className="overview__chartCol">
+              <h3>Repos over time</h3>
+              <div className="overview__chart">
                 {!activity && <Hourglass size={32} />}
                 {activity && (
                   <AreaChart
@@ -127,23 +127,15 @@ export default function Overview({ profile }) {
                 )}
               </div>
             </div>
-            <div className="overview__chartWrapper">
-              <h3 className="mb2">Favourite languages</h3>
-              <div className="bevelBorder overview__chart"></div>
+            <div className="overview__chartCol">
+              <h3>Favourite languages</h3>
+              <div className="overview__chart"></div>
             </div>
-          </Card>
+          </div>
 
           {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
-            <Card className="overview__card">
-              <h3 className="mb2">Pinned repositories</h3>
-              <p>
-                <span className="badge -grey">{capitalize(profile.login)}</span>{" "}
-                is showcasing {profile.pinnedItems.edges.length}{" "}
-                {profile.pinnedItems.edges.length === 1
-                  ? "repository"
-                  : "repositories"}{" "}
-                demonstrating a talent using {pinNames}
-              </p>
+            <Card className="mt2 overview__card">
+              <h3 className="mt1 mb2">Pinned repositories</h3>
               <div className="flex flex-wrap overview__pins">
                 {profile.pinnedItems.edges.map(({ node }) => (
                   <div
@@ -184,7 +176,7 @@ export default function Overview({ profile }) {
           )}
 
           <Card className="overview__card">
-            <h3 className="mb2">Contribution calendar</h3>
+            <h3 className="mt1 mb2">Contribution calendar</h3>
             {profile.contributions &&
               profile.contributions.totalContributions && (
                 <p>
@@ -200,10 +192,10 @@ export default function Overview({ profile }) {
               )}
             </div>
           </Card>
-        </div>
-        <div className="flex bgBlue overview__footer">
-          <p>Data last updated on:</p>
-          <p>Save user to desktop</p>
+
+          <div className="flex-auto bevelBorder overview__events">
+            <p>Latest Events || 'no events'</p>
+          </div>
         </div>
       </div>
     </div>

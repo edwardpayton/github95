@@ -1,6 +1,7 @@
-.userToolbar.userToolbar {
+.userToolbar {
   max-width: 100%;
   padding: 0.25rem;
+  margin-bottom: 0.5rem;
   z-index: 20;
 }
 
@@ -61,152 +62,130 @@
 
 /* User content overview */
 .overview {
-}
+  &__header {
+    padding: 1rem;
+  }
+  &__headerCol {
+    width: 50%;
+  }
+  &__profileImage {
+    position: relative;
+    width: 135px;
+    height: 135px;
+    border: 1px outset;
+    > img {
+      width: 135px;
+      height: 135px;
+      image-rendering: pixelated;
+    }
+  }
+  &__user {
+    padding-left: 1rem;
+    .badge {
+      margin: 0 0 0.5rem 0;
+    }
+  }
+  &__name {
+    color: #ededed;
+    line-height: 2;
+    margin-bottom: 0.5rem;
+  }
 
-.overview__header {
-  padding: 2rem;
-}
-.overview__profile {
-  display: table;
-  min-width: 350px;
-  max-width: 500px;
-  margin: auto;
-}
-.overview__profileImage {
-  position: relative;
-  width: 135px;
-  height: 135px;
-  border: 1px outset;
-}
-.overview__profileImage > img {
-  width: 135px;
-  height: 135px;
-  image-rendering: pixelated;
-}
-.overview__title {
-}
-.overview__login.overview__login {
-  position: relative;
-  top: -4px;
-}
-.overview__profileDetails {
-  position: relative;
-  padding: 0.25rem 0 0 2rem;
-}
-.overview__bio {
-  max-width: 500px;
-}
-.overview__bioCopy {
-  line-height: 16px;
-}
-.overview__links {
-  max-width: 300px;
-  margin-top: 1.5rem;
-}
-.overview__link.overview__link {
-  position: relative;
-  padding-left: 22px;
-  margin-left: 1.1rem;
-}
-.overview__link:first-of-type {
-  margin-left: 0;
-}
-.overview__link:before {
-  position: absolute;
-  content: "";
-  bottom: 0;
-  left: 0;
-  width: 25px;
-  height: 25px;
-  image-rendering: pixelated;
-  background-size: contain;
-}
-.overview__link.-profile:before {
-  background-image: url("../../assets/profile-icon.png");
-}
-.overview__link.-email:before {
-  background-image: url("../../assets/email-icon.png");
-  bottom: -4px;
-  left: -7px;
-}
+  &__link {
+    position: relative;
+    display: block;
+    padding-left: 22px;
+    margin-top: 0.5rem;
+    line-height: 2;
+    color: #ededed !important;
+    &:before {
+      position: absolute;
+      content: "";
+      bottom: 0;
+      left: 0;
+      width: 25px;
+      height: 25px;
+      image-rendering: pixelated;
+      background-size: contain;
+    }
+    &.-profile:before {
+      background-image: url("../../assets/profile-icon.png");
+    }
+    &.-email {
+      padding-left: 26px;
+      &:before {
+        background-image: url("../../assets/email-icon.png");
+        bottom: -4px;
+        left: -3px;
+      }
+    }
+  }
 
-.overview__badges {
-  max-width: 500px;
-  margin: 2rem auto 0;
-}
-.overview__badge.overview__badge {
-  margin-left: 0;
-  margin-right: 0.75rem;
-  text-align: center;
-}
-.overview__badge.overview__badge:last-of-type {
-  margin-right: 0;
-}
-.overview__statusWrapper {
-  display: table;
-  min-width: 150px;
-  max-width: 350px;
-  margin: 2rem auto 0rem;
-}
+  &__bio {
+    padding: 1rem 0.15rem;
+    color: #ededed;
+  }
 
-.overview__status {
-  position: relative;
-  padding: 1rem 1rem 2rem;
-  border: 1px solid #c0c0c0;
-  background-color: #fff;
-}
-.overview__status:after {
-  position: absolute;
-  content: "";
-  top: 100%;
-  left: calc(50% - 30px);
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 15px 20px 0 0;
-  border-color: #fff transparent transparent transparent;
-}
-.overview__status > span {
-  position: absolute;
-  right: 1rem;
-  bottom: 0.75rem;
-  color: #8ca7ec;
-  font-size: 7px !important;
-}
-.overview__statusTitle {
-}
-.overview__statusTitle > p {
-  position: relative;
-  display: table;
-  padding-left: 27px !important;
-  margin: 1.5rem auto 0 !important;
-}
-.overview__statusTitle > p:before {
-  position: absolute;
-  content: "";
-  top: 3px;
-  left: 5px;
-  width: 18px;
-  height: 18px;
-  background: url("../../assets/status.png") no-repeat 0 0;
-  background-size: contain;
+  &__status {
+    padding: 0.5rem 0.15rem 0.25rem;
+    color: #ededed;
+  }
+
+  &__statusUpdate {
+    position: relative;
+    background-color: #fff;
+    color: #000;
+    border: 1px outset;
+    padding: 0.25rem 0.5rem 0.75rem 0.5rem;
+    margin-left: 0.75rem;
+    &:after {
+      position: absolute;
+      content: "";
+      top: calc(50% - 7px);
+      left: -7px;
+      width: 0;
+      height: 0;
+      margin-right: 0.5rem;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-right: 7px solid #fff;
+    }
+    > span {
+      position: absolute;
+      right: 0.5rem;
+      bottom: 0.15rem;
+      color: #8ca7ec;
+      font-size: 7px !important;
+    }
+  }
+  &__headerBadge {
+    width: calc(33% - 0.75rem);
+    padding: 0.75rem 0;
+    background-color: #fff;
+    text-align: center;
+  }
+  &__headerBadgeNumber {
+    display: block;
+    font-size: 14px !important;
+  }
+  &__events {
+    margin-top: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  &__body {
+    padding: 1rem;
+  }
+
+  &__chartWrapper {
+    background-color: #fff;
+  }
+  &__chartCol {
+    width: 50%;
+  }
 }
 /*  */
-.overview__body {
-  padding: 1rem;
-}
-.overview__card {
-  margin-top: 2rem;
-}
-.overview__card.-topCard {
-  margin-top: 0;
-}
-.overview__chartWrapper {
-  width: calc(50% - 0.75rem);
-}
-.overview__chart {
-  background-color: #fff;
-}
+
 .overview__pins {
   width: calc(100% + 1rem);
   margin-left: -1rem;
