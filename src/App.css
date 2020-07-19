@@ -166,8 +166,8 @@
   table-layout: fixed;
 }
 .table__headCell {
-  position: sticky;
-  top: 4px;
+  position: sticky !important;
+  top: 2px;
   z-index: 10;
 }
 .table__headCell.-fixedWidth,
@@ -175,24 +175,14 @@
   width: 100px;
 }
 
-.table__headCell:before {
-  position: absolute;
-  content: "";
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: -1;
-  box-shadow: 0px 0px 0px 2px #000;
-}
 .table__headCell:after {
   position: absolute;
   content: "";
   left: 0;
   right: 0;
-  top: -3px;
+  top: -1px;
   z-index: -1;
-  box-shadow: 0px 0px 0px 1px #888c8f;
+  box-shadow: 0px 0px 0px 1px #000;
 }
 .table__bodyCell.table__bodyCell {
   background-color: #fff;

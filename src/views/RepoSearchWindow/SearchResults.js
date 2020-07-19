@@ -95,7 +95,7 @@ export default function SearchResults({ onPageChange }) {
                         </p>
                         <p>{description}</p>
                         {repositoryTopics.nodes.length > 0 && (
-                          <div>
+                          <div className="searchResults__tableBadges">
                             {repositoryTopics.nodes.map(({ topic }) => (
                               <p
                                 className="badge -small -textBlack"

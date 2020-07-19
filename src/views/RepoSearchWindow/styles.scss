@@ -86,6 +86,10 @@
   &__copy {
     padding-left: 1rem;
   }
+  img {
+    width: 32px;
+    height: 32px;
+  }
   h3 {
     padding-bottom: 1rem;
   }
@@ -100,5 +104,8 @@
   height: 100%;
   > div {
     flex: auto;
+  }
+  &__tableBadges {
+    margin-left: -5px;
   }
 }

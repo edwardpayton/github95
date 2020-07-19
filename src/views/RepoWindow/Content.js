@@ -93,7 +93,7 @@ export default function Content({ content, onTreeClick }) {
                   alt=""
                   width="20"
                 />
-                {content.commits.history.totalCount} commits
+                {content.commits && content.commits.history.totalCount} commits
               </p>
               <p>
                 <img
@@ -166,11 +166,15 @@ export default function Content({ content, onTreeClick }) {
           <p className="repoWindow__tabTitle">Browse the repo files</p>
           <div className="flex repoWindow__files">
             <div className="repoWindow__filesCol -tree scrollable -xAndY">
-              <FileTree
-                files={content.object.entries}
-                onRowClick={onTreeClick}
-                onFileClick={handleFileClick}
-              />
+              {content.object ? (
+                <FileTree
+                  files={content.object.entries}
+                  onRowClick={onTreeClick}
+                  onFileClick={handleFileClick}
+                />
+              ) : (
+                <p>No files (todo)</p>
+              )}
             </div>
             <div className="flex-auto repoWindow__filesCol -preview scrollable -yOnly">
               <FilePreview>{fileState}</FilePreview>

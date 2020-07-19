@@ -55,7 +55,7 @@ export default function WindowFrame({ name, window, onClose, children }) {
             ></span>
             <span ref={refCloseBtn}>
               <Button
-                style={{ marginRight: -6, marginTop: 1 }}
+                style={{ marginRight: -1 }}
                 size={"sm"}
                 square
                 onClick={handleClose}

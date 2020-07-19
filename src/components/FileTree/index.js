@@ -2,7 +2,12 @@ import React from "react";
 
 import "./styles.scss";
 
-export default function FileTree({ files, titleRow, onRowClick, onFileClick }) {
+export default function FileTree({
+  files,
+  titleRow = "",
+  onRowClick,
+  onFileClick,
+}) {
   const handleClick = (path) => {
     onRowClick(path);
   };

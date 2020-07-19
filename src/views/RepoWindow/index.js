@@ -31,6 +31,10 @@ function RepoWindow({ name }) {
       const { details } = currentWindows[name];
       getRepoDetails(details.name, details.owner);
     }
+    console.log(
+      "~/Sites/github95/src/views/RepoWindow/index >>>",
+      currentDetailWindows
+    );
   }, [name, currentWindows, currentDetailWindows]); // eslint-disable-line react-hooks/exhaustive-deps
   // 'getRepoDetails' undeeded
 
