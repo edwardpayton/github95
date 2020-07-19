@@ -1,7 +1,8 @@
 import React from "react";
 import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { reset, themes } from "react95";
+import { styleReset } from "react95";
+import original from "react95/dist/themes/original";
 
 import Desktop from "./views/Desktop";
 import StartupSound from "./components/StartupSound";
@@ -13,7 +14,7 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import "./App.css";
 
 const ResetStyles = createGlobalStyle`
-  ${reset}
+  ${styleReset}
 `;
 
 function App() {
@@ -48,7 +49,7 @@ export default () => {
     <RecoilRoot>
       <ResetStyles />
       {soundStorage !== "Off" && <StartupSound />}
-      <ThemeProvider theme={themes.default}>
+      <ThemeProvider theme={original}>
         <App />
       </ThemeProvider>
     </RecoilRoot>

@@ -40,9 +40,10 @@ export default function UserWindow() {
     }
   }, [userList, currentUser]);
 
-  const handleChange = (value) => {
+  const handleChange = (_, value) => {
     setActiveTab(value);
     handleTabChange(value);
+    console.log("~/Sites/github95/src/views/UserWindow/index >>>", value);
   };
 
   const handleTabChange = (activeTab) => {
@@ -51,6 +52,7 @@ export default function UserWindow() {
     switch (activeTab) {
       case 1: {
         refTabsList.current.add(1);
+        console.log("~/Sites/github95/src/views/UserWindow/index >>>");
         return getUserRepos();
       }
       case 2: {
@@ -91,12 +93,14 @@ export default function UserWindow() {
           <Tabs
             value={activeTab}
             onChange={handleChange}
-            className={`userContent__tabs${!currentUser ? " -disabled" : ""}`}
+            className={`tabs userContent__tabs${
+              !currentUser ? " -disabled" : ""
+            }`}
           >
-            <Tab value={0} className="userContent__tab">
+            <Tab value={0} className="tabs__tab userContent__tab">
               <p>Overview</p>
             </Tab>
-            <Tab value={1} className="userContent__tab">
+            <Tab value={1} className="tabs__tab userContent__tab">
               <p>
                 Repositories
                 <span
@@ -112,7 +116,7 @@ export default function UserWindow() {
                 </span>
               </p>
             </Tab>
-            <Tab value={2} className="userContent__tab">
+            <Tab value={2} className="tabs__tab userContent__tab">
               <p>
                 Stars
                 <span
@@ -128,7 +132,7 @@ export default function UserWindow() {
                 </span>
               </p>
             </Tab>
-            <Tab value={3} className="userContent__tab">
+            <Tab value={3} className="tabs__tab userContent__tab">
               <p>
                 Followers
                 <span
@@ -142,7 +146,7 @@ export default function UserWindow() {
                 </span>
               </p>
             </Tab>
-            <Tab value={4} className="userContent__tab">
+            <Tab value={4} className="tabs__tab userContent__tab">
               <p>
                 Following
                 <span
@@ -156,7 +160,7 @@ export default function UserWindow() {
                 </span>
               </p>
             </Tab>
-            <Tab value={5} className="userContent__tab">
+            <Tab value={5} className="tabs__tab userContent__tab">
               <p>
                 Gists
                 <span

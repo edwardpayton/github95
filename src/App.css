@@ -153,6 +153,14 @@
   transform: translate(-50%, 0%);
 }
 
+/* Tabs */
+.tabs {
+  margin-bottom: -2px !important;
+}
+.tabs__tab {
+  height: 30px !important;
+}
+
 /* Tables */
 .table {
   table-layout: fixed;

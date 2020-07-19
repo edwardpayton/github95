@@ -21,7 +21,7 @@ export default function Content({ content, onTreeClick }) {
 
   const { getRepoFileContents } = useReposApi();
 
-  const handleTabChange = (value) => {
+  const handleTabChange = (_, value) => {
     setActiveTab(value);
   };
 
@@ -50,17 +50,17 @@ export default function Content({ content, onTreeClick }) {
         </div>
       </div>
       <div className="repoWindow__tabs">
-        <Tabs value={activeTab} onChange={handleTabChange}>
-          <Tab value={0} className="repoWindow__tab">
+        <Tabs value={activeTab} onChange={handleTabChange} className="tabs">
+          <Tab value={0} className="tabs__tab repoWindow__tab">
             <p>About</p>
           </Tab>
-          <Tab value={1} className="repoWindow__tab">
+          <Tab value={1} className="tabs__tab repoWindow__tab">
             <p>Files</p>
           </Tab>
-          <Tab value={2} className="repoWindow__tab">
+          <Tab value={2} className="tabs__tab repoWindow__tab">
             <p>Issues</p>
           </Tab>
-          <Tab value={3} className="repoWindow__tab">
+          <Tab value={3} className="tabs__tab repoWindow__tab">
             <p>Pull Requests</p>
           </Tab>
         </Tabs>

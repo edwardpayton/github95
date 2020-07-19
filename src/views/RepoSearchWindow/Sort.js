@@ -18,7 +18,7 @@ export default function Sort({ onChange }) {
   const results = useRecoilValue(searchResultsOfType(REPOS));
   const setSort = useSetRecoilState(reposSort);
 
-  const handleChange = (val) => {
+  const handleChange = (_, val) => {
     onChange(optionsList[val]);
     setSort(optionsList[val]);
   };
@@ -31,7 +31,7 @@ export default function Sort({ onChange }) {
     >
       <p>Sort</p>
       <Select
-        items={options}
+        options={options}
         onChange={handleChange}
         width={150}
         className="sort__select"

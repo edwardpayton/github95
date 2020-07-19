@@ -5,6 +5,7 @@ import { Anchor, Hourglass } from "react95";
 
 import { AreaChart, HeatChart } from "../../components/Charts";
 import Card from "../../components/Card";
+import RepoButton from "../../components/RepoButton";
 
 import { userActivity } from "../../store";
 import capitalize from "../../utilities/capitalize";
@@ -30,7 +31,7 @@ export default function Overview({ profile }) {
   return (
     <div className="userContent__bodyInner scrollable -yOnly">
       <div className="overview">
-        <div className="flex bgBlue overview__header">
+        <div className="flex overview__header">
           <div className="overview__headerCol">
             <div className="flex">
               <div className="bevelBorder-outset overview__profileImage">
@@ -60,6 +61,8 @@ export default function Overview({ profile }) {
                 )}
               </div>
             </div>
+          </div>
+          <div className="flex flex-column justify-between overview__headerCol">
             <div className="overview__bio">
               <p>{profile.bio}</p>
             </div>
@@ -80,39 +83,66 @@ export default function Overview({ profile }) {
               </div>
             )}
           </div>
-          <div className="flex overview__headerCol">
-            <Card className="flex flex-column flex-auto">
-              <div className="flex justify-between">
-                <div className="bevelBorder gradientBorder overview__headerBadge">
-                  <p>
-                    <span className="overview__headerBadgeNumber">
-                      {profile.issues.totalCount || "0"}
-                    </span>
-                    issues
-                  </p>
-                </div>
-                <div className="bevelBorder gradientBorder overview__headerBadge">
-                  <p>
-                    <span className="overview__headerBadgeNumber">
-                      {profile.pullRequests.totalCount || "0"}
-                    </span>
-                    pull requests
-                  </p>
-                </div>
-                <div className="bevelBorder gradientBorder overview__headerBadge">
-                  <p>
-                    <span className="overview__headerBadgeNumber">
-                      {profile.watching.totalCount || "0"}
-                    </span>
-                    watchers
-                  </p>
-                </div>
-              </div>
-              <div>based, member since, updated at</div>
-            </Card>
-          </div>
         </div>
         <div className="overview__body">
+          <div className="flex justify-between bevelBorder gradientBorder overview__headerBadges">
+            <p className="flex items-center">
+              <span className="overview__headerBadgeNumber">
+                {profile.issues.totalCount || "0"}
+              </span>
+              issues
+            </p>
+            <p className="flex items-center">
+              <span className="overview__headerBadgeNumber">
+                {profile.pullRequests.totalCount || "0"}
+              </span>
+              pull requests
+            </p>
+            <p className="flex items-center">
+              <span className="overview__headerBadgeNumber">
+                {profile.watching.totalCount || "0"}
+              </span>
+              watchers
+            </p>
+          </div>
+
+          {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
+            <Card className="mt2 overview__card">
+              <h3 className="mt1 mb2">Pinned repositories</h3>
+              <div className="flex flex-wrap overview__pins">
+                {profile.pinnedItems.edges.map(({ node }) => (
+                  <div
+                    className="border-box bevelBorder gradientBorder overview__pin"
+                    key={node.name}
+                  >
+                    <div className="overview__pinInner">
+                      <p className="overview__pinName">{node.name}</p>
+                      <p className="overview__pinDesc">{node.description}</p>
+                      {node.primaryLanguage !== null ? (
+                        <p
+                          className={`userRepos__badge -language -${node.primaryLanguage.name}`}
+                        >
+                          <span
+                            className="badge"
+                            style={{
+                              backgroundColor: node.primaryLanguage.color,
+                            }}
+                          ></span>
+                          {node.primaryLanguage.name}
+                        </p>
+                      ) : (
+                        <p>-</p>
+                      )}
+                      <RepoButton name={node.name} owner={profile.login} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
+
+          <div>based, member since, updated at</div>
+
           <div className="flex justify-between p2 bevelBorder overview__chartWrapper">
             <div className="overview__chartCol">
               <h3>Repos over time</h3>
@@ -132,48 +162,6 @@ export default function Overview({ profile }) {
               <div className="overview__chart"></div>
             </div>
           </div>
-
-          {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
-            <Card className="mt2 overview__card">
-              <h3 className="mt1 mb2">Pinned repositories</h3>
-              <div className="flex flex-wrap overview__pins">
-                {profile.pinnedItems.edges.map(({ node }) => (
-                  <div
-                    className="border-box bevelBorder gradientBorder overview__pin"
-                    key={node.name}
-                  >
-                    <div className="overview__pinInner">
-                      <p>
-                        <Anchor
-                          href={node.url}
-                          target="_blank"
-                          className="overview__pinName"
-                        >
-                          {node.name}
-                        </Anchor>
-                      </p>
-                      <p className="overview__pinDesc">{node.description}</p>
-                      {node.primaryLanguage !== null ? (
-                        <p
-                          className={`userRepos__badge -language -${node.primaryLanguage.name}`}
-                        >
-                          <span
-                            className="badge"
-                            style={{
-                              backgroundColor: node.primaryLanguage.color,
-                            }}
-                          ></span>
-                          {node.primaryLanguage.name}
-                        </p>
-                      ) : (
-                        <p>-</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          )}
 
           <Card className="overview__card">
             <h3 className="mt1 mb2">Contribution calendar</h3>
