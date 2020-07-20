@@ -25,6 +25,7 @@ export default function UserWindow() {
   const refLogin = React.useRef("");
 
   const {
+    getUserActivity,
     getUserRepos,
     getUserStars,
     getUserGists,
@@ -34,6 +35,7 @@ export default function UserWindow() {
   React.useEffect(() => {
     if (currentUser && userList[currentUser].login !== refLogin.current) {
       // Reset active tab & tabs list on user change
+      getUserActivity();
       refLogin.current = userList[currentUser].login;
       setActiveTab(0);
       refTabsList.current.clear();

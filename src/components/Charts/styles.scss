@@ -1,0 +1,67 @@
+.areaChart {
+  position: relative;
+  margin-top: -30px;
+  &__labelsY {
+    position: absolute;
+    right: 5px;
+    top: 50px;
+    bottom: 20px;
+    text-align: center;
+    &:before {
+      position: absolute;
+      content: "";
+      top: 0;
+      bottom: 0;
+      width: calc(50% + 1px);
+      background-image: linear-gradient(black 25%, rgba(255, 255, 255, 0) 0%);
+      background-position: right;
+      background-size: 2px 8px;
+      background-repeat: repeat-y;
+    }
+    > p {
+      position: relative;
+      padding: 2px 0;
+      background-color: #fff;
+      font-size: 8px !important;
+    }
+  }
+  &__labelsX {
+    position: relative;
+    padding-right: 30px;
+    margin: -25px -10px 0;
+    &:before {
+      position: absolute;
+      content: "";
+      left: 0;
+      right: 30px;
+      height: calc(50% + 1px);
+      background-image: linear-gradient(
+        to right,
+        black 25%,
+        rgba(255, 255, 255, 0) 0%
+      );
+      background-position: bottom;
+      background-size: 8px 2px;
+      background-repeat: repeat-x;
+    }
+    > p {
+      position: relative;
+      padding: 0 10px;
+      background-color: #fff;
+      font-size: 8px !important;
+    }
+  }
+}
+
+// override tooltip
+.apexcharts-tooltip {
+  background: #fff !important;
+  border-radius: 0 !important;
+  border: 1px solid #1c44ac !important;
+}
+.apexcharts-tooltip-series-group {
+  padding: 0px 8px !important;
+}
+.apexcharts-tooltip-text-value {
+  margin-left: 0 !important;
+}

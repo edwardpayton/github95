@@ -37,8 +37,8 @@ const facebookreact = {
   header: "facebook react",
   desktopIcon: false,
   desktopPosition: null,
-  visibility: [true, true], // true while working on feature
-  // visibility: [false, false],
+  // visibility: [true, true], // true while working on feature
+  visibility: [false, false],
   details: { owner: "facebook", name: "react" },
 };
 

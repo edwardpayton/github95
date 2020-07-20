@@ -5,6 +5,7 @@ import {
   searchInputOfType,
   searchResultsOfType,
   usersListObj,
+  userChartData,
   currentRecordOfType,
 } from "../store";
 import {
@@ -18,48 +19,21 @@ import {
 } from "./api";
 import { USER } from "../constants";
 
+import processChartData from "../utilities/processChartData";
+
 /**
  * Github api hook
  * returns getUserProfile, getUserRepos, getUserStars, getUserGists, & getUserFollows functions to access the api data
  * example: const { userProfile, userRepos, getUserStars, getUserGists, getUserFollows } = githubApi();
  */
 export default function useUserApi() {
-  const firstCallRef = React.useRef(false);
   const setResults = useSetRecoilState(searchResultsOfType(USER));
   const [currentUser, setCurrentUser] = useRecoilState(
     currentRecordOfType(USER)
   );
   const [userList, setList] = useRecoilState(usersListObj);
   const searchInput = useRecoilValue(searchInputOfType(USER));
-
-  const getUserActivity = React.useCallback(async () => {
-    const activity = await apiGetUserActivity(
-      searchInput,
-      userList[currentUser].repositories.totalCount
-    );
-    if (activity instanceof Error) {
-      console.error("ERROR", activity); // TODO
-    }
-    const existingData = userList[userList[currentUser].login]["apiData"];
-    const newUserData = {
-      [userList[currentUser].login]: {
-        ...userList[currentUser],
-        apiData: {
-          ...existingData,
-          activity,
-        },
-      },
-    };
-
-    setList({ ...userList, ...newUserData });
-  }, [searchInput, userList, setList, currentUser]);
-
-  React.useEffect(() => {
-    // TODO this logic doesnt work. doesnt trigger on username change
-    if (firstCallRef.current) getUserActivity();
-  }, [firstCallRef.current]); //eslint-disable-line react-hooks/exhaustive-deps
-
-  //
+  const [chartData, setChartData] = useRecoilState(userChartData);
 
   const getUserSearchResults = React.useCallback(
     async (input) => {
@@ -89,10 +63,23 @@ export default function useUserApi() {
 
       setCurrentUser(profile.login);
       setList({ ...userList, ...newUserData });
-      firstCallRef.current = true;
     },
     [userList, setList, setCurrentUser]
   );
+
+  const getUserActivity = React.useCallback(async () => {
+    const activity = await apiGetUserActivity(
+      searchInput,
+      userList[currentUser].repositories.totalCount
+    );
+    if (activity instanceof Error) {
+      console.error("ERROR", activity); // TODO
+    }
+
+    const userChartData = processChartData(activity);
+
+    setChartData({ ...chartData, [currentUser]: userChartData });
+  }, [searchInput, userList, currentUser, chartData, setChartData]);
 
   const getUserRepos = React.useCallback(
     async (cursor = null) => {
@@ -194,6 +181,7 @@ export default function useUserApi() {
   return {
     getUserSearchResults,
     getUserProfile,
+    getUserActivity,
     getUserRepos,
     getUserStars,
     getUserGists,

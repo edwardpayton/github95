@@ -82,8 +82,15 @@
   &__user {
     padding-left: 1.25rem;
     .badge {
-      margin: 0 0 0.5rem 0;
+      position: relative;
+      top: -4px;
+      left: 0.25rem;
     }
+  }
+  &__login {
+    position: relative;
+    top: -0.25rem;
+    left: 0.25rem;
   }
   &__name {
     // color: #ededed;
@@ -95,7 +102,7 @@
     position: relative;
     display: block;
     padding-left: 22px;
-    margin-top: 0.5rem;
+    margin-right: 1rem;
     line-height: 2;
     // color: #ededed !important;
     &:before {
@@ -108,10 +115,14 @@
       image-rendering: pixelated;
       background-size: contain;
     }
-    &.-profile:before {
-      background-image: url("../../assets/profile-icon.png");
+    &.-profile {
+      min-width: 120px;
+      &:before {
+        background-image: url("../../assets/profile-icon.png");
+      }
     }
     &.-email {
+      min-width: 70px;
       padding-left: 26px;
       &:before {
         background-image: url("../../assets/email-icon.png");
@@ -127,6 +138,7 @@
 
   &__status {
     padding: 0 0.15rem 0.25rem;
+    margin-left: auto;
   }
 
   &__statusUpdate {
@@ -182,31 +194,47 @@
   }
   &__chartCol {
     width: 50%;
+    > h3 {
+      text-align: center;
+    }
+  }
+
+  &__pin {
+    position: relative;
+    width: calc(50% - 0.5rem);
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: #fff;
+  }
+  &__pinInner {
+    padding: 0.5rem;
+  }
+  &__pinName {
+    display: table;
+    font-size: 14px !important;
+    margin-bottom: 1rem;
+  }
+  &__pinDesc {
+    margin-bottom: 0.5rem;
+  }
+  &__pinBadge {
+    position: relative;
+    padding-left: 21px;
+    margin-right: 80px;
+    margin-bottom: 4px;
+    > .badge {
+      position: absolute;
+      top: 1px;
+      left: -6px;
+    }
+  }
+  &__pinButton {
+    position: absolute !important;
+    bottom: 0.5rem;
+    right: 0.5rem;
   }
 }
 /*  */
-
-.overview__pins {
-  width: calc(100% + 1rem);
-  margin-left: -1rem;
-}
-.overview__pin {
-  width: calc(50% - 1rem);
-  margin: 0 0 1rem 1rem;
-  padding: 0.5rem;
-  background-color: #fff;
-}
-.overview__pinInner {
-  padding: 0.5rem;
-}
-.overview__pinName {
-  display: table;
-  font-size: 14px !important;
-  margin-bottom: 1rem;
-}
-.overview__pinDesc {
-  margin-bottom: 0.5rem;
-}
 .overflow_contributions {
 }
 .overflow_contributionsTable {

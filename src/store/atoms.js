@@ -53,6 +53,11 @@ export const usersListObj = atom({
   default: {}, // object of users eg: { userLogin1: {...}, userLogin2: {...}}
 });
 
+export const userChartData = atom({
+  key: `userChartData`,
+  default: null,
+});
+
 // Repo window
 export const reposSearchTopic = atom({
   key: "reposSearchTopic",

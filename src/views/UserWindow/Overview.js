@@ -3,47 +3,51 @@ import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import { Anchor, Hourglass } from "react95";
 
-import { AreaChart, HeatChart } from "../../components/Charts";
+import { AreaChart, HeatChart, PieChart } from "../../components/Charts";
 import Card from "../../components/Card";
 import RepoButton from "../../components/RepoButton";
 
-import { userActivity } from "../../store";
-import capitalize from "../../utilities/capitalize";
+import { userChartData } from "../../store";
 import formatDate from "../../utilities/formatDate";
-import formatBigNumber from "../../utilities/formatBigNumber";
+import processUserLanguages from "../../utilities/processUserLanguages";
 
 export default function Overview({ profile }) {
-  const activity = useRecoilValue(userActivity);
-  const pinNamesInitialState = () => {
-    const pinSet = new Set();
-    profile.pinnedItems.edges.forEach(
-      ({ node }) =>
-        node.primaryLanguage &&
-        node.primaryLanguage.name &&
-        pinSet.add(node.primaryLanguage.name)
+  const activity = useRecoilValue(userChartData);
+  const [topLangauges, setLanguages] = React.useState([]); // TODO move this to recoil
+
+  React.useEffect(() => {
+    console.log(
+      "~/Sites/github95/src/views/UserWindow/Overview >>>",
+      activity,
+      processUserLanguages(profile.repositories)
     );
-    const [last, ...remaining] = [...pinSet].reverse();
-    const pinStr = `${remaining.join(", ")} & ${last}`;
-    return pinStr;
-  };
-  const [pinNames, setPins] = React.useState(pinNamesInitialState);
+    setLanguages(processUserLanguages(profile.repositories));
+  }, [profile, activity]);
 
   return (
     <div className="userContent__bodyInner scrollable -yOnly">
       <div className="overview">
-        <div className="flex overview__header">
-          <div className="overview__headerCol">
-            <div className="flex">
-              <div className="bevelBorder-outset overview__profileImage">
-                <img src={profile.avatarUrl} alt="" />
-              </div>
-              <div className="overview__user">
-                <h2 className="overview__name">
-                  {profile.name ? profile.name : "-"}
-                </h2>
-                <p className="badge -grey -small overview__login">
+        <div className="flex flex-auto overview__header">
+          <div className="bevelBorder-outset overview__profileImage">
+            <img src={profile.avatarUrl} alt="" />
+          </div>
+          <div className="flex flex-column flex-auto justify-between overview__user">
+            <div className="flex justify-between">
+              <h2 className="overview__name">
+                {profile.name ? profile.name : "-"}
+                <span className="badge -grey -small overview__login">
                   {profile.login}
-                </p>
+                </span>
+              </h2>
+              <div>based, member since, updated at</div>
+            </div>
+            <div>
+              <div className="overview__bio">
+                <p>{profile.bio || "No bio information found"}</p>
+              </div>
+            </div>
+            <div className="flex items-baseline">
+              <p>
                 <Anchor
                   href={profile.url}
                   className="overview__link -profile"
@@ -51,39 +55,37 @@ export default function Overview({ profile }) {
                 >
                   Open on github.com
                 </Anchor>
-                {profile.email.length > 0 && (
+              </p>
+              {profile.email.length > 0 && (
+                <p>
                   <Anchor
                     href={`mailto:${profile.email}`}
                     className="overview__link -email"
                   >
                     Send email
                   </Anchor>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-column justify-between overview__headerCol">
-            <div className="overview__bio">
-              <p>{profile.bio}</p>
-            </div>
-            {profile.status && (
-              <div className="flex items-center overview__status">
-                <p>Update</p>
-                <p className="overview__statusUpdate">
-                  {profile.status.message}
-                  <span>
-                    {formatDate(profile.status.updatedAt, {
-                      time: true,
-                      day: true,
-                      month: true,
-                      year: true,
-                    })}
-                  </span>
                 </p>
-              </div>
-            )}
+              )}
+              {profile.status && (
+                <div className="flex items-center overview__status">
+                  <p>Update</p>
+                  <p className="overview__statusUpdate">
+                    {profile.status.message}
+                    <span>
+                      {formatDate(profile.status.updatedAt, {
+                        time: true,
+                        day: true,
+                        month: true,
+                        year: true,
+                      })}
+                    </span>
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
+
         <div className="overview__body">
           <div className="flex justify-between bevelBorder gradientBorder overview__headerBadges">
             <p className="flex items-center">
@@ -106,60 +108,26 @@ export default function Overview({ profile }) {
             </p>
           </div>
 
-          {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
-            <Card className="mt2 overview__card">
-              <h3 className="mt1 mb2">Pinned repositories</h3>
-              <div className="flex flex-wrap overview__pins">
-                {profile.pinnedItems.edges.map(({ node }) => (
-                  <div
-                    className="border-box bevelBorder gradientBorder overview__pin"
-                    key={node.name}
-                  >
-                    <div className="overview__pinInner">
-                      <p className="overview__pinName">{node.name}</p>
-                      <p className="overview__pinDesc">{node.description}</p>
-                      {node.primaryLanguage !== null ? (
-                        <p
-                          className={`userRepos__badge -language -${node.primaryLanguage.name}`}
-                        >
-                          <span
-                            className="badge"
-                            style={{
-                              backgroundColor: node.primaryLanguage.color,
-                            }}
-                          ></span>
-                          {node.primaryLanguage.name}
-                        </p>
-                      ) : (
-                        <p>-</p>
-                      )}
-                      <RepoButton name={node.name} owner={profile.login} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          )}
-
-          <div>based, member since, updated at</div>
-
           <div className="flex justify-between p2 bevelBorder overview__chartWrapper">
             <div className="overview__chartCol">
-              <h3>Repos over time</h3>
+              <h3>Number of repositories</h3>
               <div className="overview__chart">
-                {!activity && <Hourglass size={32} />}
-                {activity && (
+                {!activity || !activity[profile.login] ? (
+                  <Hourglass size={32} />
+                ) : (
                   <AreaChart
                     name="Repos"
-                    xaxis={activity.newRepos.monthsList}
-                    data={activity.newRepos.repoTotals}
+                    data={activity[profile.login].repositories.repoTotals}
+                    labels={activity[profile.login].repositories.monthsList}
                   />
                 )}
               </div>
             </div>
             <div className="overview__chartCol">
               <h3>Favourite languages</h3>
-              <div className="overview__chart"></div>
+              <div className="overview__chart">
+                {topLangauges[0] && <PieChart topLangauges={topLangauges} />}
+              </div>
             </div>
           </div>
 
@@ -180,6 +148,45 @@ export default function Overview({ profile }) {
               )}
             </div>
           </Card>
+
+          {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
+            <>
+              <h3 className="mt3 mb1">Showcased repositories</h3>
+              <div className="flex flex-wrap justify-between">
+                {profile.pinnedItems.edges.map(({ node }) => (
+                  <div
+                    className="border-box bevelBorder overview__pin"
+                    key={node.name}
+                  >
+                    <div className="overview__pinInner">
+                      <p className="overview__pinName">{node.name}</p>
+                      <p className="overview__pinDesc">{node.description}</p>
+                      {node.primaryLanguage !== null ? (
+                        <p
+                          className={`overview__pinBadge -language -${node.primaryLanguage.name}`}
+                        >
+                          <span
+                            className="badge"
+                            style={{
+                              backgroundColor: node.primaryLanguage.color,
+                            }}
+                          ></span>
+                          {node.primaryLanguage.name}
+                        </p>
+                      ) : (
+                        <p>-</p>
+                      )}
+                      <RepoButton
+                        name={node.name}
+                        owner={profile.login}
+                        className="overview__pinButton"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
 
           <div className="flex-auto bevelBorder overview__events">
             <p>Latest Events || 'no events'</p>
