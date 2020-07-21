@@ -45,7 +45,6 @@ export default function UserWindow() {
   const handleChange = (_, value) => {
     setActiveTab(value);
     handleTabChange(value);
-    console.log("~/Sites/github95/src/views/UserWindow/index >>>", value);
   };
 
   const handleTabChange = (activeTab) => {
@@ -54,7 +53,6 @@ export default function UserWindow() {
     switch (activeTab) {
       case 1: {
         refTabsList.current.add(1);
-        console.log("~/Sites/github95/src/views/UserWindow/index >>>");
         return getUserRepos();
       }
       case 2: {

@@ -26,7 +26,7 @@ const chartProps = (name, data) => {
       },
       stroke: {
         colors: ["#8ca7ec"],
-        curve: "stepline",
+        curve: "straight",
         width: 1,
       },
       fill: {
@@ -64,9 +64,6 @@ const chartProps = (name, data) => {
         tooltip: {
           enabled: false,
         },
-      },
-      legend: {
-        horizontalAlign: "left",
       },
       tooltip: {
         x: {

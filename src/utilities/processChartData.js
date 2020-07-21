@@ -1,10 +1,128 @@
+import formatDate from "./formatDate";
+
 export default function (activity) {
   const { contributionsCollection, repositories } = activity;
   if (repositories === undefined) return repositories;
 
-  const _contributions = ["todo", contributionsCollection];
+  return {
+    contributions: heatMap(contributionsCollection),
+    repositories: areaChart(repositories),
+  };
+}
 
-  const firstRepo = new Date(repositories.nodes[0].createdAt);
+/**
+ * Process the users contributionsCollection into two arrays
+ * - series (a list of contributions per day for each week of the year)
+ * - ranges (a list of colors for the heatMap - 6 steps between 0 & max number of daily contributions)
+ * Also returns
+ * - total (number)
+ * - start (formatted date)
+ * - end (formatted date)
+ */
+function heatMap({ contributionCalendar, startedAt, endedAt }) {
+  const { totalContributions, weeks } = contributionCalendar;
+  const series = [
+    {
+      name: "Mon",
+      data: [],
+    },
+    {
+      name: "Tues",
+      data: [],
+    },
+    {
+      name: "Wed",
+      data: [],
+    },
+    {
+      name: "Thurs",
+      data: [],
+    },
+    {
+      name: "Fri",
+      data: [],
+    },
+    {
+      name: "Sat",
+      data: [],
+    },
+    {
+      name: "Sun",
+      data: [],
+    },
+  ];
+  const numArray = [];
+  weeks.forEach(({ contributionDays }) => {
+    let i = 0;
+    do {
+      series[i].data.push({
+        x: formatDate(contributionDays[i].date),
+        y: contributionDays[i].contributionCount,
+      });
+      numArray.push({
+        date: formatDate(contributionDays[i].date),
+        num: contributionDays[i].contributionCount,
+      });
+      i++;
+    } while (contributionDays[i] !== undefined);
+  });
+  const busiestDay = numArray.sort((a, b) => a.num - b.num).reverse()[0];
+  const createPoint = (point) => {
+    return Math.ceil(busiestDay.num / point);
+  };
+  const ranges = [
+    {
+      from: 0,
+      to: 0,
+      color: "#f7f7f7",
+      name: "",
+    },
+    {
+      from: 1,
+      to: createPoint(4),
+      color: "#bacaf4",
+      name: "",
+    },
+    {
+      from: createPoint(4),
+      to: createPoint(3),
+      color: "#7897e9",
+      name: "",
+    },
+    {
+      from: createPoint(3),
+      to: createPoint(2),
+      color: "#3665de",
+      name: "",
+    },
+    {
+      from: createPoint(2),
+      to: createPoint(1) - 1,
+      color: "#1c44ac",
+      name: "",
+    },
+    {
+      from: busiestDay.num,
+      to: busiestDay.num + 1,
+      color: "#2ecaa3",
+      name: "",
+    },
+  ];
+
+  const start = formatDate(startedAt);
+  const end = formatDate(endedAt);
+  return { series, total: totalContributions, start, end, busiestDay, ranges };
+}
+
+/**
+ * Process users repositories into two arrays
+ * - monthsList (the list of months since the user was created)
+ * - repoTotals (the number of repos that user had during that month)
+ * eg if a user was created in month 1 and created their first repo in month 4,
+ * repo totals would be [0,0,0,1]
+ */
+function areaChart({ nodes }) {
+  const firstRepo = new Date(nodes[0].createdAt);
   const today = new Date();
   let monthsSinceFirstRepo =
     today.getFullYear() * 12 +
@@ -23,7 +141,7 @@ export default function (activity) {
     })
     .reverse();
 
-  const dateGroups = repositories.nodes.reduce((groups, repo) => {
+  const dateGroups = nodes.reduce((groups, repo) => {
     const month = repo.createdAt.split("-").slice(0, 2).join("-");
     if (!groups[month]) groups[month] = [];
     groups[month].push(repo.name);
@@ -36,8 +154,5 @@ export default function (activity) {
     return count;
   });
 
-  return {
-    _contributions,
-    repositories: { monthsList, repoTotals },
-  };
+  return { monthsList, repoTotals };
 }

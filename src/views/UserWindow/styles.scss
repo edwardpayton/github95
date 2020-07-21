@@ -97,7 +97,10 @@
     line-height: 2;
     margin-bottom: 0.5rem;
   }
-
+  &__badges {
+    padding-right: 5px;
+    text-align: center;
+  }
   &__link {
     position: relative;
     display: block;
@@ -139,6 +142,23 @@
   &__status {
     padding: 0 0.15rem 0.25rem;
     margin-left: auto;
+    overflow: hidden;
+  }
+
+  &__statusTitle {
+    position: relative;
+    &:after {
+      position: absolute;
+      content: "";
+      top: calc(50% - 7px);
+      right: -20px;
+      width: 0;
+      height: 0;
+      margin-right: 0.5rem;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-right: 7px solid #fff;
+    }
   }
 
   &__statusUpdate {
@@ -148,25 +168,20 @@
     border: 1px outset;
     padding: 0.25rem 0.5rem 0.75rem 0.5rem;
     margin-left: 0.75rem;
-    &:after {
-      position: absolute;
-      content: "";
-      top: calc(50% - 7px);
-      left: -7px;
-      width: 0;
-      height: 0;
-      margin-right: 0.5rem;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-right: 7px solid #fff;
-    }
+    overflow: hidden;
+
     > span {
-      position: absolute;
-      right: 0.5rem;
-      bottom: 0.15rem;
-      color: #8ca7ec;
-      font-size: 7px !important;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+  }
+  &__statusTime {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.15rem;
+    color: #8ca7ec;
+    font-size: 7px !important;
   }
   &__headerBadges {
     padding: 0.75rem 3rem 1.25rem;
@@ -233,17 +248,9 @@
     bottom: 0.5rem;
     right: 0.5rem;
   }
-}
-/*  */
-.overflow_contributions {
-}
-.overflow_contributionsTable {
-  background-color: #fff;
-}
-/*  */
-.overview__footer {
-  margin-top: 1rem;
-  padding: 2rem;
+  &_contributionsTable {
+    background-color: #fff;
+  }
 }
 
 /* User repos */

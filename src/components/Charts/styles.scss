@@ -53,6 +53,11 @@
   }
 }
 
+.pieChart {
+  padding: 0.75rem 0 0 0.5rem;
+  margin-bottom: -0.25rem;
+}
+
 // override tooltip
 .apexcharts-tooltip {
   background: #fff !important;
@@ -64,4 +69,12 @@
 }
 .apexcharts-tooltip-text-value {
   margin-left: 0 !important;
+}
+.apexcharts-legend-text {
+  font-size: 8px !important;
+}
+.apexcharts-legend.position-right {
+  top: 50% !important;
+  right: 25px !important;
+  transform: translateY(-50%);
 }

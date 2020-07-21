@@ -1,8 +1,10 @@
 export default function (repositories) {
   const languages = repositories.nodes
     .map((repo) => {
+      if (repo.isPrivate || repo.isArchived) return null;
       return repo.languages.edges.map((lang) => lang);
     })
+    .filter(Boolean)
     .flat();
 
   let languagesArr = [];
@@ -17,11 +19,13 @@ export default function (repositories) {
       size,
     });
   });
-  languagesArr
-    .sort((a, b) => {
-      return a.size - b.size;
-    })
-    .reverse();
+  languagesArr.sort((a, b) => a.size - b.size).reverse();
 
-  return languagesArr.slice(0, 5);
+  const series = languagesArr.slice(0, 5).map(({ size }) => size);
+  const labels = languagesArr.slice(0, 5).map(({ name }) => name);
+
+  return {
+    series,
+    labels,
+  };
 }

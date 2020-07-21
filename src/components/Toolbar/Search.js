@@ -12,9 +12,9 @@ export default function Search({ placeholder, initalValue, onSearch }) {
     setState(target.value);
   };
 
-  const handleClick = () => {
-    state.length > 0 && onSearch(state);
-  };
+  // const handleClick = () => {
+  //   state.length > 0 && onSearch(state);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ export default function Search({ placeholder, initalValue, onSearch }) {
         onChange={handleChange}
         className="searchForm__input"
       />
-      <Button onClick={handleClick} className="searchForm__button">
+      <Button onClick={handleSubmit} className="searchForm__button">
         Search
       </Button>
     </form>

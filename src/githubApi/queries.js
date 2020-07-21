@@ -119,7 +119,9 @@ query UserDetails($username: String!) {
         name
         description
         updatedAt
-        url       
+        url
+        isPrivate
+        isArchived     
         primaryLanguage {
           name
           color
@@ -430,6 +432,9 @@ query RepoDetails($name: String!, $owner: String!) {
     }
     branches:refs(first: 0, refPrefix: "refs/heads/") {
       totalCount
+      nodes {
+        name
+      }
     }
     tags:refs(first: 0, refPrefix: "refs/tags/") {
       totalCount
@@ -448,6 +453,41 @@ query RepoDetails($name: String!, $owner: String!) {
     licenseInfo {
       spdxId
       description
+    }
+  }
+}
+`;
+
+export const GET_ROOT_BRANCH = `
+query RepoRootBranch($name: String!, $owner: String!, $branch: String!) {
+  repository(name: $name, owner: $owner) {
+    object(expression: $branch) {
+      ... on Tree {
+        entries {
+          name
+          type
+          object {
+            abbreviatedOid
+            ... on Tree {
+              id
+              entries {
+                name
+                type
+                object {
+                  abbreviatedOid
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    commits:object(expression:$branch) {
+      ... on Commit {
+        history {
+          totalCount
+        }
+      }
     }
   }
 }

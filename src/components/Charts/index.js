@@ -1,7 +1,7 @@
 import AreaChart from "./AreaChart";
-import HeatChart from "./HeatChart";
 import PieChart from "./PieChart";
+import HeatMap from "./HeatMap";
 
 import "./styles.scss";
 
-export { AreaChart, HeatChart, PieChart };
+export { AreaChart, PieChart, HeatMap };

@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import { Anchor, Hourglass } from "react95";
 
-import { AreaChart, HeatChart, PieChart } from "../../components/Charts";
-import Card from "../../components/Card";
+import { AreaChart, PieChart } from "../../components/Charts";
 import RepoButton from "../../components/RepoButton";
+import Calendar from "./Calendar";
 
 import { userChartData } from "../../store";
 import formatDate from "../../utilities/formatDate";
@@ -13,14 +13,9 @@ import processUserLanguages from "../../utilities/processUserLanguages";
 
 export default function Overview({ profile }) {
   const activity = useRecoilValue(userChartData);
-  const [topLangauges, setLanguages] = React.useState([]); // TODO move this to recoil
+  const [topLangauges, setLanguages] = React.useState({}); // TODO move this to recoil
 
   React.useEffect(() => {
-    console.log(
-      "~/Sites/github95/src/views/UserWindow/Overview >>>",
-      activity,
-      processUserLanguages(profile.repositories)
-    );
     setLanguages(processUserLanguages(profile.repositories));
   }, [profile, activity]);
 
@@ -39,7 +34,29 @@ export default function Overview({ profile }) {
                   {profile.login}
                 </span>
               </h2>
-              <div>based, member since, updated at</div>
+              <div className="flex overview__badges">
+                {profile.location && (
+                  <p className="badge -grey -small">
+                    Based:
+                    <br />
+                    {profile.location}
+                  </p>
+                )}
+                {profile.createdAt && (
+                  <p className="badge -grey -small">
+                    Member since:
+                    <br />
+                    {formatDate(profile.createdAt)}
+                  </p>
+                )}
+                {profile.updatedAt && (
+                  <p className="badge -grey -small">
+                    Updated at:
+                    <br />
+                    {formatDate(profile.updatedAt)}
+                  </p>
+                )}
+              </div>
             </div>
             <div>
               <div className="overview__bio">
@@ -68,10 +85,10 @@ export default function Overview({ profile }) {
               )}
               {profile.status && (
                 <div className="flex items-center overview__status">
-                  <p>Update</p>
+                  <p className="overview__statusTitle">Update</p>
                   <p className="overview__statusUpdate">
-                    {profile.status.message}
-                    <span>
+                    <span>{profile.status.message}</span>
+                    <span className="overview__statusTime">
                       {formatDate(profile.status.updatedAt, {
                         time: true,
                         day: true,
@@ -108,46 +125,24 @@ export default function Overview({ profile }) {
             </p>
           </div>
 
-          <div className="flex justify-between p2 bevelBorder overview__chartWrapper">
-            <div className="overview__chartCol">
-              <h3>Number of repositories</h3>
-              <div className="overview__chart">
-                {!activity || !activity[profile.login] ? (
-                  <Hourglass size={32} />
-                ) : (
-                  <AreaChart
-                    name="Repos"
-                    data={activity[profile.login].repositories.repoTotals}
-                    labels={activity[profile.login].repositories.monthsList}
+          {/*  */}
+
+          <div className="p2 bevelBorder overview__chartWrapper">
+            <h3 className="mt1 mb2">Contribution calendar</h3>
+            <div>
+              {!activity || !activity[profile.login] ? (
+                <Hourglass size={32} />
+              ) : (
+                <div className="overflow_contributions">
+                  <Calendar
+                    contributions={activity[profile.login].contributions}
                   />
-                )}
-              </div>
-            </div>
-            <div className="overview__chartCol">
-              <h3>Favourite languages</h3>
-              <div className="overview__chart">
-                {topLangauges[0] && <PieChart topLangauges={topLangauges} />}
-              </div>
+                </div>
+              )}
             </div>
           </div>
 
-          <Card className="overview__card">
-            <h3 className="mt1 mb2">Contribution calendar</h3>
-            {profile.contributions &&
-              profile.contributions.totalContributions && (
-                <p>
-                  {profile.contributions.totalContributions} contributions in
-                  the last 12 months
-                </p>
-              )}
-            <div className="bevelBorder overflow_contributionsTable">
-              {profile.contributions && profile.contributions.calendar ? (
-                <HeatChart data={profile.contributions.calendar} />
-              ) : (
-                <Hourglass />
-              )}
-            </div>
-          </Card>
+          {/*  */}
 
           {profile.pinnedItems && profile.pinnedItems.edges.length > 0 && (
             <>
@@ -187,6 +182,29 @@ export default function Overview({ profile }) {
               </div>
             </>
           )}
+
+          <div className="flex justify-between p2 bevelBorder overview__chartWrapper">
+            <div className="overview__chartCol">
+              <h3>Number of repositories</h3>
+              <div className="overview__chart">
+                {!activity || !activity[profile.login] ? (
+                  <Hourglass size={32} />
+                ) : (
+                  <AreaChart
+                    name="Repos"
+                    data={activity[profile.login].repositories.repoTotals}
+                    labels={activity[profile.login].repositories.monthsList}
+                  />
+                )}
+              </div>
+            </div>
+            <div className="overview__chartCol">
+              <h3>Favourite languages</h3>
+              <div className="overview__chart">
+                {topLangauges["series"] && <PieChart data={topLangauges} />}
+              </div>
+            </div>
+          </div>
 
           <div className="flex-auto bevelBorder overview__events">
             <p>Latest Events || 'no events'</p>

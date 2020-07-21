@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Chart from "react-apexcharts";
 
-const chartProps = (data) => {
-  const series = data.map(({ size }) => size);
-  const labels = data.map(({ name }) => name);
+const chartProps = ({ series, labels }) => {
   return {
     series,
     options: {
@@ -15,18 +13,32 @@ const chartProps = (data) => {
       labels,
       animations: {
         enabled: false,
+        speed: 0,
       },
-      colors: ["#eb8a8a", "#8ca7ec", "#f5f794", "#b4decb", "#db9adb"],
+      colors: ["#eb8a8a", "#f5f794", "#db9adb", "#b4decb", "#8ca7ec"],
+      dataLabels: {
+        style: {
+          fontSize: "8px",
+          fontFamily: "Windows 95",
+          colors: ["#000"],
+        },
+        dropShadow: {
+          enabled: false,
+        },
+      },
     },
   };
 };
 
-export default function PieChart({ topLangauges }) {
-  const [state, set] = React.useState(chartProps(topLangauges));
+export default function PieChart({ data }) {
+  const [state, set] = React.useState(chartProps(data));
 
-  console.log("~/Sites/github95/src/components/Charts/PieChart >>>", state);
+  React.useEffect(() => {
+    set(chartProps(data));
+  }, [data]);
+
   return (
-    <div className="areaChart">
+    <div className="pieChart">
       <Chart
         options={state.options}
         series={state.series}
