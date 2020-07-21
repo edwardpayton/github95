@@ -11,7 +11,7 @@ export default function Calendar({ contributions }) {
         <span>{contributions.busiestDay.date}</span>
       </p>
       <div>
-        <p>Mon</p>
+        <p>Sat</p>
         <p>Sun</p>
       </div>
       <HeatMap data={contributions} />
