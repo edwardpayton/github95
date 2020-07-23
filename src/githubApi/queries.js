@@ -76,9 +76,6 @@ query UserDetails($username: String!) {
     following {
       totalCount
     }
-    watching {
-      totalCount
-    }
     gists {
       totalCount
     }
@@ -99,20 +96,6 @@ query UserDetails($username: String!) {
           }
         }
       }
-    }
-    issues(orderBy: {field: COMMENTS, direction: DESC}, last: 10) {
-      nodes {
-        state
-        updatedAt
-      }
-      totalCount
-    }
-    pullRequests(orderBy: {field: UPDATED_AT, direction: DESC}, last: 10) {
-      nodes {
-        state
-        updatedAt
-      }
-      totalCount
     }
     repositories(privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10) {
       nodes {

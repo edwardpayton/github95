@@ -32,14 +32,18 @@ export const apiGetTopic = async (query) => {
 
 export const apiGetUserEvents = async (user) => {
   try {
-    const resp = await fetch(`https://api.github.com/users/${user}/events`, {
-      headers: {
-        Accept: "application/vnd.github.mercy-preview+json",
-      },
-    });
+    const resp = await fetch(
+      `https://api.github.com/users/${user}/events/public`,
+      {
+        headers: {
+          Accept: "application/vnd.github.mercy-preview+json",
+        },
+      }
+    );
     const json = await resp.json();
 
     if (json.message === "Not Found") {
+      // TODO
       json.error = "Not found";
       return json;
     }

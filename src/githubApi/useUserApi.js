@@ -6,6 +6,7 @@ import {
   searchResultsOfType,
   usersListObj,
   userChartData,
+  userEventsData,
   currentRecordOfType,
 } from "../store";
 import {
@@ -17,6 +18,7 @@ import {
   apiGetUserGists,
   apiGetUserFollows,
 } from "./api";
+import { apiGetUserEvents } from "./api.v3";
 import { USER } from "../constants";
 
 import processChartData from "../utilities/processChartData";
@@ -34,6 +36,7 @@ export default function useUserApi() {
   const [userList, setList] = useRecoilState(usersListObj);
   const searchInput = useRecoilValue(searchInputOfType(USER));
   const [chartData, setChartData] = useRecoilState(userChartData);
+  const [events, setEvents] = useRecoilState(userEventsData);
 
   const getUserSearchResults = React.useCallback(
     async (input) => {
@@ -80,6 +83,12 @@ export default function useUserApi() {
 
     setChartData({ ...chartData, [currentUser]: userChartData });
   }, [searchInput, userList, currentUser, chartData, setChartData]);
+
+  const getUserEvents = React.useCallback(async () => {
+    const respEvents = await apiGetUserEvents(currentUser);
+
+    setEvents({ ...events, [currentUser]: respEvents });
+  }, [currentUser, events, setEvents]);
 
   const getUserRepos = React.useCallback(
     async (cursor = null) => {
@@ -182,6 +191,7 @@ export default function useUserApi() {
     getUserSearchResults,
     getUserProfile,
     getUserActivity,
+    getUserEvents,
     getUserRepos,
     getUserStars,
     getUserGists,

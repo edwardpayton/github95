@@ -81,24 +81,19 @@
   }
   &__user {
     padding-left: 1.25rem;
-    .badge {
-      position: relative;
-      top: -4px;
-      left: 0.25rem;
-    }
   }
-  &__login {
+  &__titleBadge {
     position: relative;
-    top: -0.25rem;
-    left: 0.25rem;
+    top: -4px;
   }
   &__name {
     // color: #ededed;
     line-height: 2;
     margin-bottom: 0.5rem;
   }
+
   &__badges {
-    padding-right: 5px;
+    margin-left: -5px;
     text-align: center;
   }
   &__link {
@@ -133,10 +128,6 @@
         left: -3px;
       }
     }
-  }
-
-  &__bio {
-    padding: 0 0.15rem;
   }
 
   &__status {
@@ -183,35 +174,33 @@
     color: #8ca7ec;
     font-size: 7px !important;
   }
-  &__headerBadges {
-    padding: 0.75rem 3rem 1.25rem;
-    background-color: #fff;
-  }
-  &__headerBadge {
-    width: calc(33% - 0.75rem);
-    text-align: center;
-  }
-  &__headerBadgeNumber {
-    font-size: 14px !important;
-    padding-right: 0.25rem;
-  }
+
   &__events {
     margin-top: 0.75rem;
     padding: 0.5rem;
   }
 
   &__body {
-    padding: 0 1rem;
+    padding: 0 1rem 1rem;
+  }
+
+  &__bodyContent {
+    background-color: #fff;
   }
 
   &__chartWrapper {
-    background-color: #fff;
   }
   &__chartCol {
     width: 50%;
-    > h3 {
-      text-align: center;
+  }
+  &__chart {
+    > .pieChart {
+      margin-left: -1rem;
     }
+  }
+
+  &__pins {
+    padding: 1rem 1rem 0;
   }
 
   &__pin {
@@ -249,7 +238,6 @@
     right: 0.5rem;
   }
   &_contributionsTable {
-    background-color: #fff;
   }
 }
 

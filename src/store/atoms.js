@@ -58,6 +58,11 @@ export const userChartData = atom({
   default: null,
 });
 
+export const userEventsData = atom({
+  key: `userEventsData`,
+  default: {},
+});
+
 // Repo window
 export const reposSearchTopic = atom({
   key: "reposSearchTopic",
