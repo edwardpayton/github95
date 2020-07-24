@@ -7,6 +7,7 @@ import { PieChart } from "../../components/Charts";
 import RepoButton from "../../components/RepoButton";
 import ReposOverTime from "./ReposOverTime";
 import Calendar from "./Calendar";
+import Events from "./Events";
 
 import { userChartData, userEventsData } from "../../store";
 import { useUserApi } from "../../githubApi";
@@ -36,7 +37,6 @@ export default function TabOverview({ profile }) {
   const getEvents = (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        console.log("UserWindow/Overview >>> ");
         getUserEvents();
         refObserver.current.disconnect();
       }
@@ -223,12 +223,6 @@ export default function TabOverview({ profile }) {
               </div>
             </div>
 
-            <div className="overview__events" ref={refEventsElem}>
-              <p>
-                {events && Object.keys(events).length ? "Events" : "No events"}
-              </p>
-            </div>
-
             <div className="overview__chartWrapper">
               <h3 className="p2 pt3">Contributions</h3>
 
@@ -238,6 +232,15 @@ export default function TabOverview({ profile }) {
                 <div className="pl2 pr2 overflow_contributions">
                   <Calendar activity={activity[profile.login]} />
                 </div>
+              )}
+            </div>
+
+            <div className="overview__events" ref={refEventsElem}>
+              {events[profile.login] &&
+              Object.keys(events[profile.login]).length > 0 ? (
+                <Events events={events[profile.login]} />
+              ) : (
+                <p>No events</p>
               )}
             </div>
           </div>
