@@ -8,10 +8,9 @@ import {
   TableRow,
   TableHeadCell,
   TableDataCell,
-  Hourglass,
 } from "react95";
 
-import AnchorButton from "../../components/AnchorButton";
+import RepoButton from "../../components/RepoButton";
 import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
 
@@ -19,7 +18,7 @@ import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
 import { USER } from "../../constants";
 
-export default function Stars({ stars, total, onPageChange }) {
+export default function TabRepos({ repos, total, onPageChange }) {
   const currentUser = useRecoilValue(currentRecordOfType(USER));
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
@@ -31,8 +30,8 @@ export default function Stars({ stars, total, onPageChange }) {
     }
   };
 
-  const processStars = React.useCallback(() => {
-    let reversed = [...stars].reverse();
+  const processRepos = React.useCallback(() => {
+    let reversed = [...repos].reverse();
     const grouped = reversed.reduce((newArray, item, i) => {
       const groupI = Math.floor(i / 20);
       if (!newArray[groupI]) newArray[groupI] = [];
@@ -40,24 +39,24 @@ export default function Stars({ stars, total, onPageChange }) {
       return newArray;
     }, []);
     return grouped;
-  }, [stars]);
+  }, [repos]);
 
   React.useEffect(() => {
-    if (stars && stars.length) {
-      setPaginated(processStars());
+    if (repos && repos.length) {
+      setPaginated(processRepos());
     }
-  }, [stars, processStars]);
+  }, [repos, processRepos]);
 
   React.useEffect(() => {
     setPageNumber(0);
   }, [currentUser]);
 
   return (
-    <div className="userStars">
-      <h3>Stars</h3>
+    <div className="userRepos">
+      <h3>Repositories</h3>
       {paginated && paginated.length > 0 ? (
         <>
-          <Table className="table">
+          <Table className="table userRepos__table">
             <TableHead>
               <TableRow head>
                 <TableHeadCell className="table__headCell">
@@ -65,6 +64,9 @@ export default function Stars({ stars, total, onPageChange }) {
                 </TableHeadCell>
                 <TableHeadCell className="table__headCell -fixedWidth">
                   Main language
+                </TableHeadCell>
+                <TableHeadCell className="table__headCell -fixedWidth">
+                  Updated
                 </TableHeadCell>
                 <TableHeadCell className="table__headCell -fixedWidth">
                   Link
@@ -78,29 +80,35 @@ export default function Stars({ stars, total, onPageChange }) {
                     cursor,
                     node: {
                       name,
+                      isFork,
                       description,
                       url,
                       updatedAt,
                       primaryLanguage,
-                      stargazers,
-                      forks,
+                      repositoryTopics,
                     },
                   }) => (
                     <TableRow key={cursor} className="table__bodyRow">
                       <TableDataCell className="table__bodyCell">
-                        <p className="fontSize14">{name}</p>
-                        <p>{description}</p>
-                        <div>
-                          <div className="badge -small -textBlack">
-                            Stars: {stargazers.totalCount || 0}
+                        <p className="fontSize14">
+                          {name}
+                          {isFork && (
+                            <span className="badge -grey -textBlack">Fork</span>
+                          )}
+                        </p>
+                        <p className="userRepos__repoDesc">{description}</p>
+                        {repositoryTopics.nodes.length > 0 && (
+                          <div>
+                            {repositoryTopics.nodes.map(({ topic }) => (
+                              <p
+                                className="badge -small -textBlack"
+                                key={cursor + topic.name}
+                              >
+                                {topic.name}
+                              </p>
+                            ))}
                           </div>
-                          <div className="badge -small -textBlack">
-                            Forks: {forks.totalCount || 0}
-                          </div>
-                          <div className="badge -small -textBlack">
-                            Updated: {formatDate(updatedAt)}
-                          </div>
-                        </div>
+                        )}
                       </TableDataCell>
                       <TableDataCell className="table__bodyCell">
                         {primaryLanguage !== null ? (
@@ -109,7 +117,9 @@ export default function Stars({ stars, total, onPageChange }) {
                           >
                             <span
                               className="badge"
-                              style={{ backgroundColor: primaryLanguage.color }}
+                              style={{
+                                backgroundColor: primaryLanguage.color,
+                              }}
                             ></span>
                             {primaryLanguage.name}
                           </p>
@@ -118,9 +128,10 @@ export default function Stars({ stars, total, onPageChange }) {
                         )}
                       </TableDataCell>
                       <TableDataCell className="table__bodyCell">
-                        <AnchorButton href={url} target="_blank">
-                          Go to repo
-                        </AnchorButton>
+                        {formatDate(updatedAt)}
+                      </TableDataCell>
+                      <TableDataCell className="pl1 table__bodyCell">
+                        <RepoButton name={name} owner={currentUser.login} />
                       </TableDataCell>
                     </TableRow>
                   )

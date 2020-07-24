@@ -2,7 +2,8 @@ import formatDate from "./formatDate";
 
 export default function (activity) {
   const { contributionsCollection, repositories } = activity;
-  if (repositories === undefined) return repositories;
+  if (repositories === undefined || contributionsCollection === undefined)
+    return activity;
 
   return {
     contributions: heatMap(contributionsCollection),
@@ -122,6 +123,12 @@ function heatMap({ contributionCalendar, startedAt, endedAt }) {
  * repo totals would be [0,0,0,1]
  */
 function areaChart({ nodes }) {
+  if (!nodes.length)
+    return {
+      monthsList: [],
+      repoTotals: [],
+    };
+
   const firstRepo = new Date(nodes[0].createdAt);
   const today = new Date();
   let monthsSinceFirstRepo =

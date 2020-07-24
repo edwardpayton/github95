@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Table,
   TableBody,
@@ -15,7 +16,7 @@ import { useSetRecoilState } from "recoil";
 import { searchInputOfType } from "../../store";
 import { USER } from "../../constants";
 
-export default function Following({ following, total, url }) {
+export default function TabFollowers({ followers, total, url }) {
   const setSearch = useSetRecoilState(searchInputOfType(USER));
 
   const handleClick = (login) => () => {
@@ -24,12 +25,12 @@ export default function Following({ following, total, url }) {
 
   return (
     <div className="userFollowers">
-      <h3>Following</h3>
-      {following && following.length > 0 ? (
+      <h3>Followers</h3>
+      {followers && followers.length > 0 ? (
         <>
           <Table className="table">
             <TableBody>
-              {following.map(({ name, avatarUrl, login, url }) => (
+              {followers.map(({ name, avatarUrl, login, url }) => (
                 <TableRow key={name + login} className="table__bodyRow">
                   <TableDataCell className="flex table__bodyCell">
                     <img
@@ -56,7 +57,7 @@ export default function Following({ following, total, url }) {
               ))}
             </TableBody>
           </Table>
-          <AnchorButton href={`${url}/following`}>
+          <AnchorButton href={`${url}/followers`}>
             View all {total} on github.com
           </AnchorButton>
         </>

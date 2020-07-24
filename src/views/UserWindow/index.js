@@ -1,14 +1,14 @@
 import React from "react";
-import { Tabs, Tab, TabBody, Hourglass } from "react95";
+import { Tabs, Tab, TabBody } from "react95";
 import { useRecoilValue } from "recoil";
 
 import Searchbar from "./Searchbar";
-import Overview from "./Overview";
-import Repos from "./Repos";
-import Stars from "./Stars";
-import Followers from "./Followers";
-import Following from "./Following";
-import Gists from "./Gists";
+import TabOverview from "./TabOverview";
+import TabRepos from "./TabRepos";
+import TabStars from "./TabStars";
+import TabFollowers from "./TabFollowers";
+import TabFollowing from "./TabFollowing";
+import TabGists from "./TabGists";
 
 import { currentRecordOfType, usersListObj } from "../../store";
 import { useUserApi } from "../../githubApi";
@@ -189,14 +189,14 @@ export default function UserWindow() {
                   className="userContent__body"
                   style={{ display: activeTab === 0 ? "block" : "none" }}
                 >
-                  <Overview profile={userList[currentUser]} />
+                  <TabOverview profile={userList[currentUser]} />
                 </section>
                 <section
                   className="userContent__body"
                   style={{ display: activeTab === 1 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Repos
+                    <TabRepos
                       repos={userList[currentUser].apiData.repos}
                       total={userList[currentUser].repositories.totalCount}
                       onPageChange={handleReposPagination}
@@ -209,7 +209,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 2 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Stars
+                    <TabStars
                       stars={userList[currentUser].apiData.stars}
                       total={
                         userList[currentUser].starredRepositories.totalCount
@@ -224,7 +224,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 3 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Followers
+                    <TabFollowers
                       followers={userList[currentUser].apiData.followers}
                       total={userList[currentUser].followers.totalCount}
                       url={userList[currentUser].url}
@@ -237,7 +237,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 4 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Following
+                    <TabFollowing
                       following={userList[currentUser].apiData.following}
                       total={userList[currentUser].following.totalCount}
                       url={userList[currentUser].url}
@@ -250,7 +250,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 5 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
-                    <Gists
+                    <TabGists
                       gists={userList[currentUser].apiData.gists}
                       total={userList[currentUser].gists.totalCount}
                       onPageChange={handleGistsPagination}

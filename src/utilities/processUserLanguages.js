@@ -1,4 +1,9 @@
 export default function (repositories) {
+  if (!repositories.nodes.length)
+    return {
+      series: [],
+      labels: [],
+    };
   const languages = repositories.nodes
     .map((repo) => {
       if (repo.isPrivate || repo.isArchived) return null;

@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 import { Anchor, Hourglass } from "react95";
 
-import { AreaChart, PieChart } from "../../components/Charts";
+import { PieChart } from "../../components/Charts";
 import RepoButton from "../../components/RepoButton";
+import ReposOverTime from "./ReposOverTime";
 import Calendar from "./Calendar";
 
 import { userChartData, userEventsData } from "../../store";
@@ -12,22 +13,30 @@ import { useUserApi } from "../../githubApi";
 import formatDate from "../../utilities/formatDate";
 import processUserLanguages from "../../utilities/processUserLanguages";
 
-export default function Overview({ profile }) {
+export default function TabOverview({ profile }) {
   const activity = useRecoilValue(userChartData);
   const events = useRecoilValue(userEventsData);
   const [topLangauges, setLanguages] = React.useState({}); // TODO move this to recoil
+  const refOverview = React.useRef(undefined);
   const refEventsElem = React.useRef(undefined);
   const refObserver = React.useRef(undefined);
 
   React.useEffect(() => {
-    setLanguages(processUserLanguages(profile.repositories));
+    if (profile.repositories) {
+      setLanguages(processUserLanguages(profile.repositories));
+    }
   }, [profile, activity]);
+
+  React.useEffect(() => {
+    refOverview.current.scrollTop = 0;
+  }, [profile.login]);
 
   const { getUserEvents } = useUserApi();
 
   const getEvents = (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
+        console.log("UserWindow/Overview >>> ");
         getUserEvents();
         refObserver.current.disconnect();
       }
@@ -50,7 +59,7 @@ export default function Overview({ profile }) {
   }, [refEventsElem, profile.login]); // observeScroll - unneeded
 
   return (
-    <div className="userContent__bodyInner scrollable -yOnly">
+    <div className="userContent__bodyInner scrollable -yOnly" ref={refOverview}>
       <div className="overview">
         <div className="flex flex-auto overview__header">
           <div className="bevelBorder-outset overview__profileImage">
@@ -192,11 +201,7 @@ export default function Overview({ profile }) {
                   {!activity || !activity[profile.login] ? (
                     <Hourglass size={32} />
                   ) : (
-                    <AreaChart
-                      name="Repos"
-                      data={activity[profile.login].repositories.repoTotals}
-                      labels={activity[profile.login].repositories.monthsList}
-                    />
+                    <ReposOverTime activity={activity[profile.login]} />
                   )}
                 </div>
               </div>
@@ -208,7 +213,12 @@ export default function Overview({ profile }) {
                   </span>
                 </h3>
                 <div className="pl1 pr2 overview__chart">
-                  {topLangauges["series"] && <PieChart data={topLangauges} />}
+                  {topLangauges["series"] &&
+                  topLangauges["series"].length > 0 ? (
+                    <PieChart data={topLangauges} />
+                  ) : (
+                    <p>Cannot show this users top languages</p>
+                  )}
                 </div>
               </div>
             </div>
@@ -226,12 +236,7 @@ export default function Overview({ profile }) {
                 <Hourglass size={32} />
               ) : (
                 <div className="pl2 pr2 overflow_contributions">
-                  <Calendar
-                    contributions={activity[profile.login].contributions}
-                    onComplete={(e) =>
-                      console.log("UserWindow/Overview >>>", e)
-                    }
-                  />
+                  <Calendar activity={activity[profile.login]} />
                 </div>
               )}
             </div>

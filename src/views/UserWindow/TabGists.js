@@ -11,7 +11,7 @@ import { currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
 import { USER } from "../../constants";
 
-export default function Gists({ gists, total, onPageChange }) {
+export default function TabGists({ gists, total, onPageChange }) {
   const currentUser = useRecoilValue(currentRecordOfType(USER));
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
