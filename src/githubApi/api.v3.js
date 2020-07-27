@@ -33,7 +33,7 @@ export const apiGetTopic = async (query) => {
 export const apiGetUserEvents = async (user) => {
   try {
     const resp = await fetch(
-      `https://api.github.com/users/${user}/events/public`,
+      `https://api.github.com/users/${user}/events/public?per_page=300`,
       {
         headers: {
           Accept: "application/vnd.github.mercy-preview+json",

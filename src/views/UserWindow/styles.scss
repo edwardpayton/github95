@@ -176,7 +176,7 @@
   }
 
   &__events {
-    margin-top: 0.75rem;
+    margin-top: 0.25rem;
     padding: 0.5rem;
   }
 
@@ -238,6 +238,43 @@
     right: 0.5rem;
   }
   &_contributionsTable {
+  }
+}
+
+.events {
+  &__list {
+  }
+  &__month {
+    margin-bottom: 1rem;
+    > h3 {
+      font-size: 12px;
+      margin-bottom: 0.5rem;
+    }
+  }
+  &__eventList {
+  }
+  &__event {
+  }
+  &__date {
+    display: inline-block;
+    min-width: 45px;
+    margin-right: 10px;
+  }
+  &__openRepo {
+    background: none;
+    color: inherit;
+    border: none;
+    font: inherit;
+    outline: inherit;
+    white-space: nowrap;
+    color: #1034a6;
+    text-decoration: underline;
+  }
+  &__plusMore {
+    color: #6c6c6c;
+    font-size: 8px !important;
+  }
+  &__showMore {
   }
 }
 

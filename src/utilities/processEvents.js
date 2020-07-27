@@ -37,5 +37,6 @@ export default function (events) {
     i--;
   }
   // events array now grouped by month, ordered desc by date
+  // TODO - if missing month (eg no events in that month), add empty row OR prevMonth entry
   return orderedEvents;
 }
