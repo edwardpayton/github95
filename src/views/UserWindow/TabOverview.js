@@ -237,7 +237,7 @@ export default function TabOverview({ profile }) {
 
             <div className="overview__eventsWrapper" ref={refEventsElem}>
               <h3 className="p2 pt3">Events from last 90 days</h3>
-              <div className="p2 mt1 mb2 mx2 flatBorder overview__events">
+              <div className="p2 mt1 mb2 mx2 scrollable -yOnly bevelBorder overview__events">
                 {events[profile.login] ? (
                   <>
                     {Object.keys(events[profile.login]).length > 0 ? (

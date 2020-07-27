@@ -176,8 +176,10 @@
   }
 
   &__events {
+    max-height: 250px;
     margin-top: 0.25rem;
     padding: 0.5rem;
+    background-color: #ededed;
   }
 
   &__body {
@@ -271,10 +273,10 @@
     text-decoration: underline;
   }
   &__plusMore {
-    color: #6c6c6c;
     font-size: 8px !important;
   }
   &__showMore {
+    margin-bottom: 0.75rem;
   }
 }
 

@@ -23,8 +23,8 @@ export default function (events) {
     obj[monthNum]
       ? obj[monthNum].data.push(event)
       : (obj[monthNum] = {
-          key: monthNames[monthNum],
-          date: `${monthNames[monthNum]} ${createdDate[0]}`,
+          key: monthNames[monthNum - 1],
+          date: `${monthNames[monthNum - 1]} ${createdDate[0]}`,
           data: [event],
         });
     return obj;
