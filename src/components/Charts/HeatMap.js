@@ -1,132 +1,154 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Chart from "react-apexcharts";
+import Chart from "chart.js";
+import "chartjs-chart-matrix";
 
-export default function HeatChart({ series, ranges, onComplete }) {
-  const updated = (e) => onComplete(e);
-  const setChart = chartProps(updated);
-
-  const [state, setState] = React.useState(setChart(series, ranges));
+export default function HeatMap({ data }) {
+  const refChart = React.useRef(undefined);
 
   React.useEffect(() => {
-    setState(setChart(series, ranges));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [series, ranges]);
+    if (!refChart.current) return;
+    const ctx = refChart.current.getContext("2d");
+    buildChart(ctx, data);
+  }, [refChart, data]);
 
   return (
-    <div className="chart -typeArea">
-      <Chart
-        options={state.options}
-        series={state.series}
-        type="heatmap"
-        height={150}
-      />
+    <div className="heatMap">
+      <div className="heatMap__chart">
+        <canvas width="670" height="100" ref={refChart} />
+      </div>
+      <div className="flex justify-between labels -x">
+        <p>{data.start}</p>
+        <p>{data.end}</p>
+      </div>
+      <div className="flex flex-column justify-between labels -y">
+        <p>Sun</p>
+        <p>Thurs</p>
+        <p>Mon</p>
+      </div>
     </div>
   );
 }
 
-function chartProps(updated) {
-  return (series, ranges) => {
-    return {
-      series,
-      options: {
-        chart: {
-          height: 350,
-          type: "heatmap",
-          zoom: {
-            enabled: false,
+function buildChart(ctx, data) {
+  return new Chart(ctx, {
+    type: "matrix",
+    data: {
+      datasets: [
+        {
+          label: "",
+          data: data.series,
+          backgroundColor: ({ dataset, dataIndex }) =>
+            color(dataset, dataIndex, data.busiestDay.v),
+          borderWidth: 1,
+          borderColor: "#ededed",
+          // @ts-ignore
+          width: ({ chart }) => {
+            const { left, right } = chart.chartArea;
+            return (right - left) / 60;
           },
-          toolbar: {
-            show: false,
-          },
-          animations: {
-            enabled: false,
-          },
-          events: {
-            updated,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        legend: {
-          show: false,
-        },
-        grid: {
-          show: false,
-        },
-        yaxis: {
-          labels: {
-            show: false,
+          height: ({ chart }) => {
+            const { top, bottom } = chart.chartArea;
+            return (bottom - top) / 5;
           },
         },
-        xaxis: {
-          labels: {
-            show: false,
-          },
-          axisTicks: {
-            show: false,
-          },
-          crosshairs: {
-            show: false,
-          },
-          tooltip: {
-            enabled: false,
-          },
+      ],
+    },
+    options: {
+      layout: {
+        padding: {
+          top: 20,
+          bottom: 20,
+          left: 0,
+          right: 0,
         },
-        tooltip: {
-          x: {
-            show: false,
+      },
+      legend: {
+        display: false,
+      },
+      tooltips: {
+        displayColors: false,
+        callbacks: {
+          title: function () {
+            return "";
           },
-          y: {
-            title: {
-              formatter: () => "",
-            },
-            formatter: function (value, { seriesIndex, dataPointIndex }) {
-              const date = series[seriesIndex].data[dataPointIndex].x;
-              return `${date}: ${value}`;
-            },
-          },
-          marker: {
-            show: false,
-          },
-        },
-        plotOptions: {
-          heatmap: {
-            radius: 0,
-            enableShades: false,
-            colorScale: {
-              ranges,
-            },
-          },
-        },
-        states: {
-          active: {
-            filter: {
-              type: "none",
-            },
+          label: function (item, data) {
+            var v = data.datasets[item.datasetIndex].data[item.index];
+            return [v["tooltip"]];
           },
         },
       },
-    };
-  };
+      scales: {
+        xAxes: [
+          {
+            type: "time",
+            position: "bottom",
+            offset: true,
+            time: {
+              unit: "week",
+              round: "week",
+              displayFormats: {
+                week: "MMM DD",
+              },
+            },
+            ticks: {
+              display: false,
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false,
+              tickMarkLength: 0,
+            },
+          },
+        ],
+        yAxes: [
+          {
+            type: "time",
+            offset: true,
+            position: "right",
+            time: {
+              unit: "day",
+              parser: "e",
+              displayFormats: {
+                day: "ddd",
+              },
+            },
+            ticks: {
+              display: false,
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false,
+              tickMarkLength: 0,
+            },
+          },
+        ],
+      },
+    },
+  });
 }
 
-// PropTypes
-const seriesShape = {
-  name: PropTypes.string,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({ x: PropTypes.string, y: PropTypes.string })
-  ),
-};
-const rangesShape = {
-  from: PropTypes.number,
-  to: PropTypes.number,
-  color: PropTypes.string,
-  name: PropTypes.string,
-};
-HeatChart.propTypes = {
-  series: PropTypes.arrayOf(PropTypes.shape(seriesShape)).isRequired,
-  ranges: PropTypes.arrayOf(PropTypes.shape(rangesShape)).isRequired,
-  onComplete: PropTypes.func.isRequired,
-};
+function color(dataset, i, max) {
+  const alpha = dataset.data[i]["v"] / max;
+  if (alpha === 1) return "rgb(46, 202, 163)";
+  switch (true) {
+    case alpha >= 0.75: {
+      return "#1c44ac";
+    }
+    case alpha >= 0.5: {
+      return "#4263bb";
+    }
+    case alpha >= 0.25: {
+      return "#768ecf";
+    }
+    case alpha >= 0.1: {
+      return "#bcc9ea";
+    }
+    case alpha >= 0.01: {
+      return "#e5eaf9";
+    }
+    default: {
+      return "#fff";
+    }
+  }
+}

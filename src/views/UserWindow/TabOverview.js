@@ -230,7 +230,7 @@ export default function TabOverview({ profile }) {
                 <Hourglass size={32} />
               ) : (
                 <div className="pl2 pr2 overflow_contributions">
-                  <Calendar activity={activity[profile.login]} />
+                  <Calendar data={activity[profile.login].contributions} />
                 </div>
               )}
             </div>

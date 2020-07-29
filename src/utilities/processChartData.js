@@ -22,97 +22,25 @@ export default function (activity) {
  */
 function heatMap({ contributionCalendar, startedAt, endedAt }) {
   const { totalContributions, weeks } = contributionCalendar;
-  const series = [
-    {
-      name: "Mon",
-      data: [],
-    },
-    {
-      name: "Tues",
-      data: [],
-    },
-    {
-      name: "Wed",
-      data: [],
-    },
-    {
-      name: "Thurs",
-      data: [],
-    },
-    {
-      name: "Fri",
-      data: [],
-    },
-    {
-      name: "Sat",
-      data: [],
-    },
-    {
-      name: "Sun",
-      data: [],
-    },
-  ];
-  const numArray = [];
+  const series = [];
   weeks.forEach(({ contributionDays }) => {
     let i = 0;
     do {
-      series[i].data.push({
-        x: formatDate(contributionDays[i].date),
-        y: contributionDays[i].contributionCount,
-      });
-      numArray.push({
-        date: formatDate(contributionDays[i].date),
-        num: contributionDays[i].contributionCount,
+      const { date, contributionCount } = contributionDays[i];
+      series.push({
+        x: date,
+        y: new Date(date).getDay(),
+        v: contributionCount,
+        tooltip: `${formatDate(date)} - ${contributionCount}`,
       });
       i++;
     } while (contributionDays[i] !== undefined);
   });
-  const busiestDay = numArray.sort((a, b) => a.num - b.num).reverse()[0];
-  const createPoint = (point) => {
-    return Math.ceil(busiestDay.num / point);
-  };
-  const ranges = [
-    {
-      from: 0,
-      to: 0,
-      color: "#f7f7f7",
-      name: "",
-    },
-    {
-      from: 1,
-      to: createPoint(4),
-      color: "#bacaf4",
-      name: "",
-    },
-    {
-      from: createPoint(4),
-      to: createPoint(3),
-      color: "#7897e9",
-      name: "",
-    },
-    {
-      from: createPoint(3),
-      to: createPoint(2),
-      color: "#3665de",
-      name: "",
-    },
-    {
-      from: createPoint(2),
-      to: createPoint(1) - 1,
-      color: "#1c44ac",
-      name: "",
-    },
-    {
-      from: busiestDay.num,
-      to: busiestDay.num + 1,
-      color: "#2ecaa3",
-      name: "",
-    },
-  ];
 
+  const busiestDay = [...series].sort((a, b) => a.v - b.v).reverse()[0];
   const start = formatDate(startedAt);
   const end = formatDate(endedAt);
-  return { series, total: totalContributions, start, end, busiestDay, ranges };
+  return { series, total: totalContributions, start, end, busiestDay };
 }
 
 /**

@@ -8,7 +8,6 @@ export default function ReposOverTime({ activity }) {
       {activity.repositories.monthsList &&
       activity.repositories.monthsList.length > 0 ? (
         <AreaChart
-          name="Repos"
           data={activity.repositories.repoTotals}
           labels={activity.repositories.monthsList}
         />

@@ -1,10 +1,19 @@
 import React from "react";
-// import { HeatMap } from "../../components/Charts";
+import { HeatMap } from "../../components/Charts";
 
-export default function Calendar({ activity }) {
+export default function Calendar({ data }) {
+  const [showChart, setShow] = React.useState(false);
+
+  React.useEffect(() => {
+    let show = false;
+    if (data && data.total !== 0) show = true;
+    setShow(show);
+    console.log("UserWindow/Calendar >>>", data);
+  }, [data]);
+
   return (
-    <div>
-      <p>
+    <div className="calendar">
+      {/* <p>
         {activity.contributions.total} contributions since{" "}
         {activity.contributions.start}
       </p>
@@ -14,7 +23,8 @@ export default function Calendar({ activity }) {
           <span>{activity.contributions.busiestDay.num}</span> on{" "}
           <span>{activity.contributions.busiestDay.date}</span>
         </p>
-      )}
+      )} */}
+      {showChart && <HeatMap data={data} />}
     </div>
   );
 }

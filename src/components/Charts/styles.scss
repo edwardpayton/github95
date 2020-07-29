@@ -1,31 +1,5 @@
-.areaChart {
-  position: relative;
-  margin-top: -30px;
-  &__labelsY {
-    position: absolute;
-    right: 5px;
-    top: 50px;
-    bottom: 20px;
-    text-align: center;
-    &:before {
-      position: absolute;
-      content: "";
-      top: 0;
-      bottom: 0;
-      width: calc(50% + 1px);
-      background-image: linear-gradient(black 25%, rgba(255, 255, 255, 0) 0%);
-      background-position: right;
-      background-size: 2px 8px;
-      background-repeat: repeat-y;
-    }
-    > p {
-      position: relative;
-      padding: 2px 0;
-      background-color: #fff;
-      font-size: 8px !important;
-    }
-  }
-  &__labelsX {
+.labels {
+  &.-x {
     position: relative;
     padding-right: 30px;
     margin: -25px -10px 0;
@@ -51,28 +25,51 @@
       font-size: 8px !important;
     }
   }
+  &.-y {
+    position: absolute;
+    right: 5px;
+    top: 30px;
+    bottom: 20px;
+    text-align: center;
+    &:before {
+      position: absolute;
+      content: "";
+      top: 0;
+      bottom: 0;
+      width: calc(50% + 1px);
+      background-image: linear-gradient(black 25%, rgba(255, 255, 255, 0) 0%);
+      background-position: right;
+      background-size: 2px 8px;
+      background-repeat: repeat-y;
+    }
+    > p {
+      position: relative;
+      padding: 1px 0;
+      background-color: #fff;
+      font-size: 8px !important;
+    }
+  }
 }
 
-.pieChart {
+.areaChart {
+  position: relative;
+  margin-top: -30px;
 }
 
-// override tooltip
-.apexcharts-tooltip {
-  background: #fff !important;
-  border-radius: 0 !important;
-  border: 1px solid #1c44ac !important;
-}
-.apexcharts-tooltip-series-group {
-  padding: 0px 8px !important;
-}
-.apexcharts-tooltip-text-value {
-  margin-left: 0 !important;
-}
-.apexcharts-legend-text {
-  font-size: 8px !important;
-}
-.apexcharts-legend.position-right {
-  top: 50% !important;
-  right: 25px !important;
-  transform: translateY(-50%);
+.heatMap {
+  position: relative;
+
+  &__chart {
+    padding-right: 35px;
+  }
+  .labels {
+    &.-y {
+      top: 10px;
+      bottom: 20px;
+      right: 0;
+    }
+    &.-x {
+      margin: -3px -10px 0;
+    }
+  }
 }
