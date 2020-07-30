@@ -53,7 +53,6 @@ export default function TabStars({ stars, total, onPageChange }) {
 
   return (
     <div className="userStars">
-      <h3>Stars</h3>
       {paginated && paginated.length > 0 ? (
         <>
           <Table className="table">

@@ -53,7 +53,6 @@ export default function TabRepos({ repos, total, onPageChange }) {
 
   return (
     <div className="userRepos">
-      <h3>Repositories</h3>
       {paginated && paginated.length > 0 ? (
         <>
           <Table className="table userRepos__table">

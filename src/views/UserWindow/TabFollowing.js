@@ -24,7 +24,6 @@ export default function TabFollowing({ following, total, url }) {
 
   return (
     <div className="userFollowers">
-      <h3>Following</h3>
       {following && following.length > 0 ? (
         <>
           <Table className="table">

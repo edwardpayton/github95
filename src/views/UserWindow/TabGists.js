@@ -50,7 +50,6 @@ export default function TabGists({ gists, total, onPageChange }) {
 
   return (
     <div className="gists">
-      <h3>Gists</h3>
       {paginated && paginated.length > 0 ? (
         <>
           {paginated[pageNumber] &&

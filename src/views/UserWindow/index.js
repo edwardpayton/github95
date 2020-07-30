@@ -196,6 +196,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 1 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
+                    <h3 className="userContent__tabTitle">Repositories</h3>
                     <TabRepos
                       repos={userList[currentUser].apiData.repos}
                       total={userList[currentUser].repositories.totalCount}
@@ -209,6 +210,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 2 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
+                    <h3 className="userContent__tabTitle">Stars</h3>
                     <TabStars
                       stars={userList[currentUser].apiData.stars}
                       total={
@@ -224,6 +226,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 3 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
+                    <h3 className="userContent__tabTitle">Followers</h3>
                     <TabFollowers
                       followers={userList[currentUser].apiData.followers}
                       total={userList[currentUser].followers.totalCount}
@@ -237,6 +240,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 4 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
+                    <h3 className="userContent__tabTitle">Following</h3>
                     <TabFollowing
                       following={userList[currentUser].apiData.following}
                       total={userList[currentUser].following.totalCount}
@@ -250,6 +254,7 @@ export default function UserWindow() {
                   style={{ display: activeTab === 5 ? "block" : "none" }}
                 >
                   <div className="userContent__bodyInner scrollable -yOnly">
+                    <h3 className="userContent__tabTitle">Gists</h3>
                     <TabGists
                       gists={userList[currentUser].apiData.gists}
                       total={userList[currentUser].gists.totalCount}

@@ -59,6 +59,10 @@
 .userContent__intro {
   margin-top: 3rem;
 }
+.userContent__tabTitle {
+  text-align: center;
+  padding: 1rem;
+}
 
 /* User content overview */
 .overview {
@@ -348,5 +352,11 @@
     position: absolute;
     bottom: 2rem;
     right: 1.25rem;
+  }
+}
+
+.pagination {
+  &__list {
+    margin: 0.5rem 0;
   }
 }
