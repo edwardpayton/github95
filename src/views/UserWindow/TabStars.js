@@ -10,7 +10,7 @@ import {
   TableDataCell,
 } from "react95";
 
-import AnchorButton from "../../components/AnchorButton";
+import RepoButton from "../../components/RepoButton";
 import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
 
@@ -77,7 +77,7 @@ export default function TabStars({ stars, total, onPageChange }) {
                     node: {
                       name,
                       description,
-                      url,
+                      owner,
                       updatedAt,
                       primaryLanguage,
                       stargazers,
@@ -116,9 +116,7 @@ export default function TabStars({ stars, total, onPageChange }) {
                         )}
                       </TableDataCell>
                       <TableDataCell className="table__bodyCell">
-                        <AnchorButton href={url} target="_blank">
-                          Go to repo
-                        </AnchorButton>
+                        <RepoButton name={name} owner={owner.login} />
                       </TableDataCell>
                     </TableRow>
                   )

@@ -8,7 +8,7 @@
   &__header {
     padding: 0.5rem 2px;
     > h1 {
-      max-width: 420px;
+      max-width: 400px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -20,6 +20,7 @@
     > div > .badge {
       text-align: center;
       line-height: 11px;
+      height: 12px;
     }
     > div > a {
       margin-left: 5px;
@@ -113,6 +114,7 @@
       margin-bottom: 0.5rem;
       line-height: 2;
       max-width: 100%;
+      overflow: hidden;
     }
     h1,
     h2,

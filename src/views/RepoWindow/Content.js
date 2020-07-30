@@ -42,7 +42,7 @@ export default function Content({ content, onTreeClick }) {
         <h1>
           {content.owner.login}/{content.name}
         </h1>
-        <div className="flex">
+        <div className="flex justify-end">
           <p className="badge -grey">Watchers: {content.watchers.totalCount}</p>
           <p className="badge -grey">Stars: {content.stargazers.totalCount}</p>
           <p className="badge -grey">Forks: {content.forks.totalCount}</p>

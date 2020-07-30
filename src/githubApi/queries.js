@@ -207,8 +207,10 @@ query UserStars($username: String!, $cursor: String) {
         node {
           name
           description
+          owner {
+            login
+          }
           updatedAt
-          url
           stargazers {
             totalCount
           }

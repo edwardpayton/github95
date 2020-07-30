@@ -130,7 +130,7 @@ export default function TabRepos({ repos, total, onPageChange }) {
                         {formatDate(updatedAt)}
                       </TableDataCell>
                       <TableDataCell className="pl1 table__bodyCell">
-                        <RepoButton name={name} owner={currentUser.login} />
+                        <RepoButton name={name} owner={currentUser} />
                       </TableDataCell>
                     </TableRow>
                   )
