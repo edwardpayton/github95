@@ -13,12 +13,13 @@ export default function PieChart({ data }) {
 
   return (
     <div className="pieChart">
-      <canvas width="300" height="300" ref={refChart} />
+      <canvas width="250" height="250" ref={refChart} />
     </div>
   );
 }
 
 function buildChart(ctx, { series, labels }) {
+  const totalLines = series.reduce((a, b) => b + (a ? a : a));
   return new Chart(ctx, {
     type: "pie",
     data: {
@@ -38,18 +39,34 @@ function buildChart(ctx, { series, labels }) {
       labels,
     },
     options: {
-      responsive: true,
+      layout: {
+        padding: {
+          bottom: 50,
+        },
+      },
+      legend: {
+        // position: "right",
+        onClick: () => "",
+        labels: {
+          boxWidth: 10,
+        },
+      },
       tooltips: {
         displayColors: false,
         callbacks: {
           title: function () {
             return "";
           },
-          label: function (item, data) {
-            var v = data.datasets[item.datasetIndex].data[item.index];
-            return ["TOOLTIP"];
+          label: function ({ index, datasetIndex }, data) {
+            const val = data.datasets[datasetIndex].data[index];
+            const lang = data.labels[index];
+            // @ts-ignore
+            return [`${lang} - ${((val / totalLines) * 100).toFixed(1)}%`];
           },
         },
+      },
+      animation: {
+        duration: 0,
       },
     },
   });

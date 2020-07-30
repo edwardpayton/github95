@@ -27,7 +27,6 @@ export default function AreaChart({ data, labels }) {
 }
 
 function buildChart(ctx, data, labels) {
-  console.log("Charts/AreaChart >>>", data);
   return new Chart(ctx, {
     type: "line",
     data: {
@@ -76,6 +75,9 @@ function buildChart(ctx, data, labels) {
             display: false,
           },
         ],
+      },
+      animation: {
+        duration: 0,
       },
     },
   });

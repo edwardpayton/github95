@@ -6,7 +6,7 @@ import { Anchor, Hourglass } from "react95";
 import { PieChart } from "../../components/Charts";
 import RepoButton from "../../components/RepoButton";
 import ReposOverTime from "./ReposOverTime";
-import Calendar from "./Calendar";
+import Activity from "./Activity";
 import Events from "./Events";
 
 import { userChartData, userEventsData } from "../../store";
@@ -207,7 +207,7 @@ export default function TabOverview({ profile }) {
               </div>
               <div className="overview__chartCol">
                 <h3 className="p2 pt3">
-                  Languages{" "}
+                  Top Languages{" "}
                   <span className="badge -grey -small overview__titleBadge">
                     Based on 10 recent repos
                   </span>
@@ -224,19 +224,19 @@ export default function TabOverview({ profile }) {
             </div>
 
             <div className="overview__chartWrapper">
-              <h3 className="p2 pt3">Contributions</h3>
+              <h3 className="p2 pt3">Activity</h3>
 
               {!activity || !activity[profile.login] ? (
                 <Hourglass size={32} />
               ) : (
                 <div className="pl2 pr2 overflow_contributions">
-                  <Calendar data={activity[profile.login].contributions} />
+                  <Activity data={activity[profile.login].contributions} />
                 </div>
               )}
             </div>
 
             <div className="overview__eventsWrapper" ref={refEventsElem}>
-              <h3 className="p2 pt3">Events from last 90 days</h3>
+              <h3 className="p2 pt3">Activity from last 90 days</h3>
               <div className="p2 mt1 mb2 mx2 scrollable -yOnly bevelBorder overview__events">
                 {events[profile.login] ? (
                   <>

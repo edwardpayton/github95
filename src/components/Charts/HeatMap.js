@@ -39,7 +39,7 @@ function buildChart(ctx, data) {
           label: "",
           data: data.series,
           backgroundColor: ({ dataset, dataIndex }) =>
-            color(dataset, dataIndex, data.busiestDay.v),
+            color(dataset, dataIndex, data.busiestSingleDay.v),
           borderWidth: 1,
           borderColor: "#ededed",
           // @ts-ignore
@@ -123,6 +123,9 @@ function buildChart(ctx, data) {
             },
           },
         ],
+      },
+      animation: {
+        duration: 0,
       },
     },
   });

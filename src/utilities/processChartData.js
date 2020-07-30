@@ -1,5 +1,15 @@
 import formatDate from "./formatDate";
 
+const dayNames = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 export default function (activity) {
   const { contributionsCollection, repositories } = activity;
   if (repositories === undefined || contributionsCollection === undefined)
@@ -37,10 +47,32 @@ function heatMap({ contributionCalendar, startedAt, endedAt }) {
     } while (contributionDays[i] !== undefined);
   });
 
-  const busiestDay = [...series].sort((a, b) => a.v - b.v).reverse()[0];
+  const busiestSingleDay = [...series].sort((a, b) => a.v - b.v).reverse()[0];
+
+  const busiestDayOfWeek = [...series]
+    .reduce((arr, day) => {
+      const i = day.y;
+      if (arr[i] !== undefined) arr[i].commits += day.v;
+      else arr[i] = { day: dayNames[i], commits: day.v };
+      return arr;
+    }, [])
+    .map((day) => {
+      day.percent = Math.ceil((day.commits / totalContributions) * 100);
+      return day;
+    })
+    .sort((a, b) => a.percent - b.percent)
+    .reverse();
+
   const start = formatDate(startedAt);
   const end = formatDate(endedAt);
-  return { series, total: totalContributions, start, end, busiestDay };
+  return {
+    series,
+    total: totalContributions,
+    start,
+    end,
+    busiestSingleDay,
+    busiestDayOfWeek,
+  };
 }
 
 /**

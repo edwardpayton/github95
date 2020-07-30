@@ -10,8 +10,7 @@ const user = {
   header: "Explore Users - Search Github for users",
   desktopIcon: true,
   desktopPosition: 1,
-  // visibility: [false, false],
-  visibility: [true, true], // true while working on feature
+  visibility: [false, false],
 };
 const repos = {
   label: "Search Repos",
@@ -37,8 +36,8 @@ const facebookreact = {
   header: "facebook react",
   desktopIcon: false,
   desktopPosition: null,
-  // visibility: [true, true], // true while working on feature
-  visibility: [false, false],
+  visibility: [true, true], // true while working on feature
+  // visibility: [false, false],
   details: { owner: "facebook", name: "react" },
 };
 

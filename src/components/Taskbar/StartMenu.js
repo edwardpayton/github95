@@ -101,7 +101,7 @@ export default function StartMenu() {
         className="mr1 startMenu__triggerButton"
       >
         <img
-          src={require("../../assets/win-logo.png")}
+          src={require("../../assets/octocat-icon.png")}
           alt=""
           className="startMenu__logo"
         />

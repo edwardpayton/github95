@@ -243,6 +243,17 @@
   }
 }
 
+.activity {
+  &__list {
+    list-style: square outside none;
+    padding-left: 1rem;
+    > li {
+      list-style: inherit;
+      line-height: 3;
+    }
+  }
+}
+
 .events {
   &__list {
   }
