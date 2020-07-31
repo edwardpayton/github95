@@ -14,7 +14,7 @@ export default function Activity({ data }) {
 
   return (
     <div className="activity">
-      {data.total > 0 ? (
+      {data && data.total > 0 ? (
         <ul className="activity__list">
           <li>
             {data.total} contributions since {data.start}

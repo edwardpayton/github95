@@ -45,7 +45,7 @@ query UserSearch($username: String!) {
  *
  * TODO - consider adding in user readme if it exists:
     repository(name: $username) {
-      object(expression: "master:README.md") {
+      object(expression: "HEAD:README.md") {
         ... on Blob {
           id
           text
@@ -387,7 +387,7 @@ query RepoDetails($name: String!, $owner: String!) {
         }
       }
     }
-    object(expression: "master:") {
+    object(expression: "HEAD:") {
       ... on Tree {
         entries {
           name
@@ -408,7 +408,7 @@ query RepoDetails($name: String!, $owner: String!) {
         }
       }
     }
-    commits:object(expression:"master") {
+    commits:object(expression:"HEAD") {
       ... on Commit {
         history {
           totalCount

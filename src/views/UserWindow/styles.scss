@@ -243,7 +243,28 @@
     bottom: 0.5rem;
     right: 0.5rem;
   }
-  &_contributionsTable {
+}
+
+.reposOverTime {
+  &__badge {
+    text-align: center;
+    width: 160px;
+    height: 160px;
+    margin: 1rem auto;
+    padding: 1rem;
+    background: #ededed;
+  }
+  &__badgeSegment {
+    &.-total {
+      font-size: 30px !important;
+      margin-bottom: -10px;
+    }
+    &.-since {
+    }
+    &.-date {
+      font-size: 16px !important;
+      margin-bottom: -5px;
+    }
   }
 }
 

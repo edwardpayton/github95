@@ -190,18 +190,22 @@ export default function TabOverview({ profile }) {
 
             <div className="flex justify-between overview__chartWrapper">
               <div className="overview__chartCol">
-                <h3 className="p2 pt3">
-                  Repositories{" "}
-                  <span className="badge -grey -small overview__titleBadge">
-                    {profile.repositories.totalCount} repos since{" "}
-                    {formatDate(profile.createdAt)}
-                  </span>
+                <h3
+                  className={`p2 pt3${
+                    profile.repositories.totalCount > 100 ? " center" : ""
+                  }`}
+                >
+                  Repositories
                 </h3>
                 <div className="pl2 pr1 overview__chart">
                   {!activity || !activity[profile.login] ? (
                     <Hourglass size={32} />
                   ) : (
-                    <ReposOverTime activity={activity[profile.login]} />
+                    <ReposOverTime
+                      activity={activity[profile.login]}
+                      total={profile.repositories.totalCount}
+                      startDate={formatDate(profile.createdAt)}
+                    />
                   )}
                 </div>
               </div>
@@ -223,7 +227,7 @@ export default function TabOverview({ profile }) {
               </div>
             </div>
 
-            <div className="overview__chartWrapper">
+            <div className="pt1 overview__chartWrapper">
               <h3 className="p2 pt3">Activity</h3>
 
               {!activity || !activity[profile.login] ? (
@@ -235,7 +239,7 @@ export default function TabOverview({ profile }) {
               )}
             </div>
 
-            <div className="overview__eventsWrapper" ref={refEventsElem}>
+            <div className="pt1 overview__eventsWrapper" ref={refEventsElem}>
               <h3 className="p2 pt3">Activity from last 90 days</h3>
               <div className="p2 mt1 mb2 mx2 scrollable -yOnly bevelBorder overview__events">
                 {events[profile.login] ? (

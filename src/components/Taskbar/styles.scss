@@ -91,6 +91,9 @@
     text-shadow: -1px 0 hsla(0, 0%, 0%, 0.7);
   }
   &__logo {
+    position: relative;
+    top: -1px;
+    left: -1px;
     width: 22px;
     padding-right: 5px;
     image-rendering: pixelated;

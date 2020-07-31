@@ -2,10 +2,21 @@ import React from "react";
 
 import { AreaChart } from "../../components/Charts";
 
-export default function ReposOverTime({ activity }) {
+export default function ReposOverTime({ activity, total, startDate }) {
+  if (total > 100)
+    return (
+      <p className="flex flex-column justify-around bevelBorder reposOverTime__badge">
+        <span className="reposOverTime__badgeSegment -total">{total}</span>
+        <span className="reposOverTime__badgeSegment -since">
+          repos created since
+        </span>
+        <span className="reposOverTime__badgeSegment -date">{startDate}</span>
+      </p>
+    );
   return (
     <>
-      {activity.repositories.monthsList &&
+      {activity.repositories &&
+      activity.repositories.monthsList &&
       activity.repositories.monthsList.length > 0 ? (
         <AreaChart
           data={activity.repositories.repoTotals}

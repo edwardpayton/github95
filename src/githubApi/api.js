@@ -75,9 +75,10 @@ export const apiGetUserProfile = async (username) => {
 
 export const apiGetUserActivity = async (username, numRepos) => {
   try {
+    const max100 = numRepos > 100 ? 100 : numRepos;
     const resp = await githubApiGraphQL({
       query: GET_USER_ACTIVITY,
-      variables: { username, numRepos },
+      variables: { username, numRepos: max100 },
     });
     let json = await resp.json();
 
@@ -177,9 +178,6 @@ export const apiGetRepoDetails = async (name, owner) => {
     let json = await resp.json();
     json = json.data.repository;
 
-    // console.log("~/Sites/github95/src/githubApi/api >>>", json);
-    // Todo - Readme sometimes errors because 'repository' / 'entries' are undefined.
-
     const readme =
       json.object &&
       json.object.entries.filter(
@@ -189,7 +187,7 @@ export const apiGetRepoDetails = async (name, owner) => {
     if (readme) {
       const respFile = await githubApiGraphQL({
         query: GET_REPO_FILE_CONTENTS,
-        variables: { name, owner, file: `master:${readme.name}` },
+        variables: { name, owner, file: `HEAD:${readme.name}` },
       });
 
       let jsonReadme = await respFile.json();
@@ -209,7 +207,7 @@ export const apiGetFileTree = async (name, owner, file) => {
   try {
     const resp = await githubApiGraphQL({
       query: GET_REPO_FILE_TREE,
-      variables: { name, owner, file: `master:${file}` },
+      variables: { name, owner, file: `HEAD:${file}` },
     });
     let json = await resp.json();
 
@@ -225,7 +223,7 @@ export const apiGetFileContents = async (name, owner, file) => {
   try {
     const resp = await githubApiGraphQL({
       query: GET_REPO_FILE_CONTENTS,
-      variables: { name, owner, file: `master:${file}` },
+      variables: { name, owner, file: `HEAD:${file}` },
     });
 
     let json = await resp.json();

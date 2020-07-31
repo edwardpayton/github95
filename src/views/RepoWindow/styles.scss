@@ -8,7 +8,7 @@
   &__header {
     padding: 0.5rem 2px;
     > h1 {
-      max-width: 400px;
+      max-width: 350px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -82,6 +82,7 @@
   &__about {
     padding: 1rem;
     border: 1px inset;
+    flex-grow: 1;
   }
 
   // Files tab
