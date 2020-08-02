@@ -188,7 +188,7 @@
 }
 .table__headCell {
   position: sticky !important;
-  top: 2px;
+  top: 4px;
   z-index: 10;
 }
 .table__headCell.-fixedWidth,
@@ -203,7 +203,7 @@
   right: 0;
   top: -1px;
   z-index: -1;
-  box-shadow: 0px 0px 0px 1px #000;
+  box-shadow: 0px 0px 0px 1px #000, 0px -1px 0px 2px #848584;
 }
 .table__bodyCell.table__bodyCell {
   background-color: #fff;
@@ -227,12 +227,62 @@
   background-position: 0 0, 1.5px 1.5px;
   padding: 1rem;
   vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
+
 .table__bodyRow:nth-of-type(even) > .table__bodyCell {
   background-color: #ededed;
 }
 .table__bodyRow:hover > .table__bodyCell {
   background-color: #606e92;
+}
+
+/* Explorer window */
+.explorerWindow {
+  width: 750px;
+  height: 550px;
+}
+.explorerWindow__header {
+  height: 40px;
+  margin-top: -5px;
+}
+.explorerWindow__headerButtons {
+  border: 2px outset;
+  padding: 0.25rem;
+}
+.explorerWindow__bar {
+  height: 30px !important;
+  margin-right: 0.5rem;
+}
+.explorerWindow__logo {
+  position: relative;
+  width: 60px;
+  background-color: #000;
+}
+.explorerWindow__logo > img {
+  position: relative;
+  margin: auto;
+}
+.explorerWindow__logoBg {
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  background: linear-gradient(
+      0deg,
+      #1c44ac 0%,
+      #1c44ac 50%,
+      #e35f5f 50%,
+      #e35f5f 100%
+    ),
+    linear-gradient(0deg, #dfe300 0%, #dfe300 50%, #208c71 50%, #208c71 100%);
+  background-size: 10px, 10px;
+  background-position: 0 0, 10px 0px;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+  filter: blur(5px);
 }
 
 /* Scrollable sections 

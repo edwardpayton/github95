@@ -37,10 +37,10 @@ export default function TrendingWindow() {
 
   return (
     <>
-      <section className="flex flex-column trendingWindow">
-        <div className="flex justify-between trendingWindow__header">
-          <div className="flex flex-auto items-center trendingWindow__headerButtons">
-            <Bar className="trendingWindow__bar" />
+      <section className="flex flex-column explorerWindow mostFollowedWindow">
+        <div className="flex justify-between explorerWindow__header">
+          <div className="flex flex-auto items-center explorerWindow__headerButtons">
+            <Bar className="explorerWindow__bar" />
             <Button variant="menu" size="sm">
               File
             </Button>
@@ -51,8 +51,8 @@ export default function TrendingWindow() {
               View
             </Button>
           </div>
-          <div className="flex trendingWindow__logo">
-            <div className="trendingWindow__logoBg" />
+          <div className="flex explorerWindow__logo">
+            <div className="explorerWindow__logoBg" />
             <img
               src={`${require("../../assets/win-logo.png")}`}
               alt=""
@@ -63,7 +63,7 @@ export default function TrendingWindow() {
         <div className="flex trendingWindow__panelHeader">
           <p>All Folders</p>
           <p>
-            Contents of '{type} \ {period}''
+            Contents of '{type} \ {period}'
           </p>
         </div>
         <div className="flex flex-auto trendingWindow__panels">

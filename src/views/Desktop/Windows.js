@@ -6,6 +6,7 @@ import AboutWindow from "../AboutWindow";
 import UserWindow from "../UserWindow";
 import RepoSearchWindow from "../RepoSearchWindow";
 import TrendingWindow from "../TrendingWindow";
+import MostFollowedWindow from "../MostFollowedWindow";
 import RepoWindow from "../RepoWindow";
 
 import { windowObj } from "../../store";
@@ -15,6 +16,7 @@ const componentList = {
   user: UserWindow,
   repos: RepoSearchWindow,
   trending: TrendingWindow,
+  mostFollowed: MostFollowedWindow,
 };
 
 export default function Windows() {

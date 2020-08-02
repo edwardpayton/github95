@@ -443,41 +443,6 @@ query RepoDetails($name: String!, $owner: String!) {
 }
 `;
 
-export const GET_ROOT_BRANCH = `
-query RepoRootBranch($name: String!, $owner: String!, $branch: String!) {
-  repository(name: $name, owner: $owner) {
-    object(expression: $branch) {
-      ... on Tree {
-        entries {
-          name
-          type
-          object {
-            abbreviatedOid
-            ... on Tree {
-              id
-              entries {
-                name
-                type
-                object {
-                  abbreviatedOid
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    commits:object(expression:$branch) {
-      ... on Commit {
-        history {
-          totalCount
-        }
-      }
-    }
-  }
-}
-`;
-
 export const GET_REPO_FILE_TREE = `
 query RepoFileTree($name: String!, $owner: String!, $file: String!) {
   repository(name: $name, owner: $owner) {
@@ -574,6 +539,36 @@ query RepoReadme($name: String!, $owner: String!, $file: String!) {
     object(expression: $file) {
       ... on Blob {
         text
+      }
+    }
+  }
+}
+`;
+
+/**
+ * get Github most followed repos
+ * returns 25 repos
+ */
+
+export const GET_REPO_MOST_FOLLOWED = `
+query RepoSearchMostFollowed {
+  search(query: "followers:>=1000", type: REPOSITORY, first: 25) {
+    edges {
+      node {
+        ... on Repository {
+          name
+          owner {
+            login
+          }
+          stargazers {
+            totalCount
+          }
+          primaryLanguage {
+            name
+          }
+          pushedAt
+          id
+        }
       }
     }
   }

@@ -1,10 +1,3 @@
-const about = {
-  label: "About",
-  header: "About this project - Notepad",
-  desktopIcon: true,
-  desktopPosition: 3,
-  visibility: [false, false], // eg [button visible (show button), window visible (show window)]
-};
 const user = {
   label: "User Profiles",
   header: "Explore Users - Search Github for users",
@@ -29,6 +22,23 @@ const trending = {
   desktopPosition: 2,
   visibility: [false, false],
 };
+const mostFollowed = {
+  label: "Most Followed Repos",
+  header:
+    '<img src="' +
+    require("../assets/folder-open.png") +
+    '" /> Exploring - Github\\Most Followed Repos',
+  desktopIcon: true,
+  desktopPosition: 3,
+  visibility: [false, false],
+};
+const about = {
+  label: "About",
+  header: "About this project - Notepad",
+  desktopIcon: true,
+  desktopPosition: 4,
+  visibility: [false, false], // eg [button visible (show button), window visible (show window)]
+};
 
 // For testing - TODO remove
 const facebookreact = {
@@ -46,6 +56,7 @@ export const WINDOW_OBJ = {
   user,
   repos,
   trending,
+  mostFollowed,
   facebookreact,
 };
 

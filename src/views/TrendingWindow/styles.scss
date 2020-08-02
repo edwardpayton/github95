@@ -1,47 +1,4 @@
 .trendingWindow {
-  width: 750px;
-  height: 550px;
-  &__header {
-    height: 40px;
-    margin-top: -5px;
-  }
-  &__headerButtons {
-    border: 2px outset;
-    padding: 0.25rem;
-  }
-  &__bar {
-    height: 30px !important;
-    margin-right: 0.5rem;
-  }
-  &__logo {
-    position: relative;
-    width: 60px;
-    background-color: #000;
-    > img {
-      position: relative;
-      margin: auto;
-    }
-  }
-  &__logoBg {
-    position: absolute;
-    top: 8px;
-    left: 18px;
-    background: linear-gradient(
-        0deg,
-        #1c44ac 0%,
-        #1c44ac 50%,
-        #e35f5f 50%,
-        #e35f5f 100%
-      ),
-      linear-gradient(0deg, #dfe300 0%, #dfe300 50%, #208c71 50%, #208c71 100%);
-    background-size: 10px, 10px;
-    background-position: 0 0, 10px 0px;
-    background-repeat: no-repeat;
-    width: 20px;
-    height: 20px;
-    filter: blur(5px);
-  }
-
   &__panelHeader {
     padding: 4px 0 2px;
     > p {

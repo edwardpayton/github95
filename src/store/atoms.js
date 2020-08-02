@@ -92,3 +92,9 @@ export const trending = atom({
     developers: [],
   },
 });
+
+// Most followed repos window
+export const mostFollowed = atom({
+  key: "mostFollowed",
+  default: [],
+});

@@ -13,6 +13,7 @@ import {
   repoWindows,
   repoFiles,
   trending,
+  mostFollowed,
 } from "./atoms";
 import { apiLimit, userActivity } from "./selectors";
 
@@ -33,4 +34,5 @@ export {
   repoWindows,
   repoFiles,
   trending,
+  mostFollowed,
 };

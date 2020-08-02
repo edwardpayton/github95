@@ -6,12 +6,14 @@ import {
   reposSearchTopic,
   repoWindows,
   repoFiles,
+  mostFollowed,
 } from "../store";
 import {
   apiGetRepoSearchResults,
   apiGetRepoDetails,
   apiGetFileTree,
   apiGetFileContents,
+  apiGetRepoMostFollowed,
 } from "./api";
 import { apiGetTopic } from "./api.v3";
 import { REPOS } from "../constants";
@@ -21,6 +23,7 @@ export default function useReposApi() {
   const [topic, setTopic] = useRecoilState(reposSearchTopic);
   const [currentDetailWindows, setDetails] = useRecoilState(repoWindows);
   const [files, setFiles] = useRecoilState(repoFiles);
+  const setMostFollowed = useSetRecoilState(mostFollowed);
 
   const getRepoSearchResults = React.useCallback(
     async (input, sort = "", cursor) => {
@@ -112,10 +115,20 @@ export default function useReposApi() {
     });
   }, []);
 
+  const getMostFollowed = React.useCallback(async () => {
+    const results = await apiGetRepoMostFollowed();
+    if (!results || results instanceof Error) {
+      console.error("ERROR", results); // TODO
+    }
+
+    setMostFollowed(results);
+  }, []);
+
   return {
     getRepoSearchResults,
     getRepoDetails,
     getRepoFileTree,
     getRepoFileContents,
+    getMostFollowed,
   };
 }
