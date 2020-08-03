@@ -18,11 +18,26 @@ export default function Content({ content, onTreeClick }) {
   const files = useRecoilValue(repoFiles);
   const refFile = React.useRef("");
   const [fileState, setFile] = React.useState("");
+  const refTabsList = React.useRef(new Set([]));
 
-  const { getRepoFileContents } = useReposApi();
+  const { getRepoFileContents, getRepoIssues } = useReposApi();
 
-  const handleTabChange = (_, value) => {
-    setActiveTab(value);
+  const handleTabChange = (_, activeTab) => {
+    setActiveTab(activeTab);
+
+    switch (activeTab) {
+      case 2: {
+        refTabsList.current.add(2);
+        return getRepoIssues(content.name, content.owner.login);
+      }
+      case 3: {
+        refTabsList.current.add(3);
+        // return getUserFollows();
+        return true; // TODO get pull requests
+      }
+      default:
+        return;
+    }
   };
 
   const handleFileClick = (file) => {
@@ -187,7 +202,7 @@ export default function Content({ content, onTreeClick }) {
           style={{ display: activeTab === 2 ? "flex" : "none" }}
         >
           <div className="scrollable -yOnly">
-            <Issues />
+            <Issues issues={content.apiData.issues} />
           </div>
         </section>
 

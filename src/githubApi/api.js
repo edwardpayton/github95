@@ -11,6 +11,8 @@ import {
   GET_REPO_DETAILS,
   GET_REPO_FILE_TREE,
   GET_REPO_FILE_CONTENTS,
+  GET_REPO_ISSUES,
+  GET_REPO_PULL_REQUESTS,
   GET_REPO_MOST_FOLLOWED,
 } from "./queries";
 
@@ -229,6 +231,22 @@ export const apiGetFileContents = async (name, owner, file) => {
 
     let json = await resp.json();
     json = json.data.repository.object;
+
+    return { ...json };
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
+export const apiGetRepoIssues = async (name, owner, since) => {
+  try {
+    const resp = await githubApiGraphQL({
+      query: GET_REPO_ISSUES,
+      variables: { name, owner, since },
+    });
+
+    let json = await resp.json();
+    json = json.data.repository;
 
     return { ...json };
   } catch (error) {

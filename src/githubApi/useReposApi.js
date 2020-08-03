@@ -13,6 +13,7 @@ import {
   apiGetRepoDetails,
   apiGetFileTree,
   apiGetFileContents,
+  apiGetRepoIssues,
   apiGetRepoMostFollowed,
 } from "./api";
 import { apiGetTopic } from "./api.v3";
@@ -124,11 +125,33 @@ export default function useReposApi() {
     setMostFollowed(results);
   }, []);
 
+  const getRepoIssues = React.useCallback(async (name, owner) => {
+    const date = new Date();
+    const minus1Wk = date.setDate(date.getDate() - 7);
+    const since = new Date(minus1Wk).toISOString();
+
+    const results = await apiGetRepoIssues(name, owner, since);
+
+    if (!results || results instanceof Error) {
+      console.error("ERROR", results); // TODO
+    }
+
+    const details = JSON.parse(JSON.stringify(currentDetailWindows));
+
+    details[`${owner}${name}`].apiData = {
+      ...details[`${owner}${name}`].apiData,
+      issues: results,
+    };
+
+    setDetails({ ...details });
+  }, []);
+
   return {
     getRepoSearchResults,
     getRepoDetails,
     getRepoFileTree,
     getRepoFileContents,
+    getRepoIssues,
     getMostFollowed,
   };
 }

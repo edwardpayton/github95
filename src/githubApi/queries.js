@@ -417,11 +417,11 @@ query RepoDetails($name: String!, $owner: String!) {
     }
     branches:refs(first: 0, refPrefix: "refs/heads/") {
       totalCount
-      nodes {
-        name
-      }
     }
     tags:refs(first: 0, refPrefix: "refs/tags/") {
+      totalCount
+    }
+    issues(first: 0, states: OPEN) {
       totalCount
     }
     releases(last: 1) {
@@ -461,28 +461,69 @@ query RepoFileTree($name: String!, $owner: String!, $file: String!) {
 }
 `;
 
+/**
+ * get Github repo issues
+ * returns:
+ * latest 10 issues
+ * most commented in last 7 days
+ * $name: string - the repo name
+ * $owner: string - the repo owner
+ * $since: UTC date string - eg "2020-07-27T00:00:00.000Z" - date.toISOString()
+ */
 export const GET_REPO_ISSUES = `
-query RepoIssues($name: String!, $owner: String!) {
+query RepoIssues($name: String!, $owner: String!, $since: DateTime!) {
   repository(name: $name, owner: $owner) {
-    issues(states: OPEN, first: 10, orderBy: {field: COMMENTS, direction: DESC}) {
-      totalCount
+    latest: issues(first: 10, states: OPEN, orderBy: {direction: DESC, field: CREATED_AT}) {
       edges {
         node {
-          title
-          createdAt
+          id
           updatedAt
+          title
           url
           author {
             login
+            url
           }
           comments(last: 1) {
+            totalCount
             edges {
               node {
+                id
                 bodyText
                 updatedAt
                 url
                 author {
                   login
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    mostCommented7Days: issues(first: 3, orderBy: {direction: DESC, field: COMMENTS}, filterBy: {since: $since, states: OPEN}) {
+      edges {
+        node {
+          id
+          updatedAt
+          title
+          url
+          author {
+            login
+            url
+          }
+          comments(last: 1) {
+            totalCount
+            edges {
+              node {
+                id
+                bodyText
+                updatedAt
+                url
+                author {
+                  login
+                  url
                 }
               }
             }
