@@ -1,26 +1,52 @@
 import React from "react";
 
-export default function Issues({ issues }) {
-  React.useEffect(() => {
-    console.log("RepoWindow/Issues >>>", issues);
-  }, [issues]);
+import { Table, TableBody, TableRow, TableDataCell, Anchor } from "react95";
+
+import AnchorButton from "../../components/AnchorButton";
+import formatDate from "../../utilities/formatDate";
+
+export default function Issues({ data }) {
+  if (!data) {
+    return (
+      <div className="py4 center">
+        <p>Loading</p>
+      </div>
+    );
+  }
+
+  if (
+    data &&
+    Object.keys(data).length &&
+    data.mostCommented7Days &&
+    data.mostCommented7Days.edges.length === 0 &&
+    data.latest &&
+    data.latest.edges.length === 0
+  ) {
+    return (
+      <div className="py4 center">
+        <p>No issues</p>
+      </div>
+    );
+  }
 
   return (
     <div className="issues">
-      {issues && Object.keys(issues).length > 0 && (
+      {data.mostCommented7Days.edges.length > 0 && (
         <>
-          {issues.mostCommented7Days.edges.length > 0 && (
-            <>
-              <h3>Most commented in last seven days</h3>
-              <IssuesList issues={issues.mostCommented7Days.edges} />
-            </>
-          )}
-          {issues.latest.edges.length > 0 && (
-            <>
-              <h3>Latest</h3>
-              <IssuesList issues={issues.latest.edges} />
-            </>
-          )}
+          <h3 className="mt1 mb2 flex items-top">
+            Top commented issues in last seven days
+            <span className="badge -grey">Three top commented</span>
+          </h3>
+          <IssuesList issues={data.mostCommented7Days.edges} />
+        </>
+      )}
+      {data.latest.edges.length > 0 && (
+        <>
+          <h3 className="my2 mb flex items-top">
+            Latest issues
+            <span className="badge -grey">10 latest</span>
+          </h3>
+          <IssuesTable issues={data.latest.edges} />
         </>
       )}
     </div>
@@ -28,11 +54,108 @@ export default function Issues({ issues }) {
 }
 
 function IssuesList({ issues }) {
-  return issues.map(
-    ({ node: { id, title, author, comments, updatedAt, url } }) => (
-      <div key={id}>
-        <p>{title}</p>
-      </div>
-    )
+  return (
+    <ul className="mb3 issues__list">
+      {issues.map(
+        ({
+          node: { id, title, author, comments, createdAt, updatedAt, url },
+        }) => (
+          <li key={id} className="mt2 issues__listItem">
+            <div className="flex justify-between">
+              <p className="flex items-baseline issues__titleWrapper">
+                <span className="issues__title">{title}</span>
+                <span className="badge -grey issues__login">
+                  {author.login}
+                </span>
+              </p>
+
+              <AnchorButton href={url} className="issues__listLink">
+                Open on github.com
+              </AnchorButton>
+            </div>
+            <div className="mt2 flex">
+              <div className="badge -small -textBlack">
+                Created: {formatDate(createdAt)}
+              </div>
+              <div className="badge -small -textBlack">
+                Updated: {formatDate(updatedAt)}
+              </div>
+              <div className="badge -small -textBlack">
+                Comments: {comments.totalCount}
+              </div>
+            </div>
+            {comments.edges.length > 0 &&
+              Object.keys(comments.edges[0].node).length > 0 && (
+                <div className="mt2 issues__comment">
+                  <Anchor
+                    href={comments.edges[0].node.url}
+                    target="_blank"
+                    className="issues__commentLink"
+                  >
+                    <p className="issues__commentTitle">
+                      Latest comment on{" "}
+                      {formatDate(comments.edges[0].node.updatedAt, {
+                        time: true,
+                      })}{" "}
+                      by {comments.edges[0].node.author.login}
+                    </p>
+                  </Anchor>
+
+                  <div className="issues__commentBody">
+                    <div
+                      className={`pullRequests__commentText${
+                        comments.edges[0].node.bodyText.length > 300
+                          ? " -fade"
+                          : ""
+                      }`}
+                    >
+                      {comments.edges[0].node.bodyText}
+                    </div>
+                  </div>
+                </div>
+              )}
+          </li>
+        )
+      )}
+    </ul>
+  );
+}
+
+function IssuesTable({ issues }) {
+  return (
+    <Table className="table issues__table">
+      <TableBody>
+        {issues.map(
+          ({
+            node: { id, title, author, comments, createdAt, updatedAt, url },
+          }) => (
+            <TableRow key={id} className="table__bodyRow">
+              <TableDataCell className="table__bodyCell issues__tableCell">
+                <p className="flex items-baseline issues__titleWrapper">
+                  <span className="issues__title">{title}</span>
+                  <span className="badge -grey issues__login">
+                    {author.login}
+                  </span>
+                </p>
+                <div>
+                  <div className="badge -small -textBlack">
+                    Created: {formatDate(createdAt)}
+                  </div>
+                  <div className="badge -small -textBlack">
+                    Updated: {formatDate(updatedAt)}
+                  </div>
+                  <div className="badge -small -textBlack">
+                    Comments: {comments.totalCount}
+                  </div>
+                </div>
+              </TableDataCell>
+              <TableDataCell className="table__bodyCell issues__tableCell">
+                <AnchorButton href={url}>Open on github.com</AnchorButton>
+              </TableDataCell>
+            </TableRow>
+          )
+        )}
+      </TableBody>
+    </Table>
   );
 }

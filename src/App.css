@@ -10,7 +10,7 @@
   margin-left: 5px;
   font-size: 8px !important;
   line-height: 10px;
-  border: 1px inset;
+  border: 1px inset #ededed;
   background-color: #dbf4e8;
   background-image: linear-gradient(
       45deg,
@@ -64,10 +64,13 @@
 
 /* Borders */
 .bevelBorder {
-  border: 2px inset;
+  border: 2px inset #ededed;
 }
 .bevelBorder-outset {
-  border: 2px outset;
+  border: 2px outset #ededed;
+}
+.bevelBorder-small {
+  border: 1px inset #ededed;
 }
 .flatBorder {
   border: 2px solid #ced0cf;
@@ -249,7 +252,7 @@
   margin-top: -5px;
 }
 .explorerWindow__headerButtons {
-  border: 2px outset;
+  border: 2px outset #ededed;
   padding: 0.25rem;
 }
 .explorerWindow__bar {

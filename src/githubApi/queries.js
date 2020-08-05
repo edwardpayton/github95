@@ -424,6 +424,9 @@ query RepoDetails($name: String!, $owner: String!) {
     issues(first: 0, states: OPEN) {
       totalCount
     }
+    pullRequests(states: OPEN, first: 0) {
+      totalCount
+    }
     releases(last: 1) {
       edges {
         node {
@@ -477,6 +480,7 @@ query RepoIssues($name: String!, $owner: String!, $since: DateTime!) {
       edges {
         node {
           id
+          createdAt
           updatedAt
           title
           url
@@ -486,18 +490,6 @@ query RepoIssues($name: String!, $owner: String!, $since: DateTime!) {
           }
           comments(last: 1) {
             totalCount
-            edges {
-              node {
-                id
-                bodyText
-                updatedAt
-                url
-                author {
-                  login
-                  url
-                }
-              }
-            }
           }
         }
       }
@@ -506,6 +498,7 @@ query RepoIssues($name: String!, $owner: String!, $since: DateTime!) {
       edges {
         node {
           id
+          createdAt
           updatedAt
           title
           url
@@ -538,26 +531,51 @@ query RepoIssues($name: String!, $owner: String!, $since: DateTime!) {
 export const GET_REPO_PULL_REQUESTS = `
 query RepoPullRequests($name: String!, $owner: String!) {
   repository(name: $name, owner: $owner) {
-    pullRequests(states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}, first: 10) {
-      totalCount
-      nodes {
-        title
-        author {
-          login
-        }
-        createdAt
-        updatedAt
-        url
-        mergeable
-        locked
-        comments(last: 1) {
-          edges {
-            node {
-              bodyText
-              updatedAt
-              url
-              author {
-                login
+    pullRequests(states: OPEN, orderBy: {field: UPDATED_AT, direction: DESC}, first: 3) {
+      edges {
+        node {
+          id
+          title
+          author {
+            login
+          }
+          createdAt
+          updatedAt
+          url
+          mergeable
+          locked
+          commits(last: 1) {
+            totalCount
+            edges {
+              node {
+                commit {
+                  message
+                  pushedDate
+                  changedFiles
+                  url
+                  commitUrl
+                  author {
+                    user {
+                      login
+                    }
+                  }
+                  status {
+                    state
+                  }
+                }
+              }
+            }
+          }
+          comments(last: 1) {
+            totalCount
+            edges {
+              node {
+                bodyText
+                updatedAt
+                url
+                author {
+                  login
+                }
               }
             }
           }

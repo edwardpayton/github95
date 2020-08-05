@@ -12,18 +12,25 @@ import PullRequests from "./PullRequests";
 import { repoFiles } from "../../store";
 import { useReposApi } from "../../githubApi";
 import capitalize from "../../utilities/capitalize";
+import formatBigNumber from "../../utilities/formatBigNumber";
 
 export default function Content({ content, onTreeClick }) {
   const [activeTab, setActiveTab] = React.useState(0);
   const files = useRecoilValue(repoFiles);
   const refFile = React.useRef("");
-  const [fileState, setFile] = React.useState("");
-  const refTabsList = React.useRef(new Set([]));
+  const [fileState, setFile] = React.useState({});
+  const refTabsList = React.useRef(new Set([0, 1]));
 
-  const { getRepoFileContents, getRepoIssues } = useReposApi();
+  const {
+    getRepoFileContents,
+    getRepoIssues,
+    getRepoPullRequests,
+  } = useReposApi();
 
   const handleTabChange = (_, activeTab) => {
     setActiveTab(activeTab);
+
+    if (refTabsList.current.has(activeTab)) return;
 
     switch (activeTab) {
       case 2: {
@@ -32,8 +39,7 @@ export default function Content({ content, onTreeClick }) {
       }
       case 3: {
         refTabsList.current.add(3);
-        // return getUserFollows();
-        return true; // TODO get pull requests
+        return getRepoPullRequests(content.name, content.owner.login);
       }
       default:
         return;
@@ -74,9 +80,20 @@ export default function Content({ content, onTreeClick }) {
           </Tab>
           <Tab value={2} className="tabs__tab repoWindow__tab">
             <p>Issues</p>
+            <span
+              className={`badge -small ${activeTab === 2 ? "-blue" : "-grey"}`}
+            >
+              {content.issues && formatBigNumber(content.issues.totalCount)}
+            </span>
           </Tab>
           <Tab value={3} className="tabs__tab repoWindow__tab">
             <p>Pull Requests</p>
+            <span
+              className={`badge -small ${activeTab === 3 ? "-blue" : "-grey"}`}
+            >
+              {content.pullRequests &&
+                formatBigNumber(content.pullRequests.totalCount)}
+            </span>
           </Tab>
         </Tabs>
       </div>
@@ -192,6 +209,9 @@ export default function Content({ content, onTreeClick }) {
               )}
             </div>
             <div className="flex-auto repoWindow__filesCol -preview scrollable -yOnly">
+              {Object.keys(fileState).length === 0 && (
+                <p className="pt2 center">Select a file</p>
+              )}
               <FilePreview>{fileState}</FilePreview>
             </div>
           </div>
@@ -201,8 +221,8 @@ export default function Content({ content, onTreeClick }) {
           className="flex flex-column absolute repoWindow__body"
           style={{ display: activeTab === 2 ? "flex" : "none" }}
         >
-          <div className="scrollable -yOnly">
-            <Issues issues={content.apiData.issues} />
+          <div className="scrollable -yOnly bevelBorder-small">
+            <Issues data={content.apiData.issues} />
           </div>
         </section>
 
@@ -210,8 +230,8 @@ export default function Content({ content, onTreeClick }) {
           className="flex flex-column absolute repoWindow__body"
           style={{ display: activeTab === 3 ? "flex" : "none" }}
         >
-          <div className="scrollable -yOnly">
-            <PullRequests />
+          <div className="scrollable -yOnly bevelBorder-small">
+            <PullRequests data={content.apiData.pullRequests} />
           </div>
         </section>
       </TabBody>

@@ -54,7 +54,7 @@
 }
 .userContent__bodyInner {
   height: 100%;
-  border: 1px inset;
+  border: 1px inset #ededed;
 }
 .userContent__intro {
   margin-top: 3rem;
@@ -76,7 +76,7 @@
     position: relative;
     width: 135px;
     height: 135px;
-    border: 1px outset;
+    border: 1px outset #ededed;
     > img {
       width: 135px;
       height: 135px;
@@ -160,7 +160,7 @@
     position: relative;
     background-color: #fff;
     color: #000;
-    border: 1px outset;
+    border: 1px outset #ededed;
     padding: 0.25rem 0.5rem 0.75rem 0.5rem;
     margin-left: 0.75rem;
     overflow: hidden;

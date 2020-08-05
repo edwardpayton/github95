@@ -6,6 +6,7 @@
     padding: 0 0.25rem !important;
     text-align: right;
     background-color: #fff !important;
+    color: #000 !important;
     &.-first {
       text-align: left;
     }
@@ -19,7 +20,7 @@
   &__footer {
     position: relative;
     top: 4px;
-    border: 2px inset;
+    border: 2px inset #ededed;
     > p {
       padding: 0.25rem 0.5rem;
     }

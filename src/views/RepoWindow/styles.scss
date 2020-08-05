@@ -40,6 +40,9 @@
     left: 0;
     right: 0;
     padding: 0.75rem;
+    > div {
+      height: 100%;
+    }
   }
 
   &__tabTitle {
@@ -81,16 +84,16 @@
 
   &__about {
     padding: 1rem;
-    border: 1px inset;
+    border: 1px inset #ededed;
     flex-grow: 1;
   }
 
   // Files tab
   &__files {
-    height: calc(100% - 3.5rem);
+    max-height: calc(100% - 3.5rem);
   }
   &__filesCol {
-    border: 1px inset;
+    border: 1px inset #ededed;
     padding: 0.5rem;
     background-color: #fff;
     &.-tree {
@@ -110,7 +113,7 @@
   &__body {
     padding: 1rem;
     background-color: #fff;
-    border: 2px inset;
+    border: 2px inset #ededed;
     * {
       margin-bottom: 0.5rem;
       line-height: 2;
@@ -149,4 +152,69 @@
   pre {
     white-space: pre-wrap;
   }
+}
+
+.issues,
+.pullRequests {
+  padding: 1rem;
+  &__titleWrapper {
+    white-space: nowrap;
+    max-width: 500px;
+  }
+  &__title {
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  &__login {
+    margin-left: 5px !important;
+    color: #000 !important;
+  }
+  &__listItem {
+    position: relative;
+    padding: 1rem;
+    background-color: #fff;
+    border: 2px inset #ededed;
+    .badge {
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+  &__commentBody {
+    position: relative;
+  }
+  &__commentText {
+    line-height: 1.2rem;
+    max-height: 3.6rem;
+    overflow: hidden;
+    &.-fade:after {
+      content: "";
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100px;
+      height: 1.2rem;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), white 100%);
+      pointer-events: none;
+    }
+  }
+}
+
+.issues {
+  &__tableCell {
+    &:last-of-type {
+      width: 145px;
+    }
+    .badge {
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.pullRequests {
+  padding: 1rem;
 }

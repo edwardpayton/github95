@@ -254,6 +254,22 @@ export const apiGetRepoIssues = async (name, owner, since) => {
   }
 };
 
+export const apiGetRepoPullRequests = async (name, owner) => {
+  try {
+    const resp = await githubApiGraphQL({
+      query: GET_REPO_PULL_REQUESTS,
+      variables: { name, owner },
+    });
+
+    let json = await resp.json();
+    json = json.data.repository.pullRequests;
+
+    return { ...json };
+  } catch (error) {
+    return new Error(error);
+  }
+};
+
 export const apiGetRepoMostFollowed = async () => {
   try {
     const resp = await githubApiGraphQL({

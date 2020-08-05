@@ -14,6 +14,7 @@ import {
   apiGetFileTree,
   apiGetFileContents,
   apiGetRepoIssues,
+  apiGetRepoPullRequests,
   apiGetRepoMostFollowed,
 } from "./api";
 import { apiGetTopic } from "./api.v3";
@@ -99,22 +100,25 @@ export default function useReposApi() {
     [currentDetailWindows, setDetails]
   );
 
-  const getRepoFileContents = React.useCallback(async (name, owner, file) => {
-    const results = await apiGetFileContents(name, owner, file);
-    if (!results || results instanceof Error) {
-      console.error("ERROR", results); // TODO
-    }
+  const getRepoFileContents = React.useCallback(
+    async (name, owner, file) => {
+      const results = await apiGetFileContents(name, owner, file);
+      if (!results || results instanceof Error) {
+        console.error("ERROR", results); // TODO
+      }
 
-    const newFile = `${name}${file}`.replace(/[^A-Za-z0-9]/g, "");
+      const newFile = `${name}${file}`.replace(/[^A-Za-z0-9]/g, "");
 
-    setFiles({
-      ...files,
-      [newFile]: {
-        name: file,
-        ...results,
-      },
-    });
-  }, []);
+      setFiles({
+        ...files,
+        [newFile]: {
+          name: file,
+          ...results,
+        },
+      });
+    },
+    [files]
+  );
 
   const getMostFollowed = React.useCallback(async () => {
     const results = await apiGetRepoMostFollowed();
@@ -125,26 +129,49 @@ export default function useReposApi() {
     setMostFollowed(results);
   }, []);
 
-  const getRepoIssues = React.useCallback(async (name, owner) => {
-    const date = new Date();
-    const minus1Wk = date.setDate(date.getDate() - 7);
-    const since = new Date(minus1Wk).toISOString();
+  const getRepoIssues = React.useCallback(
+    async (name, owner) => {
+      const date = new Date();
+      const minus1Wk = date.setDate(date.getDate() - 7);
+      const since = new Date(minus1Wk).toISOString();
 
-    const results = await apiGetRepoIssues(name, owner, since);
+      const results = await apiGetRepoIssues(name, owner, since);
 
-    if (!results || results instanceof Error) {
-      console.error("ERROR", results); // TODO
-    }
+      if (!results || results instanceof Error) {
+        console.error("ERROR", results); // TODO
+      }
 
-    const details = JSON.parse(JSON.stringify(currentDetailWindows));
+      const details = JSON.parse(JSON.stringify(currentDetailWindows));
 
-    details[`${owner}${name}`].apiData = {
-      ...details[`${owner}${name}`].apiData,
-      issues: results,
-    };
+      details[`${owner}${name}`].apiData = {
+        ...details[`${owner}${name}`].apiData,
+        issues: results,
+      };
 
-    setDetails({ ...details });
-  }, []);
+      setDetails({ ...details });
+    },
+    [currentDetailWindows]
+  );
+
+  const getRepoPullRequests = React.useCallback(
+    async (name, owner) => {
+      const results = await apiGetRepoPullRequests(name, owner);
+
+      if (!results || results instanceof Error) {
+        console.error("ERROR", results); // TODO
+      }
+
+      const details = JSON.parse(JSON.stringify(currentDetailWindows));
+
+      details[`${owner}${name}`].apiData = {
+        ...details[`${owner}${name}`].apiData,
+        pullRequests: results,
+      };
+
+      setDetails({ ...details });
+    },
+    [currentDetailWindows]
+  );
 
   return {
     getRepoSearchResults,
@@ -152,6 +179,7 @@ export default function useReposApi() {
     getRepoFileTree,
     getRepoFileContents,
     getRepoIssues,
+    getRepoPullRequests,
     getMostFollowed,
   };
 }

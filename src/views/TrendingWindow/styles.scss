@@ -2,7 +2,7 @@
   &__panelHeader {
     padding: 4px 0 2px;
     > p {
-      border: 2px inset;
+      border: 2px inset #ededed;
       padding: 0.25rem 0.5rem;
       width: 25%;
       &:last-of-type {
@@ -12,7 +12,7 @@
     }
   }
   &__panel {
-    border: 2px inset;
+    border: 2px inset #ededed;
     padding: 0.5rem;
     margin-top: 2px;
     background-color: #fff;
@@ -30,7 +30,7 @@
   &__footer {
     position: relative;
     top: 4px;
-    border: 2px inset;
+    border: 2px inset #ededed;
     > p {
       padding: 0.25rem 0.5rem;
     }
