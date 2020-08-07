@@ -24,7 +24,7 @@ import formatDate from "../../utilities/formatDate";
 export default function SearchResults({ onPageChange }) {
   const results = useRecoilValue(searchResultsOfType(REPOS));
   const currentRepo = useRecoilValue(currentRecordOfType(REPOS));
-  const currentSort = useRecoilValue(reposSort);
+  const sort = useRecoilValue(reposSort);
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
   const refCurrent = React.useRef("");
@@ -32,11 +32,11 @@ export default function SearchResults({ onPageChange }) {
 
   React.useEffect(() => {
     let newArray = [];
-    if (refCurrent.current !== currentRepo || refSort.current !== currentSort) {
+    if (refCurrent.current !== currentRepo || refSort.current !== sort) {
       newArray = [[...results.nodes]];
       setPageNumber(0);
       refCurrent.current = currentRepo;
-      refSort.current = currentSort;
+      refSort.current = sort;
     } else {
       newArray = [...paginated, [...results.nodes]];
     }

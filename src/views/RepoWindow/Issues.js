@@ -1,6 +1,13 @@
 import React from "react";
 
-import { Table, TableBody, TableRow, TableDataCell, Anchor } from "react95";
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableDataCell,
+  Anchor,
+  Hourglass,
+} from "react95";
 
 import AnchorButton from "../../components/AnchorButton";
 import formatDate from "../../utilities/formatDate";
@@ -9,7 +16,7 @@ export default function Issues({ data }) {
   if (!data) {
     return (
       <div className="py4 center">
-        <p>Loading</p>
+        <Hourglass />
       </div>
     );
   }
@@ -34,8 +41,8 @@ export default function Issues({ data }) {
       {data.mostCommented7Days.edges.length > 0 && (
         <>
           <h3 className="mt1 mb2 flex items-top">
-            Top commented issues in last seven days
-            <span className="badge -grey">Three top commented</span>
+            Top commented Issues in last seven days
+            <span className="badge -grey">Top three commented</span>
           </h3>
           <IssuesList issues={data.mostCommented7Days.edges} />
         </>
@@ -43,7 +50,7 @@ export default function Issues({ data }) {
       {data.latest.edges.length > 0 && (
         <>
           <h3 className="my2 mb flex items-top">
-            Latest issues
+            Latest Issues
             <span className="badge -grey">10 latest</span>
           </h3>
           <IssuesTable issues={data.latest.edges} />

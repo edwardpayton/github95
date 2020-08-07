@@ -1,43 +1,42 @@
 import React from "react";
-import { Tabs, Tab, TabBody, Hourglass } from "react95";
+import { useRecoilValue } from "recoil";
 
-import TabAll from "./TabAll";
+import Searchbar from "./Searchbar";
+import Topic from "./Topic";
+import SearchResults from "./SearchResults";
+
+import { searchInputOfType, searchResultsOfType, reposSort } from "../../store";
+import { REPOS } from "../../constants";
+import { useReposApi } from "../../githubApi";
 
 import "./styles.scss";
 
 export default function RepoSearchWindow() {
-  const [activeTab, setActiveTab] = React.useState(0);
+  const input = useRecoilValue(searchInputOfType(REPOS));
+  const results = useRecoilValue(searchResultsOfType(REPOS));
+  const sort = useRecoilValue(reposSort);
 
-  const handleTabChange = (_, value) => {
-    setActiveTab(value);
+  const { getRepoSearchResults } = useReposApi();
+
+  const handlePageChange = () => {
+    const { endCursor } = results.pageInfo;
+    getRepoSearchResults(input, sort, endCursor);
   };
 
   return (
-    <>
-      <div className="flex flex-column repoSearch__content">
-        <div className="repoTabs">
-          <Tabs value={activeTab} onChange={handleTabChange} className="tabs">
-            <Tab value={0} className="tabs__tab repoTabs__tab">
-              <p>All</p>
-            </Tab>
-            <Tab value={1} className="tabs__tab repoTabs__tab">
-              <p>Hottest</p>
-            </Tab>
-            <Tab value={2} className="tabs__tab repoTabs__tab">
-              <p>Trending</p>
-            </Tab>
-          </Tabs>
-        </div>
-
-        <TabBody className="repoTabs__tabBody tab">
-          <section
-            className="flex flex-column"
-            style={{ display: activeTab === 0 ? "flex" : "none" }}
-          >
-            <TabAll />
-          </section>
-        </TabBody>
+    <section className="flex flex-column repoSearch__content">
+      <Searchbar />
+      <p className="badge -grey">
+        {results.repositoryCount && results.repositoryCount + " results"}
+      </p>
+      <div className="flex-auto repoSearch__body">
+        {results.nodes && results.nodes.length > 0 && (
+          <div className="scrollable -yOnly repoSearch__results">
+            <Topic />
+            <SearchResults onPageChange={handlePageChange} />
+          </div>
+        )}
       </div>
-    </>
+    </section>
   );
 }

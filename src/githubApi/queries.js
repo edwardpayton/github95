@@ -431,16 +431,9 @@ query RepoDetails($name: String!, $owner: String!) {
       edges {
         node {
           name
-          description
-          url
-          publishedAt
         }
       }
       totalCount
-    }
-    licenseInfo {
-      spdxId
-      description
     }
   }
 }

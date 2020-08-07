@@ -113,7 +113,7 @@ export default function Content({ content, onTreeClick }) {
             <div className="flex repoWindow__topics">
               {content.repositoryTopics &&
                 content.repositoryTopics.edges.map(({ node }) => (
-                  <p className="badge -grey" key={node.topic.name}>
+                  <p className="badge -grey -small" key={node.topic.name}>
                     {node.topic.name}
                   </p>
                 ))}
@@ -176,9 +176,14 @@ export default function Content({ content, onTreeClick }) {
                   )}
                 </div>
               )}
-              {content.licenseInfo && content.licenseInfo.spdxId && (
-                <p>{content.licenseInfo.spdxId} license</p>
-              )}
+              {content.releases &&
+                content.releases.edges &&
+                content.releases.edges[0] &&
+                content.releases.edges[0].node && (
+                  <p className="badge -grey">
+                    Latest release: {content.releases.edges[0].node.name}
+                  </p>
+                )}
             </div>
 
             {content.apiData && content.apiData.readme ? (

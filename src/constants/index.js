@@ -10,7 +10,8 @@ const repos = {
   header: "Search Repositories - Find the latest, hottest, and trending repos",
   desktopIcon: true,
   desktopPosition: 0,
-  visibility: [false, false],
+  // visibility: [false, false],
+  visibility: [true, true],
 };
 const trending = {
   label: "Trending Repos",
@@ -46,8 +47,7 @@ const facebookreact = {
   header: "facebook react",
   desktopIcon: false,
   desktopPosition: null,
-  visibility: [true, true], // true while working on feature
-  // visibility: [false, false],
+  visibility: [false, false],
   details: { owner: "facebook", name: "react" },
 };
 

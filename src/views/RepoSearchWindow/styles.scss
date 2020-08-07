@@ -3,39 +3,6 @@
     height: 650px;
     width: 850px;
   }
-}
-
-.repoTabs {
-  &__tabBody.repoTabs__tabBody {
-    padding: 0.75rem;
-    > section {
-      height: 100%;
-    }
-  }
-  &__tab {
-    min-width: 100px;
-    text-align: center;
-  }
-}
-
-.repoTab {
-  &__header {
-    text-align: center;
-    > h1 {
-      line-height: 35px;
-      text-shadow: 1px 0 #050608;
-      letter-spacing: 1px;
-      padding-bottom: 0.5rem;
-    }
-  }
-  &__toolbar {
-    padding: 0.5rem;
-    margin: 0 -0.5rem;
-    .badge {
-      width: 100px;
-      line-height: 17px;
-    }
-  }
   &__body {
     position: relative;
     margin-top: 1rem;
@@ -47,37 +14,47 @@
     right: 0;
     bottom: 0;
     border: 1px inset #ededed;
-    background-color: #fff;
+    // background-color: #fff;
   }
 }
 
 .searchBar {
-  width: 500px;
+  width: 700px;
+  height: 145px;
+  margin: 0.5rem auto;
+  &__tab {
+  }
+  &__tabBody {
+  }
+  &__form {
+  }
+  &__label {
+    min-width: 3rem;
+    &.-checkbox {
+      margin-left: auto;
+      margin-right: 0.75rem;
+    }
+  }
+  &__input {
+    &.-select {
+      > div {
+        font-size: 10px;
+        line-height: 2;
+      }
+    }
+  }
+  &__checkboxes {
+    position: relative;
+    top: 5px;
+  }
+  &__button {
+  }
 }
 
-.sort {
-  position: relative;
-  &__select {
-    > div {
-      font-size: 10px;
-      line-height: 2;
-    }
-  }
-  &.-disabled {
-    pointer-events: none;
-    > div:after {
-      position: absolute;
-      content: "";
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      background-color: #ced0cf;
-      opacity: 0.5;
-    }
-  }
-  > p {
-    padding: 0 0.25rem 0 0.5rem;
+.searchForm {
+  &__magGlass {
+    position: relative;
+    height: 60px;
   }
 }
 

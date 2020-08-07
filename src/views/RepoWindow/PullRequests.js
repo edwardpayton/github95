@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Anchor } from "react95";
+import { Anchor, Hourglass } from "react95";
 
 import AnchorButton from "../../components/AnchorButton";
 import formatDate from "../../utilities/formatDate";
@@ -20,7 +20,7 @@ export default function PullRequests({ data }) {
   if (!data) {
     return (
       <div className="py4 center">
-        <p>Loading</p>
+        <Hourglass />
       </div>
     );
   }
@@ -35,9 +35,9 @@ export default function PullRequests({ data }) {
 
   return (
     <div className="pullRequests">
-      <h3>
+      <h3 className="mt1">
         Recently updated Pull Requests
-        <span className="badge -grey">Top three</span>
+        <span className="badge -grey">Top three recently updated</span>
       </h3>
       <ul className="pullRequests__list">
         {data.edges.map(
