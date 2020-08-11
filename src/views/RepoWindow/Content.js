@@ -227,7 +227,7 @@ export default function Content({ content, onTreeClick }) {
           style={{ display: activeTab === 2 ? "flex" : "none" }}
         >
           <div className="scrollable -yOnly bevelBorder-small">
-            <Issues data={content.apiData.issues} />
+            {content.apiData && <Issues data={content.apiData.issues} />}
           </div>
         </section>
 
@@ -236,7 +236,9 @@ export default function Content({ content, onTreeClick }) {
           style={{ display: activeTab === 3 ? "flex" : "none" }}
         >
           <div className="scrollable -yOnly bevelBorder-small">
-            <PullRequests data={content.apiData.pullRequests} />
+            {content.apiData && (
+              <PullRequests data={content.apiData.pullRequests} />
+            )}
           </div>
         </section>
       </TabBody>

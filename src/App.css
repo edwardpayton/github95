@@ -198,6 +198,10 @@
 .table__bodyCell.-fixedWidth {
   width: 100px;
 }
+.table__headCell.-fixedWidth.-small,
+.table__bodyCell.-fixedWidth.-small {
+  width: 70px;
+}
 
 .table__headCell:after {
   position: absolute;

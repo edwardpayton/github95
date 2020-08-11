@@ -1,11 +1,11 @@
 .repoSearch {
   &__content {
     height: 650px;
-    width: 850px;
+    width: 710px;
   }
   &__body {
     position: relative;
-    margin-top: 1rem;
+    border: 2px inset #ededed;
   }
   &__results {
     position: absolute;
@@ -13,15 +13,17 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border: 1px inset #ededed;
-    // background-color: #fff;
+  }
+  &__footer {
+    margin-top: 5px;
+    height: 30px;
+    border: 2px inset #ededed;
   }
 }
 
 .searchBar {
-  width: 700px;
   height: 145px;
-  margin: 0.5rem auto;
+  margin: 0.75rem 0.5rem;
   &__tab {
   }
   &__tabBody {
@@ -37,6 +39,7 @@
   }
   &__input {
     &.-select {
+      z-index: 11; // higher than table
       > div {
         font-size: 10px;
         line-height: 2;
@@ -68,7 +71,7 @@
     height: 32px;
   }
   h3 {
-    padding-bottom: 1rem;
+    padding-bottom: 0.25rem;
   }
   .badge {
     margin: auto 0 auto auto;

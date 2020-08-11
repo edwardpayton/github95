@@ -59,25 +59,23 @@ export default function Searchbar() {
     setInput(target.value);
   };
 
-  const submitAdvanced = () => {
-    const searchQualifier = Object.keys(checkboxes)
-      .map((key) => {
-        if (checkboxes[key] === true) return key;
-      })
-      .filter(Boolean)
-      .reduce((str, current, i) => {
-        if (i === 0) return ` in:${current}`;
-        return `${str},${current}`;
-      }, "");
-    getRepoSearchResults(input + searchQualifier, sort);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.length) {
+      const searchQualifier = Object.keys(checkboxes)
+        .map((key) => {
+          if (checkboxes[key] === true) return key;
+        })
+        .filter(Boolean)
+        .reduce((str, current, i) => {
+          if (i === 0) return ` in:${current}`;
+          return `${str},${current}`;
+        }, "");
+      // const checkboxNames = searchQualifier
+      //   .replace("in:", "")
+      //   .replace(/,/g, "");
       setCurrentRepo(input);
-      activeTab === 0 && getRepoSearchResults(input, sort);
-      activeTab === 1 && submitAdvanced();
+      getRepoSearchResults(input + searchQualifier, sort);
     }
   };
 
@@ -132,7 +130,7 @@ export default function Searchbar() {
                 className="searchBar__input -select"
               />
               <p className="searchBar__label -checkbox">Search in:</p>
-              <div className="searchBar__checkboxes">
+              <div className="flex searchBar__checkboxes">
                 <Checkbox
                   checked={checkboxes.name}
                   onChange={handleCheckboxChange}
@@ -162,7 +160,7 @@ export default function Searchbar() {
           </form>
         </TabBody>
 
-        <div className="flex flex-column">
+        <div className="ml2 flex flex-column">
           <Button
             onClick={handleSubmit}
             disabled={input.length === 0}
@@ -174,7 +172,7 @@ export default function Searchbar() {
           <Button
             onClick={handleReset}
             disabled={input.length === 0}
-            className="searchBar__button"
+            className="mt1 searchBar__button"
             form="repoSearchForm"
           >
             New Search

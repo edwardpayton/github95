@@ -14,12 +14,18 @@
   &__tdImg {
     position: relative;
     top: 1px;
-    margin: 0 0.5rem 0 0.25rem;
+    margin-left: 0.25rem;
     pointer-events: none;
   }
+  &__tdName {
+    padding: 0 0.25rem;
+    margin-left: 0.25rem;
+    &.-highlighted {
+      outline: 2px dotted #000;
+    }
+  }
   &__footer {
-    position: relative;
-    top: 4px;
+    margin-top: 5px;
     border: 2px inset #ededed;
     > p {
       padding: 0.25rem 0.5rem;

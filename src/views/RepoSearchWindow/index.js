@@ -26,9 +26,6 @@ export default function RepoSearchWindow() {
   return (
     <section className="flex flex-column repoSearch__content">
       <Searchbar />
-      <p className="badge -grey">
-        {results.repositoryCount && results.repositoryCount + " results"}
-      </p>
       <div className="flex-auto repoSearch__body">
         {results.nodes && results.nodes.length > 0 && (
           <div className="scrollable -yOnly repoSearch__results">
@@ -36,6 +33,9 @@ export default function RepoSearchWindow() {
             <SearchResults onPageChange={handlePageChange} />
           </div>
         )}
+      </div>
+      <div className="flex items-center pl1 repoSearch__footer">
+        {results.repositoryCount && <p>{results.repositoryCount} results</p>}
       </div>
     </section>
   );

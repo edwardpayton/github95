@@ -7,11 +7,11 @@ import {
   TableRow,
   TableHeadCell,
   TableDataCell,
-  Hourglass,
 } from "react95";
 
 import Pagination from "../../components/Pagination";
 import RepoButton from "../../components/RepoButton";
+import Loading from "../../components/Loading";
 
 import {
   searchResultsOfType,
@@ -33,13 +33,16 @@ export default function SearchResults({ onPageChange }) {
   React.useEffect(() => {
     let newArray = [];
     if (refCurrent.current !== currentRepo || refSort.current !== sort) {
+      console.log("RepoSearchWindow/SearchResults >>>");
       newArray = [[...results.nodes]];
       setPageNumber(0);
       refCurrent.current = currentRepo;
       refSort.current = sort;
     } else {
+      console.log("RepoSearchWindow/SearchResults >>>");
       newArray = [...paginated, [...results.nodes]];
     }
+    console.log("RepoSearchWindow/SearchResults >>>", newArray);
     setPaginated(newArray);
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
   // 'paginated' - crashes
@@ -68,7 +71,7 @@ export default function SearchResults({ onPageChange }) {
                 <TableHeadCell className="table__headCell -fixedWidth">
                   Updated
                 </TableHeadCell>
-                <TableHeadCell className="table__headCell -fixedWidth">
+                <TableHeadCell className="table__headCell -fixedWidth -small">
                   Link
                 </TableHeadCell>
               </TableRow>
@@ -127,7 +130,7 @@ export default function SearchResults({ onPageChange }) {
                       <TableDataCell className="table__bodyCell">
                         {formatDate(pushedAt)}
                       </TableDataCell>
-                      <TableDataCell className="pl1 table__bodyCell">
+                      <TableDataCell className="pl1 table__bodyCell -small">
                         <RepoButton name={name} owner={login} />
                       </TableDataCell>
                     </TableRow>
@@ -143,7 +146,7 @@ export default function SearchResults({ onPageChange }) {
           )}
         </>
       ) : (
-        <p>TODO</p>
+        <Loading message="Searching" />
       )}
     </div>
   );

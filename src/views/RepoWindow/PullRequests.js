@@ -147,15 +147,16 @@ function Commit({ commit }) {
         <span className="ml1 badge -grey -small -textBlack">
           {commit.changedFiles} files changed
         </span>
-        {commitStatusMap[commit.status.state] !== undefined && (
-          <span
-            className={`badge -small -textBlack${
-              commitStatusMap[commit.status.state]
-            }`}
-          >
-            {commit.status.state}
-          </span>
-        )}
+        {commit.status &&
+          commitStatusMap[commit.status.state] !== undefined && (
+            <span
+              className={`badge -small -textBlack${
+                commitStatusMap[commit.status.state]
+              }`}
+            >
+              {commit.status.state}
+            </span>
+          )}
       </p>
 
       <div className="pullRequests__commentBody">

@@ -5,9 +5,15 @@ import Icon from "./Icon";
 import useNewWindow from "../../hooks/useNewWindow";
 
 export default function Shortcuts({ shortcuts, type }) {
+  const [highlighted, setHighlight] = React.useState("");
+
   const open = useNewWindow();
 
-  const handleClick = (name, owner) => () => {
+  const handleSnglClick = (name) => () => {
+    setHighlight(name);
+  };
+
+  const handleDblClick = (name, owner) => () => {
     if (type === "developers") return;
 
     open(name, owner);
@@ -23,7 +29,9 @@ export default function Shortcuts({ shortcuts, type }) {
               key={data.name}
               avatar={data.avatar}
               name={data.name}
-              onClick={handleClick(data.name, data.author)}
+              highlighted={highlighted === data.name}
+              onSingleClick={handleSnglClick(data.name)}
+              onDoubleClick={handleDblClick(data.name, data.author)}
             />
           );
         })}

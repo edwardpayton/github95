@@ -8,18 +8,18 @@ export default function Topic() {
 
   return (
     <>
-      {topic.display_name && (
-        <div className="flex card -bgWhite topic">
+      {topic["display_name"] && (
+        <div className="flex topic">
           <img src={require(`../../assets/topic.png`)} alt="" />
           <div className="topic__copy">
-            <h3>{topic.display_name}</h3>
-            <p>{topic.short_description}</p>
+            <h3>{topic["display_name"]}</h3>
+            <p>{topic["short_description"]}</p>
           </div>
-          {topic.released && (
-            <div className="badge">
+          {topic["released"] && (
+            <div className="badge -grey">
               Released
               <br />
-              {topic.released}
+              {topic["released"]}
             </div>
           )}
         </div>

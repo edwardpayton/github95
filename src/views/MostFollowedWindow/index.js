@@ -22,11 +22,16 @@ import "./styles.scss";
 export default function MostFollowedWindow() {
   const followed = useRecoilValue(mostFollowed);
   const [shortcuts, setShortcuts] = React.useState([]);
+  const [highlighted, setHighlight] = React.useState("");
 
   const { getMostFollowed } = useReposApi();
   const open = useNewWindow();
 
-  const handleClick = (name, owner) => () => {
+  const handleSnglClick = (name) => () => {
+    setHighlight(name);
+  };
+
+  const handleDblClick = (name, owner) => () => {
     open(name, owner);
   };
 
@@ -102,7 +107,8 @@ export default function MostFollowedWindow() {
                         <TableRow
                           key={id}
                           className="table__bodyRow"
-                          onClick={handleClick(name, owner.login)}
+                          onClick={handleSnglClick(name)}
+                          onDoubleClick={handleDblClick(name, owner.login)}
                         >
                           <TableDataCell className="cursorPointer table__bodyCell mostFollowedWindow__td -first">
                             <img
@@ -111,7 +117,13 @@ export default function MostFollowedWindow() {
                               alt="icon"
                               width="15"
                             />
-                            {name}
+                            <span
+                              className={`mostFollowedWindow__tdName${
+                                highlighted === name ? " -highlighted" : ""
+                              }`}
+                            >
+                              {name}
+                            </span>
                           </TableDataCell>
                           <TableDataCell className="cursorPointer table__bodyCell mostFollowedWindow__td">
                             {formatBigNumber(stargazers.totalCount)}

@@ -23,8 +23,12 @@ export default function Pagination({ onPageChange, totalCount, perPage = 20 }) {
 
   React.useEffect(() => {
     setTotal(Math.ceil(totalCount / perPage));
-    setPage(0); // TODO bug
-  }, [totalCount, perPage]);
+    setPage(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [perPage]);
+  // 'totalCount' - bug when used - should be included but it causes pagination to be reset if a new repo is created between pages
+  // (eg searching react and someone created my-cool-react-library makes totalCount go up by 1).
+  // The total pages wont be completely accurate, but close enough
 
   return (
     <nav className="pagination">

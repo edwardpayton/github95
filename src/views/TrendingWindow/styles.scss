@@ -28,8 +28,7 @@
     }
   }
   &__footer {
-    position: relative;
-    top: 4px;
+    margin-top: 5px;
     border: 2px inset #ededed;
     > p {
       padding: 0.25rem 0.5rem;
@@ -45,6 +44,10 @@
   background: transparent;
   outline: none;
   border: none;
+  &.-highlighted .trendingIcon__name {
+    outline: 2px dotted #000;
+  }
+
   > canvas {
     margin: auto;
     pointer-events: none;

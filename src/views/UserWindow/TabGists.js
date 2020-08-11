@@ -26,7 +26,7 @@ export default function TabGists({ gists, total, onPageChange }) {
   const processGists = React.useCallback(() => {
     let reversed = [...gists].reverse();
     const grouped = reversed.reduce((newArray, item, i) => {
-      const groupI = Math.floor(i / 20);
+      const groupI = Math.floor(i / 10);
       if (!newArray[groupI]) newArray[groupI] = [];
       newArray[groupI].push(item);
       return newArray;
