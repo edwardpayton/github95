@@ -43,7 +43,37 @@
     position: relative;
     top: 5px;
   }
-  &__button {
+  &__button + .searchBar__button {
+    margin-top: 4px;
+  }
+  &__icon,
+  &__icon > img {
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-duration: 2s;
+  }
+  &__icon {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px; // visually centered better
+    opacity: 0;
+    visibility: hidden;
+    animation-name: orbitForwards;
+    > img {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: -10px;
+      left: calc(50% - 10px);
+      animation-name: orbitBack;
+    }
+
+    &.-searching {
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 
@@ -97,5 +127,23 @@
       height: 28px;
       padding-bottom: 1px;
     }
+  }
+}
+
+@keyframes orbitForwards {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitBack {
+  from {
+    -webkit-transform: rotate(-0deg);
+  }
+  to {
+    -webkit-transform: rotate(-360deg);
   }
 }

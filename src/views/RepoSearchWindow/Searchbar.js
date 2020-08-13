@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   TextField,
   Checkbox,
@@ -10,7 +10,13 @@ import {
   TabBody,
 } from "react95";
 
-import { searchInputOfType, currentRecordOfType, reposSort } from "../../store";
+import {
+  repoSearchStatus,
+  searchInputOfType,
+  currentRecordOfType,
+  reposSort,
+  windowObj,
+} from "../../store";
 import { REPOS } from "../../constants";
 import { useReposApi } from "../../githubApi";
 
@@ -30,9 +36,13 @@ const options = [
 const optionsList = ["", "stars", "forks", "updated"];
 
 export default function Searchbar() {
+  const currentWindows = useRecoilValue(windowObj);
   const [input, setInput] = useRecoilState(searchInputOfType(REPOS));
-  const setCurrentRepo = useSetRecoilState(currentRecordOfType(REPOS));
+  const [currentRepo, setCurrentRepo] = useRecoilState(
+    currentRecordOfType(REPOS)
+  );
   const [sort, setSort] = useRecoilState(reposSort);
+  const { gettingSearch } = useRecoilValue(repoSearchStatus);
 
   const [activeTab, setActiveTab] = React.useState(0);
   const [checkboxes, setCheckboxes] = React.useState(inititalCheckboxes);
@@ -58,6 +68,17 @@ export default function Searchbar() {
   const handleChange = ({ target }) => {
     setInput(target.value);
   };
+
+  React.useEffect(() => {
+    if (currentRepo && !currentWindows.repos.visibility[0]) {
+      // Clear active repo on window close
+      setCurrentRepo(null);
+      setInput("");
+      setSort("");
+      setActiveTab(0);
+      setCheckboxes(inititalCheckboxes);
+    }
+  }, [currentWindows.repos]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -169,11 +190,18 @@ export default function Searchbar() {
           <Button
             onClick={handleReset}
             disabled={input.length === 0}
-            className="mt1 searchBar__button"
+            className="searchBar__button"
             form="repoSearchForm"
           >
             New Search
           </Button>
+          <div className="flex-auto flex items-center justify-center">
+            <div
+              className={`searchBar__icon${gettingSearch ? " -searching" : ""}`}
+            >
+              <img src={require("../../assets/magnifying-glass.png")} alt="" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -2,10 +2,12 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 import Pagination from "../../components/Pagination";
+import Loading from "../../components/Loading";
 import Topic from "./Topic";
 import ResultsTable from "./ResultsTable";
 
 import {
+  repoSearchStatus,
   searchResultsOfType,
   currentRecordOfType,
   reposSort,
@@ -13,6 +15,9 @@ import {
 import { REPOS } from "../../constants";
 
 export default function SearchResults({ onPageChange }) {
+  const { gettingSearch, gettingTopic, gettingPage } = useRecoilValue(
+    repoSearchStatus
+  );
   const results = useRecoilValue(searchResultsOfType(REPOS));
   const currentRepo = useRecoilValue(currentRecordOfType(REPOS));
   const sort = useRecoilValue(reposSort);
@@ -20,14 +25,18 @@ export default function SearchResults({ onPageChange }) {
   const [paginated, setPaginated] = React.useState([]);
   const refCurrent = React.useRef("");
   const refSort = React.useRef("");
-  const refResults = React.useRef(undefined);
+  const refResultsElement = React.useRef(undefined);
 
   React.useEffect(() => {
-    refResults.current.scrollTop = 0;
+    refResultsElement.current.scrollTop = 0;
   }, [results]);
 
   React.useEffect(() => {
-    if (results.nodes === undefined || !results.nodes.length) return;
+    if (results.nodes === undefined || !results.nodes.length) {
+      refCurrent.current = "";
+      refSort.current = "";
+      return setPaginated([]);
+    }
     let newArray = [];
     if (refCurrent.current !== currentRepo || refSort.current !== sort) {
       newArray = [[...results.nodes]];
@@ -51,19 +60,29 @@ export default function SearchResults({ onPageChange }) {
 
   return (
     <div className="flex flex-column searchResults">
-      <div ref={refResults} className="scrollable -yOnly searchResults__body">
-        {paginated && paginated.length > 0 ? (
-          <>
-            <Topic />
-            <ResultsTable data={paginated[pageNumber]} />
-          </>
-        ) : (
-          <p className="mt4 center">Search for repositories</p>
-        )}
+      <div
+        ref={refResultsElement}
+        className="scrollable -yOnly searchResults__body"
+      >
+        {!gettingSearch &&
+          (paginated && paginated.length > 0 ? (
+            <>
+              <Topic />
+              <ResultsTable
+                data={paginated[pageNumber]}
+                loadingPage={gettingPage}
+              />
+            </>
+          ) : (
+            <p className="mt4 center">Search for repositories</p>
+          ))}
+        {gettingSearch && <Loading message="Searching repositories" />}
       </div>
       <div className="relative flex items-center pl1 searchResults__footer">
-        {results.repositoryCount && <p>{results.repositoryCount} results</p>}
-        {results.repositoryCount > 20 && (
+        {!gettingSearch && results.repositoryCount && (
+          <p>{results.repositoryCount} results</p>
+        )}
+        {!gettingSearch && results.repositoryCount > 20 && (
           <Pagination
             onPageChange={handleClickNextPage}
             totalCount={results.repositoryCount}

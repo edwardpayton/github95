@@ -3,7 +3,7 @@ const user = {
   header: "Explore Users - Search Github for users",
   desktopIcon: require(`../assets/user.png`),
   desktopPosition: 1,
-  visibility: [false, false],
+  visibility: [false, false], // eg [button visible (show button), window visible (show window)]
 };
 const repos = {
   label: "Search Repos",

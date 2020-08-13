@@ -8,7 +8,7 @@ export default function Topic() {
 
   return (
     <>
-      {topic["display_name"] && (
+      {!!Object.keys(topic).length && topic["display_name"] && (
         <div className="flex topic">
           <img src={require(`../../assets/topic.png`)} alt="" />
           <div className="topic__copy">

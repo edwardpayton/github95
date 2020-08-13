@@ -1,19 +1,31 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import Searchbar from "./Searchbar";
 import SearchResults from "./SearchResults";
 
-import { searchInputOfType, searchResultsOfType, reposSort } from "../../store";
+import {
+  searchInputOfType,
+  searchResultsOfType,
+  currentRecordOfType,
+  windowObj,
+  reposSort,
+  reposSearchTopic,
+} from "../../store";
 import { REPOS } from "../../constants";
 import { useReposApi } from "../../githubApi";
 
 import "./styles.scss";
 
 export default function RepoSearchWindow() {
+  const [currentRepo, setCurrentRepo] = useRecoilState(
+    currentRecordOfType(REPOS)
+  );
+  const currentWindows = useRecoilValue(windowObj);
   const input = useRecoilValue(searchInputOfType(REPOS));
-  const results = useRecoilValue(searchResultsOfType(REPOS));
+  const [results, setResults] = useRecoilState(searchResultsOfType(REPOS));
   const sort = useRecoilValue(reposSort);
+  const setTopic = useSetRecoilState(reposSearchTopic);
 
   const { getRepoSearchResults } = useReposApi();
 
@@ -21,6 +33,15 @@ export default function RepoSearchWindow() {
     const { endCursor } = results.pageInfo;
     getRepoSearchResults(input, sort, endCursor);
   };
+
+  React.useEffect(() => {
+    if (currentRepo && !currentWindows.repos.visibility[0]) {
+      // Clear active repo on window close
+      setCurrentRepo(null);
+      setResults([]);
+      setTopic({});
+    }
+  }, [currentWindows.repos]);
 
   return (
     <section className="flex flex-column repoSearch">

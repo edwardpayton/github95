@@ -13,3 +13,7 @@ https://trello.com/b/bDlRhlOA
 
 For state management I'm using the beta Recoil library from Facebook.
 There's a console error when running the app locally that's caused by a Recoil bug, as documented here: https://github.com/facebookexperimental/Recoil/issues/12
+
+## Todos
+
+- update app with fix for Recoil bug when it's available

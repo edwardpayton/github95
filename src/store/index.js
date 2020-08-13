@@ -15,7 +15,7 @@ import {
   trending,
   mostFollowed,
 } from "./atoms";
-import { apiLimit, userActivity } from "./selectors";
+import { apiLimit, repoSearchStatus } from "./selectors";
 
 export {
   apiLimit,
@@ -25,10 +25,10 @@ export {
   searchInputOfType,
   searchResultsOfType,
   currentRecordOfType,
-  userActivity,
   usersListObj,
   userChartData,
   userEventsData,
+  repoSearchStatus,
   reposSearchTopic,
   reposSort,
   repoWindows,

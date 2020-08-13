@@ -12,10 +12,6 @@ export default function Search({ placeholder, initalValue, onSearch }) {
     setState(target.value);
   };
 
-  // const handleClick = () => {
-  //   state.length > 0 && onSearch(state);
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     state.length > 0 && onSearch(state);

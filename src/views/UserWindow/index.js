@@ -1,6 +1,6 @@
 import React from "react";
 import { Tabs, Tab, TabBody } from "react95";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 
 import Searchbar from "./Searchbar";
 import TabOverview from "./TabOverview";
@@ -10,7 +10,12 @@ import TabFollowers from "./TabFollowers";
 import TabFollowing from "./TabFollowing";
 import TabGists from "./TabGists";
 
-import { currentRecordOfType, usersListObj } from "../../store";
+import {
+  currentRecordOfType,
+  searchInputOfType,
+  usersListObj,
+  windowObj,
+} from "../../store";
 import { useUserApi } from "../../githubApi";
 import { USER } from "../../constants";
 import formatBigNumber from "../../utilities/formatBigNumber";
@@ -18,8 +23,12 @@ import formatBigNumber from "../../utilities/formatBigNumber";
 import "./styles.scss";
 
 export default function UserWindow() {
+  const [currentUser, setCurrentUser] = useRecoilState(
+    currentRecordOfType(USER)
+  );
+  const setInput = useSetRecoilState(searchInputOfType(USER));
   const userList = useRecoilValue(usersListObj);
-  const currentUser = useRecoilValue(currentRecordOfType(USER));
+  const currentWindows = useRecoilValue(windowObj);
   const refTabsList = React.useRef(new Set([]));
   const [activeTab, setActiveTab] = React.useState(0);
   const refLogin = React.useRef("");
@@ -41,6 +50,17 @@ export default function UserWindow() {
       refTabsList.current.clear();
     }
   }, [userList, currentUser]);
+
+  React.useEffect(() => {
+    if (currentUser && !currentWindows.user.visibility[0]) {
+      // Clear active user on window close
+      refLogin.current = "";
+      setActiveTab(0);
+      refTabsList.current.clear();
+      setCurrentUser(null);
+      setInput("");
+    }
+  }, [currentWindows.user]);
 
   const handleChange = (_, value) => {
     setActiveTab(value);

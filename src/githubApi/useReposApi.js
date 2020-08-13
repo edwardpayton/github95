@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
 import {
+  repoSearchStatus,
   searchResultsOfType,
   reposSearchTopic,
   repoWindows,
@@ -21,6 +22,7 @@ import { apiGetTopic } from "./api.v3";
 import { REPOS } from "../constants";
 
 export default function useReposApi() {
+  const setSearchState = useSetRecoilState(repoSearchStatus);
   const setResults = useSetRecoilState(searchResultsOfType(REPOS));
   const [topic, setTopic] = useRecoilState(reposSearchTopic);
   const [currentDetailWindows, setDetails] = useRecoilState(repoWindows);
@@ -30,14 +32,18 @@ export default function useReposApi() {
   const getRepoSearchResults = React.useCallback(
     async (input, sort = "", cursor) => {
       const repoQuery = sort !== "" ? `${input} sort:${sort}` : input;
+      const statusKey = cursor ? "gettingPage" : "gettingSearch";
+      setSearchState({ [statusKey]: true });
       const results = await apiGetRepoSearchResults(repoQuery, cursor);
       if (!results || results instanceof Error) {
-        console.error("ERROR", results); // TODO
+        setSearchState({ [statusKey]: false, error: results }); // TODO what to do with this
       }
+      setSearchState({ [statusKey]: false });
       setResults(results);
 
       if (topic["name"] !== input) {
         setTopic({});
+        setSearchState({ gettingTopic: true });
         const topics = await apiGetTopic(input);
 
         let i = 0;
@@ -53,6 +59,7 @@ export default function useReposApi() {
           i++;
         } while (i < 10);
 
+        setSearchState({ gettingTopic: false });
         setTopic(topicResult);
       }
     },

@@ -51,6 +51,9 @@ export default function useUserApi() {
 
   const getUserProfile = React.useCallback(
     async (input) => {
+      if (!input.length) {
+        return;
+      }
       let profile = await apiGetUserProfile(input);
       if (profile instanceof Error) {
         console.error("ERROR", profile); // TODO

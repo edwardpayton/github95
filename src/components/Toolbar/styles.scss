@@ -7,6 +7,7 @@
   &__buttons,
   &__search {
     width: 255px;
+    height: 38px;
   }
   &__button.toolbar__button {
     &.-nav {
@@ -55,8 +56,9 @@
   &.searchHistory {
     left: -60px;
     top: 35px;
-    min-width: 150px;
-    max-width: 120px;
+    min-height: 100%;
+    min-width: 120px;
+    max-width: 150px;
     padding: 0.5rem;
     box-shadow: 0px 5px 5px 0px hsla(0, 0%, 0%, 0.3);
     display: none;

@@ -25,13 +25,20 @@ export const focusedElement = atom({
   default: "",
 });
 
-// Memoized with ID (id = user, repositories, ...)
+// Memoized with ID (id = user OR repositories)
 export const searchInputOfType = memoize((type) =>
   atom({
     key: `searchInput${type}`,
     default: "",
   })
 );
+
+export const searchStatusOfType = memoize((type, defaultState) =>
+  atom({
+    key: `searchStatusOfType${type}`,
+    default: defaultState,
+  })
+); // This one is to be used in a selector, called with defaultState
 
 export const searchResultsOfType = memoize((type) =>
   atom({
@@ -43,7 +50,7 @@ export const searchResultsOfType = memoize((type) =>
 export const currentRecordOfType = memoize((type) =>
   atom({
     key: `currentRecordOfType${type}`,
-    default: null, // the user.profile.login
+    default: null, // the user.profile.login OR repo name + owner
   })
 );
 
