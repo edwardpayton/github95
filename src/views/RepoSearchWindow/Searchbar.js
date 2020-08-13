@@ -71,9 +71,6 @@ export default function Searchbar() {
           if (i === 0) return ` in:${current}`;
           return `${str},${current}`;
         }, "");
-      // const checkboxNames = searchQualifier
-      //   .replace("in:", "")
-      //   .replace(/,/g, "");
       setCurrentRepo(input);
       getRepoSearchResults(input + searchQualifier, sort);
     }

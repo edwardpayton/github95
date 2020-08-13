@@ -1,6 +1,12 @@
 import React from "react";
 
-export default function DesktopButton({ name, label, active, onDoubleClick }) {
+export default function DesktopButton({
+  name,
+  label,
+  icon,
+  active,
+  onDoubleClick,
+}) {
   return (
     <div key={name} className="desktopButton">
       <button
@@ -9,7 +15,7 @@ export default function DesktopButton({ name, label, active, onDoubleClick }) {
         onDoubleClick={onDoubleClick}
       >
         <img
-          src={require(`../../assets/${name}.png`)}
+          src={icon}
           className="desktopButton__image"
           alt="icon"
           width="50"

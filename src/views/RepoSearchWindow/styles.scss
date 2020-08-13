@@ -1,11 +1,9 @@
 .repoSearch {
+  height: 650px;
+  width: 710px;
+
   &__content {
-    height: 650px;
-    width: 710px;
-  }
-  &__body {
     position: relative;
-    border: 2px inset #ededed;
   }
   &__results {
     position: absolute;
@@ -13,11 +11,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-  }
-  &__footer {
-    margin-top: 5px;
-    height: 30px;
-    border: 2px inset #ededed;
   }
 }
 
@@ -85,7 +78,24 @@
   > div {
     flex: auto;
   }
+  &__body {
+    height: 100%;
+    border: 2px inset #ededed;
+  }
+  &__footer {
+    margin-top: 5px;
+    height: 32px;
+    border: 2px inset #ededed;
+  }
   &__tableBadges {
     margin-left: -5px;
+  }
+  &__pagination {
+    position: absolute;
+    width: 100%;
+    button {
+      height: 28px;
+      padding-bottom: 1px;
+    }
   }
 }

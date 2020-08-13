@@ -2,7 +2,6 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 
 import Searchbar from "./Searchbar";
-import Topic from "./Topic";
 import SearchResults from "./SearchResults";
 
 import { searchInputOfType, searchResultsOfType, reposSort } from "../../store";
@@ -24,18 +23,12 @@ export default function RepoSearchWindow() {
   };
 
   return (
-    <section className="flex flex-column repoSearch__content">
+    <section className="flex flex-column repoSearch">
       <Searchbar />
-      <div className="flex-auto repoSearch__body">
-        {results.nodes && results.nodes.length > 0 && (
-          <div className="scrollable -yOnly repoSearch__results">
-            <Topic />
-            <SearchResults onPageChange={handlePageChange} />
-          </div>
-        )}
-      </div>
-      <div className="flex items-center pl1 repoSearch__footer">
-        {results.repositoryCount && <p>{results.repositoryCount} results</p>}
+      <div className="flex-auto repoSearch__content">
+        <div className="repoSearch__results">
+          <SearchResults onPageChange={handlePageChange} />
+        </div>
       </div>
     </section>
   );

@@ -59,7 +59,7 @@ export default function StartMenu() {
           <ListItem onClick={handleListClick("repos")} data-name="repos">
             <p className="startMenu__menuItem">
               <img
-                src={`${require("../../assets/repos.png")}`}
+                src={`${require("../../assets/search-computer.png")}`}
                 alt=""
                 width="20"
               />
