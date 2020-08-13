@@ -133,7 +133,7 @@ function buildChart(ctx, data) {
 
 function color(dataset, i, max) {
   const alpha = dataset.data[i]["v"] / max;
-  if (alpha === 1) return "rgb(46, 202, 163)";
+  if (alpha === 1) return "#2ecaa3";
   switch (true) {
     case alpha >= 0.75: {
       return "#1c44ac";

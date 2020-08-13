@@ -390,6 +390,12 @@
       line-height: 3;
     }
   }
+  .badge.badge {
+    padding: 3px 2px;
+    margin-left: 0;
+    font-size: 9px !important;
+    background: #9cead7; // visually matches highlighted day in heatmap
+  }
 }
 
 .events {

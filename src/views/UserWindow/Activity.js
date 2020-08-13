@@ -26,7 +26,8 @@ export default function Activity({ data }) {
           <li>
             The busiest single day was{" "}
             <span>{formatDate(data.busiestSingleDay.x)}</span>, with{" "}
-            <span>{data.busiestSingleDay.v}</span> contributions.
+            <span className="badge -small">{data.busiestSingleDay.v}</span>{" "}
+            contributions.
           </li>
         </ul>
       ) : (
