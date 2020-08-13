@@ -1,0 +1,9 @@
+.searchInput {
+  width: 100%;
+  &__input {
+    width: 100% !important;
+  }
+  &__button {
+    padding: 0 1rem;
+  }
+}

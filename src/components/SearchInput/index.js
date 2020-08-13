@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button } from "react95";
 
-export default function Search({ placeholder, initalValue, onSearch }) {
+export default function SearchInput({ placeholder, initalValue, onSearch }) {
   const [state, setState] = React.useState(initalValue);
 
   React.useEffect(() => {
@@ -18,14 +18,14 @@ export default function Search({ placeholder, initalValue, onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex justify-center searchForm">
+    <form onSubmit={handleSubmit} className="flex justify-center searchInput">
       <TextField
         placeholder={placeholder}
         value={state}
         onChange={handleChange}
-        className="searchForm__input"
+        className="searchInput__input"
       />
-      <Button onClick={handleSubmit} className="searchForm__button">
+      <Button onClick={handleSubmit} className="searchInput__button">
         Search
       </Button>
     </form>

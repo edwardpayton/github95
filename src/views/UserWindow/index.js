@@ -2,7 +2,7 @@ import React from "react";
 import { Tabs, Tab, TabBody } from "react95";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 
-import Searchbar from "./Searchbar";
+import Header from "./Header";
 import TabOverview from "./TabOverview";
 import TabRepos from "./TabRepos";
 import TabStars from "./TabStars";
@@ -107,7 +107,7 @@ export default function UserWindow() {
 
   return (
     <div className="flex flex-column userWindow">
-      <Searchbar />
+      <Header />
       <section className="userWindow__content">
         <div className="flex flex-column userContent">
           <Tabs
