@@ -57,10 +57,11 @@ export default function Desktop() {
               const { label, desktopIcon } = WINDOW_OBJ[name];
               return (
                 <React.Fragment key={name}>
-                  {desktopIcon && (
+                  {desktopIcon.length && (
                     <DesktopButton
                       name={name}
                       label={label}
+                      icon={desktopIcon}
                       active={active}
                       onDoubleClick={handleButtonDblClick(name)}
                     />

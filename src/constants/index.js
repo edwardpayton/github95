@@ -1,17 +1,16 @@
 const user = {
   label: "User Profiles",
   header: "Explore Users - Search Github for users",
-  desktopIcon: true,
+  desktopIcon: require(`../assets/user.png`),
   desktopPosition: 1,
   visibility: [false, false],
 };
 const repos = {
   label: "Search Repos",
   header: "Search Repositories - Find the latest, hottest, and trending repos",
-  desktopIcon: true,
+  desktopIcon: require(`../assets/search-computer.png`),
   desktopPosition: 0,
-  // visibility: [false, false],
-  visibility: [true, true],
+  visibility: [false, false],
 };
 const trending = {
   label: "Trending Repos",
@@ -19,7 +18,7 @@ const trending = {
     '<img src="' +
     require("../assets/folder-open.png") +
     '" /> Exploring - Github\\Trending Repos',
-  desktopIcon: true,
+  desktopIcon: require(`../assets/folder-closed.png`),
   desktopPosition: 2,
   visibility: [false, false],
 };
@@ -29,14 +28,14 @@ const mostFollowed = {
     '<img src="' +
     require("../assets/folder-open.png") +
     '" /> Exploring - Github\\Most Followed Repos',
-  desktopIcon: true,
+  desktopIcon: require(`../assets/folder-closed.png`),
   desktopPosition: 3,
   visibility: [false, false],
 };
 const about = {
   label: "About",
   header: "About this project - Notepad",
-  desktopIcon: true,
+  desktopIcon: require(`../assets/about.png`),
   desktopPosition: 4,
   visibility: [false, false], // eg [button visible (show button), window visible (show window)]
 };
@@ -45,7 +44,7 @@ const about = {
 const facebookreact = {
   label: "Repo: facebook/react",
   header: "facebook react",
-  desktopIcon: false,
+  desktopIcon: "",
   desktopPosition: null,
   visibility: [false, false],
   details: { owner: "facebook", name: "react" },
