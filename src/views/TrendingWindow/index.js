@@ -21,10 +21,12 @@ export default function TrendingWindow() {
 
   React.useEffect(() => {
     getTrending("repositories");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
     setShortcuts(trends[type][period]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trends]);
 
   const handleTreeClick = (branch) => {

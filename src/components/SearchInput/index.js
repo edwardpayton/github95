@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { TextField, Button } from "react95";
 
 export default function SearchInput({ placeholder, initalValue, onSearch }) {
@@ -6,7 +8,9 @@ export default function SearchInput({ placeholder, initalValue, onSearch }) {
 
   React.useEffect(() => {
     if (initalValue !== state) setState(initalValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initalValue]);
+  // 'state' - causes infinate re-renders
 
   const handleChange = ({ target }) => {
     setState(target.value);
@@ -31,3 +35,13 @@ export default function SearchInput({ placeholder, initalValue, onSearch }) {
     </form>
   );
 }
+SearchInput.propTypes = {
+  placeholder: PropTypes.string,
+  initalValue: PropTypes.string,
+  onSearch: PropTypes.func.isRequired,
+};
+
+SearchInput.defaultProps = {
+  placeholder: "",
+  initalValue: "",
+};

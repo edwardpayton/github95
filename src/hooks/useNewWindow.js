@@ -7,6 +7,11 @@ import { DEFAULT_WINDOW } from "../constants";
 export default function () {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
 
+  const openWindow = (newWindow) =>
+    window.setTimeout(() => {
+      setWindows(newWindow);
+    }, 300);
+
   return useCallback(
     (name, owner) => {
       const windowName = `${owner}${name}`;
@@ -22,8 +27,10 @@ export default function () {
           },
         },
       };
-      setWindows({ ...currentWindows, ...window });
+      return openWindow({ ...currentWindows, ...window });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentWindows, setWindows]
+    // 'openWindow' - not needed
   );
 }

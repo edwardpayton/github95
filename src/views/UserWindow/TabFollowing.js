@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Table,
   TableBody,
@@ -65,3 +66,15 @@ export default function TabFollowing({ following, total, url }) {
     </div>
   );
 }
+
+TabFollowing.propTypes = {
+  followers: PropTypes.array,
+  total: PropTypes.number,
+  url: PropTypes.string,
+};
+
+TabFollowing.defaultProps = {
+  followers: undefined,
+  total: undefined,
+  url: undefined,
+};

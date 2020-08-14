@@ -49,6 +49,7 @@ export default function Header() {
 
   const handleClickHistory = (name) => () => {
     handleClickSearchResult(name);
+    setHistoryVisible(false);
   };
 
   const handleSearch = (value) => {
@@ -130,7 +131,9 @@ export default function Header() {
     if (refSearch.current === false && refLoaded.current === true) {
       getUserProfile(input);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
+  // 'getUserProfile' - not needed
 
   React.useEffect(() => {
     if (results.length > 0) {

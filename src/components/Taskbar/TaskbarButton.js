@@ -1,10 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Button, Tooltip } from "react95";
-import PropTypes from "prop-types";
 
 import { windowObj, focusedElement } from "../../store";
-import capitalize from "../../utilities/capitalize";
 
 export default function TaskbarButton({ name, label }) {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
@@ -52,4 +51,5 @@ export default function TaskbarButton({ name, label }) {
 
 TaskbarButton.propTypes = {
   name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
 };

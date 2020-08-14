@@ -63,7 +63,9 @@ export default function useReposApi() {
         setTopic(topicResult);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setResults, topic, setTopic]
+    // 'setSearchState' - not needed
   );
 
   const getRepoDetails = React.useCallback(
@@ -75,7 +77,9 @@ export default function useReposApi() {
 
       setDetails({ ...currentDetailWindows, [`${owner}${name}`]: results });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentDetailWindows]
+    // 'setDetails' - not needed
   );
 
   const getRepoFileTree = React.useCallback(
@@ -124,7 +128,9 @@ export default function useReposApi() {
         },
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [files]
+    // 'setFiles' - not needed
   );
 
   const getMostFollowed = React.useCallback(async () => {
@@ -134,6 +140,7 @@ export default function useReposApi() {
     }
 
     setMostFollowed(results);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getRepoIssues = React.useCallback(
@@ -157,7 +164,9 @@ export default function useReposApi() {
 
       setDetails({ ...details });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentDetailWindows]
+    // 'setDetails' - not needed
   );
 
   const getRepoPullRequests = React.useCallback(
@@ -177,7 +186,9 @@ export default function useReposApi() {
 
       setDetails({ ...details });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentDetailWindows]
+    // 'setDetails' - not needed
   );
 
   return {

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function DesktopButton({
   name,
@@ -25,3 +26,11 @@ export default function DesktopButton({
     </div>
   );
 }
+
+DesktopButton.propTypes = {
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  active: PropTypes.string.isRequired,
+  onDoubleClick: PropTypes.func.isRequired,
+};

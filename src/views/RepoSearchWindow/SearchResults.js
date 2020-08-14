@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useRecoilValue } from "recoil";
 
 import Pagination from "../../components/Pagination";
@@ -92,3 +93,7 @@ export default function SearchResults({ onPageChange }) {
     </div>
   );
 }
+
+ResultsTable.propTypes = {
+  onPageChange: PropTypes.func.isRequired,
+};

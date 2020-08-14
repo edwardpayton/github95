@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button } from "react95";
 
 import useNewWindow from "../../hooks/useNewWindow";
@@ -6,6 +7,7 @@ import useNewWindow from "../../hooks/useNewWindow";
 import processEvents from "../../utilities/processEvents";
 
 export default function Events({ events }) {
+  console.log("UserWindow/Events >>>", events);
   const open = useNewWindow();
 
   const [visible, setVisible] = React.useState([]);
@@ -112,3 +114,11 @@ function Event({ event, onClick }) {
     </li>
   );
 }
+
+Events.propTypes = {
+  events: PropTypes.object,
+};
+
+Events.defaultProps = {
+  events: undefined,
+};

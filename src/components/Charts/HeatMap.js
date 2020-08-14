@@ -131,6 +131,36 @@ function buildChart(ctx, data) {
   });
 }
 
+const shapeSeries = {
+  tooltip: PropTypes.string.isRequired,
+  v: PropTypes.number.isRequired,
+  x: PropTypes.string.isRequired,
+  y: PropTypes.number.isRequired,
+};
+
+const shapeDayOfWeek = {
+  commits: PropTypes.number.isRequired,
+  day: PropTypes.string.isRequired,
+  percent: PropTypes.number.isRequired,
+};
+
+// export proptypes so they can be used in other components (eg user activity)
+export const typesHeatMap = {
+  data: PropTypes.shape({
+    busiestDayOfWeek: PropTypes.arrayOf(PropTypes.shape(shapeDayOfWeek))
+      .isRequired,
+    busiestSingleDay: shapeSeries.isRequired,
+    start: PropTypes.string.isRequired,
+    end: PropTypes.string.isRequired,
+    total: PropTypes.number.isRequired,
+    series: PropTypes.arrayOf(PropTypes.shape(shapeSeries)).isRequired,
+  }).isRequired,
+};
+
+HeatMap.propTypes = {
+  ...typesHeatMap,
+};
+
 function color(dataset, i, max) {
   const alpha = dataset.data[i]["v"] / max;
   if (alpha === 1) return "#2ecaa3";

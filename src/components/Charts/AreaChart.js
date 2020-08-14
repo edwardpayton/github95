@@ -82,3 +82,8 @@ function buildChart(ctx, data, labels) {
     },
   });
 }
+
+AreaChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.number).isRequired,
+  labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

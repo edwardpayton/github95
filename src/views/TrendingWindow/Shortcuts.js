@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import Icon from "./Icon";
 
@@ -29,6 +30,7 @@ export default function Shortcuts({ shortcuts, type }) {
               key={data.name}
               avatar={data.avatar}
               name={data.name}
+              owner={data.author}
               highlighted={highlighted === data.name}
               onSingleClick={handleSnglClick(data.name)}
               onDoubleClick={handleDblClick(data.name, data.author)}
@@ -38,3 +40,12 @@ export default function Shortcuts({ shortcuts, type }) {
     </>
   );
 }
+
+Shortcuts.propTypes = {
+  shortcuts: PropTypes.object,
+  type: PropTypes.string.isRequired,
+};
+
+Shortcuts.defaultProps = {
+  shortcuts: undefined,
+};

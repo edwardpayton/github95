@@ -146,3 +146,13 @@ export default function TabRepos({ repos, total, onPageChange }) {
     </div>
   );
 }
+
+TabRepos.propTypes = {
+  repos: PropTypes.array,
+  total: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
+
+TabRepos.defaultProps = {
+  repos: undefined,
+};

@@ -1,13 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "./styles.scss";
 
-export default function FileTree({
-  files,
-  titleRow = "",
-  onRowClick,
-  onFileClick,
-}) {
+export default function FileTree({ files, titleRow, onRowClick, onFileClick }) {
   const handleClick = (path) => {
     onRowClick(path);
   };
@@ -84,3 +80,14 @@ function Branch({ row, path, onRowClick, onFileClick, defaultOpen = false }) {
     </li>
   );
 }
+// FileTree.propTypes = {
+//   files: PropTypes.array,
+//   titleRow: PropTypes.string,
+//   onRowClick: PropTypes.func.isRequired,
+//   onFileClick: PropTypes.func.isRequired,
+// };
+
+// FileTree.defaultProps = {
+//   files: undefined,
+//   titleRow: "",
+// };

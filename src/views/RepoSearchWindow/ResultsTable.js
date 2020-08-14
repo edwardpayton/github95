@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Table,
   TableHead,
@@ -95,3 +96,8 @@ export default function ResultsTable({ data, loadingPage }) {
     </>
   );
 }
+
+ResultsTable.propTypes = {
+  data: PropTypes.array.isRequired,
+  loadingPage: PropTypes.bool.isRequired,
+};

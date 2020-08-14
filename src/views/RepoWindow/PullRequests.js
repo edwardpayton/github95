@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { Anchor, Hourglass } from "react95";
 
@@ -171,3 +172,11 @@ function Commit({ commit }) {
     </div>
   );
 }
+
+PullRequests.propTypes = {
+  data: PropTypes.object,
+};
+
+PullRequests.defaultProps = {
+  data: undefined,
+};

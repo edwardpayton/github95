@@ -66,3 +66,17 @@ export default function Pagination({
     </nav>
   );
 }
+
+Pagination.propTypes = {
+  onPageChange: PropTypes.func.isRequired,
+  totalCount: PropTypes.number.isRequired,
+  reset: PropTypes.bool,
+  perPage: PropTypes.number,
+  className: PropTypes.string,
+};
+
+Pagination.defaultProps = {
+  reset: false,
+  perPage: 20,
+  className: "",
+};

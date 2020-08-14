@@ -1,6 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
+
+import propTypeChildren from "../../utilities/propTypeChildren";
 
 import "./styles.scss";
 
@@ -57,3 +60,9 @@ export default function ErrorPopup({ header, dismissable, children }) {
     </>
   );
 }
+
+ErrorPopup.propTypes = {
+  header: PropTypes.string.isRequired,
+  dismissable: PropTypes.bool.isRequired,
+  children: propTypeChildren,
+};

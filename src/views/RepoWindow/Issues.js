@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
   Table,
@@ -166,3 +167,11 @@ function IssuesTable({ issues }) {
     </Table>
   );
 }
+
+Issues.propTypes = {
+  data: PropTypes.object,
+};
+
+Issues.defaultProps = {
+  data: undefined,
+};

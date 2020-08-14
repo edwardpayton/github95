@@ -22,7 +22,9 @@ export default function Taskbar() {
       else refWindowMap.current.delete(window);
     });
     setButtons([...refWindowMap.current]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWindows]);
+  // 'setButtons' - not needed
 
   return (
     <AppBar className="taskbar">

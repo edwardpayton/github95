@@ -78,7 +78,9 @@ export default function Searchbar() {
       setActiveTab(0);
       setCheckboxes(inititalCheckboxes);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWindows.repos]);
+  // currentRepo', 'setCurrentRepo', 'setInput', 'setSort' - not needed
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -86,6 +88,7 @@ export default function Searchbar() {
       const searchQualifier = Object.keys(checkboxes)
         .map((key) => {
           if (checkboxes[key] === true) return key;
+          return null;
         })
         .filter(Boolean)
         .reduce((str, current, i) => {

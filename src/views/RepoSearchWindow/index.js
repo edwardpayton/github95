@@ -41,7 +41,9 @@ export default function RepoSearchWindow() {
       setResults([]);
       setTopic({});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWindows.repos]);
+  // 'currentRepo', 'setCurrentRepo', 'setResults', 'setTopic' - not needed
 
   return (
     <section className="flex flex-column repoSearch">

@@ -26,6 +26,8 @@ export default function TaskbarClock() {
       window.clearTimeout(refTimer.current);
       refClock.current = null;
     };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <p ref={refClock} className="taskbarClock"></p>;

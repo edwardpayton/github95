@@ -71,3 +71,10 @@ function buildChart(ctx, { series, labels }) {
     },
   });
 }
+
+PieChart.propTypes = {
+  data: PropTypes.shape({
+    labels: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    series: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  }).isRequired,
+};

@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import propTypeChildren from "../../utilities/propTypeChildren";
+
 import "./styles.scss";
 
 export default function Card({ className, children }) {
@@ -11,5 +13,5 @@ export default function Card({ className, children }) {
 
 Card.propTypes = {
   className: PropTypes.string,
-  // children: PropTypes. // TODO
+  children: propTypeChildren,
 };

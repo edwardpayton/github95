@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import { AreaChart } from "../../components/Charts";
 
@@ -28,3 +29,15 @@ export default function ReposOverTime({ activity, total, startDate }) {
     </>
   );
 }
+
+ReposOverTime.propTypes = {
+  activity: PropTypes.object,
+  total: PropTypes.number,
+  startDate: PropTypes.string,
+};
+
+ReposOverTime.defaultProps = {
+  activity: undefined,
+  total: undefined,
+  startDate: undefined,
+};

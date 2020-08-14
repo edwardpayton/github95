@@ -17,7 +17,7 @@ import processUserLanguages from "../../utilities/processUserLanguages";
 export default function TabOverview({ profile }) {
   const activity = useRecoilValue(userChartData);
   const events = useRecoilValue(userEventsData);
-  const [topLangauges, setLanguages] = React.useState({}); // TODO move this to recoil
+  const [topLangauges, setLanguages] = React.useState({});
   const refOverview = React.useRef(undefined);
   const refEventsElem = React.useRef(undefined);
   const refObserver = React.useRef(undefined);
@@ -60,7 +60,7 @@ export default function TabOverview({ profile }) {
     )
       observeScroll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refEventsElem, profile.login]); // observeScroll - unneeded
+  }, [refEventsElem, profile.login]); // observeScroll - not needed
 
   return (
     <div className="userContent__bodyInner scrollable -yOnly" ref={refOverview}>
@@ -265,3 +265,11 @@ export default function TabOverview({ profile }) {
     </div>
   );
 }
+
+TabOverview.propTypes = {
+  profile: PropTypes.object,
+};
+
+TabOverview.defaultProps = {
+  profile: undefined,
+};

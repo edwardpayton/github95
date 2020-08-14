@@ -132,3 +132,13 @@ export default function TabStars({ stars, total, onPageChange }) {
     </div>
   );
 }
+
+TabStars.propTypes = {
+  stars: PropTypes.array,
+  total: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
+
+TabStars.defaultProps = {
+  stars: undefined,
+};

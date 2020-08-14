@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Tabs, Tab, TabBody } from "react95";
 import { useRecoilValue } from "recoil";
 
@@ -190,7 +191,7 @@ export default function Content({ content, onTreeClick }) {
               <Readme>{content.apiData.readme}</Readme>
             ) : (
               <div>
-                <p>No readme (todo)</p>
+                <p>No Readme file found</p>
               </div>
             )}
           </div>
@@ -210,14 +211,14 @@ export default function Content({ content, onTreeClick }) {
                   onFileClick={handleFileClick}
                 />
               ) : (
-                <p>No files (todo)</p>
+                <p>No files</p>
               )}
             </div>
             <div className="flex-auto repoWindow__filesCol -preview scrollable -yOnly">
               {Object.keys(fileState).length === 0 && (
                 <p className="pt2 center">Select a file</p>
               )}
-              <FilePreview>{fileState}</FilePreview>
+              <FilePreview file={fileState} />
             </div>
           </div>
         </section>
@@ -245,3 +246,13 @@ export default function Content({ content, onTreeClick }) {
     </section>
   );
 }
+
+FileTree.propTypes = {
+  content: PropTypes.object,
+  onTreeClick: PropTypes.func,
+};
+
+FileTree.defaultTypes = {
+  content: undefined,
+  onTreeClick: undefined,
+};

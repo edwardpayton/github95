@@ -106,6 +106,7 @@ export default function MostFollowedWindow() {
                       return (
                         <TableRow
                           key={id}
+                          data-name={name + owner.login}
                           className="table__bodyRow"
                           onClick={handleSnglClick(name)}
                           onDoubleClick={handleDblClick(name, owner.login)}

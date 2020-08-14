@@ -1,5 +1,7 @@
 import React from "react";
+
 import { HeatMap } from "../../components/Charts";
+import { typesHeatMap } from "../../components/Charts/HeatMap";
 
 import formatDate from "../../utilities/formatDate";
 
@@ -37,3 +39,7 @@ export default function Activity({ data }) {
     </div>
   );
 }
+
+Activity.propTypes = {
+  ...typesHeatMap,
+};

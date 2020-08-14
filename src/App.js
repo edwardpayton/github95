@@ -31,18 +31,21 @@ function App() {
       const { name } = closest.dataset;
       setfocused(name);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [focused, setfocused, currentButtons]
   );
 
   React.useEffect(() => {
     getApiLimit();
     document.addEventListener("click", handleClick);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <Desktop />;
 }
 
 export default () => {
+  // eslint-disable-next-line no-unused-vars
   const [soundStorage, _] = useLocalStorage("github95_noSound");
 
   return (

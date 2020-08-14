@@ -3,12 +3,7 @@ import PropTypes from "prop-types";
 
 import "./styles.scss";
 
-export default function AnchorButton({
-  href,
-  className,
-  children,
-  target = "_blank",
-}) {
+export default function AnchorButton({ href, className, children, target }) {
   return (
     <a
       href={href}
@@ -25,4 +20,8 @@ AnchorButton.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
   target: PropTypes.string,
+};
+
+AnchorButton.defaultProps = {
+  target: "_blank",
 };

@@ -66,3 +66,15 @@ export default function TabFollowers({ followers, total, url }) {
     </div>
   );
 }
+
+TabFollowers.propTypes = {
+  followers: PropTypes.array,
+  total: PropTypes.number,
+  url: PropTypes.string,
+};
+
+TabFollowers.defaultProps = {
+  followers: undefined,
+  total: undefined,
+  url: undefined,
+};

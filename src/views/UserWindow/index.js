@@ -52,7 +52,9 @@ export default function UserWindow() {
       setActiveTab(0);
       refTabsList.current.clear();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userList, currentUser]);
+  // 'getUserActivity' - not needed
 
   React.useEffect(() => {
     if (currentUser && !currentWindows.user.visibility[0]) {
@@ -63,7 +65,10 @@ export default function UserWindow() {
       setCurrentUser(null);
       setInput("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentWindows.user]);
+  // 'setCurrentUser', 'setActiveTab', 'setInput' - not needed
+  // 'currentUser' - causes re-renders
 
   const handleChange = (_, value) => {
     setActiveTab(value);

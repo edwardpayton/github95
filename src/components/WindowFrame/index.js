@@ -1,9 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
 import { useRecoilValue } from "recoil";
 
 import { focusedElement } from "../../store";
+import propTypeChildren from "../../utilities/propTypeChildren";
 
 import "./styles.scss";
 
@@ -82,3 +84,17 @@ export default function WindowFrame({ name, window, onClose, children }) {
     </Draggable>
   );
 }
+
+const shapeWindow = {
+  label: PropTypes.string,
+  header: PropTypes.string,
+  desktopIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  visibility: PropTypes.arrayOf(PropTypes.bool),
+};
+
+WindowFrame.propTypes = {
+  name: PropTypes.string.isRequired,
+  window: PropTypes.shape(shapeWindow).isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: propTypeChildren,
+};

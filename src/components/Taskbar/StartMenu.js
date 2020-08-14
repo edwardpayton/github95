@@ -31,7 +31,9 @@ export default function StartMenu() {
         visibility: [true, true],
       },
     };
-    setWindows({ ...currentWindows, ...updated });
+    window.setTimeout(() => {
+      setWindows({ ...currentWindows, ...updated });
+    }, 300);
     toggleMenu(false);
   };
 

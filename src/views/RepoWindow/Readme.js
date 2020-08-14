@@ -3,6 +3,8 @@ import React from "react";
 import marked from "marked";
 import DOMPurify from "dompurify";
 
+import propTypeChildren from "../../utilities/propTypeChildren";
+
 const renderer = new marked.Renderer();
 renderer.link = (href, title, text) =>
   `<a href="${href}" ${
@@ -40,3 +42,7 @@ export default function Readme({ children }) {
     </div>
   );
 }
+
+Readme.propTypes = {
+  children: propTypeChildren,
+};

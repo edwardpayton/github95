@@ -50,7 +50,9 @@ export default function useUserApi() {
       setApiState({ searching: false });
       setResults(results);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [setResults]
+    // 'setApiState' - not needed
   );
 
   const getUserProfile = React.useCallback(
@@ -76,7 +78,9 @@ export default function useUserApi() {
       setList({ ...userList, ...newUserData });
       setApiState({ gettingUser: false });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [userList, setList, setCurrentUser]
+    // 'setApiState' - not needed
   );
 
   const getUserActivity = React.useCallback(async () => {
@@ -125,7 +129,9 @@ export default function useUserApi() {
       setList({ ...userList, ...newUserData });
       setApiState({ gettingPage: false });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [userList, setList, currentUser]
+    // 'setApiState' - not needed
   );
 
   const getUserStars = React.useCallback(
@@ -155,7 +161,9 @@ export default function useUserApi() {
       setList({ ...userList, ...newUserData });
       setApiState({ gettingPage: false });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [userList, setList, currentUser]
+    // 'setApiState' - not needed
   );
 
   const getUserGists = React.useCallback(
@@ -183,7 +191,9 @@ export default function useUserApi() {
       setList({ ...userList, ...newUserData });
       setApiState({ gettingPage: false });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [userList, setList, currentUser]
+    // 'setApiState' - not needed
   );
 
   const getUserFollows = React.useCallback(async () => {
@@ -202,7 +212,9 @@ export default function useUserApi() {
     };
     setList({ ...userList, ...newUserData });
     setApiState({ gettingPage: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userList, setList, currentUser]);
+  // 'setApiState' - not needed
 
   return {
     getUserSearchResults,

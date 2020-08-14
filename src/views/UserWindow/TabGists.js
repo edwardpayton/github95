@@ -107,3 +107,13 @@ export default function TabGists({ gists, total, onPageChange }) {
     </div>
   );
 }
+
+TabGists.propTypes = {
+  gists: PropTypes.array,
+  total: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
+
+TabGists.defaultProps = {
+  gists: undefined,
+};

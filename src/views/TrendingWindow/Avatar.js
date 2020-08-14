@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function Avatar({ src }) {
   const refCanvas = React.useRef(undefined);
@@ -30,3 +31,7 @@ export default function Avatar({ src }) {
     </>
   );
 }
+
+Avatar.propTypes = {
+  src: PropTypes.string.isRequired,
+};
