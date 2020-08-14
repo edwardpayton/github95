@@ -12,12 +12,13 @@ import {
 import AnchorButton from "../../components/AnchorButton";
 import Loading from "../../components/Loading";
 
-import { useSetRecoilState } from "recoil";
-import { searchInputOfType } from "../../store";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { userApiStatus, searchInputOfType } from "../../store";
 import { USER } from "../../constants";
 
 export default function TabFollowers({ followers, total, url }) {
   const setSearch = useSetRecoilState(searchInputOfType(USER));
+  const { gettingPage } = useRecoilValue(userApiStatus);
 
   const handleClick = (login) => () => {
     setSearch(login);
@@ -25,7 +26,7 @@ export default function TabFollowers({ followers, total, url }) {
 
   return (
     <div className="userFollowers">
-      {followers && followers.length > 0 ? (
+      {followers && followers.length > 0 && (
         <>
           <Table className="table">
             <TableBody>
@@ -60,9 +61,8 @@ export default function TabFollowers({ followers, total, url }) {
             View all {total} on github.com
           </AnchorButton>
         </>
-      ) : (
-        <Loading message="Loading results" />
       )}
+      {gettingPage && <Loading message="" />}
     </div>
   );
 }

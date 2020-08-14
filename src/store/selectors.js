@@ -1,7 +1,7 @@
 import { selector } from "recoil";
 import { rateLimit, searchStatusOfType } from "./atoms";
 import formatDate from "../utilities/formatDate";
-import { REPOS } from "../constants";
+import { USER, REPOS } from "../constants";
 
 export const apiLimit = selector({
   key: "apiLimit",
@@ -29,6 +29,26 @@ export const apiLimit = selector({
     };
 
     set(rateLimit, value);
+  },
+});
+
+const initialUserApiStatus = {
+  searching: false,
+  gettingUser: false,
+  gettingPage: false,
+  errors: false,
+};
+
+export const userApiStatus = selector({
+  key: "userApiStatus",
+  get: ({ get }) => get(searchStatusOfType(USER, initialUserApiStatus)),
+  set: ({ set, get }, updates) => {
+    const state = get(searchStatusOfType(USER));
+    const newValue = {
+      ...state,
+      ...updates,
+    };
+    set(searchStatusOfType(USER), newValue);
   },
 });
 

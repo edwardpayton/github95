@@ -7,7 +7,7 @@ import "./styles.scss";
 export default function Pagination({
   onPageChange,
   totalCount,
-  reset,
+  reset = false,
   perPage = 20,
   className = "",
 }) {

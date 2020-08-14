@@ -15,9 +15,7 @@ import {
 import { REPOS } from "../../constants";
 
 export default function SearchResults({ onPageChange }) {
-  const { gettingSearch, gettingTopic, gettingPage } = useRecoilValue(
-    repoSearchStatus
-  );
+  const { gettingSearch, gettingPage } = useRecoilValue(repoSearchStatus);
   const results = useRecoilValue(searchResultsOfType(REPOS));
   const currentRepo = useRecoilValue(currentRecordOfType(REPOS));
   const sort = useRecoilValue(reposSort);

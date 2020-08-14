@@ -91,7 +91,7 @@ export default function ResultsTable({ data, loadingPage }) {
             )}
         </TableBody>
       </Table>
-      {loadingPage && <Loading message="Loading page" />}
+      {loadingPage && <Loading message="" />}
     </>
   );
 }

@@ -54,7 +54,11 @@ export default function TabOverview({ profile }) {
   };
 
   React.useEffect(() => {
-    refEventsElem.current !== undefined && observeScroll();
+    if (
+      refEventsElem.current !== undefined &&
+      events[profile.login] === undefined
+    )
+      observeScroll();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refEventsElem, profile.login]); // observeScroll - unneeded
 

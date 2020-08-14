@@ -17,7 +17,7 @@
 .header {
   position: relative;
   height: 45px;
-  z-index: 2;
+  z-index: 3;
   &__title > h1 {
     line-height: 35px;
     text-shadow: 1px 0 #050608;
@@ -63,17 +63,20 @@
 
 .searchHistory {
   &.searchHistory {
+    position: relative;
     left: -60px;
     top: 35px;
+    display: none;
+    &.-visible {
+      display: block;
+    }
+  }
+  &__inner {
     min-height: 100%;
     min-width: 120px;
     max-width: 150px;
     padding: 0.5rem;
     box-shadow: 0px 5px 5px 0px hsla(0, 0%, 0%, 0.3);
-    display: none;
-    &.-visible {
-      display: block;
-    }
   }
   &__button {
     width: 100% !important;
@@ -137,6 +140,15 @@
 .userContent {
   height: 100%;
   position: relative;
+  &__loading {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #c6c6c6;
+    z-index: 2;
+  }
 }
 .userContent__tabs.-disabled {
   pointer-events: none;
@@ -393,6 +405,8 @@
   .badge.badge {
     padding: 3px 2px;
     margin-left: 0;
+    min-width: 12px;
+    text-align: center;
     font-size: 9px !important;
     background: #9cead7; // visually matches highlighted day in heatmap
   }

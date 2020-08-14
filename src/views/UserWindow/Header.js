@@ -6,12 +6,14 @@ import {
   TableDataCell,
   Tooltip,
   Button,
+  Hourglass,
 } from "react95";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import SearchInput from "../../components/SearchInput";
 
 import {
+  userApiStatus,
   searchInputOfType,
   searchResultsOfType,
   currentRecordOfType,
@@ -29,10 +31,9 @@ export default function Header() {
   const [currentUser, setCurrentUser] = useRecoilState(
     currentRecordOfType(USER)
   );
-  const [menuVisible, setMenuVisible] = React.useState(false);
-  const [resultsVisible, setResultsVisible] = React.useState(
-    results.length > 0
-  );
+  const { searching } = useRecoilValue(userApiStatus);
+  const [historyVisible, setHistoryVisible] = React.useState(false);
+  const [resultsVisible, setResultsVisible] = React.useState(false);
   const refSearch = React.useRef(false);
   const refLoaded = React.useRef(false);
   const refResults = React.useRef(undefined);
@@ -40,7 +41,7 @@ export default function Header() {
 
   const { getUserSearchResults, getUserProfile } = useUserApi();
 
-  const handleToggleMenu = () => setMenuVisible(!menuVisible);
+  const handleToggleMenu = () => setHistoryVisible(!historyVisible);
 
   const handleClickOnResult = (result) => () => {
     handleClickSearchResult(result);
@@ -111,7 +112,7 @@ export default function Header() {
   const handleClickOutsideHistory = ({ target }) => {
     const clickedHistory = refHistory.current.contains(target);
     if (!clickedHistory) {
-      setMenuVisible(false);
+      setHistoryVisible(false);
       document.removeEventListener("click", handleClickOutsideHistory);
     }
   };
@@ -119,6 +120,10 @@ export default function Header() {
   React.useEffect(() => {
     refLoaded.current = true;
   }, []);
+
+  React.useEffect(() => {
+    if (searching) setResultsVisible(true);
+  }, [searching]);
 
   React.useEffect(() => {
     // TODO this logic is to trigger getUserProfile on two scenarios - on clicking a result, on clicking a follower/ing user. It is a clumsy way around it, can be refactored
@@ -138,11 +143,11 @@ export default function Header() {
   }, [results]); // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
-    if (menuVisible) {
+    if (historyVisible) {
       document.addEventListener("click", handleClickOutsideHistory);
-      setMenuVisible(true);
+      setHistoryVisible(true);
     }
-  }, [menuVisible]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [historyVisible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <section className="flex justify-between header">
@@ -171,27 +176,29 @@ export default function Header() {
         </Tooltip>
         <Button
           onClick={handleToggleMenu}
-          active={menuVisible}
+          active={historyVisible}
           disabled={!Object.keys(userList).length}
           className="header__button -history"
         >
           History
         </Button>
         <div
-          className={`card searchHistory${menuVisible ? " -visible" : ""}`}
+          className={`searchHistory${historyVisible ? " -visible" : ""}`}
           ref={refHistory}
         >
-          {Object.keys(userList).map((item) => (
-            <Button
-              key={item}
-              onClick={handleClickHistory(item)}
-              className={`searchHistory__button${
-                item === input ? " -current" : ""
-              }`}
-            >
-              {item}
-            </Button>
-          ))}
+          <div className="card searchHistory__inner">
+            {Object.keys(userList).map((item) => (
+              <Button
+                key={item}
+                onClick={handleClickHistory(item)}
+                className={`searchHistory__button${
+                  item === input ? " -current" : ""
+                }`}
+              >
+                {item}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -209,28 +216,35 @@ export default function Header() {
           {resultsVisible && (
             <div className="card searchResultsOverlay__panel">
               <div className="scrollable -yOnly searchResultsOverlay__inner">
-                <Table className="table">
-                  <TableBody>
-                    {results.map((row) => (
-                      <TableRow key={row.login}>
-                        <TableDataCell className="flex justify-between searchResultsOverlay__row">
-                          <p>
-                            {row.name}
-                            <span className="searchResultsOverlay__login">
-                              {row.login}
-                            </span>
-                          </p>
-                          <Button
-                            onClick={handleClickOnResult(row.login)}
-                            className="searchResultsOverlay__button"
-                          >
-                            Open profile
-                          </Button>
-                        </TableDataCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                {searching ? (
+                  <div className="pt4 flex flex-column items-center">
+                    <Hourglass />
+                    <p>Searching</p>
+                  </div>
+                ) : (
+                  <Table className="table">
+                    <TableBody>
+                      {results.map((row) => (
+                        <TableRow key={row.login}>
+                          <TableDataCell className="flex justify-between searchResultsOverlay__row">
+                            <p>
+                              {row.name}
+                              <span className="searchResultsOverlay__login">
+                                {row.login}
+                              </span>
+                            </p>
+                            <Button
+                              onClick={handleClickOnResult(row.login)}
+                              className="searchResultsOverlay__button"
+                            >
+                              Open profile
+                            </Button>
+                          </TableDataCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
               </div>
             </div>
           )}

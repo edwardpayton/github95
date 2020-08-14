@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import {
+  userApiStatus,
   searchInputOfType,
   searchResultsOfType,
   usersListObj,
@@ -29,6 +30,7 @@ import processChartData from "../utilities/processChartData";
  * example: const { userProfile, userRepos, getUserStars, getUserGists, getUserFollows } = githubApi();
  */
 export default function useUserApi() {
+  const setApiState = useSetRecoilState(userApiStatus);
   const setResults = useSetRecoilState(searchResultsOfType(USER));
   const [currentUser, setCurrentUser] = useRecoilState(
     currentRecordOfType(USER)
@@ -40,10 +42,12 @@ export default function useUserApi() {
 
   const getUserSearchResults = React.useCallback(
     async (input) => {
+      setApiState({ searching: true });
       const results = await apiGetUserSearchResults(input);
       if (!results || results instanceof Error) {
-        console.error("ERROR", results); // TODO
+        setApiState({ searching: false, errors: results }); // TODO what to do with this?
       }
+      setApiState({ searching: false });
       setResults(results);
     },
     [setResults]
@@ -54,9 +58,10 @@ export default function useUserApi() {
       if (!input.length) {
         return;
       }
+      setApiState({ gettingUser: true });
       let profile = await apiGetUserProfile(input);
       if (profile instanceof Error) {
-        console.error("ERROR", profile); // TODO
+        setApiState({ gettingUser: false, errors: profile }); // TODO what to do with this?
       }
 
       profile = {
@@ -69,6 +74,7 @@ export default function useUserApi() {
 
       setCurrentUser(profile.login);
       setList({ ...userList, ...newUserData });
+      setApiState({ gettingUser: false });
     },
     [userList, setList, setCurrentUser]
   );
@@ -95,6 +101,7 @@ export default function useUserApi() {
 
   const getUserRepos = React.useCallback(
     async (cursor = null) => {
+      setApiState({ gettingPage: true });
       let repos = await apiGetUserRepos(userList[currentUser].login, cursor);
 
       if (cursor) {
@@ -116,12 +123,14 @@ export default function useUserApi() {
       };
 
       setList({ ...userList, ...newUserData });
+      setApiState({ gettingPage: false });
     },
     [userList, setList, currentUser]
   );
 
   const getUserStars = React.useCallback(
     async (cursor = null) => {
+      setApiState({ gettingPage: true });
       let stars = await apiGetUserStars(userList[currentUser].login, cursor);
 
       if (cursor) {
@@ -144,12 +153,14 @@ export default function useUserApi() {
         },
       };
       setList({ ...userList, ...newUserData });
+      setApiState({ gettingPage: false });
     },
     [userList, setList, currentUser]
   );
 
   const getUserGists = React.useCallback(
     async (cursor = null) => {
+      setApiState({ gettingPage: true });
       let gists = await apiGetUserGists(userList[currentUser].login, cursor);
 
       if (cursor) {
@@ -170,11 +181,13 @@ export default function useUserApi() {
         },
       };
       setList({ ...userList, ...newUserData });
+      setApiState({ gettingPage: false });
     },
     [userList, setList, currentUser]
   );
 
   const getUserFollows = React.useCallback(async () => {
+    setApiState({ gettingPage: true });
     const result = await apiGetUserFollows(userList[currentUser].login);
     const existingData = userList[userList[currentUser].login]["apiData"];
     const newUserData = {
@@ -188,6 +201,7 @@ export default function useUserApi() {
       },
     };
     setList({ ...userList, ...newUserData });
+    setApiState({ gettingPage: false });
   }, [userList, setList, currentUser]);
 
   return {

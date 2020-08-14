@@ -14,12 +14,13 @@ import RepoButton from "../../components/RepoButton";
 import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
 
-import { currentRecordOfType } from "../../store";
+import { userApiStatus, currentRecordOfType } from "../../store";
 import formatDate from "../../utilities/formatDate";
 import { USER } from "../../constants";
 
 export default function TabRepos({ repos, total, onPageChange }) {
   const currentUser = useRecoilValue(currentRecordOfType(USER));
+  const { gettingPage } = useRecoilValue(userApiStatus);
   const [pageNumber, setPageNumber] = React.useState(0);
   const [paginated, setPaginated] = React.useState([]);
 
@@ -53,97 +54,95 @@ export default function TabRepos({ repos, total, onPageChange }) {
 
   return (
     <div className="userRepos">
-      {paginated && paginated.length > 0 ? (
-        <>
-          <Table className="table userRepos__table">
-            <TableHead>
-              <TableRow head>
-                <TableHeadCell className="table__headCell">
-                  Details
-                </TableHeadCell>
-                <TableHeadCell className="table__headCell -fixedWidth">
-                  Main language
-                </TableHeadCell>
-                <TableHeadCell className="table__headCell -fixedWidth">
-                  Updated
-                </TableHeadCell>
-                <TableHeadCell className="table__headCell -fixedWidth">
-                  Link
-                </TableHeadCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {paginated[pageNumber] &&
-                paginated[pageNumber].map(
-                  ({
-                    cursor,
-                    node: {
-                      name,
-                      isFork,
-                      description,
-                      url,
-                      updatedAt,
-                      primaryLanguage,
-                      repositoryTopics,
-                    },
-                  }) => (
-                    <TableRow key={cursor} className="table__bodyRow">
-                      <TableDataCell className="table__bodyCell">
-                        <p className="fontSize14">
-                          {name}
-                          {isFork && (
-                            <span className="badge -grey -textBlack">Fork</span>
-                          )}
+      {paginated && paginated.length > 0 && (
+        <Table className="table userRepos__table">
+          <TableHead>
+            <TableRow head>
+              <TableHeadCell className="table__headCell">Details</TableHeadCell>
+              <TableHeadCell className="table__headCell -fixedWidth">
+                Main language
+              </TableHeadCell>
+              <TableHeadCell className="table__headCell -fixedWidth">
+                Updated
+              </TableHeadCell>
+              <TableHeadCell className="table__headCell -fixedWidth">
+                Link
+              </TableHeadCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {paginated[pageNumber] &&
+              paginated[pageNumber].map(
+                ({
+                  cursor,
+                  node: {
+                    name,
+                    isFork,
+                    description,
+                    url,
+                    updatedAt,
+                    primaryLanguage,
+                    repositoryTopics,
+                  },
+                }) => (
+                  <TableRow key={cursor} className="table__bodyRow">
+                    <TableDataCell className="table__bodyCell">
+                      <p className="fontSize14">
+                        {name}
+                        {isFork && (
+                          <span className="badge -grey -textBlack">Fork</span>
+                        )}
+                      </p>
+                      <p className="userRepos__repoDesc">{description}</p>
+                      {repositoryTopics.nodes.length > 0 && (
+                        <div>
+                          {repositoryTopics.nodes.map(({ topic }) => (
+                            <p
+                              className="badge -small -textBlack"
+                              key={cursor + topic.name}
+                            >
+                              {topic.name}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+                    </TableDataCell>
+                    <TableDataCell className="table__bodyCell">
+                      {primaryLanguage !== null ? (
+                        <p
+                          className={`languageBadge -textBlack -${primaryLanguage.name}`}
+                        >
+                          <span
+                            className="badge"
+                            style={{
+                              backgroundColor: primaryLanguage.color,
+                            }}
+                          ></span>
+                          {primaryLanguage.name}
                         </p>
-                        <p className="userRepos__repoDesc">{description}</p>
-                        {repositoryTopics.nodes.length > 0 && (
-                          <div>
-                            {repositoryTopics.nodes.map(({ topic }) => (
-                              <p
-                                className="badge -small -textBlack"
-                                key={cursor + topic.name}
-                              >
-                                {topic.name}
-                              </p>
-                            ))}
-                          </div>
-                        )}
-                      </TableDataCell>
-                      <TableDataCell className="table__bodyCell">
-                        {primaryLanguage !== null ? (
-                          <p
-                            className={`languageBadge -textBlack -${primaryLanguage.name}`}
-                          >
-                            <span
-                              className="badge"
-                              style={{
-                                backgroundColor: primaryLanguage.color,
-                              }}
-                            ></span>
-                            {primaryLanguage.name}
-                          </p>
-                        ) : (
-                          <p>-</p>
-                        )}
-                      </TableDataCell>
-                      <TableDataCell className="table__bodyCell">
-                        {formatDate(updatedAt)}
-                      </TableDataCell>
-                      <TableDataCell className="pl1 table__bodyCell">
-                        <RepoButton name={name} owner={currentUser} />
-                      </TableDataCell>
-                    </TableRow>
-                  )
-                )}
-            </TableBody>
-          </Table>
-          {total > 20 && (
-            <Pagination onPageChange={handleClickNextPage} totalCount={total} />
-          )}
-        </>
-      ) : (
-        <Loading message="Loading results" />
+                      ) : (
+                        <p>-</p>
+                      )}
+                    </TableDataCell>
+                    <TableDataCell className="table__bodyCell">
+                      {formatDate(updatedAt)}
+                    </TableDataCell>
+                    <TableDataCell className="pl1 table__bodyCell">
+                      <RepoButton name={name} owner={currentUser} />
+                    </TableDataCell>
+                  </TableRow>
+                )
+              )}
+          </TableBody>
+        </Table>
       )}
+      {gettingPage && <Loading message="" />}
+
+      <div style={{ visibility: gettingPage ? "hidden" : "visible" }}>
+        {total > 20 && (
+          <Pagination onPageChange={handleClickNextPage} totalCount={total} />
+        )}
+      </div>
     </div>
   );
 }

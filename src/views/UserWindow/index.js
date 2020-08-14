@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs, Tab, TabBody } from "react95";
 import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
 
+import Loading from "../../components/Loading";
 import Header from "./Header";
 import TabOverview from "./TabOverview";
 import TabRepos from "./TabRepos";
@@ -11,6 +12,7 @@ import TabFollowing from "./TabFollowing";
 import TabGists from "./TabGists";
 
 import {
+  userApiStatus,
   currentRecordOfType,
   searchInputOfType,
   usersListObj,
@@ -29,6 +31,7 @@ export default function UserWindow() {
   const setInput = useSetRecoilState(searchInputOfType(USER));
   const userList = useRecoilValue(usersListObj);
   const currentWindows = useRecoilValue(windowObj);
+  const { gettingUser } = useRecoilValue(userApiStatus);
   const refTabsList = React.useRef(new Set([]));
   const [activeTab, setActiveTab] = React.useState(0);
   const refLogin = React.useRef("");
@@ -197,9 +200,15 @@ export default function UserWindow() {
           </Tabs>
 
           <TabBody className="userContent__tabBody">
-            {!currentUser && (
+            {!currentUser && !gettingUser && (
               <div className="flex justify-center items-center userContent__intro">
                 <p>Search for a user</p>
+              </div>
+            )}
+
+            {gettingUser && (
+              <div className="userContent__loading">
+                <Loading message="Loading user profile" />
               </div>
             )}
 
