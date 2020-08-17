@@ -80,14 +80,14 @@ function Branch({ row, path, onRowClick, onFileClick, defaultOpen = false }) {
     </li>
   );
 }
-// FileTree.propTypes = {
-//   files: PropTypes.array,
-//   titleRow: PropTypes.string,
-//   onRowClick: PropTypes.func.isRequired,
-//   onFileClick: PropTypes.func.isRequired,
-// };
+FileTree.propTypes = {
+  files: PropTypes.array,
+  titleRow: PropTypes.string,
+  onRowClick: PropTypes.func.isRequired,
+  onFileClick: PropTypes.func.isRequired,
+};
 
-// FileTree.defaultProps = {
-//   files: undefined,
-//   titleRow: "",
-// };
+FileTree.defaultProps = {
+  files: undefined,
+  titleRow: "",
+};

@@ -205,12 +205,14 @@ export default function Content({ content, onTreeClick }) {
           <div className="flex repoWindow__files">
             <div className="repoWindow__filesCol -tree scrollable -xAndY">
               {content.object ? (
+                // @ts-ignore
                 <FileTree
                   files={content.object.entries}
                   onRowClick={onTreeClick}
                   onFileClick={handleFileClick}
                 />
               ) : (
+                // ignoring this error bc it isnt erroring in TrendingWindow component & it isnt causing problems here
                 <p>No files</p>
               )}
             </div>

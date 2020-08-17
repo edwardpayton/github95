@@ -27,7 +27,7 @@ export default function Shortcuts({ shortcuts, type }) {
           const data = shortcuts[repo];
           return (
             <Icon
-              key={data.name}
+              key={data.author + data.name}
               avatar={data.avatar}
               name={data.name}
               owner={data.author}
