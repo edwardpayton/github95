@@ -22,7 +22,7 @@
     "react-scripts": "3.4.1",
     "react95": "^3.0.0",
     "recoil": "^0.0.10",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
