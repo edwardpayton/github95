@@ -106,51 +106,6 @@
   background-position: 0 0, 1.5px 1.5px, 00;
 }
 
-/* Backgrounds */
-.bgBlue {
-  background-color: #606e92;
-  background-image: linear-gradient(
-      45deg,
-      hsla(0, 0%, 100%, 0.15) 25%,
-      transparent 25%,
-      transparent 75%,
-      hsla(0, 0%, 100%, 0.15) 75%,
-      hsla(0, 0%, 100%, 0.15)
-    ),
-    linear-gradient(
-      45deg,
-      hsla(0, 0%, 100%, 0.15) 25%,
-      transparent 25%,
-      transparent 75%,
-      hsla(0, 0%, 100%, 0.15) 75%,
-      hsla(0, 0%, 100%, 0.15)
-    );
-  background-size: 3px 3px;
-  background-position: 0 0, 1.5px 1.5px;
-}
-
-.bgGrey {
-  background-color: #ededed;
-  background-image: linear-gradient(
-      45deg,
-      #ededed 25%,
-      transparent 25%,
-      transparent 75%,
-      #ededed 75%,
-      #ededed
-    ),
-    linear-gradient(
-      45deg,
-      #ededed 25%,
-      transparent 25%,
-      transparent 75%,
-      #ededed 75%,
-      #ededed
-    );
-  background-size: 3px 3px;
-  background-position: 0 0, 1.5px 1.5px;
-}
-
 /* Gradient background - based on https://codepen.io/coreh/pen/LQJBLa?editors=1100 */
 .bgGradient {
   background: linear-gradient(160deg, #c9d0ff 0%, #fff 80%);

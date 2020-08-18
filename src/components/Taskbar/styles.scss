@@ -39,16 +39,16 @@
 
 .taskbarClock {
   position: absolute;
-  right: 2px;
-  height: 35px;
-  line-height: 35px !important;
+  right: 4px;
+  height: 32px;
+  line-height: 32px !important;
   padding: 0 0.5rem;
   border: 2px inset #ededed;
 }
 
 .startMenu {
   position: relative;
-  width: 120px; // button width + extra space
+  width: 115px; // button width + extra space
   &__slide {
     position: absolute;
     bottom: 36px;

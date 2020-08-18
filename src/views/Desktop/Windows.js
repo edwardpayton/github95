@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState } from "recoil";
 
 import WindowFrame from "../../components/WindowFrame";
+import WelcomeWindow from "../WelcomeWindow";
 import AboutWindow from "../AboutWindow";
 import UserWindow from "../UserWindow";
 import RepoSearchWindow from "../RepoSearchWindow";
@@ -10,8 +11,10 @@ import MostFollowedWindow from "../MostFollowedWindow";
 import RepoWindow from "../RepoWindow";
 
 import { windowObj } from "../../store";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const componentList = {
+  welcome: WelcomeWindow,
   about: AboutWindow,
   user: UserWindow,
   repos: RepoSearchWindow,
@@ -21,6 +24,7 @@ const componentList = {
 
 export default function Windows() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
+  const [welcomeStorage, _] = useLocalStorage("github95_welcome");
 
   const handleCloseWindow = (name) => {
     const updated = {
@@ -46,6 +50,7 @@ export default function Windows() {
     <>
       {Object.keys(currentWindows).map((name) => {
         const content = getContent(name);
+        if (name === "welcome" && welcomeStorage === false) return null;
         return (
           <WindowFrame
             key={name}

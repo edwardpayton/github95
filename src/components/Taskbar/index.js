@@ -7,12 +7,14 @@ import TaskbarButton from "./TaskbarButton";
 import TaskbarClock from "./TaskbarClock";
 
 import { menubarButtons, windowObj } from "../../store";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 import "./styles.scss";
 
 export default function Taskbar() {
   const [currentButtons, setButtons] = useRecoilState(menubarButtons);
   const currentWindows = useRecoilValue(windowObj);
+  const [welcomeStorage, _] = useLocalStorage("github95_welcome");
   const refWindowMap = React.useRef(new Map());
 
   React.useEffect(() => {
@@ -33,13 +35,17 @@ export default function Taskbar() {
           <StartMenu />
           <div className="relative taskbar__applications">
             <div className="flex taskbar__applicationsButtons">
-              {[...currentButtons].map((name) => (
-                <TaskbarButton
-                  name={name[0]}
-                  label={name[1].label}
-                  key={name[0]}
-                />
-              ))}
+              {[...currentButtons].map((name) => {
+                if (name[0] === "welcome" && welcomeStorage === false)
+                  return null;
+                return (
+                  <TaskbarButton
+                    name={name[0]}
+                    label={name[1].label}
+                    key={name[0]}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

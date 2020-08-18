@@ -1,0 +1,48 @@
+.welcome {
+  width: 560px;
+
+  &__title,
+  &__ghText,
+  &__95Text {
+    font-size: 22px !important;
+  }
+  &__ghText {
+    text-shadow: -1px 0 rgba(0, 0, 0, 0.7), 1px 0 rgba(0, 0, 0, 0.7);
+    letter-spacing: 2px;
+  }
+  &__95Text {
+    color: #fff;
+  }
+  &__dykText {
+    text-shadow: -1px 0 rgba(0, 0, 0, 0.7);
+    letter-spacing: 1px;
+  }
+  &__body {
+    background-color: #f0f1c0;
+    background-image: linear-gradient(
+        45deg,
+        hsla(0, 0%, 100%, 0.55) 25%,
+        transparent 25%,
+        transparent 75%,
+        hsla(0, 0%, 100%, 0.55) 75%,
+        hsla(0, 0%, 100%, 0.55)
+      ),
+      linear-gradient(
+        45deg,
+        hsla(0, 0%, 100%, 0.55) 25%,
+        transparent 25%,
+        transparent 75%,
+        hsla(0, 0%, 100%, 0.55) 75%,
+        hsla(0, 0%, 100%, 0.55)
+      );
+    background-size: 3px 3px;
+    background-position: 0 0, 1.5px 1.5px;
+  }
+  &__buttons {
+    width: 130px;
+    padding-bottom: 1px; // move repo link up a bit
+  }
+  &__hr.welcome__hr {
+    margin: 1rem 0;
+  }
+}

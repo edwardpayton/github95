@@ -1,3 +1,10 @@
+const welcome = {
+  label: "Welcome",
+  header: "Welcome to Github95",
+  desktopIcon: "",
+  desktopPosition: null,
+  visibility: [true, true],
+};
 const user = {
   label: "User Profiles",
   header: "Explore Users - Search Github for users",
@@ -51,6 +58,7 @@ const facebookreact = {
 };
 
 export const WINDOW_OBJ = {
+  welcome,
   about,
   user,
   repos,
