@@ -4,12 +4,14 @@ import { Anchor, Button, Divider } from "react95";
 
 import { windowObj } from "../../store";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import useNewWindow from "../../hooks/useNewWindow";
 
 import "./styles.scss";
 
 export default function WelcomeWindow() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
   const [_, setStorage] = useLocalStorage("github95_welcome", true);
+  const open = useNewWindow();
 
   const handleMoreClick = () => {
     const updated = {
@@ -22,6 +24,10 @@ export default function WelcomeWindow() {
     window.setTimeout(() => {
       setWindows({ ...currentWindows, ...updated });
     }, 300);
+  };
+
+  const handleCodeClick = () => {
+    open("github95", "edwardpayton");
   };
 
   const handleCloseClick = () => {
@@ -43,13 +49,18 @@ export default function WelcomeWindow() {
         Welcome to <span className="welcome__ghText">Github</span>
         <span className="welcome__95Text">95</span>
       </h1>
+      <p>Github with the glorious beauty of Windows 95.</p>
+      <p className="mb2">
+        Find interesting repos, and get details about user profiles.
+      </p>
       <div className="flex flex-auto">
         <div className="p2 bevelBorder welcome__body">
-          <div className="mb3 flex flex-auto">
+          <div className="mb2 flex flex-auto">
             <div>
               <img
                 src={require("../../assets/lightbulb-exclamation.png")}
                 alt=""
+                className="pixelated"
               />
             </div>
             <div className="pl2">
@@ -61,8 +72,12 @@ export default function WelcomeWindow() {
               </p>
             </div>
           </div>
-          <div className="mb2 center">
-            <img src={require("../../assets/welcome-computer.png")} alt="" />
+          <div className="center">
+            <img
+              src={require("../../assets/welcome-computer.png")}
+              alt=""
+              className="pixelated"
+            />
           </div>
         </div>
         <div className="pl2 flex flex-column justify-between welcome__buttons">
@@ -70,8 +85,15 @@ export default function WelcomeWindow() {
             <Button onClick={handleMoreClick} data-name="about">
               Find out more
             </Button>
+            <Button
+              onClick={handleCodeClick}
+              data-name="edwardpaytongithub95"
+              className="mt1"
+            >
+              View code
+            </Button>
             <Divider className="welcome__hr" />
-            <Button onClick={handleCloseClick}>Don't show again</Button>
+            <Button onClick={handleCloseClick}>Never show again</Button>
           </div>
 
           <Anchor
