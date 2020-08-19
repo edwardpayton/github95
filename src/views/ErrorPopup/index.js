@@ -47,7 +47,11 @@ export default function ErrorPopup({ header, dismissable, children }) {
               </WindowHeader>
               <WindowContent>
                 <div className="flex errorPopup__body">
-                  <img src={require(`../../assets/exclamation.png`)} alt="" />
+                  <img
+                    src={require(`../../assets/exclamation.png`)}
+                    alt=""
+                    className="pixelated"
+                  />
                   <div>{children} </div>
                 </div>
               </WindowContent>

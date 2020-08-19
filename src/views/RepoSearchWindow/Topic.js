@@ -10,7 +10,11 @@ export default function Topic() {
     <>
       {!!Object.keys(topic).length && topic["display_name"] && (
         <div className="flex topic">
-          <img src={require(`../../assets/topic.png`)} alt="" />
+          <img
+            src={require(`../../assets/topic.png`)}
+            alt=""
+            className="pixelated"
+          />
           <div className="topic__copy">
             <h3>{topic["display_name"]}</h3>
             <p>{topic["short_description"]}</p>

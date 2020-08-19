@@ -59,6 +59,7 @@ export default function TrendingWindow() {
               src={`${require("../../assets/win-logo.png")}`}
               alt=""
               width="30"
+              className="pixelated"
             />
           </div>
         </div>

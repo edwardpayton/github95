@@ -64,6 +64,7 @@ export default function StartMenu() {
                 src={`${require("../../assets/search-computer.png")}`}
                 alt=""
                 width="20"
+                className="pixelated"
               />
               Repositories
             </p>
@@ -74,8 +75,9 @@ export default function StartMenu() {
                 src={`${require("../../assets/user.png")}`}
                 alt=""
                 width="20"
+                className="pixelated"
               />
-              Explore Users
+              Find Users
             </p>
           </ListItem>
           <ListItem onClick={handleListClick("about")} data-name="about">
@@ -84,6 +86,7 @@ export default function StartMenu() {
                 src={`${require("../../assets/about.png")}`}
                 alt=""
                 width="20"
+                className="pixelated"
               />
               About
             </p>
@@ -105,7 +108,7 @@ export default function StartMenu() {
         <img
           src={require("../../assets/octocat-icon.png")}
           alt=""
-          className="startMenu__logo"
+          className="pixelated startMenu__logo"
         />
         Github95
       </Button>

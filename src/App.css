@@ -3,6 +3,11 @@
   font-size: 14px !important;
 }
 
+/* Pixelate images */
+.pixelated {
+  image-rendering: pixelated;
+}
+
 /* Badge */
 .badge {
   display: inline-block;

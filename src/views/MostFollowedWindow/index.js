@@ -66,6 +66,7 @@ export default function MostFollowedWindow() {
               src={`${require("../../assets/win-logo.png")}`}
               alt=""
               width="30"
+              className="pixelated"
             />
           </div>
         </div>
@@ -114,7 +115,7 @@ export default function MostFollowedWindow() {
                           <TableDataCell className="cursorPointer table__bodyCell mostFollowedWindow__td -first">
                             <img
                               src={require(`../../assets/folder-closed.png`)}
-                              className="mostFollowedWindow__tdImg"
+                              className="pixelated mostFollowedWindow__tdImg"
                               alt="icon"
                               width="15"
                             />

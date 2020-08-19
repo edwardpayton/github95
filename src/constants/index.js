@@ -6,15 +6,16 @@ const welcome = {
   visibility: [true, true],
 };
 const user = {
-  label: "User Profiles",
-  header: "Explore Users - Search Github for users",
+  label: "Find Users",
+  header: "Find Users - Search Github for users",
   desktopIcon: require(`../assets/user.png`),
   desktopPosition: 1,
   visibility: [false, false], // eg [button visible (show button), window visible (show window)]
 };
 const repos = {
-  label: "Search Repos",
-  header: "Search Repositories - Find the latest, hottest, and trending repos",
+  label: "Repositories",
+  header:
+    "Search Repositories - Find the latest, most starred, best reposirotories",
   desktopIcon: require(`../assets/search-computer.png`),
   desktopPosition: 0,
   visibility: [false, false],

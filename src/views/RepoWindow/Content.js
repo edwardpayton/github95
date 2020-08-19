@@ -125,6 +125,7 @@ export default function Content({ content, onTreeClick }) {
                   src={`${require("../../assets/commits.png")}`}
                   alt=""
                   width="20"
+                  className="pixelated"
                 />
                 {content.commits && content.commits.history.totalCount} commits
               </p>
@@ -133,6 +134,7 @@ export default function Content({ content, onTreeClick }) {
                   src={`${require("../../assets/branches.png")}`}
                   alt=""
                   width="20"
+                  className="pixelated"
                 />
                 {content.branches.totalCount} branches
               </p>
@@ -141,6 +143,7 @@ export default function Content({ content, onTreeClick }) {
                   src={`${require("../../assets/releases.png")}`}
                   alt=""
                   width="20"
+                  className="pixelated"
                 />
                 {content.releases.totalCount} releases
               </p>
@@ -149,6 +152,7 @@ export default function Content({ content, onTreeClick }) {
                   src={`${require("../../assets/tags.png")}`}
                   alt=""
                   width="20"
+                  className="pixelated"
                 />
                 {content.tags.totalCount} tags
               </p>
