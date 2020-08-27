@@ -1,7 +1,7 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import Taskbar from "../../components/Taskbar";
+import Taskbar from "../Taskbar";
 import ErrorPopup from "../ErrorPopup";
 import Windows from "./Windows";
 import DesktopButton from "./DesktopButton";

@@ -4,8 +4,16 @@ import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
 import { useRecoilValue } from "recoil";
 
-import { focusedElement } from "../../store";
-import propTypeChildren from "../../utilities/propTypeChildren";
+import Welcome from "./Welcome";
+import About from "./About";
+import RepoSearch from "./RepoSearch";
+import MostFollowed from "./MostFollowed";
+import Trending from "./Trending";
+import Repo from "./Repo";
+import User from "./User";
+
+import { focusedElement } from "../store";
+import propTypeChildren from "../utilities/propTypeChildren";
 
 import "./styles.scss";
 
@@ -18,7 +26,9 @@ export default function WindowFrame({ name, window, onClose, children }) {
   const refCloseBtn = React.useRef(undefined);
   const [pos, setPos] = React.useState([]);
 
-  const handleClose = () => onClose(name);
+  const handleClose = () => {
+    onClose(name);
+  };
 
   React.useEffect(() => {
     setPos([randomInt(-40, 40), randomInt(10, 30)]);
@@ -55,12 +65,14 @@ export default function WindowFrame({ name, window, onClose, children }) {
               }}
               className="flex items-center windowHeader__title"
             ></span>
+
             <span ref={refCloseBtn}>
               <Button
                 style={{ marginRight: -1 }}
                 size={"sm"}
                 square
                 onClick={handleClose}
+                onTouchEnd={handleClose}
               >
                 <span
                   style={{
@@ -98,3 +110,5 @@ WindowFrame.propTypes = {
   onClose: PropTypes.func.isRequired,
   children: propTypeChildren,
 };
+
+export { Welcome, About, RepoSearch, MostFollowed, Trending, Repo, User };

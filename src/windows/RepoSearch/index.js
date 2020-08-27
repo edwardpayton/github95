@@ -17,7 +17,7 @@ import { useReposApi } from "../../githubApi";
 
 import "./styles.scss";
 
-export default function RepoSearchWindow() {
+export default function RepoSearch() {
   const [currentRepo, setCurrentRepo] = useRecoilState(
     currentRecordOfType(REPOS)
   );

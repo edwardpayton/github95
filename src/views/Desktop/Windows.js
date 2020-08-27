@@ -1,29 +1,31 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 
-import WindowFrame from "../../components/WindowFrame";
-import WelcomeWindow from "../WelcomeWindow";
-import AboutWindow from "../AboutWindow";
-import UserWindow from "../UserWindow";
-import RepoSearchWindow from "../RepoSearchWindow";
-import TrendingWindow from "../TrendingWindow";
-import MostFollowedWindow from "../MostFollowedWindow";
-import RepoWindow from "../RepoWindow";
+import WindowFrame, {
+  Welcome,
+  About,
+  RepoSearch,
+  MostFollowed,
+  Trending,
+  Repo,
+  User,
+} from "../../windows";
 
 import { windowObj } from "../../store";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 const componentList = {
-  welcome: WelcomeWindow,
-  about: AboutWindow,
-  user: UserWindow,
-  repos: RepoSearchWindow,
-  trending: TrendingWindow,
-  mostFollowed: MostFollowedWindow,
+  welcome: Welcome,
+  about: About,
+  repos: RepoSearch,
+  trending: Trending,
+  mostFollowed: MostFollowed,
+  user: User,
 };
 
 export default function Windows() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
+  // eslint-disable-next-line no-unused-vars
   const [welcomeStorage, _] = useLocalStorage("github95_welcome");
 
   const handleCloseWindow = (name) => {
@@ -41,7 +43,7 @@ export default function Windows() {
 
   const getContent = (name) => {
     const Comp = componentList[name];
-    if (Comp === undefined) return <RepoWindow name={name} />;
+    if (Comp === undefined) return <Repo name={name} />;
 
     return <Comp />;
   };

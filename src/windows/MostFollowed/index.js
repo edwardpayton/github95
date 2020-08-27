@@ -19,7 +19,7 @@ import formatBigNumber from "../../utilities/formatBigNumber";
 
 import "./styles.scss";
 
-export default function MostFollowedWindow() {
+export default function MostFollowed() {
   const followed = useRecoilValue(mostFollowed);
   const [shortcuts, setShortcuts] = React.useState([]);
   const [highlighted, setHighlight] = React.useState("");

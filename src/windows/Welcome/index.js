@@ -8,8 +8,9 @@ import useNewWindow from "../../hooks/useNewWindow";
 
 import "./styles.scss";
 
-export default function WelcomeWindow() {
+export default function Welcome() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
+  // eslint-disable-next-line no-unused-vars
   const [_, setStorage] = useLocalStorage("github95_welcome", true);
   const open = useNewWindow();
 

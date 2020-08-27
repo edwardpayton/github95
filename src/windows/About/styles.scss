@@ -13,10 +13,14 @@
     padding: 1rem;
     > h1 {
       line-height: 2;
-      margin-bottom: 1rem;
     }
-    > p {
-      margin-bottom: 1rem;
+  }
+  &__list {
+    list-style: square outside none;
+    padding-left: 1rem;
+    > li {
+      list-style: inherit;
+      line-height: 3;
     }
   }
   &__button {

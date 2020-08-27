@@ -24,7 +24,7 @@ import formatBigNumber from "../../utilities/formatBigNumber";
 
 import "./styles.scss";
 
-export default function UserWindow() {
+export default function User() {
   const [currentUser, setCurrentUser] = useRecoilState(
     currentRecordOfType(USER)
   );

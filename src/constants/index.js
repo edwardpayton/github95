@@ -3,14 +3,14 @@ const welcome = {
   header: "Welcome to Github95",
   desktopIcon: "",
   desktopPosition: null,
-  visibility: [true, true],
+  visibility: [true, true], // eg [button visible (show button), window visible (show window)]
 };
 const user = {
   label: "Find Users",
   header: "Find Users - Search Github for users",
   desktopIcon: require(`../assets/user.png`),
   desktopPosition: 1,
-  visibility: [false, false], // eg [button visible (show button), window visible (show window)]
+  visibility: [false, false],
 };
 const repos = {
   label: "Repositories",
@@ -45,7 +45,7 @@ const about = {
   header: "About this project - Notepad",
   desktopIcon: require(`../assets/about.png`),
   desktopPosition: 4,
-  visibility: [false, false], // eg [button visible (show button), window visible (show window)]
+  visibility: [true, true],
 };
 
 // For testing - TODO remove

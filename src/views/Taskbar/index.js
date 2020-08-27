@@ -2,7 +2,7 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { AppBar, Toolbar } from "react95";
 
-import StartMenu from "./StartMenu";
+import StartMenu from "../StartMenu";
 import TaskbarButton from "./TaskbarButton";
 import TaskbarClock from "./TaskbarClock";
 
@@ -14,6 +14,7 @@ import "./styles.scss";
 export default function Taskbar() {
   const [currentButtons, setButtons] = useRecoilState(menubarButtons);
   const currentWindows = useRecoilValue(windowObj);
+  // eslint-disable-next-line no-unused-vars
   const [welcomeStorage, _] = useLocalStorage("github95_welcome");
   const refWindowMap = React.useRef(new Map());
 

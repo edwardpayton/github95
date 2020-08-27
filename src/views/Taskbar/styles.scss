@@ -1,0 +1,47 @@
+.taskbar.taskbar {
+  z-index: 3;
+  bottom: 0;
+  top: auto;
+}
+
+.taskbar {
+  &__toolbar.taskbar__toolbar {
+    padding-right: 55px;
+  }
+  &__buttonWrapper {
+    flex: 1;
+  }
+  &__applications {
+    flex: 1;
+    overflow: auto;
+  }
+  &__applicationsButtons {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+}
+
+.taskbarButton.taskbarButton {
+  max-width: 100px;
+  > div {
+    width: 100%;
+  }
+}
+.taskbarButton {
+  &__label {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.taskbarClock {
+  position: absolute;
+  right: 4px;
+  height: 32px;
+  line-height: 32px !important;
+  padding: 0 0.5rem;
+  border: 2px inset #ededed;
+}

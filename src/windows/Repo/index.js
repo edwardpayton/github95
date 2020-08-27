@@ -10,7 +10,7 @@ import { useReposApi } from "../../githubApi";
 
 import "./styles.scss";
 
-function RepoWindow({ name }) {
+export default function Repo({ name }) {
   const currentWindows = useRecoilValue(windowObj);
   const currentDetailWindows = useRecoilValue(repoWindows);
 
@@ -48,8 +48,6 @@ function RepoWindow({ name }) {
   );
 }
 
-RepoWindow.propTypes = {
+Repo.propTypes = {
   name: PropTypes.string.isRequired,
 };
-
-export default RepoWindow;

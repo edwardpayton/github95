@@ -5,6 +5,8 @@ import { Button, List, ListItem, Divider } from "react95";
 import { windowObj } from "../../store";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
+import "./styles.scss";
+
 export default function StartMenu() {
   const [soundStorage, setStorage] = useLocalStorage("github95_noSound", "On");
   const [currentWindows, setWindows] = useRecoilState(windowObj);

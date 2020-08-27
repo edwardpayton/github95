@@ -11,7 +11,7 @@ import { TRENDING_TREE } from "../../constants";
 
 import "./styles.scss";
 
-export default function TrendingWindow() {
+export default function Trending() {
   const trends = useRecoilValue(trending);
   const [shortcuts, setShortcuts] = React.useState(trends);
   const [type, setType] = React.useState("repositories");
