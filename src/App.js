@@ -5,11 +5,10 @@ import { styleReset } from "react95";
 import original from "react95/dist/themes/original";
 
 import Desktop from "./views/Desktop";
-import StartupSound from "./components/StartupSound";
+import Login from "./views/Login";
 
 import { useGeneralApi } from "./githubApi";
-import { menubarButtons, focusedElement } from "./store";
-import useLocalStorage from "./hooks/useLocalStorage";
+import { apiLimit, menubarButtons, focusedElement } from "./store";
 
 import "./App.css";
 
@@ -18,8 +17,10 @@ const ResetStyles = createGlobalStyle`
 `;
 
 function App() {
+  const limit = useRecoilValue(apiLimit);
   const [focused, setfocused] = useRecoilState(focusedElement);
   const currentButtons = useRecoilValue(menubarButtons);
+  const [showDesktop, setShowDesktop] = React.useState(false);
 
   const { getApiLimit } = useGeneralApi();
 
@@ -35,23 +36,28 @@ function App() {
     [focused, setfocused, currentButtons]
   );
 
+  const handleLogin = () => {
+    document.addEventListener("click", handleClick);
+    document.addEventListener("touchstart", handleClick);
+    setShowDesktop(true);
+  };
+
   React.useEffect(() => {
     getApiLimit();
-    document.addEventListener("click", handleClick);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <Desktop />;
+  React.useEffect(() => {
+    console.log("src/App >>>", limit);
+  }, [limit]);
+
+  return <>{showDesktop ? <Desktop /> : <Login onLogin={handleLogin} />}</>;
 }
 
 export default () => {
-  // eslint-disable-next-line no-unused-vars
-  const [soundStorage, _] = useLocalStorage("github95_noSound");
-
   return (
     <RecoilRoot>
       <ResetStyles />
-      {soundStorage !== "Off" && <StartupSound />}
       <ThemeProvider theme={original}>
         <App />
       </ThemeProvider>

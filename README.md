@@ -17,3 +17,4 @@ There's a console error when running the app locally that's caused by a Recoil b
 ## Todos
 
 - update app with fix for Recoil bug when it's available
+- reducer dispatch has a TypeScript error (Expected 0 arguments, but got 1.ts(2554)). It could be a code editor problem, but worth investigating

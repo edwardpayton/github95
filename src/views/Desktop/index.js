@@ -1,13 +1,21 @@
 import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 
+import StartupSound from "../../components/StartupSound";
 import Taskbar from "../Taskbar";
 import ErrorPopup from "../ErrorPopup";
 import Windows from "./Windows";
 import DesktopButton from "./DesktopButton";
 
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { WINDOW_OBJ } from "../../constants";
 import { apiLimit, windowObj } from "../../store";
+import reducer, {
+  SET_LOADING,
+  SET_TASKBAR,
+  SET_ICONS,
+  SET_WINDOWS,
+} from "./reducer";
 
 import "./styles.scss";
 
@@ -22,8 +30,15 @@ const desktopIcons = (() => {
 
 export default function Desktop() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
-  const limit = useRecoilValue(apiLimit);
+  // const limit = useRecoilValue(apiLimit);
   const [active, setActive] = React.useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [soundStorage, _] = useLocalStorage("github95_noSound");
+
+  const [
+    { showLoader, showTaskbar, showIcons, showWindows },
+    dispatch,
+  ] = reducer();
 
   const handleDesktopClick = ({ target }) => {
     const { name } = target.dataset;
@@ -44,34 +59,62 @@ export default function Desktop() {
     }, 300);
   };
 
+  React.useEffect(() => {
+    // @ts-ignore
+    dispatch({ type: SET_LOADING });
+    window.setTimeout(() => {
+      // @ts-ignore
+      dispatch({ type: SET_TASKBAR });
+    }, 500);
+    window.setTimeout(() => {
+      // @ts-ignore
+      dispatch({ type: SET_ICONS });
+    }, 1000);
+    window.setTimeout(() => {
+      // @ts-ignore
+      dispatch({ type: SET_WINDOWS });
+    }, 2000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
-      <Taskbar />
+      {showLoader && <p>Loading</p>}
+      {showTaskbar && (
+        <>
+          <Taskbar />
+          {soundStorage !== "Off" && <StartupSound />}
+        </>
+      )}
       <main>
         <section style={{ height: "100%" }}>
-          <section
-            className="flex flex-column desktop"
-            onClick={handleDesktopClick}
-          >
-            {desktopIcons.map((name) => {
-              const { label, desktopIcon } = WINDOW_OBJ[name];
-              return (
-                <React.Fragment key={name}>
-                  {desktopIcon.length && (
-                    <DesktopButton
-                      name={name}
-                      label={label}
-                      icon={desktopIcon}
-                      active={active}
-                      onDoubleClick={handleButtonDblClick(name)}
-                    />
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </section>
+          {showIcons && (
+            <section
+              className="flex flex-column desktop"
+              onClick={handleDesktopClick}
+            >
+              {desktopIcons.map((name) => {
+                const { label, desktopIcon } = WINDOW_OBJ[name];
+                return (
+                  <React.Fragment key={name}>
+                    {desktopIcon.length && (
+                      <DesktopButton
+                        name={name}
+                        label={label}
+                        icon={desktopIcon}
+                        active={active}
+                        onDoubleClick={handleButtonDblClick(name)}
+                      />
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </section>
+          )}
 
-          {limit.exceeded ? (
+          {showWindows && <Windows />}
+
+          {/* {limit.exceeded ? (
             <ErrorPopup
               header="Github 95 has encountered an error"
               dismissable={false}
@@ -81,7 +124,7 @@ export default function Desktop() {
             </ErrorPopup>
           ) : (
             <Windows />
-          )}
+          )} */}
         </section>
       </main>
     </>
