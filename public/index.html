@@ -113,6 +113,8 @@
         height: calc(100% - 47px);
         padding-bottom: 47px;
       }
+      html,
+      body,
       body #root * {
         cursor: url("%PUBLIC_URL%/assets/cursor.ico"), default !important;
       }
@@ -122,6 +124,10 @@
       body #root .checkbox *,
       body #root .cursorPointer {
         cursor: url("%PUBLIC_URL%/assets/cursor-pointer.ico"), pointer !important;
+      }
+      body.isLoading,
+      body.isLoading #root * {
+        cursor: url("%PUBLIC_URL%/assets/cursor-progress.ico"), progress !important;
       }
     </style>
   </head>

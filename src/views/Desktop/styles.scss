@@ -1,18 +1,22 @@
 /* Desktop */
 .desktop {
-  width: calc(100% - 40px);
-  height: calc(100% - 60px);
-  padding: 30px 20px;
-  &:before {
-    position: fixed;
-    content: "";
-    background-image: url("../../assets/github-logo.png");
-    opacity: 0.15;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
+  width: 100%;
+  height: 100%;
+  &__background {
+    width: calc(100% - 40px);
+    height: calc(100% - 60px);
+    padding: 30px 20px;
+    &:before {
+      position: fixed;
+      content: "";
+      background-image: url("../../assets/github-logo.png");
+      opacity: 0.15;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: -1;
+    }
   }
 }
 .desktopButton {

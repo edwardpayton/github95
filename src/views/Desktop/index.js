@@ -77,9 +77,13 @@ export default function Desktop() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  React.useEffect(() => {
+    const toggle = showLoader ? "add" : "remove";
+    document.body.classList[toggle]("isLoading");
+  }, [showLoader]);
+
   return (
     <>
-      {showLoader && <p>Loading</p>}
       {showTaskbar && (
         <>
           <Taskbar />
@@ -87,13 +91,13 @@ export default function Desktop() {
         </>
       )}
       <main>
-        <section style={{ height: "100%" }}>
-          {showIcons && (
-            <section
-              className="flex flex-column desktop"
-              onClick={handleDesktopClick}
-            >
-              {desktopIcons.map((name) => {
+        <section className="desktop">
+          <section
+            className="flex flex-column desktop__background"
+            onClick={handleDesktopClick}
+          >
+            {showIcons &&
+              desktopIcons.map((name) => {
                 const { label, desktopIcon } = WINDOW_OBJ[name];
                 return (
                   <React.Fragment key={name}>
@@ -109,8 +113,7 @@ export default function Desktop() {
                   </React.Fragment>
                 );
               })}
-            </section>
-          )}
+          </section>
 
           {showWindows && <Windows />}
 
