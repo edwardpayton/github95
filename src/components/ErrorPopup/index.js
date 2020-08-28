@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Window, WindowContent, WindowHeader, Button } from "react95";
 import Draggable from "react-draggable";
 
+import Chord from "./Chord";
+
 import propTypeChildren from "../../utilities/propTypeChildren";
 
 import "./styles.scss";
@@ -29,7 +31,6 @@ export default function ErrorPopup({ header, dismissable, children }) {
               <WindowHeader className="flex items-center justify-between handle">
                 <span>{header}</span>
                 <Button
-                  style={{ marginRight: "-6px", marginTop: "1px" }}
                   size={"sm"}
                   square
                   disabled={!dismissable}
@@ -50,12 +51,13 @@ export default function ErrorPopup({ header, dismissable, children }) {
                   <img
                     src={require(`../../assets/exclamation.png`)}
                     alt=""
-                    className="pixelated"
+                    className="pr2 pixelated"
                   />
-                  <div>{children} </div>
+                  <div>{children}</div>
                 </div>
               </WindowContent>
             </Window>
+            <Chord />
           </div>
         </Draggable>
       ) : (

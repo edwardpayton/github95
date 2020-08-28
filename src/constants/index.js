@@ -43,7 +43,7 @@ const mostFollowed = {
 const about = {
   label: "About",
   header: "About this project - Notepad",
-  desktopIcon: require(`../assets/about.png`),
+  desktopIcon: require(`../assets/wordpad.png`),
   desktopPosition: 4,
   visibility: [true, true],
 };

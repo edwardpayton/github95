@@ -1,6 +1,6 @@
 .errorPopup {
   position: fixed;
-  top: 50%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 430px;
@@ -9,7 +9,7 @@
   &__body {
     > img {
       width: 40px;
-      margin-right: 1.25rem;
+      height: 40px;
     }
   }
 }

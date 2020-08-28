@@ -1,15 +1,14 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
 import StartupSound from "../../components/StartupSound";
 import Taskbar from "../Taskbar";
-import ErrorPopup from "../ErrorPopup";
 import Windows from "./Windows";
 import DesktopButton from "./DesktopButton";
 
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { WINDOW_OBJ } from "../../constants";
-import { apiLimit, windowObj } from "../../store";
+import { windowObj } from "../../store";
 import reducer, {
   SET_LOADING,
   SET_TASKBAR,
@@ -69,11 +68,11 @@ export default function Desktop() {
     window.setTimeout(() => {
       // @ts-ignore
       dispatch({ type: SET_ICONS });
-    }, 1000);
+    }, 1250);
     window.setTimeout(() => {
       // @ts-ignore
       dispatch({ type: SET_WINDOWS });
-    }, 2000);
+    }, 2500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -116,18 +115,6 @@ export default function Desktop() {
           </section>
 
           {showWindows && <Windows />}
-
-          {/* {limit.exceeded ? (
-            <ErrorPopup
-              header="Github 95 has encountered an error"
-              dismissable={false}
-            >
-              <p>The Github Api limit has been exceeded.</p>
-              <p>Please try again after {limit.resetAt}.</p>
-            </ErrorPopup>
-          ) : (
-            <Windows />
-          )} */}
         </section>
       </main>
     </>

@@ -85,7 +85,7 @@ export default function StartMenu() {
           <ListItem onClick={handleListClick("about")} data-name="about">
             <p className="startMenu__menuItem">
               <img
-                src={`${require("../../assets/about.png")}`}
+                src={`${require("../../assets/wordpad.png")}`}
                 alt=""
                 width="20"
                 className="pixelated"
