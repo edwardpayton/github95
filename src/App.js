@@ -8,7 +8,7 @@ import Desktop from "./views/Desktop";
 import Login from "./views/Login";
 
 import { useGeneralApi } from "./githubApi";
-import { apiLimit, menubarButtons, focusedElement } from "./store";
+import { menubarButtons, focusedElement } from "./store";
 
 import "./App.css";
 
@@ -17,7 +17,6 @@ const ResetStyles = createGlobalStyle`
 `;
 
 function App() {
-  const limit = useRecoilValue(apiLimit);
   const [focused, setfocused] = useRecoilState(focusedElement);
   const currentButtons = useRecoilValue(menubarButtons);
   const [showDesktop, setShowDesktop] = React.useState(false);
@@ -46,10 +45,6 @@ function App() {
     getApiLimit();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  React.useEffect(() => {
-    console.log("src/App >>>", limit);
-  }, [limit]);
 
   return <>{showDesktop ? <Desktop /> : <Login onLogin={handleLogin} />}</>;
 }

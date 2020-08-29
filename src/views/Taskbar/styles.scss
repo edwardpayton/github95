@@ -1,7 +1,8 @@
 .taskbar.taskbar {
-  z-index: 3;
+  position: absolute;
   bottom: 0;
   top: auto;
+  z-index: 3;
 }
 
 .taskbar {

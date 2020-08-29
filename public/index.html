@@ -50,8 +50,16 @@
       #root {
         height: 100%;
       }
+      html,
       body {
-        background-color: #008080;
+        max-width: 1400px;
+        min-width: 768px;
+        overflow: hidden;
+        overflow-x: scroll;
+        margin: auto !important;
+      }
+      body {
+        background-color: #000;
         position: relative;
       }
       body:after {
@@ -108,6 +116,10 @@
       }
       p {
         line-height: 2 !important;
+      }
+      #root {
+        position: relative;
+        background-color: #008080;
       }
       main {
         height: calc(100% - 47px);

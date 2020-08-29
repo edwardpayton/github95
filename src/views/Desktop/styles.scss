@@ -3,16 +3,18 @@
   width: 100%;
   height: 100%;
   &__background {
+    position: relative;
     width: calc(100% - 40px);
     height: calc(100% - 60px);
     padding: 30px 20px;
+    z-index: 0;
     &:before {
-      position: fixed;
+      position: absolute;
       content: "";
       background-image: url("../../assets/github-logo.png");
       opacity: 0.15;
       top: 0;
-      bottom: 0;
+      bottom: -47px;
       left: 0;
       right: 0;
       z-index: -1;
