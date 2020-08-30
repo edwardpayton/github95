@@ -65,20 +65,15 @@
       body:after {
         position: fixed;
         content: "";
-        left: 0;
         top: 0;
-        right: 0;
+        left: 0;
         bottom: 0;
-        overflow: hidden;
+        right: 0;
+        background: linear-gradient(transparent 50%, #fff 50%),
+          linear-gradient(90deg, #f00, #f00 33%, #0f0 33%, #0f0 66%, #00f 66%);
+        background-size: 100% 3px, 3px 3px;
         pointer-events: none;
-        background-image: repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 1px,
-          hsl(0, 0%, 0%) 3px
-        );
-        background-size: 100% 100%, 100% 6px;
-        opacity: 0.05;
+        opacity: 0.06;
         z-index: 99999;
       }
       body,
