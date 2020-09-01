@@ -252,9 +252,13 @@
   filter: blur(5px);
 }
 
-/* Scrollable sections 
+/* 
+
+Scrollable sections 
 https://codepen.io/louh/pen/oZJQvm?editors=1100
-(no custom scroll bars for Firefox mac. This may work on FF windows but basic appearance -> https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars)
+(no custom scroll bars for Firefox, this is Chromium only
+https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scrollbars)
+
 */
 
 .scrollable.-yOnly {

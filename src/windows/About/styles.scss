@@ -4,8 +4,8 @@
     margin-top: -5px;
   }
   &__body {
-    width: 400px;
-    height: 460px;
+    width: 470px;
+    height: 550px;
     border: 2px inset #ededed;
     background-color: #fff;
   }
@@ -28,6 +28,7 @@
     outline: none;
     border: none;
     background: none;
+    padding: 0;
     text-decoration: underline;
     color: #1034a6;
   }

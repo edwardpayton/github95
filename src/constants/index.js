@@ -42,20 +42,10 @@ const mostFollowed = {
 };
 const about = {
   label: "About",
-  header: "About this project - Notepad",
+  header: "Notepad - About Github95.txt",
   desktopIcon: require(`../assets/wordpad.png`),
   desktopPosition: 4,
-  visibility: [true, true],
-};
-
-// For testing - TODO remove
-const facebookreact = {
-  label: "Repo: facebook/react",
-  header: "facebook react",
-  desktopIcon: "",
-  desktopPosition: null,
   visibility: [false, false],
-  details: { owner: "facebook", name: "react" },
 };
 
 export const WINDOW_OBJ = {
@@ -65,7 +55,6 @@ export const WINDOW_OBJ = {
   repos,
   trending,
   mostFollowed,
-  facebookreact,
 };
 
 export const DEFAULT_WINDOW = {
