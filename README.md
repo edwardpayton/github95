@@ -2,7 +2,7 @@
 
 Welcome to Github95 - where you can browse Github without the distractions of a modern website. Rewind to a time where the experience was simpler, grey, and so pixelated you needed to squint!
 
-[Vist Github95 now](https://github95.now.sh/)
+[Visit Github95 now](https://github95.now.sh/)
 
 ![](example-images/github95-desktop.png?raw=true)
 
@@ -27,8 +27,8 @@ For state management I'm using the experimental Recoil library from Facebook. Be
 
 ## Roadmap
 
-- [ ] Better error handling (eg for when the api is unavilable)
-- [ ] Performance improvments, code refactoring
+- [ ] Better error handling (eg for when the API is unavailable)
+- [ ] Performance improvements, code refactoring
 - [ ] Use the Github OAuth API to allow users to login
 - [ ] After OAuth is done, spec and add mutations (eg to reply to issues, act on events)
 - [ ] Open developers from Trending Explorer window (clicking a dev currently does nothing)
