@@ -94,6 +94,6 @@ export default function SearchResults({ onPageChange }) {
   );
 }
 
-ResultsTable.propTypes = {
+SearchResults.propTypes = {
   onPageChange: PropTypes.func.isRequired,
 };

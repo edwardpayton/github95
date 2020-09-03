@@ -131,15 +131,19 @@
     h1 a {
       font-size: 100% !important;
     }
+    a {
+      color: #1c44ac;
+    }
     ul,
     ol {
-      list-style: disc;
-      list-style-type: disc;
       padding-left: 1rem;
       > li {
-        list-style: disc;
-        list-style-type: disc;
+        list-style: square;
+        list-style-type: square;
       }
+    }
+    img {
+      image-rendering: pixelated;
     }
     pre {
       background-color: #ededed;

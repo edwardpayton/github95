@@ -4,7 +4,7 @@ Welcome to Github95 - where you can browse Github without the distractions of a 
 
 [Visit Github95 now](https://github95.now.sh/)
 
-![](example-images/github95-desktop.png?raw=true)
+![](https://ghcdn.rawgit.org/edwardpayton/github95/master/example-images/github95-desktop.png)
 
 Use Github95 to search repositories, delve into the contents of a repository, and find out facts about Github users.
 
