@@ -1,4 +1,4 @@
-# Your Github 🐙 profile<br /> With a Windows 95 🖥️ style<br /> Built with React 🚀
+# Github 🐙 repos and users<br /> With a Windows 95 🖥️ style<br /> Built with React 🚀
 
 Welcome to Github95 - where you can browse Github without the distractions of a modern website. Rewind to a time where the experience was simpler, grey, and so pixelated you needed to squint!
 
