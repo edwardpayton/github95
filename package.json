@@ -20,7 +20,7 @@
     "react-dom": "^16.13.1",
     "react-draggable": "^4.3.1",
     "react-scripts": "3.4.3",
-    "react95": "^3.0.0",
+    "react95": "^3.1.0",
     "recoil": "^0.0.10",
     "styled-components": "^5.2.0"
   },
