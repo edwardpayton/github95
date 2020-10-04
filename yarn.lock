@@ -4258,10 +4258,10 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
-dompurify@^2.0.12:
-  version "2.0.15"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.15.tgz#80e300fc3e89547bd0af1aff2eba88ce17fc9dea"
-  integrity sha512-8AnYW8iXOC7xC7K3FBvQ7+GdmtOsgDGZC5dDXaewCC674qcId7G5mhz5VIEnVShJVjQdlcaPjxpaOzaV9JC3Tg==
+dompurify@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.1.1.tgz#b5aa988676b093a9c836d8b855680a8598af25fe"
+  integrity sha512-NijiNVkS/OL8mdQL1hUbCD6uty/cgFpmNiuFxrmJ5YPH2cXrPKIewoixoji56rbZ6XBPmtM8GA8/sf9unlSuwg==
 
 domutils@1.5.1:
   version "1.5.1"
@@ -9519,10 +9519,10 @@ react-scripts@3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
-react95@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react95/-/react95-3.0.1.tgz#3b88d7ab2a0e534794ad97059250c4b52bd399a2"
-  integrity sha512-YVpPB3KZ68PNOxcybMj9Dw2RnKRMTPTbGI0KUU527cHf3aZOaIRUFHTIG8RaIO4RTBbzuRA6LN3jxFSf5WXG4g==
+react95@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/react95/-/react95-3.1.0.tgz#e52b5f2a2bfd60ea2f78b1dc9addfb4c46af8d28"
+  integrity sha512-mrdTjuHNfSS1FEgbV8PRnOHDSayiajinT5Z+MG8B3SNAh7iXdAztvdlS9DB/0nRk/+P7XYddZ3gaqnZgIvBONA==
 
 react@^16.13.1:
   version "16.13.1"
@@ -9648,10 +9648,10 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
-recoil@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.0.10.tgz#679ab22306f559f8a63c46fd5ff5241539f9248f"
-  integrity sha512-+9gRqehw3yKETmoZbhSnWu4GO10HDb5xYf1CjLF1oXGK2uT6GX5Lu9mfTXwjxV/jXxEKx8MIRUUbgPxvbJ8SEw==
+recoil@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.0.13.tgz#23e6d63135c07d8defbd91aaa35dca94ec5c15a6"
+  integrity sha512-2OToaQ8GR//KsdKdaEhMi04QKStLGRpk3qjC58iBpZpUtsByZ4dUy2UJtRcYuhnVlltGZ8HNwcEQRdFOS864SQ==
 
 recursive-readdir@2.2.2:
   version "2.2.2"

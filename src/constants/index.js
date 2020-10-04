@@ -53,7 +53,7 @@ export const WINDOW_OBJ = {
   about,
   user,
   repos,
-  trending,
+  // trending,
   mostFollowed,
 };
 
