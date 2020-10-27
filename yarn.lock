@@ -9574,10 +9574,10 @@ react-scripts@3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
-react95@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react95/-/react95-3.1.0.tgz#e52b5f2a2bfd60ea2f78b1dc9addfb4c46af8d28"
-  integrity sha512-mrdTjuHNfSS1FEgbV8PRnOHDSayiajinT5Z+MG8B3SNAh7iXdAztvdlS9DB/0nRk/+P7XYddZ3gaqnZgIvBONA==
+react95@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react95/-/react95-3.3.0.tgz#5f4bc016c51e9fbcbb2f8d52b3fd40179a6e4527"
+  integrity sha512-xVw5MsbJbMsBqS7FC2kmcj6b6GivrujUyn/n/OZd+qC3N7K8cHltx3nuFssTll2UjnX81CbGQi202OkqOaZCyA==
 
 react@^16.13.1:
   version "16.13.1"
