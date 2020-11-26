@@ -53,7 +53,7 @@ export const WINDOW_OBJ = {
   about,
   user,
   repos,
-  // trending,
+  trending,
   mostFollowed,
 };
 
@@ -91,24 +91,24 @@ export const TRENDING_TREE = [
       ],
     },
   },
-  {
-    name: "developers",
-    type: "tree",
-    object: {
-      entries: [
-        {
-          name: "daily",
-          type: "blob",
-        },
-        {
-          name: "weekly",
-          type: "blob",
-        },
-        {
-          name: "monthly",
-          type: "blob",
-        },
-      ],
-    },
-  },
+  // {
+  //   name: "developers",
+  //   type: "tree",
+  //   object: {
+  //     entries: [
+  //       {
+  //         name: "daily",
+  //         type: "blob",
+  //       },
+  //       {
+  //         name: "weekly",
+  //         type: "blob",
+  //       },
+  //       {
+  //         name: "monthly",
+  //         type: "blob",
+  //       },
+  //     ],
+  //   },
+  // },
 ];
