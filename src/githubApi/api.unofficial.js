@@ -5,7 +5,7 @@
  * @param {string} time - 'one of 'daily, 'weekly', or 'monthly'
  * Returns Github trending repositories and developers
  */
-export const apiGetTrending = async (type = 'respositories', time) => {
+export const apiGetTrending = async (type = "respositories", time) => {
   try {
     // const resp = await fetch(
     //   `https://ghapi.huchen.dev/${type}?since=${time}&s=40`
