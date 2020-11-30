@@ -1,5 +1,7 @@
 .windowFrame {
   position: absolute;
+  height: calc(100% - 50px);
+  min-height: 400px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -17,9 +19,29 @@
   }
 
   // Window specific styles
+  &.-welcome {
+    max-height: 500px;
+    width: 610px;
+  }
   &.-about {
     width: auto;
     height: auto;
+  }
+  &.-user {
+    max-height: 650px;
+    width: 850px;
+  }
+  &.-repos {
+    max-height: 650px;
+    width: 710px;
+  }
+  &.-trending,
+  &.-mostFollowed {
+    max-height: 605px;
+  }
+  &.-repositoryDetails {
+    max-height: 600px;
+    width: 800px;
   }
 }
 .windowHeader.-inactive {

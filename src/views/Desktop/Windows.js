@@ -48,15 +48,19 @@ export default function Windows() {
     return <Comp />;
   };
 
+  const getCssName = (name) => componentList[name] !== undefined ? name : 'repositoryDetails'
+
   return (
     <>
       {Object.keys(currentWindows).map((name) => {
         const content = getContent(name);
+        const cssName = getCssName(name);
         if (name === "welcome" && welcomeStorage === false) return null;
         return (
           <WindowFrame
             key={name}
             name={name}
+            cssName={cssName}
             window={currentWindows[name]}
             onClose={handleCloseWindow}
           >
