@@ -48,7 +48,10 @@ export default function Windows() {
     return <Comp />;
   };
 
-  const getCssName = (name) => componentList[name] !== undefined ? name : 'repositoryDetails'
+  const getCssName = (name) => {
+     if(name in componentList) return name;
+     return "repositoryDetails";
+  }
 
   return (
     <>
