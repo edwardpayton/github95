@@ -114,7 +114,7 @@ export default function MostFollowed() {
                         >
                           <TableDataCell className="cursorPointer table__bodyCell mostFollowedWindow__td -first">
                             <img
-                              src={require(`../../assets/folder-closed.png`)}
+                              src={require(`../../assets/folder-closed.png`).default}
                               className="pixelated mostFollowedWindow__tdImg"
                               alt="icon"
                               width="15"

@@ -16,7 +16,7 @@ const ResetStyles = createGlobalStyle`
   ${styleReset}
 `;
 
-function App() {
+function AppWrapper() {
   const [focused, setfocused] = useRecoilState(focusedElement);
   const currentButtons = useRecoilValue(menubarButtons);
   const [showDesktop, setShowDesktop] = React.useState(false);
@@ -49,13 +49,15 @@ function App() {
   return <>{showDesktop ? <Desktop /> : <Login onLogin={handleLogin} />}</>;
 }
 
-export default () => {
+const App = () => {
   return (
     <RecoilRoot>
       <ResetStyles />
       <ThemeProvider theme={original}>
-        <App />
+        <AppWrapper />
       </ThemeProvider>
     </RecoilRoot>
   );
 };
+
+export default App;

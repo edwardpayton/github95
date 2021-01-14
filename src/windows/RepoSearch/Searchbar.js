@@ -203,7 +203,7 @@ export default function Searchbar() {
               className={`searchBar__icon${gettingSearch ? " -searching" : ""}`}
             >
               <img
-                src={require("../../assets/magnifying-glass.png")}
+                src={require("../../assets/magnifying-glass.png").default}
                 alt=""
                 className="pixelated"
               />

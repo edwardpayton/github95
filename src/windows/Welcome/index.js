@@ -59,7 +59,7 @@ export default function Welcome() {
           <div className="mb2 flex flex-auto">
             <div>
               <img
-                src={require("../../assets/lightbulb-exclamation.png")}
+                src={require("../../assets/lightbulb-exclamation.png").default}
                 alt=""
                 className="pixelated"
               />
@@ -75,7 +75,7 @@ export default function Welcome() {
           </div>
           <div className="center">
             <img
-              src={require("../../assets/welcome-computer.png")}
+              src={require("../../assets/welcome-computer.png").default}
               alt=""
               className="pixelated"
             />

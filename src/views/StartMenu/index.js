@@ -108,7 +108,7 @@ export default function StartMenu() {
         className="mr1 startMenu__triggerButton"
       >
         <img
-          src={require("../../assets/octocat-icon.png")}
+          src={require("../../assets/octocat-icon.png").default}
           alt=""
           className="pixelated startMenu__logo"
         />

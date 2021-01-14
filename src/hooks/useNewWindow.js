@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { windowObj } from "../store";
 import { DEFAULT_WINDOW } from "../constants";
 
-export default function () {
+export default function useNewWindow() {
   const [currentWindows, setWindows] = useRecoilState(windowObj);
 
   const openWindow = (newWindow) =>

@@ -128,7 +128,7 @@ export default function About() {
             August 1995 - a quarter-century young. Long live Windows 95!
           </p>
           <img
-            src={require("../../assets/windows95-announcement.gif")}
+            src={require("../../assets/windows95-announcement.gif").default}
             alt=""
           />
 

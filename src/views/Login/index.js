@@ -46,7 +46,7 @@ export default function Login({ onLogin }) {
         <WindowContent>
           <div className="flex">
             <img
-              src={require(`../../assets/password.png`)}
+              src={require(`../../assets/password.png`).default}
               alt=""
               className="pl1 pr3 pixelated login__image"
             />

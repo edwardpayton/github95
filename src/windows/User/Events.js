@@ -7,7 +7,6 @@ import useNewWindow from "../../hooks/useNewWindow";
 import processEvents from "../../utilities/processEvents";
 
 export default function Events({ events }) {
-  console.log("UserWindow/Events >>>", events);
   const open = useNewWindow();
 
   const [visible, setVisible] = React.useState([]);

@@ -8,7 +8,7 @@ const welcome = {
 const user = {
   label: "Find Users",
   header: "Find Users - Search Github for users",
-  desktopIcon: require(`../assets/user.png`),
+  desktopIcon: require(`../assets/user.png`).default,
   desktopPosition: 1,
   visibility: [false, false],
 };
@@ -16,7 +16,7 @@ const repos = {
   label: "Repositories",
   header:
     "Search Repositories - Find the latest, most starred, best reposirotories",
-  desktopIcon: require(`../assets/search-computer.png`),
+  desktopIcon: require(`../assets/search-computer.png`).default,
   desktopPosition: 0,
   visibility: [false, false],
 };
@@ -24,9 +24,9 @@ const trending = {
   label: "Trending Repos",
   header:
     '<img src="' +
-    require("../assets/folder-open.png") +
+    require("../assets/folder-open.png").default +
     '" /> Exploring - Github\\Trending Repos',
-  desktopIcon: require(`../assets/folder-closed.png`),
+  desktopIcon: require(`../assets/folder-closed.png`).default,
   desktopPosition: 2,
   visibility: [false, false],
 };
@@ -34,16 +34,16 @@ const mostFollowed = {
   label: "Most Followed Repos",
   header:
     '<img src="' +
-    require("../assets/folder-open.png") +
+    require("../assets/folder-open.png").default +
     '" /> Exploring - Github\\Most Followed Repos',
-  desktopIcon: require(`../assets/folder-closed.png`),
+  desktopIcon: require(`../assets/folder-closed.png`).default,
   desktopPosition: 3,
   visibility: [false, false],
 };
 const about = {
   label: "About",
   header: "Notepad - About Github95.txt",
-  desktopIcon: require(`../assets/wordpad.png`),
+  desktopIcon: require(`../assets/wordpad.png`).default,
   desktopPosition: 4,
   visibility: [false, false],
 };

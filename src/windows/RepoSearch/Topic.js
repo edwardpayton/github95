@@ -11,7 +11,7 @@ export default function Topic() {
       {!!Object.keys(topic).length && topic["display_name"] && (
         <div className="flex topic">
           <img
-            src={require(`../../assets/topic.png`)}
+            src={require(`../../assets/topic.png`).default}
             alt=""
             className="pixelated"
           />
