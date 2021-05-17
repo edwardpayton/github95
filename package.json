@@ -6,7 +6,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@testing-library/jest-dom": "^5.11.8",
-    "@testing-library/react": "^11.1.0",
+    "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.6.0",
     "chart.js": "^2.9.4",
     "chartjs-chart-matrix": "^0.1.3",
